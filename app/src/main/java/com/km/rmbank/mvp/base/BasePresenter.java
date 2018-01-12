@@ -1,0 +1,139 @@
+package com.km.rmbank.mvp.base;
+
+
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
+/**
+ * Created by PengSong on 18/1/8.
+ */
+
+public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implements MvpPresenter<V> {
+
+    private M mModel;
+    private V mView;
+    private CompositeDisposable mCompositeDisposable;
+
+    public BasePresenter(M mModel) {
+        this.mModel = mModel;
+        mCompositeDisposable = new CompositeDisposable();
+    }
+
+    @Override
+    public void attachView(V view) {
+        mView = view;
+    }
+
+    @Override
+    public void detachView() {
+        mView = null;
+        clearSubscription();
+    }
+
+    /**
+     * 是否与View建立连接
+     * @return
+     */
+    public boolean isViewAttached(){
+        return mView != null;
+    }
+
+    /**
+     * 获取当前View
+     * @return
+     */
+    public V getMvpView() {
+        return mView;
+    }
+
+    /**
+     * 获取当前model
+     * @return
+     */
+    public M getMvpModel(){
+        return mModel;
+    }
+
+    /**
+     * 检查是否与当前View建立连接，没有则抛异常
+     */
+    public void checkViewAttached(){
+        if (!isViewAttached()){
+            throw new MvpViewNotAttachedException();
+        }
+    }
+
+    public static class MvpViewNotAttachedException extends RuntimeException {
+        public MvpViewNotAttachedException() {
+            super("请求数据前请先调用 attachView(MvpView) 方法与View建立连接");
+        }
+    }
+
+
+
+    /**
+     * 创建观察者
+     *
+     * @param onNext
+     * @param <T>
+     * @return
+     */
+    protected <T> Observer<T> newSubscriber(final Consumer<? super T> onNext) {
+        return new Observer<T>() {
+
+            @Override
+            public void onComplete() {
+                mView.hideLoading();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (e instanceof BaseModel.APIException) { //后台报的错误
+                    BaseModel.APIException exception = (BaseModel.APIException) e;
+                    mView.showError(exception.getMessage());
+                } else if (e instanceof SocketTimeoutException) {
+                    mView.showError("请求超时，请稍后再试");
+                } else if (e instanceof ConnectException) {
+                    mView.showError("连接服务器失败，请稍后再试");
+                } else if (e instanceof NullPointerException) {
+                    try {
+                        onNext.accept((T) "");
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    e.printStackTrace();
+                }
+//                e.printStackTrace();
+                mView.hideLoading();
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+                mCompositeDisposable.add(d);
+            }
+
+            @Override
+            public void onNext(T t) {
+                mView.hideLoading();
+                try {
+                    onNext.accept(t);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        };
+    }
+
+    public void clearSubscription() {
+        mCompositeDisposable.clear();
+    }
+}
+
+

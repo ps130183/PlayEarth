@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="toolBarHeight">48dp</dimen>
+
+    <dimen name="toolBarTextSize">22sp</dimen>
+    <dimen name="textSizeContent">14sp</dimen>
+    <dimen name="textSizeSmall">12sp</dimen>
+    <dimen name="textSizeBig">16sp</dimen>
+    
+</resources>

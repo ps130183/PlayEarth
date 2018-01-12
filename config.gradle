@@ -1,0 +1,54 @@
+ext {
+    android = [
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.3",
+            minSdkVersion    : 15,
+            targetSdkVersion : 27,
+            versionCode      : 11,
+            versionName      : "4.0.0"
+    ]
+
+    dependencies = [
+            //Android 内部
+            "appcompat-v7"     : "com.android.support:appcompat-v7:27+",
+            "support-v4" : "com.android.support:support-v4:27.+",
+            "constraint-layout": "com.android.support.constraint:constraint-layout:1.0.2",
+            "recyclerview-v7"     : "com.android.support:recyclerview-v7:27.+",
+            //material Design 5.0新特性
+            "cardview-v7" : "com.android.support:cardview-v7:27+",
+            "design" : "com.android.support:design:27+",
+
+            //android Test
+            "androidTestImplementation-runner" : "com.android.support.test:runner:1.0.1",
+            "androidTestImplementation-espresso-core" : "com.android.support.test.espresso:espresso-core:3.0.1",
+            //Android 内部
+
+
+
+            "glide" : "com.github.bumptech.glide:glide:4.4.0",
+            "glideVersion" : "com.github.bumptech.glide:compiler:4.4.0",
+
+            //动画类
+            "nineoldandroids" : "com.nineoldandroids:library:2.4.0",
+            //Lottie 动画
+            "lottie" : "com.airbnb.android:lottie:2.2.5",
+
+            //RxJava + retrofit + okhttp
+            "rxjava" : "io.reactivex.rxjava2:rxjava:2.1.7",
+            "rxandroid" : "io.reactivex.rxjava2:rxandroid:2.0.1",
+            "retrofit" : "com.squareup.retrofit2:retrofit:2.3.0",
+            "converter-gson" : "com.squareup.retrofit2:converter-gson:2.3.0",
+            "converter-scalars" : "com.squareup.retrofit2:converter-scalars:2.3.0",
+            "adapter-rxjava2" : "com.squareup.retrofit2:adapter-rxjava2:2.3.0",
+            "okhttp" : "com.squareup.okhttp3:okhttp:3.9.0",
+            "logging-interceptor" : "com.squareup.okhttp3:logging-interceptor:3.9.0",
+
+            //viewPager
+            "magic-viewpager" : "com.zhy:magic-viewpager:1.0.1",
+
+            //工具类
+            "utilcode" : "com.blankj:utilcode:1.11.0",
+            //tableLayout
+            "FlycoTabLayout_Lib" : "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar"
+    ]
+}
