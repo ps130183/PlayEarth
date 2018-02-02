@@ -146,7 +146,7 @@ public class CircleFriendsFragment extends BaseFragment<ICircleFriendsView,Circl
             public void clickImage(ArrayList<String> imagePats, int curPosition) {
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("imagePaths", imagePats);
-                bundle.putInt("curPosition",curPosition - 1);
+                bundle.putInt("curPosition",curPosition);
                 startActivity(ShowBigImageActivity.class,bundle);
             }
 

@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.km.rmbank.R;
@@ -36,8 +38,8 @@ import java.util.List;
 public class AppointFragment extends BaseFragment<AppointView, AppointPresenter> implements AppointView {
 
     private RecyclerView appointRecycler;
-    private List<ActionDto> appointList;
-    private RecyclerAdapterHelper<ActionDto> mHelper;
+    private List<AppointDto> appointList;
+    private RecyclerAdapterHelper<AppointDto> mHelper;
 
     public static AppointFragment newInstance(Bundle bundle) {
 
@@ -67,20 +69,38 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
         mHelper = new RecyclerAdapterHelper<>(appointRecycler);
         mHelper.addLinearLayoutManager()
                 .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
-                .addCommonAdapter(R.layout.item_appoint, appointList, new RecyclerAdapterHelper.CommonConvert<ActionDto>() {
+                .addCommonAdapter(R.layout.item_appoint, appointList, new RecyclerAdapterHelper.CommonConvert<AppointDto>() {
                     @Override
-                    public void convert(CommonViewHolder holder, ActionDto mData, int position) {
+                    public void convert(CommonViewHolder holder, AppointDto mData, int position) {
                         holder.addRippleEffectOnClick();
+                        TextView free = holder.getTextView(R.id.free);
+                        TextView actionTime = holder.getTextView(R.id.actionTime);
+                        TextView actionAddress =  holder.getTextView(R.id.actionAddress);
+
                         GlideUtils.loadImage(getContext(),mData.getActivityPictureUrl(),holder.getImageView(R.id.actionImae));
                         holder.setText(R.id.actionTitle,mData.getTitle());
-                        holder.setText(R.id.actionTime, DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM));
 
-                        holder.setText(R.id.actionAddress,mData.getAddress());
-
-                        if (mData.getIsDynamic() == 0){//未编辑
+                        if (mData.getType().equals("1")){//将要举办的活动
                             holder.setText(R.id.memberNum,mData.getApplyCount() + "人已报名");
-                        } else {
-                            holder.setText(R.id.memberNum,"已结束");
+                            actionTime.setVisibility(View.VISIBLE);
+                            actionTime.setText("举办时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate())));
+
+                            actionAddress.setVisibility(View.VISIBLE);
+                            actionAddress.setText(mData.getAddress());
+
+                            free.setText("免费");
+                        } else {//咨询
+                            holder.setText(R.id.memberNum,mData.getStatus());
+                            free.setText("浏览量：" + mData.getViewCount());
+                            if (mData.getStartDate() == 0){
+                                actionTime.setVisibility(View.INVISIBLE);
+                            } else {
+                                actionTime.setVisibility(View.VISIBLE);
+                                actionTime.setText("举办时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate())));
+                            }
+
+
+                            actionAddress.setVisibility(View.INVISIBLE);
                         }
                     }
                 }).addRefreshView(mXRefreshView)
@@ -98,10 +118,10 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
         }).create();
         showLoading();
 
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<ActionDto>() {
+        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<AppointDto>() {
             @Override
-            public void onItemClick(CommonViewHolder holder, ActionDto data, int position) {
-                if (data.getIsDynamic() == 0){
+            public void onItemClick(CommonViewHolder holder, AppointDto data, int position) {
+                if (data.getType().equals("1")){
                     Bundle bundle = new Bundle();
                     bundle.putString("actionId",data.getId());
                     startActivity(ActionRecentInfoActivity.class,bundle);
@@ -114,7 +134,7 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
             }
 
             @Override
-            public boolean onItemLongClick(CommonViewHolder holder, ActionDto data, int position) {
+            public boolean onItemLongClick(CommonViewHolder holder, AppointDto data, int position) {
                 return false;
             }
 
@@ -123,7 +143,7 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
 
 
     @Override
-    public void showAppointList(LoadMoreWrapper wrapper, List<ActionDto> appointDtos) {
+    public void showAppointList(LoadMoreWrapper wrapper, List<AppointDto> appointDtos) {
         if (wrapper != null){
             wrapper.setLoadMoreFinish(appointDtos.size());
         }

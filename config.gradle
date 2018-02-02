@@ -4,8 +4,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 16,
             targetSdkVersion : 27,
-            versionCode      : 12,
-            versionName      : "4.0.1"
+            versionCode      : 13,
+            versionName      : "4.0.2"
     ]
 
     dependencies = [
@@ -33,6 +33,7 @@ ext {
             //glide
             "glide" : "com.github.bumptech.glide:glide:4.4.0",
             "glideVersion" : "com.github.bumptech.glide:compiler:4.4.0",
+            "okhttp3-integration" : "com.github.bumptech.glide:okhttp3-integration:4.5.0",
             "glide-transformations" : 'jp.wasabeef:glide-transformations:3.0.1',
             // If you want to use the GPU Filters
             "gpuimage-library" : 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1',
@@ -95,6 +96,8 @@ ext {
             //对PopupWindow常用API的简单封装，几行代码就搞定PopupWindow弹窗，使用Builder模式，链式调用
             "CustomPopwindow" : "com.github.pinguo-zhouwei:CustomPopwindow:2.1.1",
             //日历控件
-            "calendarview" : "com.haibin:calendarview:3.2.0"
+            "calendarview" : "com.haibin:calendarview:3.2.0",
+            //圆角imageView
+            "roundedimageview" : "com.makeramen:roundedimageview:2.3.0"
     ]
 }

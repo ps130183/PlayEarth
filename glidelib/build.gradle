@@ -32,6 +32,7 @@ dependencies {
 
     //图片加载器
     api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["okhttp3-integration"]
     annotationProcessor rootProject.ext.dependencies["glideVersion"]
     implementation rootProject.ext.dependencies["glide-transformations"]
     implementation rootProject.ext.dependencies["gpuimage-library"]

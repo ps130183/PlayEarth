@@ -71,7 +71,7 @@
                     android:layout_marginLeft="@dimen/viewSpace8"
                     android:layout_marginRight="@dimen/viewSpace8">
 
-                    <ImageView
+                    <com.ps.glidelib.GlideImageView
                         android:id="@+id/iv_recommendClub1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -101,7 +101,7 @@
                     android:layout_marginLeft="@dimen/viewSpace8"
                     android:layout_marginRight="@dimen/viewSpace8">
 
-                    <ImageView
+                    <com.ps.glidelib.GlideImageView
                         android:id="@+id/iv_recommendClub2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

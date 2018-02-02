@@ -92,6 +92,7 @@ dependencies {
     implementation rootProject.ext.dependencies["jiaozivideoplayer"]
     implementation rootProject.ext.dependencies["CustomPopwindow"]
     implementation rootProject.ext.dependencies["calendarview"]
+    implementation rootProject.ext.dependencies["roundedimageview"]
     implementation project(':banner')
     implementation project(':commonadapter')
     implementation project(':glidelib')

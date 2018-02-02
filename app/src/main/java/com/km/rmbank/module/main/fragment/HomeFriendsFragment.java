@@ -23,7 +23,9 @@ import com.km.rmbank.utils.UmengShareUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.HeaderAndFooterWrapper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.CircleProgressView;
 import com.ruffian.library.RTextView;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -64,7 +66,7 @@ public class HomeFriendsFragment extends BaseFragment<IRecommendPersonalView,Rec
 
         introduceEntities = new ArrayList<>();
 
-
+        initRecycler();
         getPresenter().getRecommendPersons(1);
     }
 
@@ -83,7 +85,7 @@ public class HomeFriendsFragment extends BaseFragment<IRecommendPersonalView,Rec
             mViewManager.setText(R.id.tv_day,recommendPersonalDto.getDay());
             mViewManager.setText(R.id.tv_month_year,recommendPersonalDto.getYearMonth());
             mViewManager.setText(R.id.introduce,recommendPersonalDto.getTitle());
-            initRecycler(recommendPersonalDto);
+            notifyData(recommendPersonalDto);
         }
 
     }
@@ -102,26 +104,15 @@ public class HomeFriendsFragment extends BaseFragment<IRecommendPersonalView,Rec
         recommendRecycler.getAdapter().notifyDataSetChanged();
     }
 
-    private void initRecycler(final RecommendPersonalDto recommendPersonalDto){
-
-        List<RecommendPersonalDto.AtlasListBean> atlasListBeans = recommendPersonalDto.getAtlasList();
-        for (RecommendPersonalDto.AtlasListBean atlasListBean : atlasListBeans){
-            introduceEntities.add(new ImageTextIntroduceEntity(atlasListBean.getContent(),atlasListBean.getImage()));
-        }
+    private void initRecycler(){
 
         RecyclerAdapterHelper<ImageTextIntroduceEntity> mHelper = new RecyclerAdapterHelper<>(recommendRecycler);
         mHelper.addLinearLayoutManager().addCommonAdapter(R.layout.item_image_text_introduce, introduceEntities, new RecyclerAdapterHelper.CommonConvert<ImageTextIntroduceEntity>() {
             @Override
             public void convert(CommonViewHolder holder, ImageTextIntroduceEntity mData, int position) {
-                ImageView imageView = holder.getImageView(R.id.image);
-                imageView.setVisibility(View.VISIBLE);
-                if (mData.getImageRes() > 0){
-                    GlideUtils.loadImage(getContext(),mData.getImageRes(),imageView);
-                } else if (!TextUtils.isEmpty(mData.getImageUrl())){
-                    GlideUtils.loadImage(getContext(),mData.getImageUrl(),imageView);
-                } else {
-                    imageView.setVisibility(View.GONE);
-                }
+                GlideImageView imageView =  holder.findView(R.id.image);
+                CircleProgressView progressView = holder.findView(R.id.progressView);
+                GlideUtils.loadImageFitHeight(imageView,mData.getImageUrl(),progressView);
 
                 holder.setText(R.id.content,mData.getContent());
             }
@@ -164,6 +155,15 @@ public class HomeFriendsFragment extends BaseFragment<IRecommendPersonalView,Rec
             }
         }).create();
 
+    }
+
+    private void notifyData(RecommendPersonalDto recommendPersonalDto){
+        introduceEntities.clear();
+        List<RecommendPersonalDto.AtlasListBean> atlasListBeans = recommendPersonalDto.getAtlasList();
+        for (RecommendPersonalDto.AtlasListBean atlasListBean : atlasListBeans){
+            introduceEntities.add(new ImageTextIntroduceEntity(atlasListBean.getContent(),atlasListBean.getImage()));
+        }
+        recommendRecycler.getAdapter().notifyDataSetChanged();
     }
 
     private void share(ShareDto shareDto){

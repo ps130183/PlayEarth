@@ -10,6 +10,7 @@ import com.km.rmbank.dto.ActiveGoodsOrderListDto;
 import com.km.rmbank.dto.ActiveValueDetailDto;
 import com.km.rmbank.dto.ActiveValueDto;
 import com.km.rmbank.dto.AppVersionDto;
+import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.CircleFriendsDto;
 import com.km.rmbank.dto.ClubDto;
@@ -1202,8 +1203,8 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiConstant.API_MODEL + "/information/detail")
-    Observable<Response<ActionPastDto>> getActionPastDetail(@Field("activityId") String id);
+    @POST(ApiConstant.API_MODEL + "/information/detail/update")
+    Observable<Response<ActionPastDto>> getActionPastDetail(@Field("id") String id);
 
     /**
      * 获取首页  约吗  列表  所有的未举办活动列表
@@ -1212,7 +1213,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/activity/list")
-    Observable<Response<List<ActionDto>>> getActionRecentList(@Field("pageNo") int pageNo);
+    Observable<Response<List<AppointDto>>> getActionRecentList(@Field("pageNo") int pageNo);
 
     /**
      * 获取已报名的活动列表
@@ -1222,7 +1223,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/apply/activity/list")
-    Observable<Response<List<ActionDto>>> getActionAppliedList(@Field("token") String token,
+    Observable<Response<List<AppointDto>>> getActionAppliedList(@Field("token") String token,
                                                                @Field("pageNo") int pageNo);
 
     /**

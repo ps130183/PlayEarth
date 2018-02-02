@@ -8,7 +8,9 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.CircleProgressView;
 
 import java.util.List;
 
@@ -48,7 +50,8 @@ public class GoodsDetailsFragment extends BaseFragment {
                 .addCommonAdapter(R.layout.item_rv_goods_details, goodsDetails, new RecyclerAdapterHelper.CommonConvert<String>() {
             @Override
             public void convert(CommonViewHolder holder, String mData, int position) {
-                GlideUtils.loadProtrait(getContext(),mData,holder.getImageView(R.id.iv_goods_details));
+                GlideImageView imageView =  holder.findView(R.id.iv_goods_details);
+                GlideUtils.loadImageFitHeight(imageView,mData,null);
             }
         }).create();
 

@@ -11,6 +11,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.ActionDto;
+import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
 import com.km.rmbank.mvp.model.AppointModel;
 import com.km.rmbank.mvp.presenter.AppointPresenter;
@@ -34,7 +35,7 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
     @BindView(R.id.actionRecycler)
     RecyclerView actionRecycler;
 
-    private List<ActionDto> appointList;
+    private List<AppointDto> appointList;
 
     @Override
     public int getContentViewRes() {
@@ -60,12 +61,12 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
     private void initRecycler() {
         appointList = new ArrayList<>();
 
-        RecyclerAdapterHelper<ActionDto> mHelper = new RecyclerAdapterHelper<>(actionRecycler);
+        RecyclerAdapterHelper<AppointDto> mHelper = new RecyclerAdapterHelper<>(actionRecycler);
         mHelper.addLinearLayoutManager()
                 .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
-                .addCommonAdapter(R.layout.item_appoint, appointList, new RecyclerAdapterHelper.CommonConvert<ActionDto>() {
+                .addCommonAdapter(R.layout.item_appoint, appointList, new RecyclerAdapterHelper.CommonConvert<AppointDto>() {
                     @Override
-                    public void convert(CommonViewHolder holder, ActionDto mData, int position) {
+                    public void convert(CommonViewHolder holder, AppointDto mData, int position) {
                         holder.addRippleEffectOnClick();
                         GlideUtils.loadImage(mInstance, mData.getActivityPictureUrl(), holder.getImageView(R.id.actionImae));
                         holder.setText(R.id.actionTitle, mData.getTitle());
@@ -86,16 +87,16 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
                 getPresenter().getAppointAppliedList(nextPage, wrapper);
             }
         }).create();
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<ActionDto>() {
+        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<AppointDto>() {
             @Override
-            public void onItemClick(CommonViewHolder holder, ActionDto data, int position) {
+            public void onItemClick(CommonViewHolder holder, AppointDto data, int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("actionId",data.getId());
                 startActivity(ActionRecentInfoActivity.class,bundle);
             }
 
             @Override
-            public boolean onItemLongClick(CommonViewHolder holder, ActionDto data, int position) {
+            public boolean onItemLongClick(CommonViewHolder holder, AppointDto data, int position) {
                 return false;
             }
 
@@ -104,7 +105,7 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
     }
 
     @Override
-    public void showAppointList(LoadMoreWrapper wrapper, List<ActionDto> appointDtos) {
+    public void showAppointList(LoadMoreWrapper wrapper, List<AppointDto> appointDtos) {
         if (wrapper == null) {
             appointList.clear();
         } else {

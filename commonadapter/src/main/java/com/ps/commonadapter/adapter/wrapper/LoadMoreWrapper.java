@@ -97,7 +97,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         if (isShowLoadMore(position)) {
-            if (isLoadMoreFinish || mInnerAdapter.getItemCount() < 10) {
+            if (isLoadMoreFinish) {
                 return ITEM_TYPE_LOAD_MORE_FINISH;
             } else {
                 return ITEM_TYPE_LOAD_MORE;
@@ -137,7 +137,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
      * @return
      */
     private boolean hasLoadMore() {
-        return mItemLoadMoreView != null || mItemLoadMoreLayoutRes != 0;
+        return (mItemLoadMoreView != null || mItemLoadMoreLayoutRes != 0) && mInnerAdapter.getItemCount() > 0;
     }
 
     private boolean isShowLoadMore(int position) {

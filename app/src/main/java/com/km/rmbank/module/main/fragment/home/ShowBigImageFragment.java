@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
-import com.ps.glidelib.GlideApp;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.GlideApp;
 
 /**
  * A simple {@link Fragment} subclass.

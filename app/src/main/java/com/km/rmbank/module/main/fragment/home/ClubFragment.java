@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestOptions;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.km.rmbank.dto.BannerDto;
@@ -27,7 +30,10 @@ import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.OnGlideImageViewListener;
+import com.ps.glidelib.progress.OnProgressListener;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.PilasterSideImageLoader;
@@ -51,9 +57,9 @@ public class ClubFragment extends BaseFragment<IClubView, ClubPresenter> impleme
     private RecyclerView clubRecycler;
 
     @BindView(R.id.iv_recommendClub1)
-    ImageView ivRecommendClub1;
+    GlideImageView ivRecommendClub1;
     @BindView(R.id.iv_recommendClub2)
-    ImageView ivRecommendClub2;
+    GlideImageView ivRecommendClub2;
 
     @BindView(R.id.tv_recommendClub1)
     TextView tvRecommendClub1;
@@ -130,18 +136,6 @@ public class ClubFragment extends BaseFragment<IClubView, ClubPresenter> impleme
                         if (position != 2){
                             startActivity(BecomeMemberActivity.class);
                         }
-//                        BannerDto bannerDto = bannerDtos.get(position);
-//                        Bundle bundle = new Bundle();
-//                        switch (bannerDto.getType()){
-//                            case "1"://商品
-//                                bundle.putString("productNo",bannerDto.getId());
-//                                startActivity(GoodsActivity.class,bundle);
-//                                break;
-//                            case "2"://活动
-//                                bundle.putString("actionId",bannerDto.getId());
-//                                startActivity(ActionRecentInfoActivity.class,bundle);
-//                                break;
-//                        }
                     }
                 })
                 .setImageLoader(new PilasterSideImageLoader() {
@@ -216,8 +210,21 @@ public class ClubFragment extends BaseFragment<IClubView, ClubPresenter> impleme
             this.clubDtos.clear();
             clubDto1 = clubDtos.get(0);
             clubDto2 = clubDtos.get(1);
-            GlideUtils.loadImage(getContext(), clubDto1.getClubLogo(), ivRecommendClub1);
-            GlideUtils.loadImage(getContext(), clubDto2.getClubLogo(), ivRecommendClub2);
+            ivRecommendClub1.loadImage(clubDto1.getClubLogo(),R.color.placeholder_color).listener(new OnGlideImageViewListener() {
+                @Override
+                public void onProgress(int percent, boolean isDone, GlideException exception) {
+                    LogUtils.d("ivRecommendClub1 percent = " + percent);
+                }
+            });
+
+            ivRecommendClub2.loadImage(clubDto2.getClubLogo(),R.color.placeholder_color).listener(new OnGlideImageViewListener() {
+                @Override
+                public void onProgress(int percent, boolean isDone, GlideException exception) {
+                    LogUtils.d("ivRecommendClub2 percent = " + percent);
+                }
+            });
+//            GlideUtils.loadImage(getContext(), clubDto1.getClubLogo(), ivRecommendClub1);
+//            GlideUtils.loadImage(getContext(), clubDto2.getClubLogo(), ivRecommendClub2);
             tvRecommendClub1.setText(clubDto1.getClubName());
             tvRecommendClub2.setText(clubDto2.getClubName());
             clubDtos.remove(clubDto1);

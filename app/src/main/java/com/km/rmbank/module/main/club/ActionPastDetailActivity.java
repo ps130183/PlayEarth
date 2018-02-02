@@ -2,17 +2,19 @@ package com.km.rmbank.module.main.club;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestOptions;
 import com.km.rmbank.R;
-import com.km.rmbank.adapter.ActionPastDetailsAdapter;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.ActionPastDto;
@@ -23,13 +25,15 @@ import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.mvp.model.ActionPastDetailModel;
 import com.km.rmbank.mvp.presenter.ActionPastDetailPresenter;
 import com.km.rmbank.mvp.view.IActionPastDetailView;
-import com.km.rmbank.oldrecycler.RVUtils;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.CircleProgressView;
+import com.ps.glidelib.progress.OnGlideImageViewListener;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -128,13 +132,6 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
         }
     }
 
-    private void initActionPastDetails(){
-        RVUtils.setLinearLayoutManage(rvActionPastDetails, LinearLayoutManager.VERTICAL);
-        RVUtils.addDivideItemForRv(rvActionPastDetails,RVUtils.DIVIDER_COLOR_WHITE);
-        ActionPastDetailsAdapter adapter = new ActionPastDetailsAdapter(this);
-        rvActionPastDetails.setAdapter(adapter);
-    }
-
     @Override
     public void showActionPastDetails(final ActionPastDto actionPastDto) {
         clubId = actionPastDto.getClubId();
@@ -145,26 +142,23 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
         GlideUtils.loadImage(mInstance,actionPastDto.getClubLogo(),ivClubLogo);
         tvReleaseTime.setText("发布时间：" + DateUtils.getInstance().getDate(actionPastDto.getCreateDate()));
 
-
-//        ActionPastDetailsAdapter adapter = (ActionPastDetailsAdapter) rvActionPastDetails.getAdapter();
-//        adapter.addData(actionPastDto.getDetailList());
-
         List<ImageTextIntroduceEntity> imageTextIntroduceEntities = new ArrayList<>();
-        for (ActionPastDto.DynamicBean bean : actionPastDto.getDetailList()){
+        for (ActionPastDto.DetailListBean bean : actionPastDto.getDetailList()){
             imageTextIntroduceEntities.add(new ImageTextIntroduceEntity(bean.getDynamicImageContent(),bean.getDynamicImage()));
         }
         RecyclerAdapterHelper<ImageTextIntroduceEntity> mHelper = new RecyclerAdapterHelper<>(rvActionPastDetails);
         mHelper.addLinearLayoutManager().addCommonAdapter(R.layout.item_image_text_introduce, imageTextIntroduceEntities, new RecyclerAdapterHelper.CommonConvert<ImageTextIntroduceEntity>() {
             @Override
             public void convert(CommonViewHolder holder, ImageTextIntroduceEntity mData, int position) {
-                GlideUtils.loadImage(mInstance,mData.getImageUrl(),holder.getImageView(R.id.image));
                 holder.setText(R.id.content,mData.getContent());
+                holder.getTextView(R.id.content).setGravity(Gravity.LEFT);
+
+                GlideImageView imageView =  holder.findView(R.id.image);
+                CircleProgressView progressView = holder.findView(R.id.progressView);
+                GlideUtils.loadImageFitHeight(imageView,mData.getImageUrl(),progressView);
             }
         }).create();
 
-        if (isMyClub && actionPastDto.getStatus() != 1){
-
-        }
         //视频
         if (!TextUtils.isEmpty(actionPastDto.getVideoUrl())){
             jzvPlayer.setVisibility(View.VISIBLE);

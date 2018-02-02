@@ -12,5 +12,5 @@ import java.util.List;
  */
 
 public interface AppointView extends MvpView {
-    void showAppointList(LoadMoreWrapper wrapper,List<ActionDto> appointDtos);
+    void showAppointList(LoadMoreWrapper wrapper,List<AppointDto> appointDtos);
 }
