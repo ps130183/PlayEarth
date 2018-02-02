@@ -1,13 +1,54 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.km.rmbank.module.home.fragment.HomeFriendsFragment">
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.fragment.HomeFriendsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="@dimen/toolBarHeight"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:background="@color/white">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="17"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="@color/textMainColor"
+            android:gravity="bottom"
+            />
+
+        <TextView
+            android:id="@+id/tv_month_year"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Jan 2018"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/textMainColor"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/tv_day"
+            android:layout_marginLeft="@dimen/viewSpace8"
+            />
+
+        <TextView
+            android:id="@+id/introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京   多云  -8℃"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recommendRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

@@ -3,6 +3,7 @@ package com.km.rmbank.base;
 import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,9 @@ public class ViewManager {
         return findView(viewId);
     }
 
+    public RecyclerView getRecyclerView(@IdRes int viewId){
+        return findView(viewId);
+    }
     /**
      * 设置点击事件
      * @param viewId

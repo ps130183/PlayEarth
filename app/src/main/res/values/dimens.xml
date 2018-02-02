@@ -3,9 +3,20 @@
     
     <dimen name="toolBarHeight">48dp</dimen>
 
+
+    <dimen name="viewSpace4">4dp</dimen>
+    <dimen name="viewSpace8">8dp</dimen>
+    <dimen name="viewSpace16">16dp</dimen>
+    <dimen name="viewSpace32">32dp</dimen>
+    <dimen name="viewSpace48">48dp</dimen>
+    <dimen name="viewSpace64">64dp</dimen>
+
     <dimen name="toolBarTextSize">22sp</dimen>
     <dimen name="textSizeContent">14sp</dimen>
     <dimen name="textSizeSmall">12sp</dimen>
     <dimen name="textSizeBig">16sp</dimen>
+    <dimen name="textSizeHuge">18sp</dimen>
+
+    <dimen name="divideLineHeight">1dp</dimen>
     
 </resources>

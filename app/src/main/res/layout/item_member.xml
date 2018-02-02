@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/viewSpace8">
+
+    <TextView
+        android:id="@+id/memberName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="玩家合伙人"
+        android:background="@drawable/shape_member_bg"
+        android:textColor="@color/white"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingRight="@dimen/viewSpace16"
+        />
+
+    <TextView
+        android:id="@+id/introduce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="基地任你玩儿，活出更精彩"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/memberName"
+        android:layout_toLeftOf="@+id/rbtnCheck"
+        android:layout_marginLeft="@dimen/viewSpace8"
+        android:layout_marginRight="@dimen/viewSpace8"
+        android:maxLines="1"
+        android:ellipsize="end"
+        />
+
+    <RadioButton
+        android:id="@+id/rbtnCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>

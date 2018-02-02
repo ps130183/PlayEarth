@@ -2,8 +2,39 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ea6f5a</color>
 
-    <color name="titleTextColor">#000000</color>
-    <color name="defaultBackground">#E8E8E7</color>
+    <color name="white">#ffffff</color>
+    <color name="swipeRefresh">#baffffff</color>
+
+    <color name="textMainColor">#262626</color>
+    <color name="textSecondColor">#8c8c8c</color>
+    <color name="textBlueColor">#0099cf</color>
+    <color name="textGrayColor">#8b8b8b</color>
+    <color name="textRedColor">#d81e06</color>
+
+
+    <color name="buttonBlueColor">#1e8aed</color>
+
+
+    <color name="defaultBackground">#f1f1f0</color>
+    
+    <color name="divideLineColor">#e2e2e2</color>
+
+    <color name="color_blue">#0180ff</color>
+
+    <color name="gray_et_border_circular">#d1cccc</color>
+    <color name="color_search_background">#efedecec</color>
+
+
+    <color name="color_red">#ff0109</color>
+    <color name="color_blue3">#0099cf</color>
+    <!--圆环进度条-->
+    <color name="transparency_gray_50">#80000000</color>
+
+    <color name="color_text_account">#66e1ca</color>
+
+    <color name="color_btn_unclick">#a6a6a6</color>
+    <color name="color_btn_click">#0395f7</color>
+
 </resources>

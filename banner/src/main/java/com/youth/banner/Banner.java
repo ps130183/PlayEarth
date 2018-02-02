@@ -2,7 +2,6 @@ package com.youth.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -24,10 +23,7 @@ import android.widget.TextView;
 import com.youth.banner.listener.OnBannerClickListener;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoaderInterface;
-import com.youth.banner.transformer.ScaleInOutTransformer;
 import com.youth.banner.view.BannerViewPager;
-import com.zhy.magicviewpager.transformer.BasePageTransformer;
-import com.zhy.magicviewpager.transformer.ScaleInTransformer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -50,7 +46,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     private boolean isScroll = BannerConfig.IS_SCROLL;
     private int mIndicatorSelectedResId = R.drawable.gray_radius;
     private int mIndicatorUnselectedResId = R.drawable.white_radius;
-    private int mLayoutResId = R.layout.banner;
+    private int mLayoutResId = R.layout.banner_default;
     private int titleHeight;
     private int titleBackground;
     private int titleTextColor;
@@ -208,6 +204,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
     public Banner setPagerMargin(int pagerMargin){
         if (viewPager != null){
             viewPager.setPageMargin(pagerMargin);
+//            viewPager.setPageTransformer(false,new ScaleInTransformer(minScale));
         }
         return this;
     }

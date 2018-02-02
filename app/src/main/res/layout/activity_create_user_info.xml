@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.login.CreateUserInfoActivity">
+
+    <LinearLayout style="@style/Personal.User.EditCard.pll">
+
+        <LinearLayout style="@style/Personal.User.EditCard.sll">
+
+            <TextView
+                style="@style/Personal.User.EditCard.tv"
+                android:text="姓        名" />
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/Personal.User.EditCard.et_nofocuse"
+                android:hint="请输入您的真实姓名，必填"
+                android:inputType="text"
+                android:lines="1" />
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+        <LinearLayout
+            style="@style/Personal.User.EditCard.sll"
+            >
+            <TextView
+                style="@style/Personal.User.EditCard.tv"
+                android:text="身        份"
+                />
+
+            <EditText
+                android:id="@+id/et_position"
+                style="@style/Personal.User.EditCard.et_nofocuse"
+                android:hint="请填写您所在单位的职称，必填"
+                android:lines="1"
+                android:inputType="text"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Button"
+        android:text="提交"
+        />
+
+
+
+</LinearLayout>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_payment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".module.main.payment.PaymentActivity">
+
+    <RelativeLayout
+        style="@style/BackGauge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingRight="@dimen/viewSpace16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单金额"
+            android:textSize="@dimen/textSizeContent" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text=""
+            android:textColor="@color/color_red"
+            android:textSize="@dimen/textSizeContent" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divideLineColor" />
+
+    <RelativeLayout
+        android:id="@+id/ll_pay_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/viewSpace8"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8">
+
+        <TextView
+            android:id="@+id/tv_pay_type_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/viewSpace4"
+            android:text="余额支付"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig" />
+
+        <TextView
+            android:id="@+id/tv_balance_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_pay_type_balance"
+            android:text="快捷又安全" />
+
+
+        <CheckBox
+            android:id="@+id/cb_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/viewSpace8"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8">
+
+        <TextView
+            android:id="@+id/tv_pay_type_weichat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/viewSpace4"
+            android:text="微信"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig" />
+
+        <TextView
+            android:id="@+id/tv_weichat_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_pay_type_weichat"
+            android:text="推荐有微信账号的用户使用" />
+
+
+        <CheckBox
+            android:id="@+id/cb_weichat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/viewSpace8"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8">
+
+        <TextView
+            android:id="@+id/tv_pay_type_alipay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/viewSpace4"
+            android:text="支付宝"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig" />
+
+        <TextView
+            android:id="@+id/tv_alipay_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_pay_type_alipay"
+            android:text="推荐有支付宝账号的用户使用" />
+
+
+        <CheckBox
+            android:id="@+id/cb_alipay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:paddingTop="@dimen/viewSpace8">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/viewSpace8"
+            android:layout_marginLeft="@dimen/viewSpace16"
+            android:text="其他支付方式"
+            android:textSize="@dimen/textSizeContent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divideLineHeight"
+            android:background="@color/divideLineColor" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/viewSpace8"
+            android:paddingLeft="@dimen/viewSpace16"
+            android:paddingRight="@dimen/viewSpace16"
+            android:paddingTop="@dimen/viewSpace8">
+
+            <TextView
+                android:id="@+id/tv_pay_type_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/viewSpace4"
+                android:text="银行卡支付"
+                android:textColor="@color/textMainColor"
+                android:textSize="@dimen/textSizeBig" />
+
+            <TextView
+                android:id="@+id/tv_bank_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_pay_type_bank"
+                android:text="快捷又安全" />
+
+
+            <CheckBox
+                android:id="@+id/cb_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divideLineHeight"
+            android:background="@color/divideLineColor" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_to_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/viewSpace32"
+        android:layout_marginRight="@dimen/viewSpace32"
+        android:layout_marginTop="@dimen/viewSpace16"
+        android:background="?attr/colorAccent"
+        android:text="去付款"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeBig" />
+
+</LinearLayout>

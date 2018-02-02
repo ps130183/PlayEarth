@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_team"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.member.MyTeamActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@color/color_blue3"
+        android:paddingBottom="@dimen/viewSpace16">
+
+        <TextView
+            android:id="@+id/tv_team_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/viewSpace32"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeBig"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/tv_team_number"
+            android:layout_alignBottom="@id/tv_team_number"
+            android:layout_marginLeft="@dimen/viewSpace4"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="团队规模"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeBig"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/viewSpace32"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

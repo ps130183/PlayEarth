@@ -8,10 +8,15 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/FlycoTabLayout_Lib" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/banner" />
             <option value="$PROJECT_DIR$/commonadapter" />
+            <option value="$PROJECT_DIR$/gallerypick" />
             <option value="$PROJECT_DIR$/glidelib" />
+            <option value="$PROJECT_DIR$/guideShowLib" />
+            <option value="$PROJECT_DIR$/libqrcode" />
+            <option value="$PROJECT_DIR$/ucrop" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

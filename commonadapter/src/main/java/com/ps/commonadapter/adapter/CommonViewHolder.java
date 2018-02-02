@@ -8,7 +8,12 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ps.commonadapter.R;
+
+import org.w3c.dom.Text;
 
 
 /**
@@ -35,6 +40,13 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
     public static CommonViewHolder getHolder(Context context, ViewGroup parent, @LayoutRes int layoutId){
         View view = LayoutInflater.from(context).inflate(layoutId,parent,false);
         return new CommonViewHolder(context,view);
+    }
+
+    /**
+     * 添加波纹效果
+     */
+    public void addRippleEffectOnClick(){
+        getConvertView().setBackgroundResource(R.drawable.recycler_bg);
     }
 
     public View getConvertView() {
@@ -70,6 +82,25 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
         TextView tv = findView(viewId);
         tv.setText(content);
         return this;
+    }
+
+    public TextView getTextView(@IdRes int viewid){
+        TextView textView = findView(viewid);
+        return textView;
+    }
+
+    /**
+     * 获取imageView
+     * @param viewId
+     * @return
+     */
+    public ImageView getImageView(@IdRes int viewId){
+        ImageView imageView = findView(viewId);
+        return imageView;
+    }
+
+    public RecyclerView getRecyclerView(@IdRes int viewId){
+        return findView(viewId);
     }
 
 }

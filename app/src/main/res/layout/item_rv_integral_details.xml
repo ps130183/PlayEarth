@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="充值体验式会员所得积分"
+        android:textColor="@color/textMainColor"
+        android:textSize="@dimen/textSizeContent"
+        android:layout_marginTop="@dimen/viewSpace16"
+        android:layout_marginBottom="@dimen/viewSpace16"
+        />
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+100"
+        android:textSize="@dimen/textSizeHuge"
+        android:textColor="@color/color_red"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/viewSpace4"
+        android:layout_marginRight="@dimen/viewSpace16"
+        />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017.02.03"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_money"
+        android:layout_marginRight="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace4"
+        />
+</RelativeLayout>

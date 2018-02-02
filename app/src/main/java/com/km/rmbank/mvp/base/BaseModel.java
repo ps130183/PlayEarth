@@ -1,7 +1,10 @@
 package com.km.rmbank.mvp.base;
 
 
+import com.blankj.utilcode.util.LogUtils;
+import com.km.rmbank.api.ApiService;
 import com.km.rmbank.retrofit.Response;
+import com.km.rmbank.retrofit.RetrofitManager;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -18,6 +21,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public abstract class BaseModel implements MvpModel {
+
+    protected ApiService getService(){
+        return RetrofitManager.getApiService();
+    }
+
     /**
      * 对网络接口返回的Response进行分割操作
      *
@@ -26,6 +34,7 @@ public abstract class BaseModel implements MvpModel {
      * @return
      */
     public <T> Observable<T> flatResponse(final Response<T> response) {
+        LogUtils.json(response.toString());
         return Observable.create(new ObservableOnSubscribe<T>() {
             @Override
             public void subscribe(ObservableEmitter<T> e) throws Exception {

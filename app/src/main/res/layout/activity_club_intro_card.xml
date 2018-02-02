@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#666666"
+    tools:context="com.km.rmbank.module.main.card.UserCardActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom"
+        android:layout_marginLeft="@dimen/viewSpace32"
+        android:layout_marginRight="@dimen/viewSpace32"
+        android:layout_marginTop="@dimen/viewSpace8"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/clubBackground"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_user_card_bg"/>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="40dp"
+                android:translationY="-25dp">
+
+                <ImageView
+                    android:id="@+id/userPortrait"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/clubName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="玩转地球健身俱乐部"
+                android:textSize="@dimen/textSizeHuge"
+                android:textColor="@color/textMainColor"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/clubPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="发布过23个活动，累计参加人数1342人"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/textSecondColor"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/viewSpace4"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/shape_user_card_circle"
+                    android:layout_centerVertical="true"
+                    android:translationX="-10dp"/>
+                <View
+                    style="@style/DivideLine"
+                    android:layout_marginTop="@dimen/viewSpace16"
+                    android:layout_marginLeft="@dimen/viewSpace32"
+                    android:layout_marginRight="@dimen/viewSpace32"
+                    android:layout_marginBottom="@dimen/viewSpace16"
+                    />
+                <TextView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/shape_user_card_circle"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:translationX="10dp"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/clubIntroduce"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="俱乐部一句话简介信息俱乐部一句话简介这里的内容是全部的介绍信息内容，不是简介的内容，就是上面一句话的介绍的内容，说是一句话，其实是需要写些文采的内容的-，-"
+                    android:textSize="@dimen/textSizeContent"
+                    android:paddingLeft="@dimen/viewSpace32"
+                    android:paddingRight="@dimen/viewSpace32"
+                    android:lineSpacingMultiplier="1.2"
+                    android:layout_above="@+id/ll_qrcode"
+                    android:maxLines="5"
+                    android:ellipsize="end"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/ll_qrcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/viewSpace32"
+                    android:layout_marginRight="@dimen/viewSpace32"
+                    android:layout_marginBottom="@dimen/viewSpace16">
+                    <ImageView
+                        android:id="@+id/iv_user_card_qr_code"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_vertical"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <include layout="@layout/_default_divide_line"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="扫描二维码，我在玩转地球等你哦"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="—— 分享图片到 ——"
+            android:textColor="@color/white"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/viewSpace8">
+
+            <ImageView
+                android:id="@+id/iv_weixin"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_share_weixin"
+                />
+            <ImageView
+                android:id="@+id/iv_pengyouquan"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_share_pengyouquan"
+                />
+            <ImageView
+                android:id="@+id/iv_xiazai"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_share_xiazia"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_with_draw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.account.withdraw.WithDrawActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/viewSpace32"
+        android:paddingTop="@dimen/viewSpace16"
+        android:paddingBottom="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace8"
+        android:layout_marginBottom="@dimen/viewSpace8"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_type_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="工商银行"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig"
+            />
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="尾号0128"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace16"
+        android:paddingBottom="@dimen/viewSpace16"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提现金额"
+            android:textSize="@dimen/textSizeContent"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/viewSpace8"
+            android:paddingBottom="@dimen/viewSpace8">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textSize="22sp"
+                android:layout_marginRight="@dimen/viewSpace8"
+                />
+            <EditText
+                android:id="@+id/et_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="提现金额"
+                android:textSize="@dimen/textSizeHuge"
+                android:background="@color/white"
+                android:lines="1"
+                />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divideLineHeight"
+            android:background="@color/divideLineColor"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/viewSpace8"
+            android:paddingRight="@dimen/viewSpace16">
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可用余额 6.00 元"
+                />
+            <TextView
+                android:id="@+id/tv_all_withdraw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全部提现"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/textSizeContent"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_withdraw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="一天内到账，确认提现"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_withdraw_btn_unclick"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginTop="@dimen/viewSpace32"
+        />
+
+</LinearLayout>

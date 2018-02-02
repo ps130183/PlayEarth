@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.member.BecomeMemberActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/bg_become_member"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="宋小宝"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:layout_centerInParent="true"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userName"
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成为合伙人和我们一起玩转地球"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="#704032"
+                    android:layout_marginRight="@dimen/viewSpace8"
+                    />
+                <Button
+                    android:id="@+id/btn_open"
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:text="开通"
+                    android:textColor="#704032"
+                    android:background="#fcffca"
+                    android:layout_toRightOf="@+id/hint"/>
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolBarHeight"
+                android:paddingLeft="@dimen/viewSpace8"
+                app:navigationIcon="@mipmap/icon_back_white_member">
+
+            </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/viewSpace8">
+
+        </WebView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlDialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#64000000"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_close"
+            android:layout_above="@+id/rlMember"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/viewSpace16"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rlMember"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/tv_about_wzdq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="关于玩转地球  |  服务协议与续费规则"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:padding="@dimen/viewSpace4"
+                />
+
+            <Button
+                android:id="@+id/btn_become"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffcf00"
+                android:layout_marginLeft="@dimen/viewSpace64"
+                android:layout_marginRight="@dimen/viewSpace64"
+                android:layout_above="@+id/tv_about_wzdq"
+                android:text="立即开通"
+                android:textColor="#704032"/>
+
+            <com.ruffian.library.RTextView
+                android:id="@+id/joinMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="加入我们"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                app:icon_src_normal="@mipmap/icon_member_join_our"
+                app:icon_width="40dp"
+                app:icon_height="40dp"
+                android:padding="@dimen/viewSpace8"
+                />
+            <include
+                android:id="@+id/line"
+                layout="@layout/_default_divide_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divideLineHeight"
+                android:layout_below="@+id/joinMe"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/memberRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/line"
+                android:layout_above="@+id/btn_become">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

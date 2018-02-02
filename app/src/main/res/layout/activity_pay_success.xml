@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_pay_success_bg"
+    tools:context="com.km.rmbank.module.main.payment.PaySuccessActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:layout_margin="@dimen/viewSpace32"
+        app:cardCornerRadius="10dp"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/viewSpace32"
+            android:paddingBottom="@dimen/viewSpace32"
+            android:orientation="vertical">
+
+            <com.ruffian.library.RTextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="   支付成功"
+                android:textColor="#7ac627"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                app:icon_src_normal="@drawable/pay_success"
+                app:icon_width="40dp"
+                app:icon_height="40dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="恭喜你，成功加入玩转地球"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="返回首页"
+        android:layout_below="@+id/cardView"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white"
+        />
+
+</RelativeLayout>

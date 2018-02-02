@@ -1,14 +1,371 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.km.rmbank.module.home.fragment.HomeMeFragment">
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.fragment.HomeMeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="我的"
-        android:gravity="center"/>
+        android:layout_height="@dimen/toolBarHeight"
+        android:background="@color/white">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/setting"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/icon_home_me_setting"
+                android:background="@drawable/recycler_bg"
+                android:layout_centerVertical="true"
+                />
+
+            <ImageView
+                android:id="@+id/message"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/icon_home_me_message"
+                android:background="@drawable/recycler_bg"
+                android:layout_toRightOf="@+id/setting"
+                android:layout_centerVertical="true"
+                />
+
+            <ImageView
+                android:id="@+id/shopCard"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/icon_home_me_shopcard"
+                android:background="@drawable/recycler_bg"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/viewSpace8"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+    <include layout="@layout/_default_divide_line"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            //个人信息
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvUserPortrait"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:cardCornerRadius="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/viewSpace16"
+                    android:layout_marginRight="@dimen/viewSpace16">
+                    <ImageView
+                        android:id="@+id/userPortrait"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"/>
+                </android.support.v7.widget.CardView>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_toLeftOf="@+id/rl_qrcode">
+
+                        <TextView
+                            android:id="@+id/tv_user_nick_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="送保洁"
+                            android:gravity="bottom"
+                            android:paddingBottom="@dimen/viewSpace8"
+                            style="@style/TextTitle"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1">
+                            <TextView
+                                android:id="@+id/become_memeber"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="成为合伙人>>"
+                                android:padding="@dimen/viewSpace4"
+                                style="@style/TextSmall"
+                                android:background="@drawable/shape_home_me_member"
+                                />
+
+                            <com.zhy.view.flowlayout.TagFlowLayout
+                                android:id="@+id/flowLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="gone">
+
+                            </com.zhy.view.flowlayout.TagFlowLayout>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_qrcode"
+                        android:layout_width="85dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/viewSpace4"
+                        android:background="@drawable/shape_home_me_qrcode">
+
+                        <ImageView
+                            android:id="@+id/iv_qrcode"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@mipmap/icon_home_me_qrcode"
+                            android:layout_toLeftOf="@+id/tv_qrcode"
+                            android:layout_marginRight="@dimen/viewSpace4"
+                            android:background="#c2c2c2"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_qrcode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="微名片"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <include layout="@layout/_default_divide_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="0"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="券"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_attention"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8">
+
+                    <TextView
+                        android:id="@+id/tv_attention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="12"/>
+
+                    <TextView
+                        android:id="@+id/attention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="关注"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_integral"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8">
+
+                    <TextView
+                        android:id="@+id/tv_integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="8"/>
+
+                    <TextView
+                        android:id="@+id/integral"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="积分"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_account"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8">
+
+                    <TextView
+                        android:id="@+id/tv_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="12.5"/>
+
+                    <TextView
+                        android:id="@+id/account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextSubTitle"
+                        android:text="账户"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            //我的订单
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/viewSpace16">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/viewSpace16"
+                    android:paddingRight="@dimen/viewSpace16"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的订单"
+                        style="@style/TextTitle"
+                        />
+
+                    <TextView
+                        android:id="@+id/allOrder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全部订单  >"
+                        style="@style/TextContent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        />
+
+                </RelativeLayout>
+                <include layout="@layout/_default_divide_line"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/orderRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <include layout="@layout/_default_divide_line"/>
+
+            //合伙人
+            <LinearLayout
+                android:id="@+id/userMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/viewSpace16"
+                    android:paddingRight="@dimen/viewSpace16"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="合伙人"
+                        style="@style/TextTitle"
+                        />
+
+                </RelativeLayout>
+                <include layout="@layout/_default_divide_line"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/memberRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/userModelRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/viewSpace16"
+                android:background="@color/white">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

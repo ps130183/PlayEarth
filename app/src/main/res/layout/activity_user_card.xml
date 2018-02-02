@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#666666"
+    tools:context="com.km.rmbank.module.main.card.UserCardActivity">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom"
+            android:layout_marginLeft="@dimen/viewSpace32"
+            android:layout_marginRight="@dimen/viewSpace32"
+            android:layout_marginTop="@dimen/viewSpace8"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:clipChildren="false">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_user_card_bg"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginTop="85dp">
+                        <android.support.v7.widget.CardView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center_horizontal"
+                            app:cardCornerRadius="40dp">
+
+                            <ImageView
+                                android:id="@+id/userPortrait"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                />
+
+                        </android.support.v7.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/userName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="宋小宝"
+                            android:textSize="@dimen/textSizeHuge"
+                            android:textColor="@color/textMainColor"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:id="@+id/userPosition"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="北京流氓科技有限公司产品经理"
+                            android:textSize="@dimen/textSizeContent"
+                            android:textColor="@color/textSecondColor"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/viewSpace4"
+                            />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_user_card_circle"
+                        android:layout_centerVertical="true"
+                        android:translationX="-10dp"/>
+                    <View
+                        style="@style/DivideLine"
+                        android:layout_marginLeft="@dimen/viewSpace32"
+                        android:layout_marginRight="@dimen/viewSpace32"
+                        android:layout_centerInParent="true"
+                        />
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shape_user_card_circle"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:translationX="10dp"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="@dimen/viewSpace32"
+                            android:layout_marginRight="@dimen/viewSpace32">
+                            <ImageView
+                                android:id="@+id/ivUserPhone"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@mipmap/icon_user_card_phone"
+                                android:layout_gravity="center_vertical"
+                                />
+                            <TextView
+                                android:id="@+id/userPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="156324382832"
+                                android:layout_gravity="center_vertical"
+                                android:layout_toRightOf="@+id/ivUserPhone"
+                                />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="@dimen/viewSpace32"
+                            android:layout_marginRight="@dimen/viewSpace32">
+                            <ImageView
+                                android:id="@+id/ivUserAddress"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@mipmap/icon_user_card_address"
+                                android:layout_gravity="center_vertical"
+                                />
+                            <TextView
+                                android:id="@+id/userAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="北京市东城区左安门内大街"
+                                android:layout_gravity="center_vertical"
+                                android:layout_toRightOf="@+id/ivUserAddress"
+                                />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:layout_marginLeft="@dimen/viewSpace32"
+                            android:layout_marginRight="@dimen/viewSpace32">
+                            <ImageView
+                                android:id="@+id/ivUserInfo"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@mipmap/icon_user_card_label"
+                                />
+                            <TextView
+                                android:id="@+id/userIntro"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="信宝哥没坎坷，前方一路小平坡"
+                                android:maxLines="2"
+                                android:layout_toRightOf="@+id/ivUserInfo"
+                                />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="@dimen/viewSpace32"
+                        android:layout_marginRight="@dimen/viewSpace32"
+                        android:layout_marginBottom="@dimen/viewSpace16">
+                        <ImageView
+                            android:id="@+id/iv_user_card_qr_code"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_vertical"
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <include layout="@layout/_default_divide_line"/>
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="扫描二维码，我在玩转地球等你哦"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="—— 分享图片到 ——"
+            android:textColor="@color/white"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/viewSpace8">
+
+            <ImageView
+                android:id="@+id/iv_weixin"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_share_weixin"
+                />
+            <ImageView
+                android:id="@+id/iv_pengyouquan"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_share_pengyouquan"
+                />
+            <ImageView
+                android:id="@+id/iv_xiazai"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@mipmap/icon_share_xiazia"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

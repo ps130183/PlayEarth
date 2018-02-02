@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_forum_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="这是什么啊，鲁班么？怎么长这德行了，是不是被人干了哈哈"
+        android:layout_marginTop="@dimen/viewSpace4"
+        android:layout_marginBottom="@dimen/viewSpace4"
+        />
+
+</LinearLayout>

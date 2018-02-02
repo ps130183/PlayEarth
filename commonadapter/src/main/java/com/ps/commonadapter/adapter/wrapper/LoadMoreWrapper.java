@@ -97,7 +97,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemViewType(int position) {
         if (isShowLoadMore(position)) {
-            if (isLoadMoreFinish) {
+            if (isLoadMoreFinish || mInnerAdapter.getItemCount() < 10) {
                 return ITEM_TYPE_LOAD_MORE_FINISH;
             } else {
                 return ITEM_TYPE_LOAD_MORE;
@@ -165,11 +165,13 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     /**
      * 是否已经加载完最后一页
-     * @param loadMoreFinish
+     * @param dataSize
      */
-    public void setLoadMoreFinish(boolean loadMoreFinish) {
-        isLoadMoreFinish = loadMoreFinish;
-        mCurPage = mNextPage;
+    public void setLoadMoreFinish(int dataSize) {
+        if (dataSize > 0){
+            mCurPage = mNextPage;
+        }
+        isLoadMoreFinish = !(dataSize > 0);
         notifyDataSetChanged();
     }
 

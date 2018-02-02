@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.login.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace16">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="手机号码"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/textMainColor"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/viewSpace16"
+                />
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入手机号码"
+                android:paddingTop="@dimen/viewSpace16"
+                android:paddingBottom="@dimen/viewSpace16"
+                android:paddingRight="@dimen/viewSpace16"
+                android:background="@color/white"
+                android:textSize="@dimen/textSizeContent"
+                android:inputType="phone"
+                android:maxLength="11"
+                />
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/viewSpace16">
+            <TextView
+                android:id="@+id/tv_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="验  证  码"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/textMainColor"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/viewSpace16"
+                />
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入验证码"
+                android:paddingTop="@dimen/viewSpace16"
+                android:paddingBottom="@dimen/viewSpace16"
+                android:paddingRight="@dimen/viewSpace16"
+                android:background="@color/white"
+                android:textSize="@dimen/textSizeContent"
+                android:inputType="number"
+                android:maxLength="6"
+                android:layout_toRightOf="@id/tv_code"
+                android:layout_toLeftOf="@+id/v_code"
+                />
+
+            <View
+                android:id="@+id/v_code"
+                android:layout_width="@dimen/divideLineHeight"
+                android:layout_height="30dp"
+                android:background="@color/defaultBackground"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_send_code"
+                />
+
+            <TextView
+                android:id="@+id/tv_send_code"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="发送验证码"
+                android:textColor="@color/textGrayColor"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/viewSpace16"
+                android:gravity="center"
+                android:onClick="sendCode"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Button"
+        android:text="登录"
+        android:onClick="clickLogin"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16">
+        <TextView
+            android:id="@+id/tv_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册即代表同意 "
+            />
+        <TextView
+            android:id="@+id/tv_register_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="玩转地球注册协议"
+            android:textColor="@color/textBlueColor"
+            android:layout_toRightOf="@+id/tv_agree"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/viewSpace4"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>

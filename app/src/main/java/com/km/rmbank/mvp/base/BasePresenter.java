@@ -1,6 +1,10 @@
 package com.km.rmbank.mvp.base;
 
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.km.rmbank.module.login.LoginActivity;
+import com.km.rmbank.retrofit.RetCode;
+
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
@@ -47,7 +51,7 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
      * 获取当前View
      * @return
      */
-    public V getMvpView() {
+    protected V getMvpView() {
         return mView;
     }
 
@@ -55,7 +59,7 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
      * 获取当前model
      * @return
      */
-    public M getMvpModel(){
+    protected M getMvpModel(){
         return mModel;
     }
 
@@ -96,6 +100,9 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
                 if (e instanceof BaseModel.APIException) { //后台报的错误
                     BaseModel.APIException exception = (BaseModel.APIException) e;
                     mView.showError(exception.getMessage());
+//                    if (RetCode.USER_IS_NOT_LOGIN.getStatus().equals(exception.code)){//用户未登录
+//                        ActivityUtils.startActivity(LoginActivity.class);
+//                    }
                 } else if (e instanceof SocketTimeoutException) {
                     mView.showError("请求超时，请稍后再试");
                 } else if (e instanceof ConnectException) {

@@ -2,14 +2,104 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.km.rmbank">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 支付宝、微信权限 start -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 支付宝、微信权限 end -->
+
+
+    <!-- umeng 权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- umeng 权限 -->
+
+
+    <!-- 多分辨率支持 -->
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
+
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/_destop_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <!-- 支付宝 配置 start -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!-- 支付宝 配置 end -->
+
+
+        <!-- 微信分享 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 微信支付回调 -->
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+
+        <!-- 友盟appkey -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="561cae6ae0f55abd990035bf" />
+
+        <!-- -QQ分享 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- -QQ分享 -->
+
         <activity android:name=".module.launch.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +107,61 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.home.HomeActivity"></activity>
+        <activity android:name=".module.launch.GuideActivity" />
+        <activity
+            android:name=".module.main.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".module.main.fragment.home.AllClubActivity" />
+        <activity android:name=".module.main.fragment.home.ShowBigImageActivity" />
+        <activity android:name=".module.login.LoginActivity" />
+        <activity android:name=".module.main.shop.ShopActivity" />
+        <activity android:name=".module.main.shop.ShoppingCartActivity" />
+        <activity android:name=".module.main.shop.SearchActivity" />
+        <activity android:name=".module.main.shop.GoodsActivity" />
+        <activity android:name=".module.main.shop.CreateOrderActivity" />
+        <activity android:name=".module.main.message.MessageActivity" />
+        <activity android:name=".module.main.personal.address.ReceiverAddressActivity" />
+        <activity android:name=".module.main.personal.address.CreateReceiverAddressActivity" />
+        <activity android:name=".module.main.personal.setting.SettingActivity" />
+        <activity android:name=".module.main.personal.setting.AboutMeActivity" />
+        <activity android:name=".module.webview.AgreementActivity" />
+        <activity android:name=".module.main.personal.order.MyOrderActivity" />
+        <activity android:name=".module.main.personal.order.OrderDetailsActivity" />
+        <activity android:name=".module.main.personal.order.GoodsEvaluateActivity" />
+        <activity android:name=".module.main.personal.member.MyTeamActivity" />
+        <activity android:name=".module.main.personal.member.club.ClubActivity" />
+        <activity android:name=".module.main.personal.member.goodsmanager.GoodsManagerActivity" />
+        <activity
+            android:name=".module.main.personal.member.goodsmanager.CreateNewGoodsActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".module.main.personal.member.goodsmanager.GoodsTypeActivity" />
+        <activity android:name=".module.main.personal.leader.MeetingListActivity" />
+        <activity android:name=".module.main.personal.leader.EntranceSignInActivity" />
+        <activity android:name=".module.main.personal.leader.SignInListActivity" />
+        <activity
+            android:name=".module.main.personal.account.UserAccountActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".module.main.personal.account.withdraw.CreateWithDrawAccountActivity" />
+        <activity android:name=".module.main.personal.account.withdraw.WithDrawActivity" />
+        <activity android:name=".module.main.personal.account.withdraw.WithDrawListActivity" />
+        <activity android:name=".module.main.personal.AttentionGoodsActivity" />
+        <activity android:name=".module.main.personal.circlefriends.MyForumInfosActivity" />
+        <activity android:name=".module.main.personal.circlefriends.ReleaseForumActivity" />
+        <activity android:name=".module.main.personal.integral.MyIntegralActivity" />
+        <activity android:name=".module.main.payment.PaymentActivity" />
+        <activity android:name=".module.main.card.UserCardActivity" />
+        <activity android:name=".module.main.card.CreateUserCardActivity" />
+        <activity android:name=".module.main.personal.member.club.ClubIntroCardActivity" />
+        <activity android:name=".module.main.club.ActionJoinMemberActivity" />
+        <activity android:name=".module.main.club.ActionRecentInfoActivity" />
+        <activity android:name=".module.main.club.ActionApplyActivity" />
+        <activity android:name=".module.main.club.ActionPastDetailActivity" />
+        <activity android:name=".module.main.personal.action.AppliedActionActivity" />
+        <activity android:name=".module.main.personal.member.BecomeMemberActivity" />
+        <activity android:name=".module.main.payment.PaySuccessActivity" />
+        <activity android:name=".module.login.CreateUserInfoActivity"></activity>
     </application>
 
 </manifest>

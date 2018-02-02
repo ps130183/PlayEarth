@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/viewSpace8">
+
+    <ImageView
+        android:id="@+id/iv_goods"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="@dimen/viewSpace8"
+        android:layout_marginRight="@dimen/viewSpace8"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_goods_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/viewSpace8"
+        android:text="深海海参 产自大西洋"
+        android:textSize="@dimen/textSizeBig"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_toRightOf="@+id/iv_goods"/>
+
+    <TextView
+        android:id="@+id/tv_goods_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/viewSpace8"
+        android:text="¥1280.00"
+        android:textColor="@color/textRedColor"
+        android:textSize="18sp"
+        android:layout_toRightOf="@+id/iv_goods"
+        android:layout_alignBottom="@+id/iv_goods" />
+
+    <FrameLayout
+        android:id="@+id/fl_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_goods"
+        android:layout_above="@+id/tv_goods_price"
+        >
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/viewSpace8"
+            android:text="会员专享 全场9折会员专享 全场9折会员专享 全场9折会员专享 全场9折"
+            android:textColor="@color/textRedColor"
+            android:textSize="@dimen/textSizeSmall"
+            android:padding="@dimen/viewSpace4"
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            android:layout_marginRight="@dimen/viewSpace16"
+            android:layout_marginBottom="@dimen/viewSpace4"/>
+    </FrameLayout>
+
+
+
+    <ImageView
+        android:id="@+id/iv_is_vip2"
+        android:layout_width="60dp"
+        android:layout_height="15dp"
+        android:src="@mipmap/ic_vip2"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/tv_access"
+        android:layout_marginBottom="@dimen/viewSpace8"
+        android:visibility="visible"
+        />
+
+    <TextView
+        android:id="@+id/tv_access"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1小时前来过"
+        android:textSize="@dimen/textSizeSmall"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/iv_goods"
+        android:maxLines="1"
+        android:ellipsize="end"
+        />
+</RelativeLayout>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/white">
+
+        </com.youth.banner.Banner>
+
+        <TextView
+            android:id="@+id/tv_goods_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="大连海参淡干海参干货 野生辽刺渗 399A型7-10头50克 (海鲜水产 不买气死你)"
+            android:textSize="@dimen/textSizeContent"
+            android:textColor="@color/textMainColor"
+            android:background="@color/white"
+            style="@style/Goods.BackGauge"
+            />
+        <TextView
+            android:id="@+id/tv_goods_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="会员专享●全场9折 促销保证"
+            android:textSize="@dimen/textSizeContent"
+            android:textColor="@color/color_red"
+            android:background="@color/white"
+            style="@style/Goods.BackGauge"
+            />
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¥128.00"
+            android:textSize="@dimen/textSizeHuge"
+            android:textColor="@color/color_red"
+            android:textStyle="bold"
+            android:background="@color/white"
+            style="@style/Goods.BackGauge"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Goods.BackGauge"
+            android:layout_marginTop="@dimen/viewSpace16"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="visible">
+            <TextView
+                android:id="@+id/tv_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已选"
+                android:textSize="@dimen/textSizeContent"
+                android:paddingTop="@dimen/viewSpace8"
+                android:paddingBottom="@dimen/viewSpace8"
+                />
+
+            <TextView
+                android:id="@+id/tv_goods_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1个"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/textMainColor"
+                android:padding="@dimen/viewSpace8"
+                android:layout_toRightOf="@+id/tv_selected"
+                />
+
+            <ImageView
+                android:id="@+id/iv_more_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_more_horiz_grey600_24dp"
+                android:layout_gravity="right"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/viewSpace16"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Goods.BackGauge"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="送至"
+                    android:textSize="@dimen/textSizeContent"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="北京市朝阳区三里屯SOHO五号楼3002"
+                    android:textSize="@dimen/textSizeContent"
+                    android:drawableLeft="@mipmap/location"
+                    android:padding="@dimen/viewSpace8"
+                    android:layout_toRightOf="@+id/tv_send"
+                    android:layout_toLeftOf="@+id/iv_other_address"
+                    android:lines="1"
+                    android:gravity="center_vertical"
+                    android:ellipsize="end"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_other_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_more_horiz_grey600_24dp"
+                    android:layout_gravity="right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Goods.BackGauge"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_freight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运费"
+                    android:textSize="@dimen/textSizeContent"
+                    android:paddingTop="@dimen/viewSpace8"
+                    android:paddingBottom="@dimen/viewSpace8"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_freight_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单个商品运费15元，每增加一件3元"
+                    android:textSize="@dimen/textSizeContent"
+                    android:textColor="@color/textMainColor"
+                    android:padding="@dimen/viewSpace8"
+                    android:layout_toRightOf="@+id/tv_freight"
+                    android:layout_toLeftOf="@+id/tv_limit"
+                    android:lines="2"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="不含港澳台"
+                    android:textSize="@dimen/textSizeContent"
+                    android:textColor="@color/color_red"
+                    android:padding="@dimen/viewSpace8"
+                    android:layout_alignParentRight="true"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

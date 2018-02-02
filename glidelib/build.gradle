@@ -33,6 +33,8 @@ dependencies {
     //图片加载器
     api rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glideVersion"]
+    implementation rootProject.ext.dependencies["glide-transformations"]
+    implementation rootProject.ext.dependencies["gpuimage-library"]
     //Lottie 动画
     implementation rootProject.ext.dependencies["lottie"]
 }

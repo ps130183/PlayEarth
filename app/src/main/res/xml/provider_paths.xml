@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <external-path
+            name="external"
+            path="" />
+        <external-path
+            name="apps"
+            path="wzdq/app" />
+        <files-path
+            name="files"
+            path="" />
+        <cache-path
+            name="cache"
+            path="" />
+    </paths>
+</resources>

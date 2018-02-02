@@ -1,6 +1,22 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'com.jakewharton.butterknife'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias '人脉银行'
+            keyPassword 'rmbank2017'
+            storeFile file('/Users/PengSong/Desktop/ASWorkSpace/PlayEarth/app/src/main/java/RMBankKeystore.jks')
+            storePassword 'rmbank2017'
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "WZDQ_" + defaultConfig.versionCode + '_v' + defaultConfig.versionName + "_" + buildType.name + '.apk'
+        }
+    }
+
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
         applicationId "com.km.rmbank"
@@ -9,13 +25,28 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
+
+        // 解决65536问题  64K
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
+    productFlavors {
+    }
+}
+
+android {
+    //NameValuePair引用包
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
@@ -29,7 +60,9 @@ dependencies {
     implementation rootProject.ext.dependencies["support-v4"]
     implementation rootProject.ext.dependencies["constraint-layout"]
     implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["swipelayout"]
     implementation rootProject.ext.dependencies["cardview-v7"]
+    implementation rootProject.ext.dependencies["design"]
     //RxJava + retrofit + okhttp
     implementation rootProject.ext.dependencies["rxjava"]
     implementation rootProject.ext.dependencies["rxandroid"]
@@ -40,7 +73,40 @@ dependencies {
     implementation rootProject.ext.dependencies["okhttp"]
     implementation rootProject.ext.dependencies["logging-interceptor"]
     implementation rootProject.ext.dependencies["utilcode"]
-    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+    implementation rootProject.ext.dependencies["RetrofitOfRxJava"]
+    //    implementation rootProject.ext.dependencies["FlycoTabLayout_Lib"]
+    //    implementation rootProject.ext.dependencies["logger"]
+    implementation rootProject.ext.dependencies["photoView"]
+    implementation rootProject.ext.dependencies["nineoldandroids"]
+    implementation rootProject.ext.dependencies["toprightmenu"]
+    implementation rootProject.ext.dependencies["DialogUtil"]
+    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    implementation rootProject.ext.dependencies["eventBus"]
+    implementation rootProject.ext.dependencies["material"]
+    implementation rootProject.ext.dependencies["permissiongen"]
+    implementation rootProject.ext.dependencies["multidex"]
+    implementation rootProject.ext.dependencies["RTextView"]
+    implementation rootProject.ext.dependencies["lottie"]
+    implementation rootProject.ext.dependencies["flowLayout"]
+    implementation rootProject.ext.dependencies["jiaozivideoplayer"]
+    implementation rootProject.ext.dependencies["CustomPopwindow"]
+    implementation rootProject.ext.dependencies["calendarview"]
+    implementation project(':banner')
     implementation project(':commonadapter')
     implementation project(':glidelib')
+    implementation project(':libqrcode')
+    implementation project(':guideShowLib')
+    implementation project(':FlycoTabLayout_Lib')
+    implementation project(':gallerypick')
+    implementation files('libs/alipaySdk-20170309.jar')
+    implementation files('libs/open_sdk_r5781.jar')
+    implementation files('libs/SocialSDK_QQ_Full.jar')
+    implementation files('libs/SocialSDK_WeiXin_Full.jar')
+    implementation files('libs/umeng_shareboard_widget.jar')
+    implementation files('libs/umeng_social_api.jar')
+    implementation files('libs/umeng_social_net.jar')
+    implementation files('libs/umeng_social_shareboard.jar')
+    implementation files('libs/umeng_social_tool.jar')
+    implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
 }

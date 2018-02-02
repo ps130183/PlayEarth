@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_shopping_cart"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.shop.ShoppingCartActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_bottom">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolBarHeight"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/viewSpace16">
+
+        <CheckBox
+            android:id="@+id/cb_check_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 全选"
+            android:layout_centerVertical="true"
+            android:button="@drawable/selector_shopcart_check"
+            />
+
+        <TextView
+            android:id="@+id/tv_total_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计：¥ "
+            android:textSize="@dimen/textSizeHuge"
+            android:textColor="@color/textMainColor"
+            android:layout_toRightOf="@id/cb_check_all"
+            android:layout_marginLeft="@dimen/viewSpace16"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_total_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeHuge"
+            android:layout_toRightOf="@+id/tv_total_title"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:id="@+id/tv_payment"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:text="去结算"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="?attr/colorAccent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

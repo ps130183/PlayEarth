@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+        <ImageView
+            android:id="@+id/backgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:src="@mipmap/icon_home_friends_recommend"
+            android:scaleType="centerCrop"
+            />
+
+        <ImageView
+            android:id="@+id/ivShare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_recommend_share"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/viewSpace16"
+            android:layout_marginBottom="@dimen/viewSpace16"
+            />
+
+        <com.ruffian.library.RTextView
+            android:id="@+id/tvPraise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="240"
+            android:textColor="@color/white"
+            app:icon_src_normal="@mipmap/icon_home_friends_zan1"
+            app:icon_height="20dp"
+            app:icon_width="20dp"
+            android:gravity="center"
+            app:background_normal="#666666"
+            android:padding="@dimen/viewSpace4"
+            app:corner_radius="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/viewSpace16"
+            android:layout_marginBottom="@dimen/viewSpace16"
+            android:layout_toLeftOf="@+id/ivShare"
+            />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="彭松|挨踢俱乐部创始人"
+        android:textSize="@dimen/textSizeBig"
+        android:gravity="center"
+        android:padding="@dimen/viewSpace16"
+        />
+
+</LinearLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_with_draw_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.main.personal.account.withdraw.CreateWithDrawAccountActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/BackGauge">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓            名："
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig"
+            android:padding="@dimen/viewSpace8"
+            />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="姓名"
+            style="@style/SingleLineEditText"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divideLineColor"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/BackGauge">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联 系 电 话 ："
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig"
+            android:padding="@dimen/viewSpace8"
+            />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="联系电话"
+            style="@style/SingleLineEditText"
+            android:inputType="phone"
+            android:maxLength="11"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divideLineColor"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/BackGauge">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提 现 类 型 ："
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig"
+            android:padding="@dimen/viewSpace8"
+            />
+
+        <EditText
+            android:id="@+id/et_type_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="微信或支付宝"
+            style="@style/SingleLineEditText"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divideLineColor"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        style="@style/BackGauge">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="银行卡卡号："
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig"
+            android:padding="@dimen/viewSpace8"
+            />
+
+        <EditText
+            android:id="@+id/et_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="提现账号"
+            style="@style/SingleLineEditText"
+            />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divideLineColor"/>
+
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <CheckBox
+        android:id="@+id/cb_goods_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="渔业"
+        android:textSize="@dimen/textSizeSmall"
+        android:gravity="center"
+        android:button="@null"
+        android:background="@drawable/shape_new_goods_select_goods_type_1"
+        android:textColor="@color/white"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:layout_marginTop="@dimen/viewSpace4"
+        android:layout_marginBottom="@dimen/viewSpace4"
+        android:layout_marginLeft="@dimen/viewSpace8"
+        android:layout_marginRight="@dimen/viewSpace8"
+        />
+
+    <ImageView
+        android:id="@+id/iv_checked_goods_type"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@mipmap/ic_select_goods_type_checked"
+        android:layout_marginLeft="12dp"
+        android:layout_alignTop="@+id/cb_goods_type"
+        android:layout_marginTop="4dp"
+        android:visibility="visible"
+        />
+
+</RelativeLayout>

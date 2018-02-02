@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="82dp"
+    android:paddingLeft="@dimen/viewSpace16"
+    android:paddingTop="@dimen/viewSpace16">
+
+    <ImageView
+        android:id="@+id/iv_active"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/ic_leader_active"
+        android:layout_marginBottom="@dimen/viewSpace16"
+        android:layout_centerVertical="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/tv_arrow"
+        android:layout_toRightOf="@+id/iv_active"
+        android:padding="@dimen/viewSpace8"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_meeting_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="活动名称"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/textMainColor"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2017-11-21"
+            android:textSize="@dimen/textSizeSmall"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=">>"
+        android:textSize="20sp"
+        android:textColor="#ff9200"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/viewSpace16"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divideLineColor"/>
+
+</RelativeLayout>

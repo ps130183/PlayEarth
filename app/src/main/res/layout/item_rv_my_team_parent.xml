@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl_team"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/tv_team_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已邀请合伙人"
+            android:textSize="@dimen/textSizeHuge"
+            android:textColor="@color/textMainColor"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/viewSpace32"
+            />
+
+        <TextView
+            android:id="@+id/tv_member_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21人"
+            android:textSize="@dimen/textSizeContent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/viewSpace16"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divideLineColor"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_member"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/viewSpace32">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

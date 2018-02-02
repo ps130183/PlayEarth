@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_create_receiver_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.address.CreateReceiverAddressActivity">
+
+    <LinearLayout
+        style="@style/Personal.User.EditCard.pll"
+        >
+        <LinearLayout
+            style="@style/Personal.User.EditCard.sll"
+            >
+            <TextView
+                style="@style/Personal.User.EditCard.tv"
+                android:text="姓        名"
+                />
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/Personal.User.EditCard.et"
+                android:hint="请输入您的真实姓名"
+                />
+        </LinearLayout>
+        <include layout="@layout/_default_divide_line"/>
+        <LinearLayout
+            style="@style/Personal.User.EditCard.sll"
+            >
+            <TextView
+                style="@style/Personal.User.EditCard.tv"
+                android:text="手        机"
+                />
+
+            <EditText
+                android:id="@+id/et_phone"
+                style="@style/Personal.User.EditCard.et"
+                android:hint="请输入您的手机号码"
+                android:inputType="phone"
+                android:maxLength="11"
+                />
+        </LinearLayout>
+        <include layout="@layout/_default_divide_line"/>
+        <!--<LinearLayout-->
+            <!--style="@style/Personal.User.EditCard.sll"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--style="@style/Personal.User.EditCard.tv"-->
+                <!--android:text="所在地区"-->
+                <!--/>-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/et_address_area"-->
+                <!--style="@style/Personal.User.EditCard.et_nofocuse"-->
+                <!--android:hint="请选择所在地区"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
+        <!--<include layout="@layout/divider_height_1"/>-->
+        <LinearLayout
+            style="@style/Personal.User.EditCard.sll"
+            >
+            <TextView
+                style="@style/Personal.User.EditCard.tv"
+                android:text="详细地址"
+                />
+
+            <EditText
+                android:id="@+id/et_address_detail"
+                style="@style/Personal.User.EditCard.et"
+                android:hint="请输入您的详细地址"
+                />
+        </LinearLayout>
+
+        <!--<Button-->
+            <!--android:id="@+id/btn_save"-->
+            <!--style="@style/Button"-->
+            <!--android:text="保存"-->
+            <!--/>-->
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vMasker"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#e0000000"
+        android:visibility="gone"/>
+
+</RelativeLayout>

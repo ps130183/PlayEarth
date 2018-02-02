@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.main.club.ActionPastDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <cn.jzvd.JZVideoPlayerStandard
+            android:id="@+id/jzv_player"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:visibility="gone">
+
+        </cn.jzvd.JZVideoPlayerStandard>
+
+        <TextView
+            android:id="@+id/tv_action_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig"
+            android:layout_marginLeft="@dimen/viewSpace16"
+            android:layout_marginRight="@dimen/viewSpace16"
+            android:layout_marginTop="@dimen/viewSpace8"
+            android:maxLines="2"
+            android:ellipsize="end"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_release_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_marginLeft="@dimen/viewSpace16"
+            android:layout_marginRight="@dimen/viewSpace16"
+            android:layout_marginTop="@dimen/viewSpace8"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/viewSpace16"
+            android:layout_marginRight="@dimen/viewSpace16"
+            android:layout_marginTop="@dimen/viewSpace4">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="来源："
+                android:textColor="@color/textMainColor"
+                />
+            <ImageView
+                android:id="@+id/iv_club_logo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitXY"
+                />
+            <TextView
+                android:id="@+id/tv_club_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/textMainColor"
+                android:layout_marginLeft="@dimen/viewSpace8"
+                />
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_action_past_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/viewSpace8"
+            android:layout_marginRight="@dimen/viewSpace8"
+            android:layout_marginTop="@dimen/viewSpace16">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

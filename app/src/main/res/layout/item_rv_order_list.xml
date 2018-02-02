@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8">
+
+        <ImageView
+            android:id="@+id/tv_protrait"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/ic_shop"
+            />
+        <TextView
+            android:id="@+id/tv_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="海参大礼包 1.3kg 超值狂送"
+            android:layout_toRightOf="@+id/tv_protrait"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/viewSpace8"
+            android:drawableRight="@mipmap/ic_chevron_right_black_24dp"
+            android:gravity="center|left"
+            />
+
+        <TextView
+            android:id="@+id/tv_order_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="等待付款"
+            android:textColor="@color/color_red"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/viewSpace16"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/defaultBackground"
+        android:paddingRight="@dimen/viewSpace16">
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:layout_margin="@dimen/viewSpace16"
+            />
+
+        <TextView
+            android:id="@+id/tv_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="海参大礼包 产自新西昌平区 3只＊150g促销大保健）速度围观啦～"
+            android:layout_toRightOf="@id/iv_goods"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+        style="@style/BackGauge"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共 "
+            android:textColor="@color/textMainColor"
+            />
+        <TextView
+            android:id="@+id/tv_goods_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeHuge"
+            />
+        <TextView
+            android:id="@+id/tv_money_dis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 件商品  需付款：¥ "
+            android:textColor="@color/textMainColor"
+            />
+        <TextView
+            android:id="@+id/tv_total_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="450.0"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeHuge"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 元"
+            android:textColor="@color/textMainColor"
+            />
+
+
+    </LinearLayout>
+    <include layout="@layout/_default_divide_line"/>
+    <RelativeLayout
+        android:id="@+id/rl_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/viewSpace8">
+        <Button
+            android:id="@+id/btn_action"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:text="去支付"
+            style="@style/Personal.User.Order.Button"
+            android:layout_margin="@dimen/viewSpace8"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/cb_goods_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全部分类"
+        android:textSize="15dp"
+        android:textColor="@drawable/selector_checkbox_textcolor"
+        android:button="@null"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8"
+        />
+
+</LinearLayout>

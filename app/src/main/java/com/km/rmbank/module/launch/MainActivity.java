@@ -1,9 +1,7 @@
 package com.km.rmbank.module.launch;
 
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
@@ -12,7 +10,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
-import com.km.rmbank.module.home.HomeActivity;
+import com.km.rmbank.module.main.HomeActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,7 +42,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void init(){
-        Observable.timer(3, TimeUnit.SECONDS)
+        Observable.timer(2, TimeUnit.SECONDS)
                 .observeOn(Schedulers.io())
                 .doOnNext(new Consumer<Long>() {
                     @Override
@@ -57,11 +55,10 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void accept(@NonNull Long aLong) throws Exception {
                         boolean isFirst = SPUtils.getInstance().getBoolean("isFirst",true);
-                        isFirst = false;
                         if (isFirst && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-//                            startActivity(new Intent(LaunchActivity.this,GuideActivity.class));
+                            startActivity(GuideActivity.class);
                         } else {
-                            ActivityUtils.startActivity(HomeActivity.class);
+                            startActivity(HomeActivity.class);
                         }
                         finish();
                     }

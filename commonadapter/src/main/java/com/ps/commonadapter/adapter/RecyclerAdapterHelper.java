@@ -1,11 +1,18 @@
 package com.ps.commonadapter.adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.andview.refreshview.XRefreshView;
+import com.andview.refreshview.XRefreshViewFooter;
+import com.ps.commonadapter.adapter.refresh.CustomFooterView;
+import com.ps.commonadapter.adapter.refresh.CustomGifHeader;
+import com.ps.commonadapter.adapter.utils.WrapContentLinearLayoutManager;
 import com.ps.commonadapter.recyclerviewAnimator.adapters.AlphaInAnimationAdapter;
 import com.ps.commonadapter.recyclerviewAnimator.adapters.ScaleInAnimationAdapter;
 import com.ps.commonadapter.recyclerviewAnimator.animators.BaseItemAnimator;
@@ -43,6 +50,8 @@ public class RecyclerAdapterHelper<T> {
     private RecyclerView.Adapter mAdapter;
 
     private MultiItemTypeAdapter<T> mBasicAdapter;
+
+    private XRefreshView xRefreshView;
 
     public RecyclerAdapterHelper(RecyclerView mRecyclerView) {
         this.mRecyclerView = mRecyclerView;
@@ -135,8 +144,7 @@ public class RecyclerAdapterHelper<T> {
      * @return
      */
     public RecyclerAdapterHelper addLinearLayoutManager(){
-        LinearLayoutManager llm = new LinearLayoutManager(mContext);
-        mRecyclerView.setLayoutManager(llm);
+        addLinearLayoutManager(LinearLayoutManager.VERTICAL);
         return this;
     }
 
@@ -146,8 +154,12 @@ public class RecyclerAdapterHelper<T> {
      * @return
      */
     public RecyclerAdapterHelper addLinearLayoutManager(int orientation){
-        LinearLayoutManager llm = new LinearLayoutManager(mContext,orientation,false);
+        WrapContentLinearLayoutManager llm = new WrapContentLinearLayoutManager(mContext,orientation,false);
+        llm.setSmoothScrollbarEnabled(true);
+        llm.setAutoMeasureEnabled(true);
         mRecyclerView.setLayoutManager(llm);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setNestedScrollingEnabled(false);
         return this;
     }
 
@@ -213,6 +225,12 @@ public class RecyclerAdapterHelper<T> {
             mBasicAdapter.addItemViewDelegate(itemViewDelegates.get(i));
         }
         mAdapter = mBasicAdapter;
+        return this;
+    }
+
+    public RecyclerAdapterHelper addAdapter(MultiItemTypeAdapter adapter){
+        mBasicAdapter = adapter;
+        mAdapter = adapter;
         return this;
     }
 
@@ -321,4 +339,99 @@ public class RecyclerAdapterHelper<T> {
     public MultiItemTypeAdapter getBasicAdapter(){
         return mBasicAdapter;
     }
+
+
+
+    public RecyclerAdapterHelper addRefreshView(XRefreshView refreshView){
+        xRefreshView = refreshView;
+        xRefreshView.setPullLoadEnable(false);
+        xRefreshView.setPullRefreshEnable(false);
+        xRefreshView.setAutoLoadMore(false);
+        xRefreshView.setPinnedTime(1000);
+        xRefreshView.setMoveForHorizontal(true);
+        return this;
+    }
+
+    /**
+     * 刷新数据
+     * @param refreshListener
+     * @return
+     */
+    public RecyclerAdapterHelper addRefreshListener(final OnRefreshListener refreshListener){
+        if (xRefreshView == null){
+            throw new IllegalArgumentException("XRefreshView不能为null,请先设置XRefreshView");
+        }
+        xRefreshView.setPullRefreshEnable(true);//设置可以下拉刷新
+        xRefreshView.setCustomHeaderView(new CustomGifHeader(mContext));//样式
+        xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener(){
+            @Override
+            public void onRefresh(boolean isPullDown) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (refreshListener != null){
+                            refreshListener.refresh();
+                        }
+                    }
+                },2000);
+            }
+        });
+        return this;
+    }
+
+
+//    private int curPage = 1;
+//    private int nextPage = 1;
+//
+//    /**
+//     * 加载更多
+//     * @param loadMoreListener
+//     * @return
+//     */
+//    public RecyclerAdapterHelper addLoadMoreListener(final OnLoadMoreListener loadMoreListener){
+//        if (xRefreshView == null){
+//            throw new IllegalArgumentException("XRefreshView不能为null,请先设置XRefreshView");
+//        }
+//        xRefreshView.setPullLoadEnable(true);//设置可以下拉刷新
+//        xRefreshView.setCustomFooterView(new CustomFooterView(mContext));
+//        xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener(){
+//            @Override
+//            public void onLoadMore(boolean isSilence) {
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (loadMoreListener != null && curPage == nextPage){
+//                            nextPage = curPage + 1;
+//                            loadMoreListener.loadMore(nextPage);
+//                        } else {
+//                            xRefreshView.stopLoadMore(false);
+//                        }
+//                    }
+//                },2000);
+//            }
+//        });
+//        return this;
+//    }
+
+//    /**
+//     * 加载更多完成
+//     * @param finish
+//     */
+//    public void loadMoreFinish(boolean finish){
+//        if (xRefreshView == null){
+//            return;
+//        }
+//        if (finish){
+//            curPage++;
+//        }
+//        xRefreshView.stopLoadMore(finish);
+//    }
+
+    public interface OnRefreshListener{
+        void refresh();
+    }
+
+//    public interface OnLoadMoreListener{
+//        void loadMore(int nextPage);
+//    }
 }

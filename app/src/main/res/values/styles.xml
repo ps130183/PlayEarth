@@ -15,4 +15,205 @@
         <item name="overlapAnchor">false</item>
     </style>
 
+    <!--  Toolbar style 配置 Start -->
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:gravity">center</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+
+        <!--这个也正确,用这个吧-->
+        <!--<item name="colorControlNormal">@color/white</item>-->
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
+        <!--弹出菜单与标题栏的垂直间距-->
+        <item name="android:dropDownVerticalOffset">30dip</item>
+    </style>
+
+    <style name="Switch_theme" parent="Material.Widget.Switch">
+        <item name="sw_trackSize">19dp</item>
+        <item name="sw_trackCap">round</item>
+        <item name="sw_thumbRadius">10dp</item>
+        <item name="sw_thumbElevation">2dp</item>
+    </style>
+
+    <style name="Dialog" parent="@android:style/Theme.Holo.Dialog">
+        <item name="android:windowSoftInputMode">stateHidden|adjustResize</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+
+    <style name="DivideLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divideLineHeight</item>
+        <item name="android:background">@color/divideLineColor</item>
+    </style>
+
+    <style name="TextSingleLine">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextTitle" parent="TextSingleLine">
+        <item name="android:textSize">@dimen/textSizeBig</item>
+        <item name="android:textColor">@color/textMainColor</item>
+    </style>
+
+    <style name="TextSubTitle" parent="TextSingleLine">
+        <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:textColor">@color/textMainColor</item>
+    </style>
+
+    <style name="TextThreeTitle" parent="TextSingleLine">
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textColor">@color/textMainColor</item>
+    </style>
+
+    <style name="TextBig">
+        <item name="android:textSize">@dimen/textSizeBig</item>
+        <item name="android:textColor">@color/textSecondColor</item>
+    </style>
+
+    <style name="TextContent">
+        <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:textColor">@color/textSecondColor</item>
+    </style>
+
+    <style name="TextSmall">
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textColor">@color/textSecondColor</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_btn_bg_red</item>
+        <item name="android:textSize">@dimen/textSizeBig</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">@dimen/viewSpace16</item>
+    </style>
+
+    <style name="Goods" />
+
+    <style name="Goods.BackGauge">
+        <item name="android:paddingLeft">@dimen/viewSpace16</item>
+        <item name="android:paddingRight">@dimen/viewSpace16</item>
+        <item name="android:paddingTop">@dimen/viewSpace4</item>
+        <item name="android:paddingBottom">@dimen/viewSpace4</item>
+    </style>
+
+    <style name="BackGauge">
+        <item name="android:paddingLeft">@dimen/viewSpace16</item>
+        <item name="android:paddingTop">@dimen/viewSpace8</item>
+        <item name="android:paddingBottom">@dimen/viewSpace8</item>
+    </style>
+    
+    <!-- 编辑名片 -->
+
+    <style name="Personal" />
+    <style name="Personal.User" />
+
+    <style name="Personal.User.EditCard" />
+
+    <style name="Personal.User.EditCard.ll">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Personal.User.EditCard.pll" parent="Personal.User.EditCard.ll">
+        <item name="android:layout_marginTop">@dimen/viewSpace8</item>
+        <item name="android:paddingLeft">@dimen/viewSpace16</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">@dimen/viewSpace8</item>
+    </style>
+
+    <style name="Personal.User.EditCard.sll" parent="Personal.User.EditCard.ll">
+        <item name="android:paddingTop">@dimen/viewSpace8</item>
+        <item name="android:paddingBottom">@dimen/viewSpace8</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Personal.User.EditCard.tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textSizeBig</item>
+        <item name="android:layout_marginRight">@dimen/viewSpace16</item>
+    </style>
+
+    <style name="Personal.User.EditCard.et_nofocuse">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Personal.User.EditCard.et_focuse">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">@dimen/viewSpace16</item>
+    </style>
+
+    <style name="Personal.User.EditCard.et">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!-- 编辑名片 -->
+
+    <style name="Personal.User.Setting" />
+
+    <style name="Personal.User.Setting.tv">
+        <item name="android:paddingTop">@dimen/viewSpace16</item>
+        <item name="android:paddingBottom">@dimen/viewSpace16</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
+    </style>
+
+    <style name="Button2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_btn_bg_white</item>
+        <item name="android:textSize">@dimen/textSizeBig</item>
+        <item name="android:textColor">@color/color_red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">@dimen/viewSpace16</item>
+    </style>
+    
+
+
+    <style name="Personal.User.Order" />
+
+    <style name="Personal.User.Order.Button">
+        <item name="android:textColor">@drawable/selector_order_button_textcolor</item>
+        <item name="android:background">@drawable/selector_order_button</item>
+    </style>
+
+    <style name="SingleLineEditText">
+        <item name="android:lines">1</item>
+        <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingTop">@dimen/viewSpace8</item>
+        <item name="android:paddingBottom">@dimen/viewSpace8</item>
+    </style>
+    
+    <style name="ToolbarExcepandedTitleStyle">
+        <item name="android:textSize">@dimen/textSizeHuge</item>
+        <item name="android:textColor">@color/textMainColor</item>
+    </style>
 </resources>

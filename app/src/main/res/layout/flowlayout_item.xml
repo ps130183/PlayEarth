@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/memberName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_member_bg"
+    android:paddingBottom="@dimen/viewSpace4"
+    android:paddingLeft="@dimen/viewSpace8"
+    android:paddingRight="@dimen/viewSpace8"
+    android:paddingTop="@dimen/viewSpace4"
+    android:text="玩家合伙人"
+    android:textSize="@dimen/textSizeSmall"
+    android:layout_marginBottom="@dimen/viewSpace4"
+    android:textColor="@color/white" />

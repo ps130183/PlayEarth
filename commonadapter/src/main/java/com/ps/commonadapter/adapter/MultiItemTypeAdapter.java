@@ -56,7 +56,6 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<CommonViewHold
 
 
     protected void setListener(final CommonViewHolder viewHolder, final int position) {
-        viewHolder.getConvertView().setBackgroundResource(R.drawable.recycler_bg);
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

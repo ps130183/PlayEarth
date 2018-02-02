@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.setting.SettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/viewSpace32"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/viewSpace16">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_clear_cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="清除缓存"
+                style="@style/Personal.User.Setting.tv"
+                />
+
+            <TextView
+                android:id="@+id/tv_cache_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10M"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/viewSpace16"
+                />
+        </RelativeLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_push_message_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="允许其他人查看名片"
+                style="@style/Personal.User.Setting.tv"
+                />
+
+            <com.rey.material.widget.Switch
+                android:id="@+id/swich_usercard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:checked="false"
+                style="@style/Switch_theme"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/viewSpace16"
+                />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/viewSpace32"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/viewSpace16">
+
+        <TextView
+            android:id="@+id/tv_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="关于我们"
+            style="@style/Personal.User.Setting.tv"
+            />
+        <include layout="@layout/_default_divide_line"/>
+        <TextView
+            android:id="@+id/tv_user_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用户协议"
+            style="@style/Personal.User.Setting.tv"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/viewSpace32"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/viewSpace16">
+
+        <TextView
+            android:id="@+id/tv_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="检查更新"
+            style="@style/Personal.User.Setting.tv"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登录"
+        android:textColor="@color/color_red"
+        android:textSize="@dimen/textSizeBig"
+        android:background="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/viewSpace32"
+        android:paddingTop="@dimen/viewSpace16"
+        android:paddingBottom="@dimen/viewSpace16"
+        />
+
+</LinearLayout>

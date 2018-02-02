@@ -1,6 +1,7 @@
 package com.km.rmbank.titleBar;
 
 import android.content.Context;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.MenuRes;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +37,11 @@ public class SimpleTitleBar extends BaseTitleBar {
     private @MenuRes int mRightMenuRes;
     private Toolbar.OnMenuItemClickListener onMenuItemClickListener;
 
+    private int toolBarBackgroundColor = 0;
+    private int titleColor = 0;
+
+    private TextView mTitle;
+
     public SimpleTitleBar(Context mContext) {
         this.mContext = mContext;
     }
@@ -50,9 +56,19 @@ public class SimpleTitleBar extends BaseTitleBar {
         mToolBar = viewManager.findView(R.id.toolBar);
         mToolBar.setPopupTheme(R.style.PopupMenu);
 
+        if (toolBarBackgroundColor != 0){
+            mToolBar.setBackgroundColor(toolBarBackgroundColor);
+            viewManager.findView(R.id.line).setVisibility(View.GONE);
+        }
+
         //设置标题
         viewManager.setText(R.id.simple_tb_title_name, TextUtils.isEmpty(mTitleContent) ? "" : mTitleContent);
-
+        if (titleColor != 0){
+            mTitle = viewManager.findView(R.id.simple_tb_title_name);
+            TextView right = viewManager.findView(R.id.simple_tb_tv_right);
+            right.setTextColor(titleColor);
+            mTitle.setTextColor(titleColor);
+        }
         //左侧按钮 返回
         if (mLeftIcon > 0){
             mToolBar.setNavigationIcon(mLeftIcon);
@@ -102,6 +118,10 @@ public class SimpleTitleBar extends BaseTitleBar {
 
     }
 
+    public void setToolBarTitle(String title){
+        mTitle.setText(title);
+    }
+
     public SimpleTitleBar setLeftIcon(int mLeftIcon) {
         this.mLeftIcon = mLeftIcon;
         return this;
@@ -140,5 +160,13 @@ public class SimpleTitleBar extends BaseTitleBar {
     public SimpleTitleBar setOnMenuItemClickListener(Toolbar.OnMenuItemClickListener onMenuItemClickListener) {
         this.onMenuItemClickListener = onMenuItemClickListener;
         return this;
+    }
+
+    public void setToolBarBackgroundColor(int toolBarBackgroundColor) {
+        this.toolBarBackgroundColor = toolBarBackgroundColor;
+    }
+
+    public void setTitleColor(int titleColor) {
+        this.titleColor = titleColor;
     }
 }

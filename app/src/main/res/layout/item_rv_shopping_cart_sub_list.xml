@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swiper_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeBig"
+        android:text="删除"
+        android:gravity="center"
+        android:background="@color/textRedColor"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/viewSpace16"
+            android:paddingBottom="@dimen/viewSpace16"
+            style="@style/BackGauge"
+            android:background="@color/defaultBackground">
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:button="@drawable/selector_shopcart_check"
+                android:layout_marginRight="@dimen/viewSpace4"
+                />
+
+            <ImageView
+                android:id="@+id/iv_goods_image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="fitXY"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_goods_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="海参大礼包 产自新西昌平区 3只＊150g促销大保健）速度围观啦～"
+                    android:lines="2"
+                    android:ellipsize="end"
+                    android:layout_marginLeft="@dimen/viewSpace4"
+                    android:layout_marginRight="@dimen/viewSpace8"
+                    android:layout_marginTop="@dimen/viewSpace8" />
+
+                <LinearLayout
+                    android:id="@+id/ll_add_cut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/viewSpace16"
+                    >
+
+                    <Button
+                        android:id="@+id/btn_cut"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/selector_shop_cart_cut_number"
+                        />
+                    <EditText
+                        android:id="@+id/et_buy_goods_count"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/shape_edittext_border_gray_right_angle"
+                        android:text="1"
+                        android:gravity="center"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_marginTop="2dp"
+                        />
+                    <Button
+                        android:id="@+id/btn_add"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/selector_shop_cart_add_number"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal"
+            style="@style/BackGauge"
+            android:paddingRight="@dimen/viewSpace16"
+            android:paddingTop="@dimen/viewSpace8"
+            android:paddingBottom="@dimen/viewSpace8"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共 "
+                android:textColor="@color/textMainColor"
+                />
+            <TextView
+                android:id="@+id/tv_goods_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="@color/textMainColor"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 件商品  需付款：¥ "
+                android:textColor="@color/textMainColor"
+                />
+            <TextView
+                android:id="@+id/tv_total_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="450.0"
+                android:textColor="@color/textMainColor"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 元"
+                android:textColor="@color/textMainColor"
+                />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</com.daimajia.swipe.SwipeLayout>
+
