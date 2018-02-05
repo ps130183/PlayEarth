@@ -25,7 +25,9 @@ import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.CircleProgressView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -77,7 +79,9 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                         TextView actionTime = holder.getTextView(R.id.actionTime);
                         TextView actionAddress =  holder.getTextView(R.id.actionAddress);
 
-                        GlideUtils.loadImage(getContext(),mData.getActivityPictureUrl(),holder.getImageView(R.id.actionImae));
+                        GlideImageView imageView = holder.findView(R.id.actionImae);
+                        CircleProgressView progressView = holder.findView(R.id.progressView);
+                        GlideUtils.loadImageOnPregress(imageView,mData.getActivityPictureUrl(),progressView);
                         holder.setText(R.id.actionTitle,mData.getTitle());
 
                         if (mData.getType().equals("1")){//将要举办的活动

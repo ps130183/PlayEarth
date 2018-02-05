@@ -133,6 +133,12 @@ public class DateUtils {
         return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    public int getDay(long curDateMilli){
+        String curDate = getDate(curDateMilli);
+        int day = Integer.parseInt(curDate.split("-")[2]);
+        return day;
+    }
+
     /**
      * 分割如2017-02-02 类型的日期
      * @param curDate

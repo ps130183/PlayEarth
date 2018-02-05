@@ -52,7 +52,7 @@ ext {
             "adapter-rxjava2" : "com.squareup.retrofit2:adapter-rxjava2:2.3.0",
             "okhttp" : "com.squareup.okhttp3:okhttp:3.9.0",
             "logging-interceptor" : "com.squareup.okhttp3:logging-interceptor:3.9.0",
-            //文件瞎子啊
+            //文件下载
             "RetrofitOfRxJava" : "com.github.JiangAndroidwork:RetrofitOfRxJava:v2.3",
 
             //viewPager

@@ -76,6 +76,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"/>
+                    <com.ps.glidelib.progress.CircleProgressView
+                        android:id="@+id/cpv_recommend1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_recommendClub1"
@@ -107,6 +112,11 @@
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"/>
 
+                    <com.ps.glidelib.progress.CircleProgressView
+                        android:id="@+id/cpv_recommend2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"/>
                     <TextView
                         android:id="@+id/tv_recommendClub2"
                         android:layout_width="match_parent"

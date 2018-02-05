@@ -137,7 +137,7 @@ public class ClubActivity extends BaseActivity<IClubView,ClubPresenter> implemen
 
         ArrayList<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(ClubIntroduceFragment.newInstance(getIntent().getExtras()));
-        fragmentList.add(ClubActionsFragment.newInstance(null));
+        fragmentList.add(ClubActionsFragment.newInstance(getIntent().getExtras()));
 
         tabLayout.setTabData(ctaDatas, this, R.id.tab_layout_page, fragmentList);
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {

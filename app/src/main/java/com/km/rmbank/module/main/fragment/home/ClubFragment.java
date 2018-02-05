@@ -32,6 +32,7 @@ import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.CircleProgressView;
 import com.ps.glidelib.progress.OnGlideImageViewListener;
 import com.ps.glidelib.progress.OnProgressListener;
 import com.youth.banner.Banner;
@@ -58,8 +59,12 @@ public class ClubFragment extends BaseFragment<IClubView, ClubPresenter> impleme
 
     @BindView(R.id.iv_recommendClub1)
     GlideImageView ivRecommendClub1;
+    @BindView(R.id.cpv_recommend1)
+    CircleProgressView cpvRecommend1;
     @BindView(R.id.iv_recommendClub2)
     GlideImageView ivRecommendClub2;
+    @BindView(R.id.cpv_recommend2)
+    CircleProgressView cpvRecommend2;
 
     @BindView(R.id.tv_recommendClub1)
     TextView tvRecommendClub1;
@@ -167,7 +172,9 @@ public class ClubFragment extends BaseFragment<IClubView, ClubPresenter> impleme
                     @Override
                     public void convert(CommonViewHolder holder, ClubDto mData, int position) {
                         holder.setText(R.id.clubName, mData.getClubName());
-                        GlideUtils.loadImage(getContext(), mData.getClubLogo(), holder.getImageView(R.id.clubLogo));
+                        GlideImageView imageView = holder.findView(R.id.clubLogo);
+                        CircleProgressView progressView = holder.findView(R.id.progressView);
+                        GlideUtils.loadImageOnPregress(imageView,mData.getClubLogo(),progressView);
                         holder.setText(R.id.clubIntroduce, mData.getContent());
                     }
                 }).addRefreshView(mXRefreshView)
@@ -210,21 +217,10 @@ public class ClubFragment extends BaseFragment<IClubView, ClubPresenter> impleme
             this.clubDtos.clear();
             clubDto1 = clubDtos.get(0);
             clubDto2 = clubDtos.get(1);
-            ivRecommendClub1.loadImage(clubDto1.getClubLogo(),R.color.placeholder_color).listener(new OnGlideImageViewListener() {
-                @Override
-                public void onProgress(int percent, boolean isDone, GlideException exception) {
-                    LogUtils.d("ivRecommendClub1 percent = " + percent);
-                }
-            });
+            GlideUtils.loadImageOnPregress(ivRecommendClub1,clubDto1.getClubLogo(),cpvRecommend1);
 
-            ivRecommendClub2.loadImage(clubDto2.getClubLogo(),R.color.placeholder_color).listener(new OnGlideImageViewListener() {
-                @Override
-                public void onProgress(int percent, boolean isDone, GlideException exception) {
-                    LogUtils.d("ivRecommendClub2 percent = " + percent);
-                }
-            });
-//            GlideUtils.loadImage(getContext(), clubDto1.getClubLogo(), ivRecommendClub1);
-//            GlideUtils.loadImage(getContext(), clubDto2.getClubLogo(), ivRecommendClub2);
+            GlideUtils.loadImageOnPregress(ivRecommendClub2,clubDto2.getClubLogo(),cpvRecommend2);
+
             tvRecommendClub1.setText(clubDto1.getClubName());
             tvRecommendClub2.setText(clubDto2.getClubName());
             clubDtos.remove(clubDto1);

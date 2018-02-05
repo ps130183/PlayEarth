@@ -92,9 +92,10 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
         actionPastId = getIntent().getStringExtra("actionPastId");
+        String activityId = getIntent().getStringExtra("activityId");
         isMyClub = getIntent().getBooleanExtra("isMyClub",false);
 //        initActionPastDetails();
-        getPresenter().getActionPastDetails(actionPastId);
+        getPresenter().getActionPastDetails(actionPastId,activityId);
 
         if (!isMyClub){
             simpleTitleBar.setRightMenuRes(R.menu.toolbar_action_recent_share);

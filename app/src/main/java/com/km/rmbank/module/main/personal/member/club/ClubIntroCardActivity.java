@@ -28,6 +28,7 @@ import com.km.rmbank.utils.QRCodeUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.km.rmbank.utils.ViewUtils;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -82,10 +83,10 @@ public class ClubIntroCardActivity extends BaseActivity {
         mClubDto = getIntent().getParcelableExtra("clubInfo");
         mViewManager.getImageView(R.id.iv_user_card_qr_code).setImageBitmap(QRCodeUtils.createQRCode(this,mClubDto.getClubUrl()));
 
-        ImageView userPortrait = mViewManager.getImageView(R.id.userPortrait);
-        GlideUtils.loadImage(this, mClubDto.getClubLogo(),userPortrait);
+        ImageView userPortrait = mViewManager.findView(R.id.userPortrait);
+        GlideUtils.loadImage(mInstance,mClubDto.getClubLogo(),userPortrait);
 
-        ImageView clubBackGround = mViewManager.getImageView(R.id.clubBackground);
+        ImageView clubBackGround = mViewManager.findView(R.id.clubBackground);
         GlideUtils.loadImage(mInstance,mClubDto.getBackgroundImg(),clubBackGround);
 
         clubName.setText(mClubDto.getClubName());
@@ -97,14 +98,14 @@ public class ClubIntroCardActivity extends BaseActivity {
     public void openShare(View view){
         String fileName = "card_" + mClubDto.getClubName();
         String filePath = AppUtils.getImagePath(fileName + ".png");
-        Bitmap imageBitmap;
-        if (!FileUtils.isFile(filePath)) {
-            imageBitmap = ViewUtils.saveBitmap(cardView, fileName);
-            LogUtils.d("没有名片，创建");
-        } else {
-            imageBitmap = BitmapFactory.decodeFile(filePath);
-            LogUtils.d("有名片，直接获取");
-        }
+        Bitmap imageBitmap = ViewUtils.saveBitmap(cardView, fileName);
+//        if (!FileUtils.isFile(filePath)) {
+//            imageBitmap = ViewUtils.saveBitmap(cardView, fileName);
+//            LogUtils.d("没有名片，创建");
+//        } else {
+//            imageBitmap = BitmapFactory.decodeFile(filePath);
+//            LogUtils.d("有名片，直接获取");
+//        }
         SHARE_MEDIA share_media = null;
         switch (view.getId()) {
             case R.id.iv_weixin:

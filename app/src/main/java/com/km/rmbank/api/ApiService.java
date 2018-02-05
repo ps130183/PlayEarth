@@ -12,6 +12,7 @@ import com.km.rmbank.dto.ActiveValueDto;
 import com.km.rmbank.dto.AppVersionDto;
 import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.dto.BannerDto;
+import com.km.rmbank.dto.CalendarActionsDto;
 import com.km.rmbank.dto.CircleFriendsDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.EvaluateDto;
@@ -1204,7 +1205,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/information/detail/update")
-    Observable<Response<ActionPastDto>> getActionPastDetail(@Field("id") String id);
+    Observable<Response<ActionPastDto>> getActionPastDetail(@Field("id") String id,
+                                                            @Field("activityId") String activityId);
 
     /**
      * 获取首页  约吗  列表  所有的未举办活动列表
@@ -1593,4 +1595,16 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/auth/personLike")
     Observable<Response<String>> pariseRecommendPerson(@Field("token") String token,
                                                                         @Field("personId") String personId);
+
+
+    /**
+     * 根据日期获取俱乐部 活动列表
+     * @param clubId
+     * @param startDate
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/club/activityList")
+    Observable<Response<List<CalendarActionsDto>>> getClubActionsByMonth(@Field("clubId") String clubId,
+                                                         @Field("startDate") String startDate);
 }

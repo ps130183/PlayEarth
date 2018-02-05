@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/viewSpace8">
-        <ImageView
+        <com.ps.glidelib.GlideImageView
             android:id="@+id/iv_user_portrait"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@mipmap/icon_default_protrait"
             android:scaleType="centerCrop"
+            app:siv_shape_type="circle"
             android:layout_marginRight="@dimen/viewSpace8"
             />
 

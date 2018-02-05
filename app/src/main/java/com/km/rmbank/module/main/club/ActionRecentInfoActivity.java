@@ -35,6 +35,7 @@ import com.km.rmbank.utils.UmengShareUtils;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -49,7 +50,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     @BindView(R.id.tv_action_title)
     TextView tvActionTitle;
     @BindView(R.id.iv_club_logo)
-    ImageView ivClubLogo;
+    GlideImageView ivClubLogo;
     @BindView(R.id.tv_club_name)
     TextView tvClubName;
 
@@ -58,7 +59,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     @BindView(R.id.tv_action_address)
     TextView tvActionAddress;
     @BindView(R.id.iv_club_logo2)
-    ImageView ivClubLogo2;
+    GlideImageView ivClubLogo2;
     @BindView(R.id.tv_club_name1)
     TextView getTvClubName1;
     @BindView(R.id.tv_club_introduce)
@@ -218,12 +219,12 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
 
         GlideUtils.loadImage(mInstance,actionDto.getBackgroundImg(),ivClubBackground);
         tvActionTitle.setText(actionDto.getTitle());
-        GlideUtils.loadImage(mInstance,actionDto.getClubLogo(),ivClubLogo);
+        GlideUtils.loadImageOnPregress(ivClubLogo,actionDto.getClubLogo(),null);
         tvClubName.setText(actionDto.getClubName());
 
         tvActionStartTime.setText("   " + actionDto.getHoldDate());
         tvActionAddress.setText("   " + actionDto.getAddress());
-        GlideUtils.loadImage(mInstance,actionDto.getClubLogo(),ivClubLogo2);
+        GlideUtils.loadImageOnPregress(ivClubLogo2,actionDto.getClubLogo(),null);
         getTvClubName1.setText(actionDto.getClubName());
         tvClubIntroduce.setText(actionDto.getClubContent());
         if (actionDto.getKeepStatus() == 0){//未关注

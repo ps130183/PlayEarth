@@ -18,8 +18,8 @@ public class ActionPastDetailModel extends BaseModel {
      * @param id
      * @return
      */
-    public Observable<ActionPastDto> getActionPastDetail(String id){
-        return getService().getActionPastDetail(id)
+    public Observable<ActionPastDto> getActionPastDetail(String id,String activityId){
+        return getService().getActionPastDetail(id,activityId)
                 .compose(this.<ActionPastDto>applySchedulers());
     }
 

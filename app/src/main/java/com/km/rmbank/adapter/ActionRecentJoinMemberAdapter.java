@@ -65,6 +65,9 @@ public class ActionRecentJoinMemberAdapter extends BaseAdapter<ActionMemberDto> 
      * @return
      */
     public static String hidePhone(String phone){
+        if (TextUtils.isEmpty(phone)){
+            return "";
+        }
         return phone.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
     }
 }

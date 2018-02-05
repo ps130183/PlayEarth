@@ -19,9 +19,9 @@ public class ActionPastDetailPresenter extends BasePresenter<IActionPastDetailVi
         super(mModel);
     }
 
-    public void getActionPastDetails(String id) {
+    public void getActionPastDetails(String id,String activityId) {
         getMvpView().showLoading();
-        getMvpModel().getActionPastDetail(id)
+        getMvpModel().getActionPastDetail(id,activityId)
                 .subscribe(newSubscriber(new Consumer<ActionPastDto>() {
                     @Override
                     public void accept(@NonNull ActionPastDto actionPastDto) throws Exception {
