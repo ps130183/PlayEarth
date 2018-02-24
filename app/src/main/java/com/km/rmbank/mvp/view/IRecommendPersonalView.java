@@ -10,6 +10,6 @@ import java.util.List;
  */
 
 public interface IRecommendPersonalView extends MvpView {
-    void showRecommendPersons(List<RecommendPersonalDto> recommendPersonalDtos);
-    void pariseResult(String s);
+    void showRecommendPersons(List<RecommendPersonalDto> recommendPersonalDtos,int pageNo);
+    void pariseResult(int position);
 }

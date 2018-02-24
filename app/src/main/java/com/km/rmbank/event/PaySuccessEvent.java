@@ -14,4 +14,5 @@ public class PaySuccessEvent {
     public int getPayType() {
         return payType;
     }
+
 }

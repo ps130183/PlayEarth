@@ -38,4 +38,5 @@ dependencies {
     implementation rootProject.ext.dependencies["gpuimage-library"]
     //Lottie 动画
     implementation rootProject.ext.dependencies["lottie"]
+    implementation rootProject.ext.dependencies["utilcode"]
 }

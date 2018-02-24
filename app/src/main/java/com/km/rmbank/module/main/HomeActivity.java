@@ -2,14 +2,11 @@ package com.km.rmbank.module.main;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.blankj.utilcode.util.ConvertUtils;
@@ -21,6 +18,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
+import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.entity.TabEntity;
 import com.km.rmbank.event.DownloadAppEvent;
 import com.km.rmbank.event.HomeTabLayoutEvent;
@@ -28,7 +26,7 @@ import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.fragment.HomeAppointFragment;
 import com.km.rmbank.module.main.fragment.HomeFragment;
-import com.km.rmbank.module.main.fragment.HomeFriendsFragment;
+import com.km.rmbank.module.main.fragment.HomeRecommendFragment;
 import com.km.rmbank.module.main.fragment.HomeMeFragment;
 import com.km.rmbank.module.main.fragment.HomeShopFragment;
 import com.km.rmbank.module.main.shop.ShopActivity;
@@ -43,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -50,7 +49,7 @@ import io.reactivex.functions.Consumer;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
-public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implements IHomeView {
+public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> implements IHomeView {
 
     public final static int REQUEST_PERMISSION_CAMERA = 1;
     public final static int REQUEST_PERMISSION_LOCATION = 2;
@@ -90,6 +89,9 @@ public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implemen
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+        }
+
         tabLayout = mViewManager.findView(R.id.tab_layout);
 //        keyBorad((ViewGroup) mViewManager.findView(R.id.rl_root));
         FrameLayout flContent = mViewManager.findView(R.id.main_page);
@@ -128,22 +130,6 @@ public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implemen
     }
 
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        outState.putInt("currentPosition",tabLayout.getCurrentTab());
-        LogUtils.e("fragmentList ====== " + fragmentList.size());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        LogUtils.e("fragmentList ====== " + fragmentList.size());
-        LogUtils.e("tablayout CurrentTab ====== " + tabLayout.getCurrentTab());
-        int currentPosition = savedInstanceState.getInt("currentPosition");
-        tabLayout.setCurrentTab(currentPosition);
-    }
-
     private void exsit() {
         if (isExsit) {
             finish();
@@ -174,6 +160,7 @@ public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implemen
     @PermissionSuccess(requestCode = REQUEST_PERMISSION_LOCATION)
     public void getLocationPermissionSuccess() {
     }
+
     /**
      * 初始化首页底部导航
      *
@@ -184,7 +171,7 @@ public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implemen
         fragmentList = new ArrayList<>();
         fragmentList.add(HomeFragment.newInstance(null));
         fragmentList.add(HomeAppointFragment.newInstance(null));
-        fragmentList.add(HomeFriendsFragment.newInstance(null));
+        fragmentList.add(HomeRecommendFragment.newInstance(null));
         fragmentList.add(HomeShopFragment.newInstance(null));
         fragmentList.add(HomeMeFragment.newInstance(null));
 
@@ -199,23 +186,24 @@ public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implemen
             public boolean onTabSelect(int position) {
                 boolean result = false;
                 Bundle bundle = new Bundle();
-                bundle.putInt("lastPosition",lastPosition);
+                bundle.putInt("lastPosition", lastPosition);
                 switch (position) {
                     case 0://首页
 
                         result = true;
                         break;
                     case 1://约咖
-                        showToast(getResources().getString(R.string.notOpen));
+//                        showToast(getResources().getString(R.string.notOpen));
+                        result = true;
                         break;
                     case 2://人脉
                         result = true;
                         break;
                     case 3://熟人购
-                        startActivity(ShopActivity.class,bundle);
+                        startActivity(ShopActivity.class, bundle);
                         break;
                     case 4://我的
-                        if (Constant.userLoginInfo.isEmpty()){
+                        if (Constant.userLoginInfo.isEmpty()) {
                             startActivity(LoginActivity.class);
                         }
                         EventBusUtils.post(new RefreshPersonalInfoEvent());
@@ -238,7 +226,7 @@ public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implemen
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void hideTabLayout(HomeTabLayoutEvent event){
+    public void hideTabLayout(HomeTabLayoutEvent event) {
         tabLayout.setVisibility(event.isHide() ? View.GONE : View.VISIBLE);
 //        RelativeLayout.LayoutParams tabParams = (RelativeLayout.LayoutParams) tabLayout.getLayoutParams();
 //        View line = mViewManager.findView(R.id.line);
@@ -252,4 +240,8 @@ public class HomeActivity extends BaseActivity<IHomeView,HomePresenter> implemen
 //        }
     }
 
+    @Override
+    public void showMapMarkerResult(List<MapMarkerDto> mapMarkerDtos) {
+
+    }
 }

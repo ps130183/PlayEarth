@@ -20,6 +20,7 @@
     <color name="defaultBackground">#f1f1f0</color>
     
     <color name="divideLineColor">#e2e2e2</color>
+    <color name="divideLineColor2">#cccccc</color>
 
     <color name="color_blue">#0180ff</color>
 

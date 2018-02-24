@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/mapMarker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="玩转地球俱乐部"
+        android:textColor="@color/white"
+        android:padding="@dimen/viewSpace8"
+        android:minWidth="60dp"
+        android:background="@drawable/map_marker_jidi_content"/>
+    <TextView
+        android:id="@+id/triangle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/map_marker_triangle_down"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/mapMarker"
+        android:paddingLeft="20dp"
+        />
+</RelativeLayout>
+

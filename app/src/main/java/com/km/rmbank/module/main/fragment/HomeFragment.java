@@ -2,6 +2,7 @@ package com.km.rmbank.module.main.fragment;
 
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,17 +12,23 @@ import android.view.MenuItem;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
+import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.module.main.fragment.home.AppointFragment;
 import com.km.rmbank.module.main.fragment.home.CircleFriendsFragment;
 import com.km.rmbank.module.main.fragment.home.ClubFragment;
+import com.km.rmbank.module.main.map.MapActivity;
+import com.km.rmbank.mvp.model.HomeModel;
+import com.km.rmbank.mvp.presenter.HomePresenter;
+import com.km.rmbank.mvp.view.IHomeView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment<IHomeView,HomePresenter> implements IHomeView {
 
     private String[] mTitles = {"俱乐部","约么","人脉圈"};
 
@@ -35,6 +42,11 @@ public class HomeFragment extends BaseFragment {
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_home;
+    }
+
+    @Override
+    protected HomePresenter createPresenter() {
+        return new HomePresenter(new HomeModel());
     }
 
     @Override
@@ -56,7 +68,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.map){
-                    showToast(getResources().getString(R.string.notOpen));
+                    getPresenter().getMapMarkers();
                 }
                 return false;
             }
@@ -73,4 +85,11 @@ public class HomeFragment extends BaseFragment {
         tabLayout.setViewPager(viewPager,mTitles,getActivity(),fragmentList);
     }
 
+    @Override
+    public void showMapMarkerResult(List<MapMarkerDto> mapMarkerDtos) {
+        Bundle bundle =new Bundle();
+
+        bundle.putParcelableArrayList("mapMarkers", (ArrayList<? extends Parcelable>) mapMarkerDtos);
+        startActivity(MapActivity.class,bundle);
+    }
 }

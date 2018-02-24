@@ -2,10 +2,14 @@ package com.km.rmbank.utils;
 
 import android.support.annotation.NonNull;
 
+import com.blankj.utilcode.util.LogUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by kamangkeji on 17/1/23.
@@ -54,6 +58,16 @@ public class DateUtils {
     public String dateToString(Date date,String mode){
         SimpleDateFormat format = new SimpleDateFormat(mode);
         return format.format(date);
+    }
+
+    /**
+     * 获取年月日 日期   格式如 2017年3月21日
+     * @param millisecond
+     * @return
+     */
+    public String getDateToYMD(Long millisecond){
+        int [] ymd = getYMD(getDate(millisecond));
+        return ymd[0] + "年" + ymd[1] + "月" + ymd[2] + "日";
     }
 
     /**
@@ -168,6 +182,39 @@ public class DateUtils {
         return millis;
     }
 
+
+    /**
+     * 根据maxDay 获取当前时间的 后几天
+     * @param maxDay
+     * @param curYear
+     * @param curMonth
+     * @param curDay
+     * @return
+     */
+    public List<Date> getNextDate(int maxDay, int curYear, int curMonth, int curDay){
+        List<Date> nextDates = new ArrayList<>();
+        Date curDate = DateUtils.getInstance().stringToDate(curYear+"-"+curMonth+"-"+curDay);
+        for (int i = 0; i < maxDay - 1; i++){
+            curDate = getAfterDay(curDate);
+            LogUtils.d(curDate.getDay()+"");
+            nextDates.add(curDate);
+        }
+        return nextDates;
+    }
+
+    /**
+     * 获取当前时间的后一天时间
+     * @param curDate
+     * @return
+     */
+    private Date getAfterDay(Date curDate){
+        Date dueDate = null;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(curDate);
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        dueDate = cal.getTime();
+        return dueDate;
+    }
 
 
 }

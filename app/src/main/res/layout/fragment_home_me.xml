@@ -71,16 +71,16 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/viewSpace16"
                     android:layout_marginRight="@dimen/viewSpace16">
-                    <com.makeramen.roundedimageview.RoundedImageView
+                    <com.ps.glidelib.GlideImageView
                         android:id="@+id/userPortrait"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:src="@mipmap/icon_banner_1"
                         android:scaleType="centerCrop"
-                        app:riv_border_color="#fff"
-                        app:riv_border_width="2dp"
-                        app:riv_corner_radius="40dp"/>
+                        app:siv_border_color="#fff"
+                        app:siv_border_width="2dp"
+                        app:siv_shape_type="circle"/>
                 </android.support.v7.widget.CardView>
 
 
@@ -99,7 +99,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:text="送保洁"
+                            android:text=""
                             android:gravity="bottom"
                             android:paddingBottom="@dimen/viewSpace8"
                             style="@style/TextTitle"
@@ -173,6 +173,7 @@
                 android:background="@color/white">
 
                 <LinearLayout
+                    android:id="@+id/ll_ticket"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -182,6 +183,7 @@
                     android:paddingBottom="@dimen/viewSpace8">
 
                     <TextView
+                        android:id="@+id/ticketCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextSubTitle"
@@ -211,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextSubTitle"
-                        android:text="12"/>
+                        android:text="0"/>
 
                     <TextView
                         android:id="@+id/attention"
@@ -238,7 +240,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextSubTitle"
-                        android:text="8"/>
+                        android:text="0"/>
 
                     <TextView
                         android:id="@+id/integral"
@@ -265,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextSubTitle"
-                        android:text="12.5"/>
+                        android:text="0"/>
 
                     <TextView
                         android:id="@+id/account"
@@ -332,7 +334,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

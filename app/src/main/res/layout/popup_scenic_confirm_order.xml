@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99000000">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/icon_close"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/viewSpace8"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_above="@+id/bottom"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="确认订单"
+                android:textColor="@color/textMainColor"
+                android:textSize="@dimen/textSizeHuge"
+                android:gravity="center"/>
+            <include layout="@layout/_default_divide_line" />
+            <RelativeLayout
+                android:id="@+id/goOutDate"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/viewSpace16"
+                android:paddingRight="@dimen/viewSpace16">
+
+                <ImageView
+                    android:id="@+id/calendar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_calerdar"
+                    android:layout_centerVertical="true"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/dateRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/hint"
+                    android:layout_toLeftOf="@+id/totalDays"
+                    android:layout_marginLeft="@dimen/viewSpace8"
+                    android:layout_marginRight="@dimen/viewSpace8">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/totalDays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="?attr/colorAccent"
+                    android:maxWidth="60dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    />
+
+                <TextView
+                    android:id="@+id/hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/viewSpace8"
+                    android:layout_toRightOf="@+id/calendar"
+                    android:text="出行时间" />
+            </RelativeLayout>
+
+            <include layout="@layout/_default_divide_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/viewSpace16"
+                android:paddingRight="@dimen/viewSpace16">
+
+                <ImageView
+                    android:id="@+id/doublePerson"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_double_person"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/hint2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/viewSpace8"
+                    android:layout_toRightOf="@+id/doublePerson"
+                    android:text="同行人数" />
+
+                <TextView
+                    android:id="@+id/personNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="@dimen/textSizeHuge"
+                    android:layout_toRightOf="@+id/hint2"
+                    android:layout_marginLeft="@dimen/viewSpace8"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="@dimen/textSizeContent"
+                    android:layout_toRightOf="@+id/personNum"
+                    android:layout_marginLeft="@dimen/viewSpace8"
+                    android:layout_centerVertical="true"/>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divideLineColor">
+
+            <Button
+                android:id="@+id/btn_to_pay"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:text="支付"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_btn_default"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/viewSpace16"
+                />
+
+            <TextView
+                android:id="@+id/amountHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总价"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/viewSpace16"
+                />
+
+            <TextView
+                android:id="@+id/totalMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥ 0"
+                android:textColor="?attr/colorAccent"
+                android:textSize="@dimen/textSizeHuge"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/amountHint"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/viewSpace8"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

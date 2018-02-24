@@ -137,7 +137,6 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
             mXRefreshView.startRefresh();
         }
 
-
 //        if (dialogLoading == null){
 //            dialogLoading = new DialogLoading(getContext());
 //        }

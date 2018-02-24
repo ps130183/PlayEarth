@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/viewSpace8">
+
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/iv_protrait"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:siv_shape_type="circle"
+        android:layout_marginRight="@dimen/viewSpace8"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_master_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="影帝好演技"
+            android:textColor="@color/textMainColor"
+            android:textSize="15sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            />
+
+        <TextView
+            android:id="@+id/tv_master_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="张家辉"
+            android:textColor="@color/textMainColor"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/viewSpace16"
+            />
+
+        <TextView
+            android:id="@+id/tv_master_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="脑子跟不上眼"
+            android:textSize="13sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_master_name"
+            />
+
+        <TextView
+            android:id="@+id/tv_person_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="100人拜访过"
+            android:textSize="13sp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

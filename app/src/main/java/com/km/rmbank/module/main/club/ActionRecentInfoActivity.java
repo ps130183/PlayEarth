@@ -21,6 +21,7 @@ import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ShareDto;
+import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.mvp.model.ActionRecentInfoModel;
 import com.km.rmbank.mvp.presenter.ActionRecentInfoPresenter;
@@ -96,6 +97,11 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
         simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                if (Constant.userLoginInfo.isEmpty()){
+                    showToast("请登录后再分享");
+                    startActivity(LoginActivity.class);
+                    return false;
+                }
                 if (item.getItemId() == R.id.share){
                     openShare();
                 }
@@ -320,7 +326,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
         }
 //        Bundle bundle = new Bundle();
 //        bundle.putString("to_user_id",mActionDto.getMobilePhone());
-//        bundle.putString("user_nick_name",mActionDto.getClubName());
+//        bundle.putString("user_nick_name",mActionDto.getName());
 //        bundle.putBoolean("isService",true);
 //        startActivity(EaseChatActivity.class,bundle);
     }

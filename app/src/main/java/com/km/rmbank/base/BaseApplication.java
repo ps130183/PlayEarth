@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 import com.blankj.utilcode.util.Utils;
 import com.hss01248.dialog.ActivityStackManager;
 import com.hss01248.dialog.StyledDialog;
@@ -30,6 +32,7 @@ public class BaseApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        initBaiDuMap();
         Utils.init(this);
         initDialogUtils();
         UmengShareUtils.initUmengShare(this);
@@ -39,6 +42,17 @@ public class BaseApplication extends MultiDexApplication {
         return mInstance;
     }
 
+
+    /**
+     * 初始化百度地图
+     */
+    private void initBaiDuMap(){
+        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        SDKInitializer.initialize(this);
+        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
+        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
+        SDKInitializer.setCoordType(CoordType.BD09LL);
+    }
 
     private void initDialogUtils(){
         //在Application的oncreate方法里:传入context

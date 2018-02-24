@@ -18,7 +18,9 @@ import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.CircleProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +100,11 @@ public class AllClubActivity extends BaseActivity<IClubView, ClubPresenter> impl
                     public void convert(CommonViewHolder holder, ClubDto mData, int position) {
                         holder.addRippleEffectOnClick();
                         holder.setText(R.id.clubName, mData.getClubName());
-                        GlideUtils.loadImage(AllClubActivity.this, mData.getClubLogo(), holder.getImageView(R.id.clubLogo));
+
+                        GlideImageView imageView = holder.findView(R.id.clubLogo);
+                        CircleProgressView progressView = holder.findView(R.id.progressView);
+                        GlideUtils.loadImageOnPregress(imageView,mData.getClubLogo(),progressView);
+
                         holder.setText(R.id.clubIntroduce, mData.getContent());
                     }
                 }).addRefreshView(mXRefreshView)

@@ -77,8 +77,8 @@ public class CircleFriendsAdapter extends MultiItemTypeAdapter<CircleFriendsDto>
             CommonAdapter<String> forumImgAdapter = new CommonAdapter<String>(mContext, imagePaths, R.layout.item_circle_friends_img_content) {
                 @Override
                 public void convert(CommonViewHolder holder, String mData, int position) {
-                    GlideImageView imageView = holder.findView(R.id.iv_forum_img);
-                    CircleProgressView progressView = holder.findView(R.id.progressView);
+                    ImageView imageView = holder.findView(R.id.iv_forum_img);
+//                    CircleProgressView progressView = holder.findView(R.id.progressView);
                     //计算imageView的宽度
                     FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) imageView.getLayoutParams();
                     int windowWidth = ScreenUtils.getScreenWidth();
@@ -86,11 +86,12 @@ public class CircleFriendsAdapter extends MultiItemTypeAdapter<CircleFriendsDto>
                     layoutParams.width = imageWidth;
                     layoutParams.height = imageWidth;
 
-                    FrameLayout.LayoutParams progressParams = (FrameLayout.LayoutParams) progressView.getLayoutParams();
-                    progressParams.width = imageWidth;
-                    progressParams.height = imageWidth;
+//                    FrameLayout.LayoutParams progressParams = (FrameLayout.LayoutParams) progressView.getLayoutParams();
+//                    progressParams.width = imageWidth;
+//                    progressParams.height = imageWidth;
 
-                    GlideUtils.loadImageOnPregress(imageView, mData, progressView);
+                    GlideUtils.loadImage(mContext,mData,imageView);
+//                    GlideUtils.loadImageOnPregress(imageView, mData, null);
                 }
             };
             RecyclerAdapterHelper<String> imagesHelper = new RecyclerAdapterHelper<>(imagesContent);

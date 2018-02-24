@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.km.rmbank">
 
+    <!-- 网络使用权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -18,6 +19,20 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!-- umeng 权限 -->
+
+
+    <!-- 百度地图使用权限 -->
+    //读取系统信息，包含系统版本等信息，用作统计
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    //获取统计数据
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    //鉴权所需该权限获取进程列表
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    //使用步行AR导航，配置Camera权限
+    <uses-permission android:name="android.permission.CAMERA" />
+    //定位权限
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <!-- 百度地图使用权限 -->
 
 
     <!-- 多分辨率支持 -->
@@ -44,6 +59,18 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <!-- 百度地图配置 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="48m8ZESQXcUsTGKPGeqfIvWDYC8XrRc8" />
+        //百度地图定位service
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <!-- 百度地图配置 -->
+
 
         <!-- 支付宝 配置 start -->
         <activity
@@ -161,7 +188,14 @@
         <activity android:name=".module.main.personal.action.AppliedActionActivity" />
         <activity android:name=".module.main.personal.member.BecomeMemberActivity" />
         <activity android:name=".module.main.payment.PaySuccessActivity" />
-        <activity android:name=".module.login.CreateUserInfoActivity"></activity>
+        <activity android:name=".module.login.CreateUserInfoActivity" />
+        <activity android:name=".module.main.map.MapActivity" />
+        <activity android:name=".module.main.scenic.ScenicActivity" />
+        <activity android:name=".module.main.scenic.SelectDateActivity" />
+        <activity android:name=".module.main.personal.ticket.TicketListActivity" />
+        <activity android:name=".module.main.personal.ticket.TicketSignActivity" />
+        <activity android:name=".module.main.personal.ticket.TicketUserRecordActivity" />
+        <activity android:name=".module.main.personal.ticket.TicketRecordDetailActivity"></activity>
     </application>
 
 </manifest>

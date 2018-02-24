@@ -47,6 +47,8 @@ public class ClubDto extends BaseEntity implements Parcelable {
     private int keepCount;
     private long updateDate;
 
+    private String clubType;
+
     @Override
     public String toString() {
         return "ClubDto{" +
@@ -57,6 +59,14 @@ public class ClubDto extends BaseEntity implements Parcelable {
                 ", backgroundImg='" + backgroundImg + '\'' +
                 ", keepStatus=" + keepStatus +
                 ", clubDetailList=" + clubDetailList +
+                ", activityCount='" + activityCount + '\'' +
+                ", activityPersonCount='" + activityPersonCount + '\'' +
+                ", clubUrl='" + clubUrl + '\'' +
+                ", createDate=" + createDate +
+                ", isRecommend='" + isRecommend + '\'' +
+                ", keepCount=" + keepCount +
+                ", updateDate=" + updateDate +
+                ", clubType='" + clubType + '\'' +
                 '}';
     }
 
@@ -75,6 +85,15 @@ public class ClubDto extends BaseEntity implements Parcelable {
 
     public void setActivityPersonCount(String activityPersonCount) {
         this.activityPersonCount = activityPersonCount;
+    }
+
+
+    public String getClubType() {
+        return clubType;
+    }
+
+    public void setClubType(String clubType) {
+        this.clubType = clubType;
     }
 
     public String getClubUrl() {
@@ -295,6 +314,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
         dest.writeString(this.isRecommend);
         dest.writeInt(this.keepCount);
         dest.writeLong(this.updateDate);
+        dest.writeString(this.clubType);
     }
 
     protected ClubDto(Parcel in) {
@@ -312,6 +332,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
         this.isRecommend = in.readString();
         this.keepCount = in.readInt();
         this.updateDate = in.readLong();
+        this.clubType = in.readString();
     }
 
     public static final Creator<ClubDto> CREATOR = new Creator<ClubDto>() {

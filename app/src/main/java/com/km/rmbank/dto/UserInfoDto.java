@@ -62,6 +62,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
     private String position;
     private String personalizedSignature;
 
+    private String ticketCount;
+
     public String getTotal() {
         return total;
     }
@@ -259,6 +261,14 @@ public class UserInfoDto implements Cloneable, Parcelable {
         return super.clone();
     }
 
+    public String getTicketCount() {
+        return ticketCount;
+    }
+
+    public void setTicketCount(String ticketCount) {
+        this.ticketCount = ticketCount;
+    }
+
     @Override
     public String toString() {
         return "UserInfoDto{" +
@@ -286,7 +296,11 @@ public class UserInfoDto implements Cloneable, Parcelable {
                 ", shareUrl='" + shareUrl + '\'' +
                 ", position='" + position + '\'' +
                 ", personalizedSignature='" + personalizedSignature + '\'' +
+                ", ticketCount='" + ticketCount + '\'' +
                 '}';
+    }
+
+    public UserInfoDto() {
     }
 
     @Override
@@ -320,9 +334,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
         dest.writeString(this.shareUrl);
         dest.writeString(this.position);
         dest.writeString(this.personalizedSignature);
-    }
-
-    public UserInfoDto() {
+        dest.writeString(this.ticketCount);
     }
 
     protected UserInfoDto(Parcel in) {
@@ -350,9 +362,10 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.shareUrl = in.readString();
         this.position = in.readString();
         this.personalizedSignature = in.readString();
+        this.ticketCount = in.readString();
     }
 
-    public static final Parcelable.Creator<UserInfoDto> CREATOR = new Parcelable.Creator<UserInfoDto>() {
+    public static final Creator<UserInfoDto> CREATOR = new Creator<UserInfoDto>() {
         @Override
         public UserInfoDto createFromParcel(Parcel source) {
             return new UserInfoDto(source);

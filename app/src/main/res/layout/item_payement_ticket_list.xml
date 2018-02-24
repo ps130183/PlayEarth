@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    android:paddingTop="@dimen/viewSpace4"
+    android:paddingBottom="@dimen/viewSpace4">
+
+    <FrameLayout
+        android:id="@+id/left"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/viewSpace16"
+        android:layout_marginRight="@dimen/viewSpace8">
+
+        <com.ps.glidelib.GlideImageView
+            android:id="@+id/ticketLogo"
+            app:siv_shape_type="circle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/icon_banner_1" />
+
+        <com.ps.glidelib.progress.CircleProgressView
+            android:id="@+id/progressView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@+id/rightCheck"
+        android:layout_toRightOf="@+id/left">
+
+        <TextView
+            android:id="@+id/ticketName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:text="基地使用券限两人"
+            android:textColor="@color/textMainColor"
+            android:textSize="@dimen/textSizeBig"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ticketContent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="可用次数：1"
+            android:textSize="@dimen/textSizeSmall"/>
+
+        <TextView
+            android:id="@+id/useDate"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="优惠券使用期限：2018年12月31日止"
+            android:textColor="@color/textSecondColor"
+            android:textSize="@dimen/textSizeSmall" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/rightCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/viewSpace16"
+        />
+</RelativeLayout>

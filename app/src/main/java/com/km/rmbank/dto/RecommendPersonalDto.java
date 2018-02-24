@@ -1,12 +1,16 @@
 package com.km.rmbank.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by PengSong on 18/1/28.
  */
 
-public class RecommendPersonalDto {
+public class RecommendPersonalDto implements Parcelable {
 
     /**
      * backImage : http://192.168.10.131:8080/wzdq/Aiyg/aiygImage/2018/01/e58b23eb11d14b0cb3a9914fdb44d0a8.png
@@ -188,4 +192,58 @@ public class RecommendPersonalDto {
             this.image = image;
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.backImage);
+        dest.writeString(this.id);
+        dest.writeLong(this.joinDate);
+        dest.writeString(this.likeCount);
+        dest.writeString(this.likeStatus);
+        dest.writeString(this.personIntroduce);
+        dest.writeString(this.personName);
+        dest.writeString(this.status);
+        dest.writeString(this.title);
+        dest.writeList(this.atlasList);
+        dest.writeString(this.shareUrl);
+        dest.writeString(this.day);
+        dest.writeString(this.yearMonth);
+    }
+
+    public RecommendPersonalDto() {
+    }
+
+    protected RecommendPersonalDto(Parcel in) {
+        this.backImage = in.readString();
+        this.id = in.readString();
+        this.joinDate = in.readLong();
+        this.likeCount = in.readString();
+        this.likeStatus = in.readString();
+        this.personIntroduce = in.readString();
+        this.personName = in.readString();
+        this.status = in.readString();
+        this.title = in.readString();
+        this.atlasList = new ArrayList<AtlasListBean>();
+        in.readList(this.atlasList, AtlasListBean.class.getClassLoader());
+        this.shareUrl = in.readString();
+        this.day = in.readString();
+        this.yearMonth = in.readString();
+    }
+
+    public static final Parcelable.Creator<RecommendPersonalDto> CREATOR = new Parcelable.Creator<RecommendPersonalDto>() {
+        @Override
+        public RecommendPersonalDto createFromParcel(Parcel source) {
+            return new RecommendPersonalDto(source);
+        }
+
+        @Override
+        public RecommendPersonalDto[] newArray(int size) {
+            return new RecommendPersonalDto[size];
+        }
+    };
 }

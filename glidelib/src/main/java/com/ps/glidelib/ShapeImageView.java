@@ -20,6 +20,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 
 
+import com.blankj.utilcode.util.ImageUtils;
 import com.ps.glidelib.util.DisplayUtil;
 
 import java.lang.annotation.Retention;
@@ -108,7 +109,8 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
             return;
         }
 
-        drawDrawable(canvas, getBitmapFromDrawable(drawable));
+        Bitmap bitmap = getBitmapFromDrawable(drawable);
+        drawDrawable(canvas, bitmap);
         drawBorder(canvas);
         drawPressed(canvas);
     }
@@ -151,6 +153,7 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
         bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
         canvas.drawBitmap(bitmap, 0, 0, paint);
         canvas.restore();
+
     }
 
     // 绘制边框

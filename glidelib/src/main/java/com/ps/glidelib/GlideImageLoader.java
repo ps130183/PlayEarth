@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.request.RequestListener;
@@ -141,7 +142,10 @@ public class GlideImageLoader {
 
     public RequestOptions FitHeightRquestOptions(int placeholderResId, int errorResId){
         return requestOptions(placeholderResId,errorResId)
-                .transform(new GlideImageViewFitHeight(getImageView()));
+                .transform(new GlideImageViewFitHeight(getImageView()))
+                .centerCrop()
+                .skipMemoryCache(true) // 跳过内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.NONE); // 不缓存到SDCard中;
     }
 
     public void loadImage(String url, int placeholderResId) {

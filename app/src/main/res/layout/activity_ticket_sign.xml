@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.ticket.TicketSignActivity">
+
+    <ImageView
+        android:id="@+id/qrCodeSign"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="@dimen/viewSpace64"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/signCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/textSizeBig"
+        android:textColor="@color/textMainColor"
+        android:gravity="center"
+        android:layout_below="@+id/qrCodeSign"
+        android:layout_marginTop="@dimen/viewSpace8"
+        />
+
+
+
+</RelativeLayout>

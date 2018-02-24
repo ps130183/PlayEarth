@@ -27,6 +27,7 @@ import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.InformationDto;
 import com.km.rmbank.dto.IntegralDetailsDto;
 import com.km.rmbank.dto.IntegralDto;
+import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.dto.MasterBannerDto;
 import com.km.rmbank.dto.MasterDto;
 import com.km.rmbank.dto.MasterOrderDto;
@@ -40,10 +41,13 @@ import com.km.rmbank.dto.NearbyVipDto;
 import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.dto.ReceiverAddressDto;
 import com.km.rmbank.dto.RecommendPersonalDto;
+import com.km.rmbank.dto.ScenicServiceDto;
 import com.km.rmbank.dto.ServiceDto;
 import com.km.rmbank.dto.ShareDto;
 import com.km.rmbank.dto.ShoppingCartDto;
 import com.km.rmbank.dto.SignInDto;
+import com.km.rmbank.dto.TicketDto;
+import com.km.rmbank.dto.TicketUseRecordDto;
 import com.km.rmbank.dto.UserAccountDetailDto;
 import com.km.rmbank.dto.UserBalanceDto;
 import com.km.rmbank.dto.UserCardDto;
@@ -1607,4 +1611,83 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/club/activityList")
     Observable<Response<List<CalendarActionsDto>>> getClubActionsByMonth(@Field("clubId") String clubId,
                                                          @Field("startDate") String startDate);
+
+    /**
+     * 获取个人券的 列表
+     * @param token
+     * @param pageNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/user/ticket")
+    Observable<Response<List<TicketDto>>> getAllTicketList(@Field("token") String token,
+                                                           @Field("pageNo") int pageNo);
+
+    /**
+     * 获取地图上  所有 基地会所 数据
+     * @param def
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/club/baseList")
+    Observable<Response<List<MapMarkerDto>>> getMapMarkers(@Field("default") String def);
+
+    /**
+     * 获取基地的特色服务列表
+     * @param clubId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/club/commodityList")
+    Observable<Response<List<ScenicServiceDto>>> getCommodityList(@Field("clubId") String clubId);
+
+    /**
+     * 获取基地的 特色服务详情
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/club/getCommodity")
+    Observable<Response<ScenicServiceDto>> getScenicServiceInfo(@Field("id") String id);
+
+    /**
+     * 报名基地活动
+     * @param token
+     * @param clubCommodityId
+     * @param personNum
+     * @param day
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/ticketOrder/create")
+    Observable<Response<PayOrderDto>> applyScenicAction(@Field("token") String token,
+                                                   @Field("clubCommodityId") String clubCommodityId,
+                                                   @Field("personNum") String personNum,
+                                                   @Field("startDate") String startDate,
+                                                   @Field("day") String day,
+                                                        @Field("price") String price,
+                                                        @Field("ticketNos") String ticketNos);
+
+    /**
+     * 获取基地活动 的可使用的优惠券列表
+     * @param token
+     * @param clubCommodityId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/club/ticket")
+    Observable<Response<List<TicketDto>>> getTicketListOfScenic(@Field("token") String token,
+                                                                @Field("clubCommodityId") String clubCommodityId,
+                                                                @Field("clubId") String clubId);
+
+    /**
+     * 获取券的使用记录
+     * @param token
+     * @param ticketNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/ticket/record")
+    Observable<Response<List<TicketUseRecordDto>>> getTicketUseRecordList(@Field("token") String token,
+                                                                          @Field("ticketNo") String ticketNo);
 }

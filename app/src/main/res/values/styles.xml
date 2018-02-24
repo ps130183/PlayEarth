@@ -21,7 +21,7 @@
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
 
         <!--这个也正确,用这个吧-->
-        <!--<item name="colorControlNormal">@color/white</item>-->
+        <!--<inamename="colorControlNormal">@color/white</item>-->
     </style>
 
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
@@ -215,5 +215,20 @@
     <style name="ToolbarExcepandedTitleStyle">
         <item name="android:textSize">@dimen/textSizeHuge</item>
         <item name="android:textColor">@color/textMainColor</item>
+    </style>
+
+    <style name="Bubble.TextAppearance.Dark" parent="android:TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff7f7f7f</item>
+    </style>
+
+    <style name="Bubble.TextAppearance.Light" parent="Bubble.TextAppearance.Dark">
+        <item name="android:textColor">#ffeeeeee</item>
+    </style>
+
+    <style name="ClusterIcon.TextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">#ffeeeeee</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

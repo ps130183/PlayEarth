@@ -72,5 +72,16 @@ public class PaymentModel extends BaseModel {
         return getService().getUserAccountBalance(Constant.userLoginInfo.getToken()).compose(this.<UserBalanceDto>applySchedulers());
     }
 
+    /**
+     * 报名参加活动
+     * @param id
+     * @param personNum
+     * @param day
+     * @return
+     */
+    public Observable<PayOrderDto> applyScenicAction(String id,String personNum,String startDate,String day,String price,String ticketNos){
+        return getService().applyScenicAction(Constant.userLoginInfo.getToken(),id,personNum,startDate,day,price,ticketNos)
+                .compose(this.<PayOrderDto>applySchedulers());
+    }
 
 }

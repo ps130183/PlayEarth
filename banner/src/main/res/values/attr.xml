@@ -25,7 +25,7 @@
             <enum name="fit_xy" value="6" />
             <enum name="matrix" value="7" />
         </attr>
-        <!--<attr name="indicator_animator" format="reference" />-->
-        <!--<attr name="indicator_animator_reverse" format="reference" />-->
+        <!--<anamename="indicator_animator" format="reference" />-->
+        <!--<anamename="indicator_animator_reverse" format="reference" />-->
     </declare-styleable>
 </resources>

@@ -33,6 +33,7 @@ import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.module.main.personal.member.goodsmanager.GoodsManagerActivity;
 import com.km.rmbank.module.main.personal.order.MyOrderActivity;
 import com.km.rmbank.module.main.personal.setting.SettingActivity;
+import com.km.rmbank.module.main.personal.ticket.TicketListActivity;
 import com.km.rmbank.module.main.shop.ShoppingCartActivity;
 import com.km.rmbank.mvp.model.UserModel;
 import com.km.rmbank.mvp.presenter.UserPresenter;
@@ -41,6 +42,7 @@ import com.km.rmbank.utils.Constant;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -267,11 +269,14 @@ public class HomeMeFragment extends BaseFragment<IUserView,UserPresenter> implem
     @Override
     public void showUserInfo(UserInfoDto userInfoDto) {
         Constant.userInfo = userInfoDto;
-        GlideUtils.loadProtrait(getContext(),userInfoDto.getPortraitUrl(),mViewManager.getImageView(R.id.userPortrait));
+        GlideImageView userPortrait = mViewManager.findView(R.id.userPortrait);
+        GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
+//        GlideUtils.loadProtrait(getContext(),userInfoDto.getPortraitUrl(),mViewManager.getImageView(R.id.userPortrait));
         mViewManager.setText(R.id.tv_user_nick_name,userInfoDto.getName());
         mViewManager.setText(R.id.tv_attention,userInfoDto.getKeepCount());
         mViewManager.setText(R.id.tv_integral,userInfoDto.getTotal());
         mViewManager.setText(R.id.tv_account,userInfoDto.getBalance() + "");
+        mViewManager.setText(R.id.ticketCount,userInfoDto.getTicketCount());
 
         if ("4".equals(userInfoDto.getRoleId())){
             flowLayout.setVisibility(View.GONE);
@@ -406,6 +411,15 @@ public class HomeMeFragment extends BaseFragment<IUserView,UserPresenter> implem
     @OnClick({R.id.userPortrait,R.id.tv_user_nick_name,R.id.rl_qrcode,R.id.tv_qrcode,R.id.iv_qrcode})
     public void openUserCard(View view){
         startActivity(UserCardActivity.class);
+    }
+
+    /**
+     * 券
+     * @param view
+     */
+    @OnClick(R.id.ll_ticket)
+    public void allTickets(View view){
+        startActivity(TicketListActivity.class);
     }
 
     @OnClick(R.id.become_memeber)

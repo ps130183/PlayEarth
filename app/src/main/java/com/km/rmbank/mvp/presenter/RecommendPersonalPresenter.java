@@ -19,22 +19,22 @@ public class RecommendPersonalPresenter extends BasePresenter<IRecommendPersonal
         super(mModel);
     }
 
-    public void getRecommendPersons(int pageNo){
+    public void getRecommendPersons(final int pageNo){
         getMvpModel().getRecommendPersonas(pageNo)
                 .subscribe(newSubscriber(new Consumer<List<RecommendPersonalDto>>() {
                     @Override
                     public void accept(List<RecommendPersonalDto> recommendPersonalDtos) throws Exception {
-                        getMvpView().showRecommendPersons(recommendPersonalDtos);
+                        getMvpView().showRecommendPersons(recommendPersonalDtos,pageNo);
                     }
                 }));
     }
 
-    public void pariseRecommendPerson(String personId){
+    public void pariseRecommendPerson(String personId, final int position){
         getMvpModel().pariseRecommendPerson(personId)
                 .subscribe(newSubscriber(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        getMvpView().pariseResult(s);
+                        getMvpView().pariseResult(position);
                     }
                 }));
     }

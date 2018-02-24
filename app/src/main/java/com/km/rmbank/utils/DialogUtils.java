@@ -9,12 +9,19 @@ import android.content.DialogInterface;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.bottomsheet.BottomSheetBean;
+import com.hss01248.dialog.config.BottomSheetStyle;
+import com.hss01248.dialog.config.ConfigBean;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.hss01248.dialog.interfaces.MyItemDialogListener;
+import com.km.rmbank.R;
 import com.km.rmbank.oldrecycler.ViewUtils;
 
 import java.lang.reflect.Field;
@@ -28,11 +35,16 @@ import java.util.List;
 public class DialogUtils {
 
     private static List<String> optionsPhoto;
-
+    private static List<BottomSheetBean> shareBottoms;
     static {
         optionsPhoto = new ArrayList<>();
         optionsPhoto.add("拍照");
         optionsPhoto.add("我的相册");
+
+        shareBottoms = new ArrayList<>();
+        shareBottoms.add(new BottomSheetBean(R.mipmap.icon_share_weixin,""));
+        shareBottoms.add(new BottomSheetBean(R.mipmap.icon_share_pengyouquan,""));
+        shareBottoms.add(new BottomSheetBean(R.mipmap.icon_share_xiazia,""));
     }
 
     //单例
@@ -108,13 +120,14 @@ public class DialogUtils {
             @Override
             public void onFirst() {
 //                clickConfirmListener.clickConfirm(null,0);
+                clickListener.clickConfirm();
             }
 
             @Override
             public void onSecond() {
-                clickListener.clickConfirm();
+
             }
-        }).setBtnText("取消","确定").show();
+        }).setBtnText("确定","取消").show();
     }
 
     /**
@@ -142,6 +155,81 @@ public class DialogUtils {
      */
     public static void showBottomDialogForChoosePhoto(MyItemDialogListener listener){
         showBottomDialog(optionsPhoto,listener);
+    }
+
+    /**
+     * 分享dialog
+     * @param listener
+     */
+    public static void showShareDialog(final ShareDialogClickListener listener){
+        ConfigBean configBean = StyledDialog.buildBottomSheetGv("分享", shareBottoms, "取消", 3, new MyItemDialogListener() {
+            @Override
+            public void onItemClick(CharSequence charSequence, int i) {
+                if (listener == null){
+                    return;
+                }
+                if (i == 0){
+                    listener.clickWeixin();
+                } else if (i == 1){
+                    listener.clickPengyouQuan();
+                } else if ( i == 2){
+                    listener.clickDownload();
+                }
+            }
+        });
+
+        BottomSheetStyle sheetStyle = BottomSheetStyle.newBuilder().iconSizeDp(30).build();
+        configBean.setBottomSheetStyle(sheetStyle);
+        configBean.show();
+
+    }
+
+    public static void showShareDialog(Context context, final ShareDialogClickListener listener){
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_bottom_share,null,false);
+        ImageView shareWeixin = view.findViewById(R.id.shareWeiXin);
+        ImageView sharePengyou = view.findViewById(R.id.sharePengyou);
+        ImageView shareXiazai = view.findViewById(R.id.shareXiaZai);
+        TextView cancel = view.findViewById(R.id.cancel);
+        shareWeixin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    listener.clickWeixin();
+                }
+            }
+        });
+        sharePengyou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    listener.clickPengyouQuan();
+                }
+            }
+        });
+        shareXiazai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    listener.clickDownload();
+                }
+            }
+        });
+        final Dialog dialog = StyledDialog.buildCustomBottomSheet(view).show();
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog.isShowing()){
+                    dialog.dismiss();
+                }
+            }
+        });
+    }
+
+    public interface ShareDialogClickListener{
+        void clickWeixin();
+        void clickPengyouQuan();
+        void clickDownload();
     }
     /**
      * 隐藏

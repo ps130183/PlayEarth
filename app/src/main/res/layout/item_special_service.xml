@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/viewSpace16"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/price_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¥199/人"
+        android:layout_alignParentRight="true"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="北京出发-门头沟瓜草地  吃喝玩乐全"
+        android:textColor="@color/textMainColor"
+        android:layout_toLeftOf="@+id/price_person"
+        android:maxLines="1"
+        android:ellipsize="end"
+        />
+
+
+</RelativeLayout>

@@ -86,4 +86,14 @@ public class PaymentPresenter extends BasePresenter<IPaymentView,PaymentModel> {
                     }
                 }));
     }
+
+    public void applyScenicAction(String id,String personNum,String startDate,String day,String price,String ticketNos){
+        getMvpModel().applyScenicAction(id,personNum,startDate,day,price,ticketNos)
+                .subscribe(newSubscriber(new Consumer<PayOrderDto>() {
+                    @Override
+                    public void accept(PayOrderDto payOrderDto) throws Exception {
+                        getMvpView().applyScenicResult(payOrderDto);
+                    }
+                }));
+    }
 }

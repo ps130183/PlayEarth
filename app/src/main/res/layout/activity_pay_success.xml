@@ -23,9 +23,10 @@
             android:orientation="vertical">
 
             <com.ruffian.library.RTextView
+                android:id="@+id/hint1"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="   支付成功"
+                android:text="    支付成功"
                 android:textColor="#7ac627"
                 android:textSize="22sp"
                 android:gravity="center"
@@ -36,10 +37,13 @@
                 />
 
             <TextView
+                android:id="@+id/hint2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="恭喜你，成功加入玩转地球"
                 android:gravity="center"
+                android:paddingLeft="@dimen/viewSpace16"
+                android:paddingRight="@dimen/viewSpace16"
                 />
 
         </LinearLayout>

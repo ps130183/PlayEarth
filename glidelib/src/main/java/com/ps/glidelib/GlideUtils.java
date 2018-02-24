@@ -78,7 +78,7 @@ public class GlideUtils {
         GlideApp.with(context)
                 .load(imagePath)
                 .placeholder(getLottieDrawable(context,imageView))
-//                .error(R.drawable.load_image_fail)
+                .error(R.drawable.load_image_fail)
                 .centerCrop()
                 .into(imageView);
     }

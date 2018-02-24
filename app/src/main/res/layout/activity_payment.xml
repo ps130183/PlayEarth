@@ -205,6 +205,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_ticket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="优惠券"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/textMainColor"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/viewSpace16"
+            />
+        <include layout="@layout/_default_divide_line"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ticketList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/btn_to_pay"
         android:layout_width="match_parent"

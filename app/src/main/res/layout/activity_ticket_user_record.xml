@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.ticket.TicketUserRecordActivity">
+
+    <TextView
+        android:id="@+id/personNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-剩余3次-"
+        android:gravity="center"
+        android:padding="@dimen/viewSpace16"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recordRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

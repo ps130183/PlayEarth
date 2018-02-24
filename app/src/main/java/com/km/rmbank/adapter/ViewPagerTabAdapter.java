@@ -1,11 +1,9 @@
 package com.km.rmbank.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.view.View;
+
 
 import com.flyco.tablayout.listener.CustomTabEntity;
 
@@ -17,12 +15,14 @@ import java.util.List;
 
 public class ViewPagerTabAdapter extends FragmentPagerAdapter {
 
+    private FragmentManager mFragmentManager;
     private List<Fragment> mFragments;
     private List<CustomTabEntity> mTitles;
 
 
     public ViewPagerTabAdapter(FragmentManager fm, List<Fragment> fragmentList, List<CustomTabEntity> titleList) {
         super(fm);
+        this.mFragmentManager = fm;
         this.mFragments = fragmentList;
         this.mTitles = titleList;
     }

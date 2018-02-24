@@ -3,16 +3,11 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <com.ps.glidelib.GlideImageView
+    <ImageView
         android:id="@+id/iv_forum_img"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:scaleType="centerCrop"
         android:layout_margin="@dimen/viewSpace4"
         />
-    <com.ps.glidelib.progress.CircleProgressView
-        android:id="@+id/progressView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
 </FrameLayout>
