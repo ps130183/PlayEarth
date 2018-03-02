@@ -174,7 +174,7 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
 
     }
 
-    private void initCommonTabLayout(ScenicDto scenicDto) {
+    private void initCommonTabLayout(final ScenicDto scenicDto) {
         ArrayList<CustomTabEntity> ctaDatas = new ArrayList<>();
         if (scenicDto.getClubDto().getClubType().equals("3")){
             ctaTitles[0] = "驿站介绍";
@@ -205,6 +205,12 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public boolean onTabSelect(int position) {
+                if (!scenicDto.getClubDto().getClubType().equals("3") && position == 0){
+                    if (fragmentManager != null && isPopBack){
+                        fragmentManager.popBackStack();
+                        isPopBack = false;
+                    }
+                }
                 return true;
             }
 

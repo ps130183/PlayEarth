@@ -24,4 +24,16 @@ public class ScenicServiceModel extends BaseModel {
         return getService().getTicketListOfScenic(Constant.userLoginInfo.getToken(),id,clubId)
                 .compose(this.<List<TicketDto>>applySchedulers());
     }
+
+    /**
+     * 报名驿站  免费喝茶
+     * @param clubId
+     * @param personNum
+     * @param startDate
+     * @return
+     */
+    public Observable<PayOrderDto> freeTea(String clubId, String personNum, String startDate){
+        return getService().freeTea(Constant.userLoginInfo.getToken(),clubId,personNum,startDate)
+                .compose(this.<PayOrderDto>applySchedulers());
+    }
 }

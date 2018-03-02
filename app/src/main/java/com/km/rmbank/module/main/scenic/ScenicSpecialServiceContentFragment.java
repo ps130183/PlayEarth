@@ -28,10 +28,12 @@ import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.entity.CheckDateEntity;
 import com.km.rmbank.event.SelectDateResultEvent;
 import com.km.rmbank.module.main.map.MapActivity;
+import com.km.rmbank.module.main.payment.PaySuccessActivity;
 import com.km.rmbank.module.main.payment.PaymentActivity;
 import com.km.rmbank.mvp.model.ScenicServiceModel;
 import com.km.rmbank.mvp.presenter.ScenicServicePresenter;
 import com.km.rmbank.mvp.view.IScenicServiceView;
+import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.ps.commonadapter.adapter.CommonViewHolder;
@@ -52,7 +54,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicServiceView,ScenicServicePresenter> implements IScenicServiceView {
+public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicServiceView, ScenicServicePresenter> implements IScenicServiceView {
 
     @BindView(R.id.personNum)
     TextView tvPersonNum;
@@ -92,6 +94,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         fragment.setArguments(bundle);
         return fragment;
     }
+
     @Override
     public int getLayoutRes() {
         return R.layout.fragment_scenic_special_service_content;
@@ -106,7 +109,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     public void onCreateView(@Nullable Bundle savedInstanceState) {
         checkDateEntities = new ArrayList<>();
         mClubDto = getArguments().getParcelable("clubDto");
-        if (mClubDto != null && mClubDto.getClubType().equals("3")){//驿站
+        if (mClubDto != null && mClubDto.getClubType().equals("3")) {//驿站
             isYiZhan = true;
         }
         mServiceDto = getArguments().getParcelable("scenicService");
@@ -118,25 +121,25 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         initPopWindow();
     }
 
-    private void initScenicServiceInfo(){
-        if (isYiZhan){
+    private void initScenicServiceInfo() {
+        if (isYiZhan) {
             MapMarkerDto mapMarkerDto = getArguments().getParcelable("mapMarker");
             scenicServiceName.setText(mClubDto.getClubName());
             mViewManager.findView(R.id.price).setVisibility(View.GONE);
-            mViewManager.findView(R.id.mastOrder).setVisibility(View.GONE);
-            mViewManager.setText(R.id.nuit,mapMarkerDto.getAddress());
-            mViewManager.setText(R.id.serviceHint,"");
+//            mViewManager.findView(R.id.mastOrder).setVisibility(View.GONE);
+            mViewManager.setText(R.id.nuit, mapMarkerDto.getAddress());
+            mViewManager.setText(R.id.serviceHint, "");
         } else {
             scenicServiceName.setText(mServiceDto.getName());
-            mViewManager.setText(R.id.price,"¥ " + mServiceDto.getPrice());
-            mViewManager.setText(R.id.serviceHint,mServiceDto.getContent());
+            mViewManager.setText(R.id.price, "¥ " + mServiceDto.getPrice());
+            mViewManager.setText(R.id.serviceHint, mServiceDto.getContent());
         }
 
     }
 
-    private void initTabFlowLayout1(){
+    private void initTabFlowLayout1() {
         List<String> tabNames = new ArrayList<>();
-        tabNames.add("显示活动");
+        tabNames.add("限时活动");
         tabNames.add("专项服务");
         tabNames.add("电子券");
         TagFlowLayout flowLayout = mViewManager.findView(R.id.flowLayout1);
@@ -144,14 +147,14 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 TextView biaoqian = (TextView) LayoutInflater.from(getContext())
-                        .inflate(R.layout.flowlayout_special_service,null,false);
+                        .inflate(R.layout.flowlayout_special_service, null, false);
                 biaoqian.setText(s);
                 return biaoqian;
             }
         });
     }
 
-    private void initTabFlowLayout2(){
+    private void initTabFlowLayout2() {
         List<String> tabNames = new ArrayList<>();
         tabNames.add("舒适游");
         tabNames.add("特色旅行");
@@ -162,7 +165,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 View view = LayoutInflater.from(getContext())
-                        .inflate(R.layout.flowlayout_special_service2,null,false);
+                        .inflate(R.layout.flowlayout_special_service2, null, false);
                 TextView biaoqian = view.findViewById(R.id.biaoqian);
                 biaoqian.setText(s);
                 return view;
@@ -173,20 +176,20 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     /**
      * 初始化列表
      */
-    private void initRecycler(){
+    private void initRecycler() {
         RecyclerAdapterHelper<CheckDateEntity> mHelper = new RecyclerAdapterHelper<>(dateRecycler);
         mHelper.addLinearLayoutManager(LinearLayoutManager.HORIZONTAL)
                 .addCommonAdapter(R.layout.item_selected_date_special_service, checkDateEntities, new RecyclerAdapterHelper.CommonConvert<CheckDateEntity>() {
-            @Override
-            public void convert(CommonViewHolder holder, CheckDateEntity mData, int position) {
-                holder.setText(R.id.goOutDate,mData.getMonth() + "月" + mData.getDayOfMonty() + "日");
-                LogUtils.d(mData.getDayOfMonty() + "日");
-            }
-        }).create();
+                    @Override
+                    public void convert(CommonViewHolder holder, CheckDateEntity mData, int position) {
+                        holder.setText(R.id.goOutDate, mData.getMonth() + "月" + mData.getDayOfMonty() + "日");
+                        LogUtils.d(mData.getDayOfMonty() + "日");
+                    }
+                }).create();
     }
 
-    private void initPopWindow(){
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.popup_scenic_confirm_order,null,false);
+    private void initPopWindow() {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.popup_scenic_confirm_order, null, false);
         popRecycler = view.findViewById(R.id.dateRecycler);
         popPersonNum = view.findViewById(R.id.personNum);
         popTotalDays = view.findViewById(R.id.totalDays);
@@ -195,9 +198,9 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isYiZhan){
+                if (!isYiZhan) {
                     //去支付
-                    getPresenter().getTicketListOfScenic(mServiceDto.getId(),clubId);
+                    getPresenter().getTicketListOfScenic(mServiceDto.getId(), clubId);
                 }
             }
         });
@@ -213,7 +216,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
                 .addCommonAdapter(R.layout.item_selected_date_special_service, checkDateEntities, new RecyclerAdapterHelper.CommonConvert<CheckDateEntity>() {
                     @Override
                     public void convert(CommonViewHolder holder, CheckDateEntity mData, int position) {
-                        holder.setText(R.id.goOutDate,mData.getMonth() + "月" + mData.getDayOfMonty() + "日");
+                        holder.setText(R.id.goOutDate, mData.getMonth() + "月" + mData.getDayOfMonty() + "日");
                         LogUtils.d(mData.getDayOfMonty() + "日");
                     }
                 }).create();
@@ -225,21 +228,28 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
                 .create();
     }
 
-    private void showPopWindow(){
-        if (mCustomPopWindow != null){
+    private void showPopWindow() {
+        if (mCustomPopWindow != null) {
             View anchor = mViewManager.findView(R.id.anchor);
-            mCustomPopWindow.showAsDropDown(anchor,0,0);
+            mCustomPopWindow.showAsDropDown(anchor, 0, 0);
         }
     }
 
     @OnClick(R.id.mastOrder)
-    public void mastOrder(View view){
-        if (checkDateEntities == null || checkDateEntities.size() == 0){
+    public void mastOrder(View view) {
+        if (checkDateEntities == null || checkDateEntities.size() == 0) {
             showToast("请选择出行时间");
             return;
         }
-        if (isYiZhan){
-            showToast(getString(R.string.notOpen));
+        if (isYiZhan) {
+            if ("4".equals(Constant.userInfo.getRoleId()) || "8".equals(Constant.userInfo.getRoleId())){
+                showToast("请升级成为玩家合伙人");
+                return;
+            }
+            String startDate = "";
+            CheckDateEntity entity = checkDateEntities.get(0);
+            startDate = DateUtils.getInstance().getDate(entity.getYear(), entity.getMonth(), entity.getDayOfMonty());
+            getPresenter().freeTea(mClubDto.getId(), tvPersonNum.getText().toString(), startDate);
             return;
         }
         popPersonNum.setText(tvPersonNum.getText());
@@ -250,60 +260,67 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
 //        getPresenter().applyScenicAction(mServiceDto.getId(),personNum+"", DateUtils.getInstance().getDate(entity.getYear(),entity.getMonth(),entity.getDayOfMonty()),mServiceDto.getMaxDay()+"");
         showPopWindow();
     }
+
     /**
      * 减少人数
+     *
      * @param view
      */
     @OnClick(R.id.reduce)
-    public void reducePersonNum(View view){
-        if (personNum == 1){
+    public void reducePersonNum(View view) {
+        if (personNum == 1) {
             return;
         }
         personNum--;
-        tvPersonNum.setText(personNum+"");
+        tvPersonNum.setText(personNum + "");
     }
+
     /**
      * 增加人数
+     *
      * @param view
      */
     @OnClick(R.id.add)
-    public void addPersonNum(View view){
+    public void addPersonNum(View view) {
         personNum++;
-        tvPersonNum.setText(personNum+"");
+        tvPersonNum.setText(personNum + "");
     }
 
     /**
      * 选择出行日期
+     *
      * @param view
      */
-    @OnClick({R.id.goOutDate,R.id.dateRecycler})
-    public void goOutDate(View view){
+    @OnClick({R.id.goOutDate, R.id.dateRecycler})
+    public void goOutDate(View view) {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("checkDates", (ArrayList<? extends Parcelable>) checkDateEntities);
-        bundle.putInt("maxDay",mServiceDto == null ? 1 : mServiceDto.getMaxDay());
-        startActivity(SelectDateActivity.class,bundle);
+        bundle.putInt("maxDay", mServiceDto == null ? 1 : mServiceDto.getMaxDay());
+        startActivity(SelectDateActivity.class, bundle);
     }
 
     /**
      * 跳转地图页面打开导航
+     *
      * @param view
      */
     @OnClick(R.id.mapImage)
-    public void openMap(View view){
-        startActivity(MapActivity.class,getArguments());
+    public void openMap(View view) {
+        startActivity(MapActivity.class, getArguments());
     }
 
     /**
      * 接收选择出行日期返回的结果 并刷新显示
+     *
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void receiverSelectDateResult(SelectDateResultEvent event){
+    public void receiverSelectDateResult(SelectDateResultEvent event) {
         List<CheckDateEntity> checkDateEntities = event.getCheckDateArray();
         totalDays.setText("(共" + checkDateEntities.size() + "天)");
         popTotalDays.setText("(共" + checkDateEntities.size() + "天)");
         this.checkDateEntities.clear();
-        if (checkDateEntities != null  && checkDateEntities.size() > 0){
+        if (checkDateEntities != null && checkDateEntities.size() > 0) {
             this.checkDateEntities.addAll(checkDateEntities);
             dateRecycler.getAdapter().notifyDataSetChanged();
             popRecycler.getAdapter().notifyDataSetChanged();
@@ -322,12 +339,26 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     public void showTicketList(List<TicketDto> ticketDtos) {
         Bundle bundle = getArguments();
         bundle.putParcelableArrayList("ticketList", (ArrayList<? extends Parcelable>) ticketDtos);
-        bundle.putInt("payType",2);
+        bundle.putInt("payType", 2);
         int personNum = Integer.parseInt(tvPersonNum.getText().toString());
-        bundle.putInt("personNum",personNum);
+        bundle.putInt("personNum", personNum);
         CheckDateEntity entity = checkDateEntities.get(0);
-        String startDate = DateUtils.getInstance().getDate(entity.getYear(),entity.getMonth(),entity.getDayOfMonty());
-        bundle.putString("startDate",startDate);
-        startActivity(PaymentActivity.class,bundle);
+        String startDate = DateUtils.getInstance().getDate(entity.getYear(), entity.getMonth(), entity.getDayOfMonty());
+        bundle.putString("startDate", startDate);
+        startActivity(PaymentActivity.class, bundle);
+    }
+
+    @Override
+    public void applyFreeTeaSuccess() {
+        Bundle bundle = new Bundle();
+        String hint1;
+        String hint2;
+
+        hint1 = "报名成功";
+        hint2 = "您获取一张优惠券，请到“我的-券”中查看";
+
+        bundle.putString("hint1", hint1);
+        bundle.putString("hint2", hint2);
+        startActivity(PaySuccessActivity.class, bundle);
     }
 }

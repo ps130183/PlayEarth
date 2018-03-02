@@ -47,6 +47,11 @@ public class ActionJoinMemberActivity extends BaseActivity<IActionJoinMemberView
     }
 
     @Override
+    public String getTitleContent() {
+        return "已报名";
+    }
+
+    @Override
     protected ActionJoinMemberPresenter createPresenter() {
         return new ActionJoinMemberPresenter(new ActionJoinMemberModel());
     }

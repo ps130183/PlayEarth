@@ -29,4 +29,14 @@ public class ScenicServicePresenter extends BasePresenter<IScenicServiceView,Sce
                     }
                 }));
     }
+
+    public void freeTea(String clubId, String personNum, String startDate){
+        getMvpModel().freeTea(clubId,personNum,startDate)
+                .subscribe(newSubscriber(new Consumer<PayOrderDto>() {
+                    @Override
+                    public void accept(PayOrderDto payOrderDto) throws Exception {
+                        getMvpView().applyFreeTeaSuccess();
+                    }
+                }));
+    }
 }

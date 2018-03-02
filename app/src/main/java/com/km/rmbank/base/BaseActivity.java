@@ -274,10 +274,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         if (mXRefreshView != null && !mXRefreshView.mPullRefreshing){
             mXRefreshView.startRefresh();
         }
-        if (dialogLoading == null){
-            dialogLoading = new DialogLoading(this);
-        }
-        dialogLoading.show();
+//        if (dialogLoading == null){
+//            dialogLoading = new DialogLoading(this);
+//        }
+//        dialogLoading.show();
     }
 
     @Override
@@ -405,7 +405,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     }
 
-    private void downloadApp(AppVersionDto appVersionDto){
+    private void downloadApp(final AppVersionDto appVersionDto){
         String path = AppUtils.getDownloadAppPath("wzdq-resplease-" + System.currentTimeMillis() + "-" + appVersionDto.getVersionView() + ".apk");
         String url = appVersionDto.getAppUrl();
         new FinalDownFiles(false, mInstance, url,
@@ -428,7 +428,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
                     @Override
                     public void onStart() {
                         super.onStart();
-                        DialogUtils.showDownloadDialog(mInstance, "因为我们努力，所以不断提高", false);
+                        DialogUtils.showDownloadDialog(mInstance, "新版本：" + appVersionDto.getVersionView() + "正在下载中，请稍后。。。", false);
                     }
 
                     @Override

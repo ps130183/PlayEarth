@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/viewSpace16"
     android:paddingRight="@dimen/viewSpace16"
+    android:paddingTop="@dimen/viewSpace8"
     android:background="@color/white">
 
     <android.support.v7.widget.CardView

@@ -24,6 +24,7 @@ import com.km.rmbank.event.DownloadAppEvent;
 import com.km.rmbank.event.HomeTabLayoutEvent;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
+import com.km.rmbank.module.main.action.PromotionActivity;
 import com.km.rmbank.module.main.fragment.HomeAppointFragment;
 import com.km.rmbank.module.main.fragment.HomeFragment;
 import com.km.rmbank.module.main.fragment.HomeRecommendFragment;
@@ -34,6 +35,8 @@ import com.km.rmbank.mvp.model.HomeModel;
 import com.km.rmbank.mvp.presenter.HomePresenter;
 import com.km.rmbank.mvp.view.IHomeView;
 import com.km.rmbank.utils.Constant;
+import com.km.rmbank.utils.DateUtils;
+import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 
@@ -41,6 +44,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -111,6 +115,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
         //检测app版本
         EventBusUtils.post(new DownloadAppEvent(this));
+
+        showPromotionDialog();
 
     }
 
@@ -189,7 +195,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
                 bundle.putInt("lastPosition", lastPosition);
                 switch (position) {
                     case 0://首页
-
+//                        showDialog();
                         result = true;
                         break;
                     case 1://约咖
@@ -243,5 +249,21 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     @Override
     public void showMapMarkerResult(List<MapMarkerDto> mapMarkerDtos) {
 
+    }
+
+
+
+    private void showPromotionDialog(){
+        long curMilli = System.currentTimeMillis();
+        long targetMilli = DateUtils.getInstance().stringDateToMillis("2018-03-04",DateUtils.YMD);
+        if (curMilli > targetMilli){
+            return;
+        }
+        DialogUtils.showHomeDialog(mInstance, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(PromotionActivity.class);
+            }
+        });
     }
 }

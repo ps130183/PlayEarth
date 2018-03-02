@@ -1669,6 +1669,21 @@ public interface ApiService {
                                                         @Field("ticketNos") String ticketNos);
 
     /**
+     * 报名驿站活动
+     * @param token
+     * @param clubId
+     * @param personNum
+     * @param startDate
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/ticketOrder/create")
+    Observable<Response<PayOrderDto>> freeTea(@Field("token") String token,
+                                              @Field("clubId") String clubId,
+                                              @Field("personNum") String personNum,
+                                              @Field("startDate") String startDate);
+
+    /**
      * 获取基地活动 的可使用的优惠券列表
      * @param token
      * @param clubCommodityId

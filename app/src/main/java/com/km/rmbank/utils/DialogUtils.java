@@ -9,19 +9,24 @@ import android.content.DialogInterface;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.adapter.SuperLvHolder;
 import com.hss01248.dialog.bottomsheet.BottomSheetBean;
 import com.hss01248.dialog.config.BottomSheetStyle;
 import com.hss01248.dialog.config.ConfigBean;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.hss01248.dialog.interfaces.MyItemDialogListener;
 import com.km.rmbank.R;
+import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.oldrecycler.ViewUtils;
 
 import java.lang.reflect.Field;
@@ -216,6 +221,7 @@ public class DialogUtils {
         });
         final Dialog dialog = StyledDialog.buildCustomBottomSheet(view).show();
 
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -324,5 +330,32 @@ public class DialogUtils {
             pd.dismiss();
             pd.cancel();
         }
+    }
+
+
+    public static void showHomeDialog(Context context, View.OnClickListener clickListener){
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_home_guanggao,null,false);
+        int width = ScreenUtils.getScreenWidth();
+
+        ImageView toPay = view.findViewById(R.id.toPay);
+        toPay.getLayoutParams().height = width - 180;
+        toPay.getLayoutParams().width = width - 180;
+        if (clickListener != null){
+            toPay.setOnClickListener(clickListener);
+        }
+        RelativeLayout rlClose = view.findViewById(R.id.rlClose);
+        final ConfigBean dialog = StyledDialog.buildCustom(view, Gravity.CENTER);
+        dialog.setForceHeightPercent(1);
+        dialog.setForceWidthPercent(1);
+        final Dialog dialog1 = dialog.show();
+
+        rlClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog1.isShowing()){
+                    dialog1.dismiss();
+                }
+            }
+        });
     }
 }
