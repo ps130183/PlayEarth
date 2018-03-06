@@ -58,14 +58,14 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     public final static int REQUEST_PERMISSION_CAMERA = 1;
     public final static int REQUEST_PERMISSION_LOCATION = 2;
 
-    private String[] mTitles = {"首页", "约咖", "推荐", "熟人购", "我的"};
+    private String[] mTitles = {"首页", "推荐", "熟人购", "我的"};
 
     private int[] mIconUnselectIds = {
-            R.mipmap.icon_home_bottom_home_unselect, R.mipmap.icon_home_bottom_appoint_unselect,
+            R.mipmap.icon_home_bottom_home_unselect, //R.mipmap.icon_home_bottom_appoint_unselect,
             R.mipmap.icon_home_bottom_friends_unselect, R.mipmap.icon_home_bottom_shop_unselect,
             R.mipmap.icon_home_bottom_me_unselect};
     private int[] mIconSelectIds = {
-            R.mipmap.icon_home_bottom_home_selected, R.mipmap.icon_home_bottom_appoint_selected,
+            R.mipmap.icon_home_bottom_home_selected, //R.mipmap.icon_home_bottom_appoint_selected,
             R.mipmap.icon_home_bottom_friends_selected, R.mipmap.icon_home_bottom_shop_selected,
             R.mipmap.icon_home_bottom_me_selected};
     private ArrayList<Fragment> fragmentList;
@@ -176,7 +176,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
         fragmentList = new ArrayList<>();
         fragmentList.add(HomeFragment.newInstance(null));
-        fragmentList.add(HomeAppointFragment.newInstance(null));
+//        fragmentList.add(HomeAppointFragment.newInstance(null));
         fragmentList.add(HomeRecommendFragment.newInstance(null));
         fragmentList.add(HomeShopFragment.newInstance(null));
         fragmentList.add(HomeMeFragment.newInstance(null));
@@ -198,17 +198,17 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 //                        showDialog();
                         result = true;
                         break;
-                    case 1://约咖
-//                        showToast(getResources().getString(R.string.notOpen));
+//                    case 1://约咖
+////                        showToast(getResources().getString(R.string.notOpen));
+//                        result = true;
+//                        break;
+                    case 1://人脉
                         result = true;
                         break;
-                    case 2://人脉
-                        result = true;
-                        break;
-                    case 3://熟人购
+                    case 2://熟人购
                         startActivity(ShopActivity.class, bundle);
                         break;
-                    case 4://我的
+                    case 3://我的
                         if (Constant.userLoginInfo.isEmpty()) {
                             startActivity(LoginActivity.class);
                         }

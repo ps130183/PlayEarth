@@ -22,7 +22,9 @@ import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.glidelib.progress.CircleProgressView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,18 +70,19 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
                     @Override
                     public void convert(CommonViewHolder holder, AppointDto mData, int position) {
                         holder.addRippleEffectOnClick();
-                        GlideUtils.loadImage(mInstance, mData.getActivityPictureUrl(), holder.getImageView(R.id.actionImae));
+                        GlideImageView imageView = (GlideImageView) holder.getImageView(R.id.actionImae);
+                        CircleProgressView progressView = holder.findView(R.id.progressView);
+                        GlideUtils.loadImageOnPregress(imageView, mData.getActivityPictureUrl(), progressView);
                         holder.setText(R.id.actionTitle, mData.getTitle());
                         holder.setText(R.id.actionTime, DateUtils.getInstance().dateToString(new Date(mData.getStartDate()), DateUtils.YMDHM));
 
                         holder.getTextView(R.id.free).setVisibility(View.GONE);
                         holder.setText(R.id.actionAddress, mData.getAddress());
-                        if (mData.getStatus().equals("0")){
+                        if (mData.getStatus() == null || mData.getStatus().equals("0")) {
                             holder.setText(R.id.memberNum, "未参加");
                         } else {
                             holder.setText(R.id.memberNum, "已参加");
                         }
-
                     }
                 }).addLoadMoreWrapper(new LoadMoreWrapper.OnLoadMoreListener() {
             @Override
@@ -91,8 +94,8 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
             @Override
             public void onItemClick(CommonViewHolder holder, AppointDto data, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("actionId",data.getId());
-                startActivity(ActionRecentInfoActivity.class,bundle);
+                bundle.putString("actionId", data.getId());
+                startActivity(ActionRecentInfoActivity.class, bundle);
             }
 
             @Override
@@ -101,7 +104,7 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
             }
 
         });
-        getPresenter().getAppointAppliedList(1,null);
+        getPresenter().getAppointAppliedList(1, null);
     }
 
     @Override

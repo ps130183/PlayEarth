@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ps.glidelib.progress.CircleProgressView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/progressView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cpv_progressNormalColor="@color/transparent10"
+    app:cpv_progressReachColor="@color/transparent90_white"
+    app:cpv_progressStyle="FillInnerArc"
+    app:cpv_progressTextColor="@color/red"
+    app:cpv_progressTextSize="13sp"
+    app:cpv_progressTextVisible="false"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
