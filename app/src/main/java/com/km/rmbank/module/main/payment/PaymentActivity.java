@@ -190,9 +190,9 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
                             if (!mData.isChecked()){
                                 mData.setChecked(true);
                             }
-                            if (type.equals("1")){//自己用
+                            if ("5".equals(mData.getTicketId())){//自己用
                                 personNum--;
-                            } else if (type.equals("2")){//朋友用
+                            } else if ("6".equals(mData.getTicketId())){//朋友用
                                 if (totalPersonNum == 1){
                                     mData.setChecked(false);
                                     return;
@@ -209,9 +209,9 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
                             if (mData.isChecked()){
                                 mData.setChecked(false);
                             }
-                            if (type.equals("1")){//自己用
+                            if ("5".equals(mData.getTicketId())){//自己用
                                 personNum++;
-                            } else if (type.equals("2")){//朋友用
+                            } else if ("6".equals(mData.getTicketId())){//朋友用
                                 if (totalPersonNum == 1){
                                     mData.setChecked(true);
                                     return;
@@ -376,7 +376,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     public void applyScenicResult(PayOrderDto payOrderDto) {
         mPayOrderDto = payOrderDto;
         if (payOrderDto.getSumPrice().equals("0") || payOrderDto.getSumPrice().equals("0.0")){
-            paySuccess(true);
+            paySuccess(false);
             return;
         }
         int position = -1;
@@ -433,10 +433,10 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
                 if (payType == 2){
                     if (totalPrice == 0){
                         hint1 = "报名成功";
-                        hint2 = "请到“我的-券”中查看";
+                        hint2 = "请到“我的-已报名活动”中查看";
                     } else {
                         hint1 = "支付成功";
-                        hint2 = "您获取一张优惠券，请到“我的-券”中查看";
+                        hint2 = "请到“我的-已报名活动”中查看";
                     }
                     bundle.putString("hint1",hint1);
                     bundle.putString("hint2",hint2);

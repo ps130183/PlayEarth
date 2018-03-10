@@ -184,9 +184,9 @@ public class BaiduMapView implements IMapView,SensorEventListener {
                     MapLocationEvent event = new MapLocationEvent(false);
                     event.setTargetMarker(markerDto);
                     EventBusUtils.post(event);
-                    LatLng enLatLng = new LatLng(markerDto.getLatitude(),markerDto.getLongitude());
-                    LatLng stLatLng = new LatLng(mCurrentLat,mCurrentLon);
-                    EventBusUtils.post(new RoutePlanDrivingResultEvent(0,stLatLng,enLatLng));
+                    enLatlng = new LatLng(markerDto.getLatitude(),markerDto.getLongitude());
+                    stLatlng = new LatLng(mCurrentLat,mCurrentLon);
+                    EventBusUtils.post(new RoutePlanDrivingResultEvent(0,stLatlng,enLatlng));
                 }
                 return true;
             }

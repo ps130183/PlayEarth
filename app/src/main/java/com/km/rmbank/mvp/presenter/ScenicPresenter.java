@@ -42,4 +42,23 @@ public class ScenicPresenter extends BasePresenter<IScenicView,ScenicModel> {
 
     }
 
+    public void getPlatformScenicInfo(String id,String activityId){
+        getMvpView().showLoading();
+        Observable<ClubDto> scenicInfo = getMvpModel().getScenicInfo(id);
+        Observable<List<ScenicServiceDto>> scenicServiceList = getMvpModel().getPlatformScenicServiceList(id,activityId);
+
+        Observable.zip(scenicInfo, scenicServiceList, new BiFunction<ClubDto, List<ScenicServiceDto>, ScenicDto>() {
+            @Override
+            public ScenicDto apply(ClubDto clubDto, List<ScenicServiceDto> scenicServiceDtos) throws Exception {
+                return new ScenicDto(clubDto,scenicServiceDtos);
+            }
+        }).subscribe(newSubscriber(new Consumer<ScenicDto>() {
+            @Override
+            public void accept(ScenicDto scenicDto) throws Exception {
+                getMvpView().showScenicInfo(scenicDto);
+            }
+        }));
+
+    }
+
 }

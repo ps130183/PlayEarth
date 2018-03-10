@@ -13,6 +13,7 @@ import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.event.DownloadAppEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.webview.AgreementActivity;
+import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DataCleacManager;
@@ -111,7 +112,7 @@ public class SettingActivity extends BaseActivity {
     public void userAgreement(View view){
         Bundle bundle = new Bundle();
         bundle.putString("titleName","用户协议");
-        bundle.putString("agreementUrl","/member/agreement/view");
+        bundle.putString("agreementUrl", ApiConstant.API_BASE_URL + ApiConstant.API_MODEL +"/member/agreement/view");
         startActivity(AgreementActivity.class,bundle);
     }
 

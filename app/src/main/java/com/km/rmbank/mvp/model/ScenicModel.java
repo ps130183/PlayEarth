@@ -35,6 +35,17 @@ public class ScenicModel extends BaseModel {
                 .compose(this.<List<ScenicServiceDto>>applySchedulers());
     }
 
+
+    /**
+     * 获取平台基地活动的特色服务列表
+     * @param id
+     * @return
+     */
+    public Observable<List<ScenicServiceDto>> getPlatformScenicServiceList(String id,String activityId){
+        return getService().getPlatformCommodityList(id,activityId)
+                .compose(this.<List<ScenicServiceDto>>applySchedulers());
+    }
+
     /**
      * 获取基地的特色服务详情
      * @param id

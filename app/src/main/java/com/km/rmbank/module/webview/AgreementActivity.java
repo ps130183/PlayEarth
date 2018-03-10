@@ -37,6 +37,6 @@ public class AgreementActivity extends BaseActivity {
 
 
         String agreementUrl = getIntent().getStringExtra("agreementUrl");
-        webView.loadUrl(ApiConstant.API_BASE_URL + ApiConstant.API_MODEL +agreementUrl);
+        webView.loadUrl(agreementUrl);
     }
 }

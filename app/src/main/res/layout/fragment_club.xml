@@ -80,7 +80,18 @@
                         android:id="@+id/cpv_recommend1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:cpv_progressNormalColor="@color/transparent10"
+                        app:cpv_progressReachColor="@color/transparent90_white"
+                        app:cpv_progressStyle="FillInnerArc"
+                        app:cpv_progressTextColor="@color/red"
+                        app:cpv_progressTextSize="13sp"
+                        app:cpv_progressTextVisible="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:visibility="gone"/>
+
 
                     <TextView
                         android:id="@+id/tv_recommendClub1"
@@ -116,6 +127,16 @@
                         android:id="@+id/cpv_recommend2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        app:cpv_progressNormalColor="@color/transparent10"
+                        app:cpv_progressReachColor="@color/transparent90_white"
+                        app:cpv_progressStyle="FillInnerArc"
+                        app:cpv_progressTextColor="@color/red"
+                        app:cpv_progressTextSize="13sp"
+                        app:cpv_progressTextVisible="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:visibility="gone"/>
                     <TextView
                         android:id="@+id/tv_recommendClub2"

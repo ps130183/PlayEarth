@@ -100,6 +100,9 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
                 if (e instanceof BaseModel.APIException) { //后台报的错误
                     BaseModel.APIException exception = (BaseModel.APIException) e;
                     mView.showError(exception.getMessage());
+                    if (RetCode.USER_IS_NOT_LOGIN.getStatus().equals(exception.code)){//未登录
+                        mView.userIsNotLogin();
+                    }
 //                    if (RetCode.USER_IS_NOT_LOGIN.getStatus().equals(exception.code)){//用户未登录
 //                        ActivityUtils.startActivity(LoginActivity.class);
 //                    }

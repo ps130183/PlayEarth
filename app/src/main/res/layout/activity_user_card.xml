@@ -44,7 +44,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:layout_marginTop="85dp">
+                        android:layout_marginTop="75dp">
                         <android.support.v7.widget.CardView
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -67,7 +67,7 @@
                             android:id="@+id/userName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="宋小宝"
+                            android:text=""
                             android:textSize="@dimen/textSizeHuge"
                             android:textColor="@color/textMainColor"
                             android:gravity="center"
@@ -77,7 +77,7 @@
                             android:id="@+id/userPosition"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="北京流氓科技有限公司产品经理"
+                            android:text=""
                             android:textSize="@dimen/textSizeContent"
                             android:textColor="@color/textSecondColor"
                             android:gravity="center"
@@ -142,7 +142,7 @@
                                 android:id="@+id/userPhone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="156324382832"
+                                android:text=""
                                 android:layout_gravity="center_vertical"
                                 android:layout_toRightOf="@+id/ivUserPhone"
                                 />
@@ -165,7 +165,7 @@
                                 android:id="@+id/userAddress"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="北京市东城区左安门内大街"
+                                android:text=""
                                 android:layout_gravity="center_vertical"
                                 android:layout_toRightOf="@+id/ivUserAddress"
                                 />
@@ -187,7 +187,7 @@
                                 android:id="@+id/userIntro"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="信宝哥没坎坷，前方一路小平坡"
+                                android:text=""
                                 android:maxLines="2"
                                 android:layout_toRightOf="@+id/ivUserInfo"
                                 />

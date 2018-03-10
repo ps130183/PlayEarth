@@ -16,11 +16,15 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.UserLoginDto;
+import com.km.rmbank.module.webview.AgreementActivity;
 import com.km.rmbank.mvp.model.LoginModel;
 import com.km.rmbank.mvp.presenter.LoginPresenter;
 import com.km.rmbank.mvp.view.ILoginView;
 import com.km.rmbank.module.main.HomeActivity;
+import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
+
+import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> implements ILoginView {
 
@@ -181,6 +185,14 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
         Bundle bundle = new Bundle();
         bundle.putString("phone",userPhone);
         startActivity(CreateUserInfoActivity.class,bundle);
+    }
+
+    @OnClick(R.id.tv_register_agreement)
+    public void registerAgreement(View view){
+        Bundle bundle = new Bundle();
+        bundle.putString("titleName","玩转地球注册协议");
+        bundle.putString("agreementUrl", ApiConstant.API_BASE_URL + ApiConstant.API_MODEL +"/member/loginAgreement/view");
+        startActivity(AgreementActivity.class,bundle);
     }
 
 }

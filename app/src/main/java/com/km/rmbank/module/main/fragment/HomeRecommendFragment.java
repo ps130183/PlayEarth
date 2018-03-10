@@ -147,7 +147,7 @@ public class HomeRecommendFragment extends BaseFragment<IRecommendPersonalView,R
      * 显示当前 推荐人的信息
      */
     private void showCurRecommendFragment(int scrollOrien){
-        LogUtils.d("滑动方向 === " + scrollOrien);
+//        LogUtils.d("滑动方向 === " + scrollOrien);
         RecommendPersonalDto personalDto = recommendPersonalDtoList.get(curRecommend);
 
         RecommendPersonalDto prePerson = null;// = recommendPersonalDtoList.get(curRecommend + scrollOrien);
@@ -217,17 +217,6 @@ public class HomeRecommendFragment extends BaseFragment<IRecommendPersonalView,R
         } else {//没有滑动
             day.setVisibility(View.VISIBLE);
         }
-
-//        ObjectAnimator animator = ObjectAnimator.ofFloat(day,"translationY",50,0);
-//        animator.addListener(new AnimatorListenerAdapter() {
-//            @Override
-//            public void onAnimationStart(Animator animation) {
-//                day.setVisibility(View.VISIBLE);
-//            }
-//        });
-//        animator.setDuration(300);
-//        animator.setStartDelay(200);
-//        animator.start();
     }
 
     @Override

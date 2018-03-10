@@ -48,6 +48,27 @@ public class ClubDto extends BaseEntity implements Parcelable {
     private long updateDate;
 
     private String clubType;
+    /**
+     * 基地 、 会所 数据
+     * address : 北京市东城区时光记忆主题餐吧
+     * clubDetailList : [{"clubContent":"美好的记忆都留在这里，儿时的记忆在这里唤起，曾经的朋友相约在一起，热泪相拥挂着笑脸，让时间定格在时光记忆餐厅。","clubId":"58","clubImage":"http://wanzhuandiqiu.com:8080/wzdq/Aiyg/aiygImage/2018/02/cec1bc3d44474aaeb4c00e7f14860522.jpg","createDate":1519368486000,"id":"676"},{"clubContent":"","clubId":"58","clubImage":"http://wanzhuandiqiu.com:8080/wzdq/Aiyg/aiygImage/2018/02/e0278a552ab24d39bfd285c4519401ec.jpg","createDate":1519368486000,"id":"677"},{"clubContent":"","clubId":"58","clubImage":"http://wanzhuandiqiu.com:8080/wzdq/Aiyg/aiygImage/2018/02/282693ce8341454da7eee3d4d9eb6e25.jpg","createDate":1519368486000,"id":"678"},{"clubContent":"","clubId":"58","clubImage":"http://wanzhuandiqiu.com:8080/wzdq/Aiyg/aiygImage/2018/02/26bb865c5b534e3d8baab01897f70f6c.jpg","createDate":1519368486000,"id":"679"},{"clubContent":"","clubId":"58","clubImage":"http://wanzhuandiqiu.com:8080/wzdq/Aiyg/aiygImage/2018/02/d59ef609bb2a426fa1dadd8a07050e83.jpg","createDate":1519368486000,"id":"680"},{"clubContent":"","clubId":"58","clubImage":"http://wanzhuandiqiu.com:8080/wzdq/Aiyg/aiygImage/2018/02/7fb6d97f727c455cbcb2da5d5c9257c0.jpg","createDate":1519368486000,"id":"681"},{"clubContent":"","clubId":"58","clubImage":"http://wanzhuandiqiu.com:8080/wzdq/Aiyg/aiygImage/2018/02/e8b29c633e444b6d9be10ae040c6634a.jpg","createDate":1519368486000,"id":"682"}]
+     * commodityExplainUrl : http://wanzhuandiqiu.com/commodityExplain
+     * commodityExplainUrl2 : http://wanzhuandiqiu.com/commodityExplain2
+     * keepCount : 0
+     * keepStatus : 0
+     * latitude : 39.885937
+     * longitude : 116.441957
+     * userId :
+     */
+
+
+    private String address;
+    private String commodityExplainUrl;
+    private String commodityExplainUrl2;
+    private String latitude;
+    private String longitude;
+    private String userId;
+
 
     @Override
     public String toString() {
@@ -67,6 +88,12 @@ public class ClubDto extends BaseEntity implements Parcelable {
                 ", keepCount=" + keepCount +
                 ", updateDate=" + updateDate +
                 ", clubType='" + clubType + '\'' +
+                ", address='" + address + '\'' +
+                ", commodityExplainUrl='" + commodityExplainUrl + '\'' +
+                ", commodityExplainUrl2='" + commodityExplainUrl2 + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
 
@@ -192,6 +219,54 @@ public class ClubDto extends BaseEntity implements Parcelable {
         this.keepStatus = keepStatus;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCommodityExplainUrl() {
+        return commodityExplainUrl;
+    }
+
+    public void setCommodityExplainUrl(String commodityExplainUrl) {
+        this.commodityExplainUrl = commodityExplainUrl;
+    }
+
+    public String getCommodityExplainUrl2() {
+        return commodityExplainUrl2;
+    }
+
+    public void setCommodityExplainUrl2(String commodityExplainUrl2) {
+        this.commodityExplainUrl2 = commodityExplainUrl2;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean isEmpty() {
         if (TextUtils.isEmpty(clubLogo) || TextUtils.isEmpty(clubName) || TextUtils.isEmpty(content)){
@@ -293,6 +368,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
     public ClubDto() {
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -315,6 +391,12 @@ public class ClubDto extends BaseEntity implements Parcelable {
         dest.writeInt(this.keepCount);
         dest.writeLong(this.updateDate);
         dest.writeString(this.clubType);
+        dest.writeString(this.address);
+        dest.writeString(this.commodityExplainUrl);
+        dest.writeString(this.commodityExplainUrl2);
+        dest.writeString(this.latitude);
+        dest.writeString(this.longitude);
+        dest.writeString(this.userId);
     }
 
     protected ClubDto(Parcel in) {
@@ -333,6 +415,12 @@ public class ClubDto extends BaseEntity implements Parcelable {
         this.keepCount = in.readInt();
         this.updateDate = in.readLong();
         this.clubType = in.readString();
+        this.address = in.readString();
+        this.commodityExplainUrl = in.readString();
+        this.commodityExplainUrl2 = in.readString();
+        this.latitude = in.readString();
+        this.longitude = in.readString();
+        this.userId = in.readString();
     }
 
     public static final Creator<ClubDto> CREATOR = new Creator<ClubDto>() {

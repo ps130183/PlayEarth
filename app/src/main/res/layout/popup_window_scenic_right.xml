@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="70dp">
+
+    <TextView
+        android:id="@+id/top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sciend_marker_triangle_top"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="24dp"/>
+
+    <LinearLayout
+        android:id="@+id/makeMoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/transparent50"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:layout_below="@+id/top">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_scienc_right"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="赚赏金"
+            android:textColor="@color/white"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

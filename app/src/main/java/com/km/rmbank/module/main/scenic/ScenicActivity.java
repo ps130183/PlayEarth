@@ -10,10 +10,14 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.example.zhouwei.library.CustomPopWindow;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -62,6 +66,8 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
     CommonTabLayout tabLayout;
     private String[] ctaTitles = {"基地介绍", "特色服务"};
 
+    @BindView(R.id.moreImage)
+    ImageView moreImage;
 
     @BindView(R.id.banner)
     Banner mBanner;
@@ -71,6 +77,10 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
     private FragmentManager fragmentManager;
 
     private boolean isPopBack = false;
+
+    private CustomPopWindow makeMoneyPop;
+
+    private String activityId;
 
     @Override
     public int getContentViewRes() {
@@ -96,11 +106,16 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
     public void onFinally(@Nullable Bundle savedInstanceState) {
         initToolBar();
         String scenicId = getIntent().getStringExtra("scenicId");
+        activityId = getIntent().getStringExtra("activityId");
         if (TextUtils.isEmpty(scenicId)){
             showToast("获取不到基地信息");
             return;
         }
-        getPresenter().getScenicInfo(scenicId);
+        if (TextUtils.isEmpty(activityId)){//基地 或 会所
+            getPresenter().getScenicInfo(scenicId);
+        } else {//平台基地活动
+            getPresenter().getPlatformScenicInfo(scenicId,activityId);
+        }
 
     }
 
@@ -179,6 +194,7 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
         if (scenicDto.getClubDto().getClubType().equals("3")){
             ctaTitles[0] = "驿站介绍";
             ctaTitles[1] = "免费喝茶";
+            moreImage.setVisibility(View.GONE);
         }
         for (int i = 0; i < ctaTitles.length; i++) {
             ctaDatas.add(new TabEntity(ctaTitles[i], 0, 0));
@@ -192,13 +208,21 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
         Bundle fragment2 = getIntent().getExtras();
 
 
-        if ("3".equals(scenicDto.getClubDto().getClubType())){
+        if (TextUtils.isEmpty(activityId)){
+            if ("3".equals(scenicDto.getClubDto().getClubType())){//会所
+                fragment2.putParcelable("clubDto",scenicDto.getClubDto());
+                fragmentList.add(ScenicSpecialServiceContentFragment.newInstance(fragment2));
+            } else if ("2".equals(scenicDto.getClubDto().getClubType())){//基地
+                fragment2.putParcelableArrayList("scenicServiceList", (ArrayList<? extends Parcelable>) scenicDto.getScenicServiceDtos());
+                fragmentList.add(ScenicSpecialServiceFragment.newInstance(fragment2));
+            }
+        } else { //平台基地活动
+            fragment2.putParcelable("scenicService",scenicDto.getScenicServiceDtos().get(0));
             fragment2.putParcelable("clubDto",scenicDto.getClubDto());
+            fragment2.putBoolean("isPlatformActivity",true);
             fragmentList.add(ScenicSpecialServiceContentFragment.newInstance(fragment2));
-        } else if ("2".equals(scenicDto.getClubDto().getClubType())){
-            fragment2.putParcelableArrayList("scenicServiceList", (ArrayList<? extends Parcelable>) scenicDto.getScenicServiceDtos());
-            fragmentList.add(ScenicSpecialServiceFragment.newInstance(fragment2));
         }
+
 
 
         tabLayout.setTabData(ctaDatas, this, R.id.scenicContent, fragmentList);
@@ -242,22 +266,45 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
      */
     @OnClick(R.id.moreImage)
     public void more(View view){
-        DialogUtils.showShareDialog(mInstance,new DialogUtils.ShareDialogClickListener() {
-            @Override
-            public void clickWeixin() {
-                showToast(getString(R.string.notOpen));
-            }
+        openMakeMoney();
+    }
 
-            @Override
-            public void clickPengyouQuan() {
-                showToast(getString(R.string.notOpen));
-            }
+    private void openMakeMoney(){
+        if (makeMoneyPop == null){
+            View view = LayoutInflater.from(mInstance).inflate(R.layout.popup_window_scenic_right,null,false);
+            LinearLayout makeMoney = view.findViewById(R.id.makeMoney);
+            makeMoney.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogUtils.showShareDialog(mInstance,new DialogUtils.ShareDialogClickListener() {
+                        @Override
+                        public void clickWeixin() {
+                            showToast(getString(R.string.notOpen));
+                        }
 
-            @Override
-            public void clickDownload() {
-                showToast(getString(R.string.notOpen));
-            }
-        });
+                        @Override
+                        public void clickPengyouQuan() {
+                            showToast(getString(R.string.notOpen));
+                        }
+
+                        @Override
+                        public void clickDownload() {
+                            showToast(getString(R.string.notOpen));
+                        }
+                    });
+                }
+            });
+            makeMoneyPop = new CustomPopWindow.PopupWindowBuilder(mInstance)
+                    .setView(view)
+                    .size(ConvertUtils.dp2px(110),ConvertUtils.dp2px(70))
+                    .setFocusable(true)
+                    .create();
+            makeMoneyPop.showAsDropDown(moreImage);
+        } else {
+            makeMoneyPop.showAsDropDown(moreImage);
+        }
+
+
     }
 
     @Override

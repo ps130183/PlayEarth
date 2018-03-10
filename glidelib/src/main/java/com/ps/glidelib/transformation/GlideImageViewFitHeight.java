@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
@@ -28,6 +29,7 @@ public class GlideImageViewFitHeight extends BitmapTransformation{
         float scale = (float)width / (float)bitmapWidth;
         int height = (int) (toTransform.getHeight() * scale);
         imageView.getLayoutParams().height = height;
+        LogUtils.d("imageview width = " + width + "   scale = " + scale + "   height = " + height);
         return toTransform;
     }
 

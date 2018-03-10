@@ -7,12 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -30,6 +32,7 @@ import com.km.rmbank.event.SelectDateResultEvent;
 import com.km.rmbank.module.main.map.MapActivity;
 import com.km.rmbank.module.main.payment.PaySuccessActivity;
 import com.km.rmbank.module.main.payment.PaymentActivity;
+import com.km.rmbank.module.webview.AgreementActivity;
 import com.km.rmbank.mvp.model.ScenicServiceModel;
 import com.km.rmbank.mvp.presenter.ScenicServicePresenter;
 import com.km.rmbank.mvp.view.IScenicServiceView;
@@ -46,6 +49,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,8 +90,10 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     private ScenicServiceDto mServiceDto;
 
     private String clubId;
+    private String activityId;
     private ClubDto mClubDto;
     private boolean isYiZhan = false;
+    private boolean isPlatformActivity = false;
 
     public static ScenicSpecialServiceContentFragment newInstance(Bundle bundle) {
         ScenicSpecialServiceContentFragment fragment = new ScenicSpecialServiceContentFragment();
@@ -109,7 +115,12 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     public void onCreateView(@Nullable Bundle savedInstanceState) {
         checkDateEntities = new ArrayList<>();
         mClubDto = getArguments().getParcelable("clubDto");
-        if (mClubDto != null && mClubDto.getClubType().equals("3")) {//驿站
+
+        //平台基地活动 参数
+        isPlatformActivity = getArguments().getBoolean("isPlatformActivity",false);
+        activityId = getArguments().getString("activityId");
+
+        if (!isPlatformActivity && mClubDto != null && mClubDto.getClubType().equals("3")) {//驿站
             isYiZhan = true;
         }
         mServiceDto = getArguments().getParcelable("scenicService");
@@ -177,6 +188,25 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
      * 初始化列表
      */
     private void initRecycler() {
+        if (isPlatformActivity){
+            int[] startTimes = DateUtils.getInstance().getYMD(DateUtils.getInstance().getDate(mServiceDto.getStartDate()));
+            CheckDateEntity entity = new CheckDateEntity(startTimes[0],startTimes[1],startTimes[2]);
+            entity.setCheck(true);
+            checkDateEntities.add(entity);
+
+            List<Date> nextDate = DateUtils.getInstance().getNextDate(mServiceDto.getMaxDay(),startTimes[0],startTimes[1],startTimes[2]);
+            for (Date date : nextDate){
+                int[] startTime = DateUtils.getInstance().getYMD(DateUtils.getInstance().dateToString(date));
+                CheckDateEntity checkDateEntity = new CheckDateEntity(startTime[0],startTime[1],startTime[2]);
+                checkDateEntity.setCheck(true);
+                checkDateEntities.add(checkDateEntity);
+
+            }
+            dateRecycler.setVisibility(View.VISIBLE);
+            totalDays.setVisibility(View.VISIBLE);
+            totalDays.setText("(共" + checkDateEntities.size() + "天)");
+            hint.setVisibility(View.GONE);
+        }
         RecyclerAdapterHelper<CheckDateEntity> mHelper = new RecyclerAdapterHelper<>(dateRecycler);
         mHelper.addLinearLayoutManager(LinearLayoutManager.HORIZONTAL)
                 .addCommonAdapter(R.layout.item_selected_date_special_service, checkDateEntities, new RecyclerAdapterHelper.CommonConvert<CheckDateEntity>() {
@@ -193,6 +223,9 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         popRecycler = view.findViewById(R.id.dateRecycler);
         popPersonNum = view.findViewById(R.id.personNum);
         popTotalDays = view.findViewById(R.id.totalDays);
+        if (isPlatformActivity){
+            popTotalDays.setText("(共" + checkDateEntities.size() + "天)");
+        }
         popTotalMoney = view.findViewById(R.id.totalMoney);
         btnPay = view.findViewById(R.id.btn_to_pay);
         btnPay.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +233,11 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
             public void onClick(View v) {
                 if (!isYiZhan) {
                     //去支付
-                    getPresenter().getTicketListOfScenic(mServiceDto.getId(), clubId);
+                    if (isPlatformActivity){
+                        getPresenter().getPlatformTicketListOfScenic(mServiceDto.getId(),clubId,activityId);
+                    } else {
+                        getPresenter().getTicketListOfScenic(mServiceDto.getId(), clubId);
+                    }
                 }
             }
         });
@@ -293,6 +330,9 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
      */
     @OnClick({R.id.goOutDate, R.id.dateRecycler})
     public void goOutDate(View view) {
+        if (isPlatformActivity){
+            return;
+        }
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("checkDates", (ArrayList<? extends Parcelable>) checkDateEntities);
         bundle.putInt("maxDay", mServiceDto == null ? 1 : mServiceDto.getMaxDay());
@@ -306,8 +346,37 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
      */
     @OnClick(R.id.mapImage)
     public void openMap(View view) {
+        Bundle bundle = getArguments();
+        if (isPlatformActivity){
+            MapMarkerDto mapMarkerDto = new MapMarkerDto(mClubDto.getClubName(),
+                    TextUtils.isEmpty(mClubDto.getLatitude()) ? 0 :  Double.parseDouble(mClubDto.getLatitude()),
+                    TextUtils.isEmpty(mClubDto.getLongitude()) ? 0 : Double.parseDouble(mClubDto.getLongitude()));
+            mapMarkerDto.setClubType(mClubDto.getClubType());
+            mapMarkerDto.setClubLogo(mClubDto.getClubLogo());
+            mapMarkerDto.setAddress(mClubDto.getAddress());
+            mapMarkerDto.setBackgroundImg(mClubDto.getBackgroundImg());
+            mapMarkerDto.setContent(mClubDto.getContent());
+            bundle.putParcelable("mapMarker",mapMarkerDto);
+        }
         startActivity(MapActivity.class, getArguments());
     }
+
+    @OnClick(R.id.iv_more1)
+    public void openMore1(View view){
+        Bundle bundle = new Bundle();
+        bundle.putString("titleName","活动说明");
+        bundle.putString("agreementUrl",mClubDto.getCommodityExplainUrl());
+        startActivity(AgreementActivity.class,bundle);
+    }
+
+    @OnClick(R.id.iv_more2)
+    public void openMore2(View view){
+        Bundle bundle = new Bundle();
+        bundle.putString("titleName","服务说明");
+        bundle.putString("agreementUrl",mClubDto.getCommodityExplainUrl2());
+        startActivity(AgreementActivity.class,bundle);
+    }
+
 
     /**
      * 接收选择出行日期返回的结果 并刷新显示
@@ -355,7 +424,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         String hint2;
 
         hint1 = "报名成功";
-        hint2 = "您获取一张优惠券，请到“我的-券”中查看";
+        hint2 = "请到“我的-已报名活动”中查看";
 
         bundle.putString("hint1", hint1);
         bundle.putString("hint2", hint2);

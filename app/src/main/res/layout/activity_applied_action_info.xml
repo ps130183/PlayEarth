@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.action.AppliedActionInfoActivity">
+
+    <ImageView
+        android:id="@+id/rtcode"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/viewSpace32"/>
+
+
+    <TextView
+        android:id="@+id/signCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/viewSpace16"
+        />
+
+    <include layout="@layout/_default_divide_line"/>
+
+    <TextView
+        android:id="@+id/actionName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        style="@style/TextTitle"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8"
+        />
+
+    <TextView
+        android:id="@+id/actionTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8"/>
+
+    <TextView
+        android:id="@+id/actionAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace8"
+        android:paddingBottom="@dimen/viewSpace8"/>
+</LinearLayout>

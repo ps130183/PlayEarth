@@ -78,11 +78,8 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
 
                         holder.getTextView(R.id.free).setVisibility(View.GONE);
                         holder.setText(R.id.actionAddress, mData.getAddress());
-                        if (mData.getStatus() == null || mData.getStatus().equals("0")) {
-                            holder.setText(R.id.memberNum, "未参加");
-                        } else {
-                            holder.setText(R.id.memberNum, "已参加");
-                        }
+                        holder.setText(R.id.memberNum, mData.getStatus());
+
                     }
                 }).addLoadMoreWrapper(new LoadMoreWrapper.OnLoadMoreListener() {
             @Override
@@ -94,8 +91,9 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
             @Override
             public void onItemClick(CommonViewHolder holder, AppointDto data, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString("actionId", data.getId());
-                startActivity(ActionRecentInfoActivity.class, bundle);
+//                bundle.putString("actionId", data.getId());
+                bundle.putParcelable("action",data);
+                startActivity(AppliedActionInfoActivity.class, bundle);
             }
 
             @Override

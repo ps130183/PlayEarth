@@ -30,6 +30,16 @@ public class ScenicServicePresenter extends BasePresenter<IScenicServiceView,Sce
                 }));
     }
 
+    public void getPlatformTicketListOfScenic(String id,String clubId,String activityId){
+        getMvpModel().getPlatformTicketListOfScenic(id,clubId,activityId)
+                .subscribe(newSubscriber(new Consumer<List<TicketDto>>() {
+                    @Override
+                    public void accept(List<TicketDto> ticketDtos) throws Exception {
+                        getMvpView().showTicketList(ticketDtos);
+                    }
+                }));
+    }
+
     public void freeTea(String clubId, String personNum, String startDate){
         getMvpModel().freeTea(clubId,personNum,startDate)
                 .subscribe(newSubscriber(new Consumer<PayOrderDto>() {

@@ -24,13 +24,8 @@
                     android:id="@+id/ticketLogo"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    app:siv_shape_type="circle"
-                    android:src="@mipmap/icon_banner_1" />
-                <com.ps.glidelib.progress.CircleProgressView
-                    android:id="@+id/progressView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    app:siv_shape_type="circle" />
+                <include layout="@layout/glide_image_load_progress"/>
             </FrameLayout>
 
 

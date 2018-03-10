@@ -16,6 +16,7 @@ import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.module.main.club.ActionPastDetailActivity;
 import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
+import com.km.rmbank.module.main.scenic.ScenicActivity;
 import com.km.rmbank.mvp.model.AppointModel;
 import com.km.rmbank.mvp.presenter.AppointPresenter;
 import com.km.rmbank.mvp.view.AppointView;
@@ -73,7 +74,7 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                 .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
                 .addCommonAdapter(R.layout.item_appoint, appointList, new RecyclerAdapterHelper.CommonConvert<AppointDto>() {
                     @Override
-                    public void convert(CommonViewHolder holder, AppointDto mData, int position) {
+                    public void convert(CommonViewHolder holder, final AppointDto mData, int position) {
                         holder.addRippleEffectOnClick();
                         TextView free = holder.getTextView(R.id.free);
                         TextView actionTime = holder.getTextView(R.id.actionTime);
@@ -83,6 +84,28 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                         CircleProgressView progressView = holder.findView(R.id.progressView);
                         GlideUtils.loadImageOnPregress(imageView,mData.getActivityPictureUrl(),progressView);
                         holder.setText(R.id.actionTitle,mData.getTitle());
+
+                        imageView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (mData.getType().equals("1")){
+                                    if ("3".equals(mData.getNewType())){//平台基地活动
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("scenicId",mData.getClubId());
+                                        bundle.putString("activityId",mData.getId());
+                                        startActivity(ScenicActivity.class,bundle);
+                                    } else {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("actionId",mData.getId());
+                                        startActivity(ActionRecentInfoActivity.class,bundle);
+                                    }
+                                } else {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("actionPastId",mData.getId());
+                                    startActivity(ActionPastDetailActivity.class,bundle);
+                                }
+                            }
+                        });
 
                         if (mData.getType().equals("1")){//将要举办的活动
                             holder.setText(R.id.memberNum,mData.getApplyCount() + "人已报名");
@@ -126,9 +149,16 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
             @Override
             public void onItemClick(CommonViewHolder holder, AppointDto data, int position) {
                 if (data.getType().equals("1")){
-                    Bundle bundle = new Bundle();
-                    bundle.putString("actionId",data.getId());
-                    startActivity(ActionRecentInfoActivity.class,bundle);
+                    if ("3".equals(data.getNewType())){//平台基地活动
+                        Bundle bundle = new Bundle();
+                        bundle.putString("scenicId",data.getClubId());
+                        bundle.putString("activityId",data.getId());
+                        startActivity(ScenicActivity.class,bundle);
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("actionId",data.getId());
+                        startActivity(ActionRecentInfoActivity.class,bundle);
+                    }
                 } else {
                     Bundle bundle = new Bundle();
                     bundle.putString("actionPastId",data.getId());

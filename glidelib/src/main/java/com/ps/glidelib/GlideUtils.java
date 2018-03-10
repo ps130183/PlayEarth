@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieDrawable;
 import com.airbnb.lottie.OnCompositionLoadedListener;
+import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.DataSource;
@@ -98,15 +99,6 @@ public class GlideUtils {
         });
     }
 
-    public static void loadProtrait(Context context, String imagePath, ImageView imageView){
-        GlideApp.with(context)
-                .load(imagePath)
-                .placeholder(getLottieDrawable(context,imageView))
-                .error(R.drawable.default_protrait)
-                .centerCrop()
-                .into(imageView);
-    }
-
     public static void loadImage(Context context, int imageRes, ImageView imageView){
         GlideApp.with(context)
                 .load(imageRes)
@@ -129,7 +121,7 @@ public class GlideUtils {
             public void onProgress(int percent, boolean isDone, GlideException exception) {
                 if (progressView != null){
                     if (exception != null && !TextUtils.isEmpty(exception.getMessage())) {
-//                        Toast.makeText(tagImageView.getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                        LogUtils.e(exception.getMessage());
                     }
                     progressView.setProgress(percent);
                     progressView.setVisibility(isDone ? View.GONE : View.VISIBLE);

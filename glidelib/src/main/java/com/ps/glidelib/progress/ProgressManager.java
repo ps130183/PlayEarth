@@ -33,6 +33,10 @@ public class ProgressManager {
                         @Override
                         public Response intercept(@NonNull Chain chain) throws IOException {
                             Request request = chain.request();
+//                            .newBuilder()
+//                                    .addHeader("Accept-Encoding","identity")
+//                                    .build();
+//                            Request.Builder().addHeader("Accept-Encoding", "identity")
                             Response response = chain.proceed(request);
                             return response.newBuilder()
                                     .body(new ProgressResponseBody(request.url().toString(), response.body(), LISTENER))

@@ -1,10 +1,13 @@
 package com.km.rmbank.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by PengSong on 18/1/17.
  */
 
-public class AppointDto {
+public class AppointDto implements Parcelable {
 
     /**
      * activityPictureUrl : http://47.93.184.121:8080/wzdq/Aiyg/aiygImage/2018/01/394afd846a1e4be48308e8f6c2ea06e8.png
@@ -32,6 +35,17 @@ public class AppointDto {
      */
 
     private long startDate;
+    /**
+     * 基地数据
+     * clubId : 88
+     * newType : 3
+     * videoUrl :
+     */
+
+    private String clubId;
+    private String newType;
+    private String videoUrl;
+
 
     public String getActivityPictureUrl() {
         return activityPictureUrl;
@@ -112,4 +126,81 @@ public class AppointDto {
     public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
+
+    public String getClubId() {
+        return clubId;
+    }
+
+    public void setClubId(String clubId) {
+        this.clubId = clubId;
+    }
+
+    public String getNewType() {
+        return newType;
+    }
+
+    public void setNewType(String newType) {
+        this.newType = newType;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.activityPictureUrl);
+        dest.writeString(this.address);
+        dest.writeString(this.applyCount);
+        dest.writeLong(this.createDate);
+        dest.writeString(this.id);
+        dest.writeString(this.status);
+        dest.writeString(this.title);
+        dest.writeString(this.type);
+        dest.writeString(this.viewCount);
+        dest.writeLong(this.startDate);
+        dest.writeString(this.clubId);
+        dest.writeString(this.newType);
+        dest.writeString(this.videoUrl);
+    }
+
+    public AppointDto() {
+    }
+
+    protected AppointDto(Parcel in) {
+        this.activityPictureUrl = in.readString();
+        this.address = in.readString();
+        this.applyCount = in.readString();
+        this.createDate = in.readLong();
+        this.id = in.readString();
+        this.status = in.readString();
+        this.title = in.readString();
+        this.type = in.readString();
+        this.viewCount = in.readString();
+        this.startDate = in.readLong();
+        this.clubId = in.readString();
+        this.newType = in.readString();
+        this.videoUrl = in.readString();
+    }
+
+    public static final Parcelable.Creator<AppointDto> CREATOR = new Parcelable.Creator<AppointDto>() {
+        @Override
+        public AppointDto createFromParcel(Parcel source) {
+            return new AppointDto(source);
+        }
+
+        @Override
+        public AppointDto[] newArray(int size) {
+            return new AppointDto[size];
+        }
+    };
 }

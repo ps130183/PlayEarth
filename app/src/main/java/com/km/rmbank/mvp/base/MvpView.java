@@ -21,4 +21,9 @@ public interface MvpView {
      */
     void showError(String message);
 
+    /**
+     * 未登录
+     */
+    void userIsNotLogin();
+
 }

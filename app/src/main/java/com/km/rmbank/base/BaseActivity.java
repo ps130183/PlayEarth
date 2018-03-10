@@ -29,6 +29,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.dto.AppVersionDto;
 import com.km.rmbank.event.DownloadAppEvent;
+import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.mvp.base.BaseModel;
 import com.km.rmbank.mvp.base.MvpPresenter;
@@ -296,9 +297,19 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         if (mXRefreshView != null && mXRefreshView.mPullRefreshing){
             mXRefreshView.stopRefresh(false);
         }
+        if (this.getClass() == HomeActivity.class){
+            return;
+        }
         showToast(message);
     }
 
+    @Override
+    public void userIsNotLogin() {
+        if (this.getClass() == HomeActivity.class){
+            return;
+        }
+        startActivity(LoginActivity.class);
+    }
 
     /**
      * 启动activity

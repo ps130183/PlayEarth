@@ -25,6 +25,17 @@ public class ScenicServiceModel extends BaseModel {
                 .compose(this.<List<TicketDto>>applySchedulers());
     }
 
+
+    /**
+     * 获取平台基地活动相关的 优惠券列表
+     * @param id
+     * @return
+     */
+    public Observable<List<TicketDto>> getPlatformTicketListOfScenic(String id,String clubId,String activityId){
+        return getService().getPlatformTicketListOfScenic(Constant.userLoginInfo.getToken(),id,id,clubId,activityId)
+                .compose(this.<List<TicketDto>>applySchedulers());
+    }
+
     /**
      * 报名驿站  免费喝茶
      * @param clubId

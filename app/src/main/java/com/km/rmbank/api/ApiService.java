@@ -1642,6 +1642,16 @@ public interface ApiService {
     Observable<Response<List<ScenicServiceDto>>> getCommodityList(@Field("clubId") String clubId);
 
     /**
+     * 获取平台基地活动的特色服务列表
+     * @param clubId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/club/commodityList")
+    Observable<Response<List<ScenicServiceDto>>> getPlatformCommodityList(@Field("clubId") String clubId,
+                                                                          @Field("activityId") String activityId);
+
+    /**
      * 获取基地的 特色服务详情
      * @param id
      * @return
@@ -1694,6 +1704,20 @@ public interface ApiService {
     Observable<Response<List<TicketDto>>> getTicketListOfScenic(@Field("token") String token,
                                                                 @Field("clubCommodityId") String clubCommodityId,
                                                                 @Field("clubId") String clubId);
+
+    /**
+     * 获取平台基地活动 的可使用的优惠券列表
+     * @param token
+     * @param clubCommodityId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/club/ticket")
+    Observable<Response<List<TicketDto>>> getPlatformTicketListOfScenic(@Field("token") String token,
+                                                                @Field("clubCommodityId") String clubCommodityId,
+                                                                @Field("id") String id,
+                                                                @Field("clubId") String clubId,
+                                                                        @Field("activityId") String activityId);
 
     /**
      * 获取券的使用记录

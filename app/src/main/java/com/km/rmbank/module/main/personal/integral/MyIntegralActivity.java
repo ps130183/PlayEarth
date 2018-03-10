@@ -20,6 +20,7 @@ import com.km.rmbank.mvp.presenter.IntegralPresenter;
 import com.km.rmbank.mvp.view.IIntegralView;
 import com.km.rmbank.oldrecycler.BaseAdapter;
 import com.km.rmbank.oldrecycler.RVUtils;
+import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 
 import java.util.List;
@@ -84,7 +85,7 @@ public class MyIntegralActivity extends BaseActivity<IIntegralView,IntegralPrese
     public void withDraw(View view){
         Bundle bundle = new Bundle();
         bundle.putString("titleName","积分规则");
-        bundle.putString("agreementUrl","/member/total/view");
+        bundle.putString("agreementUrl", ApiConstant.API_BASE_URL + ApiConstant.API_MODEL +"/member/total/view");
         startActivity(AgreementActivity.class,bundle);
     }
 

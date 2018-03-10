@@ -196,7 +196,8 @@
         <activity android:name=".module.main.personal.ticket.TicketSignActivity" />
         <activity android:name=".module.main.personal.ticket.TicketUserRecordActivity" />
         <activity android:name=".module.main.personal.ticket.TicketRecordDetailActivity" />
-        <activity android:name=".module.main.action.PromotionActivity"></activity>
+        <activity android:name=".module.main.action.PromotionActivity" />
+        <activity android:name=".module.main.personal.action.AppliedActionInfoActivity"></activity>
     </application>
 
 </manifest>

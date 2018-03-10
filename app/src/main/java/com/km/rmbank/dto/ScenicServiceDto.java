@@ -15,6 +15,13 @@ public class ScenicServiceDto implements Parcelable {
     private String content;
 
     private int maxDay;
+    /**
+     * price : 188
+     * startDate : 1521704869000
+     */
+
+    private long startDate;
+
 
     public ScenicServiceDto() {
     }
@@ -79,7 +86,17 @@ public class ScenicServiceDto implements Parcelable {
                 ", clubName='" + clubName + '\'' +
                 ", price=" + price +
                 ", content='" + content + '\'' +
+                ", maxDay=" + maxDay +
+                ", startDate=" + startDate +
                 '}';
+    }
+
+    public long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
     }
 
     @Override
@@ -95,6 +112,7 @@ public class ScenicServiceDto implements Parcelable {
         dest.writeDouble(this.price);
         dest.writeString(this.content);
         dest.writeInt(this.maxDay);
+        dest.writeLong(this.startDate);
     }
 
     protected ScenicServiceDto(Parcel in) {
@@ -104,6 +122,7 @@ public class ScenicServiceDto implements Parcelable {
         this.price = in.readDouble();
         this.content = in.readString();
         this.maxDay = in.readInt();
+        this.startDate = in.readLong();
     }
 
     public static final Creator<ScenicServiceDto> CREATOR = new Creator<ScenicServiceDto>() {
