@@ -46,8 +46,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import kr.co.namee.permissiongen.PermissionGen;
@@ -102,6 +105,16 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) flContent.getLayoutParams();
         lp.height = ScreenUtils.getScreenHeight() - ConvertUtils.dp2px(55) - SystemBarHelper.getStatusBarHeight(this);
         initTabLayout(tabLayout);
+
+
+        JPushInterface.setAlias(this, Constant.userLoginInfo.getMobilePhone(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+                LogUtils.d("极光别名设置成功 = " + s + "    i =" + i);
+            }
+        });
+
+
         requestLocationPremission();
 
         //退出程序
@@ -252,11 +265,10 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     }
 
 
-
-    private void showPromotionDialog(){
+    private void showPromotionDialog() {
         long curMilli = System.currentTimeMillis();
-        long targetMilli = DateUtils.getInstance().stringDateToMillis("2018-03-04",DateUtils.YMD);
-        if (curMilli > targetMilli){
+        long targetMilli = DateUtils.getInstance().stringDateToMillis("2018-03-04", DateUtils.YMD);
+        if (curMilli > targetMilli) {
             return;
         }
         DialogUtils.showHomeDialog(mInstance, new View.OnClickListener() {

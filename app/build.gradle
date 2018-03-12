@@ -36,6 +36,22 @@ android {
 //            //选择要添加的对应cpu类型的.so库。
 //            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
 //        }
+
+        //极光推送 start
+        applicationId "com.km.rmbank" //JPush上注册的包名.
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "722dde5b1dc43834e68da4e7", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+        //极光推送 end
     }
     buildTypes {
         release {
@@ -108,6 +124,8 @@ dependencies {
     implementation rootProject.ext.dependencies["CustomPopwindow"]
     implementation rootProject.ext.dependencies["calendarview"]
     implementation rootProject.ext.dependencies["roundedimageview"]
+    implementation rootProject.ext.dependencies["jpush"]
+    implementation rootProject.ext.dependencies["jcore"]
     implementation project(':banner')
     implementation project(':commonadapter')
     implementation project(':glidelib')

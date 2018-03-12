@@ -60,6 +60,23 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <!-- 极光推送 receiver start -->
+        <receiver
+            android:name=".utils.jpush.JPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.km.rmbank" />
+            </intent-filter>
+        </receiver>
+        <!-- 极光推送 receiver end -->
+
         <!-- 百度地图配置 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"

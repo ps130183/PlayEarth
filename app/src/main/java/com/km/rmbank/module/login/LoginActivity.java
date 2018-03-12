@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
@@ -23,8 +24,13 @@ import com.km.rmbank.mvp.view.ILoginView;
 import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
+import com.km.rmbank.utils.Constant;
+
+import java.util.Set;
 
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> implements ILoginView {
 
@@ -176,6 +182,12 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
 
     @Override
     public void loginSuccess(UserLoginDto userInfoDto) {
+        JPushInterface.setAlias(this, Constant.userLoginInfo.getMobilePhone(), new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+                LogUtils.d("极光别名设置成功 = " + s + "    i =" + i);
+            }
+        });
         startActivity(HomeActivity.class);
         KeyboardUtils.hideSoftInput(this);
     }

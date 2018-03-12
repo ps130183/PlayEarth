@@ -14,6 +14,8 @@ import com.hss01248.dialog.ActivityStackManager;
 import com.hss01248.dialog.StyledDialog;
 import com.km.rmbank.utils.UmengShareUtils;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by PengSong on 17/12/22.
  */
@@ -33,6 +35,8 @@ public class BaseApplication extends MultiDexApplication {
         super.onCreate();
         mInstance = this;
         initBaiDuMap();
+        //初始化极光推送
+        JPushInterface.init(this);
         Utils.init(this);
         initDialogUtils();
         UmengShareUtils.initUmengShare(this);
