@@ -78,6 +78,36 @@
 
                 <include layout="@layout/_default_divide_line" />
 
+                    <LinearLayout style="@style/Personal.User.EditCard.sll"
+                        android:visibility="gone">
+
+                        <TextView
+                            style="@style/Personal.User.EditCard.tv"
+                            android:text="运费设置" />
+
+                        <EditText
+                            android:id="@+id/et_frieght"
+                            style="@style/Personal.User.EditCard.et"
+                            android:hint="请设置运费价格"
+                            android:inputType="numberDecimal" />
+                    </LinearLayout>
+
+                    <include layout="@layout/_default_divide_line" />
+
+                    <LinearLayout style="@style/Personal.User.EditCard.sll"
+                        android:visibility="gone">
+
+                        <TextView
+                            style="@style/Personal.User.EditCard.tv"
+                            android:text="多件设置" />
+
+                        <EditText
+                            android:id="@+id/et_frieght_add"
+                            style="@style/Personal.User.EditCard.et"
+                            android:hint="每增加一件多付多少元"
+                            android:inputType="numberDecimal" />
+                    </LinearLayout>
+
                 <LinearLayout
                     style="@style/Personal.User.EditCard.sll"
                     android:orientation="vertical"
@@ -89,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingBottom="@dimen/viewSpace8"
-                        android:text="Banner图片" />
+                        android:text="商品轮播图片" />
 
                     <!--<ImageView-->
                     <!--android:id="@+id/iv_banner"-->
@@ -103,38 +133,6 @@
 
                     </android.support.v7.widget.RecyclerView>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout style="@style/Personal.User.EditCard.pll">
-
-                <LinearLayout style="@style/Personal.User.EditCard.sll">
-
-                    <TextView
-                        style="@style/Personal.User.EditCard.tv"
-                        android:text="运费设置" />
-
-                    <EditText
-                        android:id="@+id/et_frieght"
-                        style="@style/Personal.User.EditCard.et"
-                        android:hint="首件商品价格"
-                        android:inputType="numberDecimal" />
-                </LinearLayout>
-
-                <include layout="@layout/_default_divide_line" />
-
-                <LinearLayout style="@style/Personal.User.EditCard.sll">
-
-                    <TextView
-                        style="@style/Personal.User.EditCard.tv"
-                        android:text="多件设置" />
-
-                    <EditText
-                        android:id="@+id/et_frieght_add"
-                        style="@style/Personal.User.EditCard.et"
-                        android:hint="每增加一件多付多少元"
-                        android:inputType="numberDecimal" />
-                </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -151,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingBottom="@dimen/viewSpace8"
-                        android:text="详情图片" />
+                        android:text="商品详情图片" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_goods_detail"
@@ -163,7 +161,8 @@
 
             </LinearLayout>
 
-            <LinearLayout style="@style/Personal.User.EditCard.pll">
+            <LinearLayout style="@style/Personal.User.EditCard.pll"
+                android:visibility="gone">
 
                 <LinearLayout
                     style="@style/Personal.User.EditCard.sll"

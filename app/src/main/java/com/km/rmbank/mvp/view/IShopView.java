@@ -12,7 +12,8 @@ import java.util.List;
  */
 
 public interface IShopView extends MvpView {
-    void getGoodsTypeSuccess(List<GoodsTypeDto> goodsTypeDtos);
     void showGoodsType(List<HomeGoodsTypeDto> goodsTypeDtos);
     void showGoodsList(int pageNo,List<GoodsDto> goodsDtos);
+
+    void addShoppingCartSuccess();
 }

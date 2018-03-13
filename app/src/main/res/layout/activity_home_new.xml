@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.andview.refreshview.XRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/xRefreshView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.HomeNewActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
+                android:background="@color/white">
+
+            </com.youth.banner.Banner>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</com.andview.refreshview.XRefreshView>

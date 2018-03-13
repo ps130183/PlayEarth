@@ -219,7 +219,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
                         result = true;
                         break;
                     case 2://熟人购
-                        startActivity(ShopActivity.class, bundle);
+//                        startActivity(ShopActivity.class, bundle);
+                        result = true;
                         break;
                     case 3://我的
                         if (Constant.userLoginInfo.isEmpty()) {

@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.km.rmbank.module.main.HomeActivity;
+import com.km.rmbank.module.main.HomeNewActivity;
 
 import butterknife.OnClick;
 

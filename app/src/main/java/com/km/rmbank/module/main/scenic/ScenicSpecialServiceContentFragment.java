@@ -95,6 +95,10 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     private boolean isYiZhan = false;
     private boolean isPlatformActivity = false;
 
+    @BindView(R.id.limitPersonNum)
+    TextView tvLimitPersonNum;
+    private int limitPersonNum = 0;
+
     public static ScenicSpecialServiceContentFragment newInstance(Bundle bundle) {
         ScenicSpecialServiceContentFragment fragment = new ScenicSpecialServiceContentFragment();
         fragment.setArguments(bundle);
@@ -133,6 +137,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     }
 
     private void initScenicServiceInfo() {
+
         if (isYiZhan) {
             MapMarkerDto mapMarkerDto = getArguments().getParcelable("mapMarker");
             scenicServiceName.setText(mClubDto.getClubName());
@@ -144,6 +149,17 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
             scenicServiceName.setText(mServiceDto.getName());
             mViewManager.setText(R.id.price, "¥ " + mServiceDto.getPrice());
             mViewManager.setText(R.id.serviceHint, mServiceDto.getContent());
+            if (isPlatformActivity){
+                tvLimitPersonNum.setVisibility(View.VISIBLE);
+                limitPersonNum = mServiceDto.getMaxReserve();
+                if (limitPersonNum <= 0){
+                    limitPersonNum = 0;
+                    tvPersonNum.setText(limitPersonNum+"");
+                } else {
+                    limitPersonNum--;
+                }
+                tvLimitPersonNum.setText("剩余" + limitPersonNum + "个名额");
+            }
         }
 
     }
@@ -266,6 +282,11 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     }
 
     private void showPopWindow() {
+        int personaNum = Integer.parseInt(tvPersonNum.getText().toString());
+        if (personaNum <= 0){
+            showToast("请设置出行人数");
+            return;
+        }
         if (mCustomPopWindow != null) {
             View anchor = mViewManager.findView(R.id.anchor);
             mCustomPopWindow.showAsDropDown(anchor, 0, 0);
@@ -310,6 +331,9 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         }
         personNum--;
         tvPersonNum.setText(personNum + "");
+
+        limitPersonNum++;
+        tvLimitPersonNum.setText("剩余" + limitPersonNum + "个名额");
     }
 
     /**
@@ -319,8 +343,14 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
      */
     @OnClick(R.id.add)
     public void addPersonNum(View view) {
+        if (limitPersonNum <= 0){
+            return;
+        }
         personNum++;
         tvPersonNum.setText(personNum + "");
+
+        limitPersonNum--;
+        tvLimitPersonNum.setText("剩余" + limitPersonNum + "个名额");
     }
 
     /**

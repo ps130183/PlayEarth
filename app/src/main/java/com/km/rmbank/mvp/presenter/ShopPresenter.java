@@ -42,4 +42,14 @@ public class ShopPresenter extends BasePresenter<IShopView,ShopModel> {
                     }
                 }));
     }
+
+    public void addShoppingCart(String productNo, String count) {
+        getMvpModel().addShoppingCart(productNo,count)
+                .subscribe(newSubscriber(new Consumer<String>() {
+                    @Override
+                    public void accept(@io.reactivex.annotations.NonNull String s) throws Exception {
+                        getMvpView().addShoppingCartSuccess();
+                    }
+                }));
+    }
 }

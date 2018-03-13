@@ -18,6 +18,8 @@ import butterknife.BindView;
 
 public class GoodsListShoppingAdapter extends BaseAdapter<GoodsDto> implements BaseAdapter.IAdapter<GoodsListShoppingAdapter.ViewHolder> {
 
+    private OnClickShopCardListener onClickShopCardListener;
+
     public GoodsListShoppingAdapter(Context mContext) {
         super(mContext, R.layout.item_rv_shop_goods);
         setiAdapter(this);
@@ -30,18 +32,26 @@ public class GoodsListShoppingAdapter extends BaseAdapter<GoodsDto> implements B
 
     @Override
     public void createView(ViewHolder holder, int position) {
-        GoodsDto goodsDto = getItemData(position);
+        final GoodsDto goodsDto = getItemData(position);
         GlideUtils.loadImage(mContext,goodsDto.getThumbnailUrl(),holder.ivGoods);
 
         holder.tvGoodsName.setText(goodsDto.getName());
         holder.tvGoodsPrice.setText("¥"+goodsDto.getPrice());
         holder.tvSubTitle.setText(goodsDto.getSubtitle());
         holder.tvAccess.setText(goodsDto.getAccess());
-        if (goodsDto.getRole() == 2 && (goodsDto.getType() == 1 || goodsDto.getType() == 0)){
-            holder.ivIsVip2.setVisibility(View.VISIBLE);
-        } else {
-            holder.ivIsVip2.setVisibility(View.GONE);
-        }
+        holder.addtoShopCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onClickShopCardListener != null){
+                    onClickShopCardListener.clickShopcard(goodsDto);
+                }
+            }
+        });
+//        if (goodsDto.getRole() == 2 && (goodsDto.getType() == 1 || goodsDto.getType() == 0)){
+//            holder.ivIsVip2.setVisibility(View.VISIBLE);
+//        } else {
+//            holder.ivIsVip2.setVisibility(View.GONE);
+//        }
     }
 
     class ViewHolder extends BaseViewHolder{
@@ -59,12 +69,19 @@ public class GoodsListShoppingAdapter extends BaseAdapter<GoodsDto> implements B
         @BindView(R.id.tv_access)
         TextView tvAccess;
 
-        @BindView(R.id.iv_is_vip2)
-        ImageView ivIsVip2;
+        @BindView(R.id.addToShopCard)
+        ImageView addtoShopCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
         }
     }
 
+    public interface OnClickShopCardListener{
+        void clickShopcard(GoodsDto goodsDto);
+    }
+
+    public void setOnClickShopCardListener(OnClickShopCardListener onClickShopCardListener) {
+        this.onClickShopCardListener = onClickShopCardListener;
+    }
 }

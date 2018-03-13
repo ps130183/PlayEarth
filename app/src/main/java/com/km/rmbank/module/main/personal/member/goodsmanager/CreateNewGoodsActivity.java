@@ -493,16 +493,20 @@ public class CreateNewGoodsActivity extends BaseActivity<INewGoodsView,NewGoodsP
         goodsDetailsDto.setName(etName.getText().toString());
         goodsDetailsDto.setSubtitle(etSubTitle.getText().toString());
         goodsDetailsDto.setPrice(etGoodsPrice.getText().toString());
-        goodsDetailsDto.setFreightInMaxCount(etFrieght.getText().toString());
-        goodsDetailsDto.setFreightInEveryAdd(etFrieghtAdd.getText().toString());
+        goodsDetailsDto.setFreightInMaxCount("0");
+        goodsDetailsDto.setFreightInEveryAdd("0");
         goodsDetailsDto.setProductBannerUrl(getImageUrl(bannerPathList));
         goodsDetailsDto.setProductDetail(getImageUrl(goodsDetailPathList));
-        goodsDetailsDto.setIsInIndexActivity(levelTwoGoodsType == null ? mGoodsDetailsDto.getIsInIndexActivity() : levelTwoGoodsType.getId());
-        if (TextUtils.isEmpty(actionUrl1) || TextUtils.isEmpty(actionUrl2) || TextUtils.isEmpty(actionUrl3)) {
-            showToast("请上传活动图片");
+        if (levelTwoGoodsType == null && mGoodsDetailsDto == null){
+            showToast("请选择商品分类");
             return;
         }
-        goodsDetailsDto.setBannerUrl(actionUrl1 + "#" + actionUrl2 + "#" + actionUrl3);
+        goodsDetailsDto.setIsInIndexActivity(levelTwoGoodsType == null ? mGoodsDetailsDto.getIsInIndexActivity() : levelTwoGoodsType.getId());
+//        if (TextUtils.isEmpty(actionUrl1) || TextUtils.isEmpty(actionUrl2) || TextUtils.isEmpty(actionUrl3)) {
+//            showToast("请上传活动图片");
+//            return;
+//        }
+//        goodsDetailsDto.setBannerUrl(actionUrl1 + "#" + actionUrl2 + "#" + actionUrl3);
         if (goodsDetailsDto.isEmpty()) {
             showToast("请将商品的信息补充完整");
             return;

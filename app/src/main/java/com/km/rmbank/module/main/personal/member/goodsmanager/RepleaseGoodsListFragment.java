@@ -65,7 +65,7 @@ public class RepleaseGoodsListFragment extends BaseFragment<IReleaseGoodsView,Re
         adapter.addLoadMore(mRecyclerview, new BaseAdapter.MoreDataListener() {
             @Override
             public void loadMoreData() {
-                if (adapter.getNextPage() > 1){
+                if (adapter.getNextPage() > 1 && adapter.getItemCount() > 10){
                     getPresenter().loadRepleaseGoods(adapter.getNextPage());
                 }
             }

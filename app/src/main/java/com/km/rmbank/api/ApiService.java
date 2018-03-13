@@ -699,7 +699,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiConstant.API_MODEL + "/productTypes/listpage")
+    @POST(ApiConstant.API_MODEL + "/productTypes/list/send")
     Observable<Response<List<HomeGoodsTypeDto>>> getGoodsType(@Field("type") String type);
 
     /**
@@ -709,7 +709,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiConstant.API_MODEL + "/productTypes/list")
+    @POST(ApiConstant.API_MODEL + "/productTypes/list/send")
     Observable<Response<List<HomeGoodsTypeDto>>> getGoodsTypeForCreateGoods(@Field("type") String type);
 
     /**

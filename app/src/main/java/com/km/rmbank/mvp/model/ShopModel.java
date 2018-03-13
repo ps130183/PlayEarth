@@ -3,6 +3,7 @@ package com.km.rmbank.mvp.model;
 import com.km.rmbank.dto.GoodsDto;
 import com.km.rmbank.dto.HomeGoodsTypeDto;
 import com.km.rmbank.mvp.base.BaseModel;
+import com.km.rmbank.utils.Constant;
 
 import java.util.List;
 
@@ -33,5 +34,16 @@ public class ShopModel extends BaseModel {
     public Observable<List<GoodsDto>> getGoodsListOfShoppingNew(final int pageNo, String isInIndextActivity, int orderBy, String roleId){
         return getService().getGoodsListOfShoppingNew(pageNo,isInIndextActivity,orderBy,roleId)
                 .compose(this.<List<GoodsDto>>applySchedulers());
+    }
+
+    /**
+     * 加入购物车
+     * @param productNo
+     * @param count
+     * @return
+     */
+    public Observable<String> addShoppingCart(String productNo,String count){
+        return getService().addShoppingCart(Constant.userLoginInfo.getToken(),productNo,count)
+                .compose(this.<String>applySchedulers());
     }
 }

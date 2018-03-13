@@ -17,7 +17,7 @@ public class GoodsTypeModel extends BaseModel {
      * @return
      */
     public Observable<List<HomeGoodsTypeDto>> getGoodsTypeForCreateGoods(){
-        return getService().getGoodsTypeForCreateGoods("1")
+        return getService().getGoodsTypeForCreateGoods("")
                 .compose(this.<List<HomeGoodsTypeDto>>applySchedulers());
     }
 }

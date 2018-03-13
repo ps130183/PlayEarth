@@ -27,7 +27,7 @@ import java.util.Random;
 
 import butterknife.BindView;
 
-public class GoodsTypeActivity extends BaseActivity<IGoodsTypeView,GoodsTypePresenter> implements IGoodsTypeView {
+public class GoodsTypeActivity extends BaseActivity<IGoodsTypeView, GoodsTypePresenter> implements IGoodsTypeView {
 
     private int[] backgroundRes = {R.drawable.shape_new_goods_select_goods_type_1,
             R.drawable.shape_new_goods_select_goods_type_2,
@@ -59,49 +59,25 @@ public class GoodsTypeActivity extends BaseActivity<IGoodsTypeView,GoodsTypePres
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
         simpleTitleBar.setTitleContent("商品类型");
-        isTwoLevel = getIntent().getBooleanExtra("isTwoLevel", false);
-        fromHome = getIntent().getBooleanExtra("fromHome", false);
-        String rightBtn = "下一步";
-        //标题
-        if (fromHome) {
-            simpleTitleBar.setTitleContent("全部分类");
-//            rightBtn = "确定";
-        } else {
-            simpleTitleBar.setTitleContent("一级分类");
-            if (isTwoLevel) {
-                simpleTitleBar.setTitleContent("二级分类");
-                rightBtn = "保存";
-            }
-        }
 
-        //右侧按钮
-        if (!fromHome){
-            simpleTitleBar.setRightMenuContent(rightBtn);
-            simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    GoodsTypeAdapter adapter = (GoodsTypeAdapter) mRecyclerView.getAdapter();
-                    HomeGoodsTypeDto goodsTypeDto = adapter.getCheckedGoodsType();
-                    List<HomeGoodsTypeDto> subGoodsTypeDtos = goodsTypeDto.getTypeList();
-                    if (goodsTypeDto.isEmpty()) {
-                        showToast("请选择商品类型");
-                        return;
-                    }
-
-
-                    if (isTwoLevel) {
-                        EventBusUtils.post(new GoodsTypeEvent(GoodsTypeActivity.this.goodsTypeDto, goodsTypeDto));
-                        startActivity(CreateNewGoodsActivity.class);
-                    } else if (subGoodsTypeDtos.size() > 0) {
-                        Bundle bundle = new Bundle();
-                        bundle.putBoolean("isTwoLevel", true);
-                        bundle.putParcelable("goodsTypeDto", goodsTypeDto);
-                        startActivity(GoodsTypeActivity.class, bundle);
-                    }
+        simpleTitleBar.setRightMenuContent("保存");
+        simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoodsTypeAdapter adapter = (GoodsTypeAdapter) mRecyclerView.getAdapter();
+                HomeGoodsTypeDto goodsTypeDto = adapter.getCheckedGoodsType();
+                List<HomeGoodsTypeDto> subGoodsTypeDtos = goodsTypeDto.getTypeList();
+                if (goodsTypeDto.isEmpty()) {
+                    showToast("请选择商品类型");
+                    return;
                 }
-            });
-        }
+
+                EventBusUtils.post(new GoodsTypeEvent(GoodsTypeActivity.this.goodsTypeDto, goodsTypeDto));
+                startActivity(CreateNewGoodsActivity.class);
+            }
+        });
     }
+
 
 
     @Override
@@ -116,35 +92,11 @@ public class GoodsTypeActivity extends BaseActivity<IGoodsTypeView,GoodsTypePres
 //        RVUtils.addDivideItemForRv(mRecyclerView,0xffffffff);
         GoodsTypeAdapter adapter = new GoodsTypeAdapter(this);
         mRecyclerView.setAdapter(adapter);
-        if (fromHome) {
-            adapter.setItemClickListener(new BaseAdapter.ItemClickListener<HomeGoodsTypeDto>() {
-                @Override
-                public void onItemClick(HomeGoodsTypeDto itemData, int position) {
-
-                    Bundle bundle = new Bundle();
-                    bundle.putBoolean("isLevelOne", true);
-                    bundle.putString("levelOneId", itemData.getId());
-                    bundle.putString("levelTwoId", "");
-                    startActivity(ShopActivity.class, bundle);
-
-                }
-            });
-        }
-        if (isTwoLevel) {
-            showGoodsType(goodsTypeDto.getTypeList());
-        } else {
-            getPresenter().getGoodsType();
-        }
+        getPresenter().getGoodsType();
     }
 
     @Override
     public void showGoodsType(List<HomeGoodsTypeDto> goodsTypeDtos) {
-        if (isTwoLevel) {
-            Random mRandom = new Random();
-            for (HomeGoodsTypeDto goodsTypeDto : goodsTypeDtos) {
-                goodsTypeDto.setBackgroundRes(backgroundRes[mRandom.nextInt(backgroundRes.length)]);
-            }
-        }
         GoodsTypeAdapter adapter = (GoodsTypeAdapter) mRecyclerView.getAdapter();
         adapter.addData(goodsTypeDtos);
         adapter.setDefaultChecked(goodsTypeDto);

@@ -21,6 +21,13 @@ public class ScenicServiceDto implements Parcelable {
      */
 
     private long startDate;
+    /**
+     * maxDay : 2
+     * maxReserve : -13
+     * price : 188
+     */
+
+    private int maxReserve;
 
 
     public ScenicServiceDto() {
@@ -136,4 +143,12 @@ public class ScenicServiceDto implements Parcelable {
             return new ScenicServiceDto[size];
         }
     };
+
+    public int getMaxReserve() {
+        return maxReserve;
+    }
+
+    public void setMaxReserve(int maxReserve) {
+        this.maxReserve = maxReserve;
+    }
 }

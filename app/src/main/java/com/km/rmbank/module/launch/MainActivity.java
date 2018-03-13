@@ -11,6 +11,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.module.main.HomeActivity;
+import com.km.rmbank.module.main.HomeNewActivity;
 
 import java.util.concurrent.TimeUnit;
 

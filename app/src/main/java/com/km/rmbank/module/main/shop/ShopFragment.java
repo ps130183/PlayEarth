@@ -464,11 +464,6 @@ RecyclerView rvGt1;
     }
 
     @Override
-    public void getGoodsTypeSuccess(List<GoodsTypeDto> goodsTypeDtos) {
-
-    }
-
-    @Override
     public void showGoodsType(List<HomeGoodsTypeDto> goodsTypeDtos) {
         initRvGt1(goodsTypeDtos);
     }
@@ -477,6 +472,11 @@ RecyclerView rvGt1;
     public void showGoodsList(int pageNo, List<GoodsDto> goodsDtos) {
         GoodsListShoppingAdapter adapter = (GoodsListShoppingAdapter) rvGoodsList.getAdapter();
         adapter.addData(goodsDtos,pageNo);
+    }
+
+    @Override
+    public void addShoppingCartSuccess() {
+
     }
 
 

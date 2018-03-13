@@ -187,6 +187,7 @@
                     android:src="@mipmap/icon_double_person" />
 
                 <LinearLayout
+                    android:id="@+id/llPersonNum"
                     android:layout_width="120dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="@dimen/viewSpace8"
@@ -230,6 +231,17 @@
                         android:textColor="@color/textBlueColor"
                         android:textSize="@dimen/textSizeHuge" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/limitPersonNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/llPersonNum"
+                    android:layout_alignBottom="@+id/llPersonNum"
+                    android:text=""
+                    android:layout_marginLeft="@dimen/viewSpace16"
+                    android:visibility="gone"
+                    />
             </RelativeLayout>
 
             <View

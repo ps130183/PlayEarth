@@ -64,7 +64,7 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
 
     @BindView(R.id.commonTabLayout)
     CommonTabLayout tabLayout;
-    private String[] ctaTitles = {"基地介绍", "特色服务"};
+    private String[] ctaTitles = {"基地介绍", "预定服务"};
 
     @BindView(R.id.moreImage)
     ImageView moreImage;

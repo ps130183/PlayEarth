@@ -21,7 +21,7 @@
                 android:id="@+id/iv_more"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/ic_add_black_48px"
+                android:src="@mipmap/icon_home_me_shopcard"
                 android:visibility="visible"
                 android:layout_centerVertical="true"
                 android:layout_gravity="right"

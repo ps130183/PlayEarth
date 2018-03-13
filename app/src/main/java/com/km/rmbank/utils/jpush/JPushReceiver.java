@@ -1,5 +1,6 @@
 package com.km.rmbank.utils.jpush;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.message.MessageActivity;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.service.PushService;
 
 /**
  * Created by kamangkeji on 17/6/26.
@@ -24,6 +26,7 @@ public class JPushReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         Bundle bundle = intent.getExtras();
+        LogUtils.d("currentAction - " + intent.getAction());
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(action)){//JPush用户注册成功
 
         } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
