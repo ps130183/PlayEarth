@@ -506,7 +506,7 @@ public class CreateNewGoodsActivity extends BaseActivity<INewGoodsView,NewGoodsP
 //            showToast("请上传活动图片");
 //            return;
 //        }
-//        goodsDetailsDto.setBannerUrl(actionUrl1 + "#" + actionUrl2 + "#" + actionUrl3);
+        goodsDetailsDto.setBannerUrl("0");
         if (goodsDetailsDto.isEmpty()) {
             showToast("请将商品的信息补充完整");
             return;

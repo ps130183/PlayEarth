@@ -38,4 +38,9 @@
     <color name="color_btn_unclick">#a6a6a6</color>
     <color name="color_btn_click">#0395f7</color>
 
+    <!--        新版本  color          -->
+    <color name="text_color_block1">#191919</color>
+    <color name="text_color_block2">#555555</color>
+
+    <color name="divide_color">#efeff4</color>
 </resources>

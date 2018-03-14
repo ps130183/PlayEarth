@@ -54,7 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/iv_goods"
-        android:layout_toLeftOf="@+id/iv_is_vip2"
         android:layout_alignBottom="@+id/iv_goods">
         <TextView
             android:id="@+id/tv_sub_title"

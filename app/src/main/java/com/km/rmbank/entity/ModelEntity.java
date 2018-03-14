@@ -6,11 +6,25 @@ package com.km.rmbank.entity;
 
 public class ModelEntity {
     private int modelRes;
+    private String modelImageUrl;
     private String modelName;
 
     public ModelEntity(int modelRes, String modelName) {
         this.modelRes = modelRes;
         this.modelName = modelName;
+    }
+
+    public ModelEntity(String modelImageUrl, String modelName) {
+        this.modelImageUrl = modelImageUrl;
+        this.modelName = modelName;
+    }
+
+    public String getModelImageUrl() {
+        return modelImageUrl;
+    }
+
+    public void setModelImageUrl(String modelImageUrl) {
+        this.modelImageUrl = modelImageUrl;
     }
 
     public int getModelRes() {

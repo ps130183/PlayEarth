@@ -29,10 +29,10 @@
         android:id="@+id/tv_goods_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/viewSpace8"
         android:text="¥1280.00"
         android:textColor="@color/textRedColor"
         android:textSize="18sp"
+        android:layout_marginLeft="@dimen/viewSpace8"
         android:layout_toRightOf="@+id/iv_goods"
         android:layout_alignBottom="@+id/iv_goods" />
 
@@ -42,17 +42,17 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/iv_goods"
         android:layout_toLeftOf="@+id/addToShopCard"
+        android:layout_below="@+id/tv_goods_name"
         android:layout_above="@+id/tv_goods_price"
         >
         <TextView
             android:id="@+id/tv_sub_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/viewSpace8"
             android:text="会员专享 全场9折会员专享 全场9折会员专享 全场9折会员专享 全场9折"
             android:textColor="@color/textRedColor"
+            android:layout_marginLeft="@dimen/viewSpace8"
             android:textSize="@dimen/textSizeSmall"
-            android:padding="@dimen/viewSpace4"
             android:maxLines="1"
             android:ellipsize="end"
 

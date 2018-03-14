@@ -21,8 +21,8 @@ public class GuideFragment extends BaseFragment {
 
     @OnClick(R.id.to_home)
     public void toHome(View view){
+//        startActivity(HomeNewActivity.class);
         startActivity(HomeActivity.class);
-//        toNextActivity(HomeActivity.class);
         SPUtils.getInstance().put("isFirst",false);
         getActivity().finish();
     }

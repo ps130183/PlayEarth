@@ -141,7 +141,7 @@ public class GlideImageLoader {
     public RequestOptions FitHeightRquestOptions(int placeholderResId, int errorResId){
         return requestOptions(placeholderResId,errorResId)
                 .transform(new GlideImageViewFitHeight(getImageView()))
-                .centerCrop()
+//                .centerCrop();
                 .skipMemoryCache(true) // 跳过内存缓存
                 .diskCacheStrategy(DiskCacheStrategy.NONE); // 不缓存到SDCard中;
     }

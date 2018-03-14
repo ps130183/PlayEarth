@@ -129,4 +129,22 @@ public class GlideUtils {
             }
         });
     }
+
+    /**
+     * 加载圆形图片 来自网络
+     * @param imageView
+     * @param imageUrl
+     */
+    public static void loadCircleImageByUrl(GlideImageView imageView,String imageUrl){
+        imageView.loadCircleImage(imageUrl,R.color.placeholder_color);
+    }
+
+    /**
+     * 加载圆形图片 来自资源文件
+     * @param imageView
+     * @param imageRes
+     */
+    public static void loadCircleImageByRes(GlideImageView imageView,int imageRes){
+        imageView.loadLocalCircleImage(imageRes,R.color.placeholder_color);
+    }
 }

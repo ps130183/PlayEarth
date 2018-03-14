@@ -132,6 +132,8 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
             }
         }
 
+        getPresenter().getBalance();
+
 
     }
 

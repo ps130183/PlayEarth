@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 
 /**
@@ -33,8 +34,8 @@ public class GlideImageViewFitHeight extends BitmapTransformation{
         return toTransform;
     }
 
-    @Override
-    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
 
+    @Override
+    public void updateDiskCacheKey(MessageDigest messageDigest) {
     }
 }

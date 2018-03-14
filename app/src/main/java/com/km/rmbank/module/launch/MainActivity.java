@@ -59,6 +59,7 @@ public class MainActivity extends BaseActivity {
                         if (isFirst && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                             startActivity(GuideActivity.class);
                         } else {
+//                            startActivity(HomeNewActivity.class);
                             startActivity(HomeActivity.class);
                         }
                         finish();
