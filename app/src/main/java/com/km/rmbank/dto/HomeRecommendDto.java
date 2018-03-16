@@ -9,162 +9,216 @@ import java.util.List;
 public class HomeRecommendDto {
 
     /**
-     * productReconmmendList : [{"alreadySoldCount":0,"bannerType":0,"freightMaxCount":0,"goodsImg":"/user/portrait/201704/a00561d287a14c3e82a9a20635f3a86b.png","goodsName":"高射炮","goodsPrice":100,"isInIndexActivity":0,"price":1,"productNo":"12345","recommendName":"今日推荐","status":0,"stockCount":0,"thumbnailUrl":"http://192.168.31.216:8088/img/user/portrait/201704/a00561d287a14c3e82a9a20635f3a86b.png"},{"alreadySoldCount":0,"bannerType":0,"freightMaxCount":0,"goodsImg":"/user/portrait/201704/a00561d287a14c3e82a9a20635f3a86b.png","goodsName":"苹果","goodsPrice":15341,"isInIndexActivity":0,"price":153.41,"productNo":"10000","recommendName":"今日推荐","status":0,"stockCount":0,"thumbnailUrl":"http://192.168.31.216:8088/img/user/portrait/201704/a00561d287a14c3e82a9a20635f3a86b.png"},{"alreadySoldCount":0,"bannerType":0,"freightMaxCount":0,"goodsImg":"/shop/201704/c36bc94ccbc140529387c985896a4f33.png","goodsName":"静静的静静的家","goodsPrice":1,"isInIndexActivity":0,"price":0.01,"productNo":"PN20170407072747176","recommendName":"今日推荐","status":0,"stockCount":0,"thumbnailUrl":"http://192.168.31.216:8088/img/shop/201704/c36bc94ccbc140529387c985896a4f33.png"}]
-     * recommendName : 今日推荐
+     * advertImage : http://192.168.10.131:8080/wzdq/Aiyg/aiygImage/2018/03/06da586f052647448a91c1a65e265aff.jpg
+     * advertUrl :
+     * detailList : [{"content":"","fans":"0","id":"4","keepCount":"0","recommendId":"2","relevanceId":"83","sort":0,"thumbnail":"http://47.93.184.121:8080/wzdq/Aiyg/aiygImage/2018/03/b6bf21cca1d342d197850e52b8dab367.jpg","title":"平谷养老基地","type":"2"},{"content":"","fans":"0","id":"5","keepCount":"0","recommendId":"2","relevanceId":"88","sort":0,"thumbnail":"http://47.93.184.121:8080/wzdq/Aiyg/aiygImage/2018/03/07f71e9aedbd408db692bb362101596d.jpg","title":"朝阳禅寺基地","type":"2"},{"content":"以奉献、友爱、互助、进步为宗旨，以帮助他人、完善自己、服务社会、传播文明为工作目标。","fans":"62","id":"6","keepCount":"3","recommendId":"2","relevanceId":"46","sort":0,"thumbnail":"http://47.93.184.121:8080/wzdq/Aiyg/aiygImage/2018/01/a2ac72845afb4e2bb85c14d0ccbd61f7.png","title":"巾帼名媛俱乐部","type":"1"}]
+     * id : 2
+     * levelName : 推荐元宵
+     * sort : 10
+     * status : 1
+     * type : 2
      */
 
-    private String recommendName;
-    private List<ProductReconmmendListBean> productReconmmendList;
+    private String advertImage;
+    private String advertUrl;
+    private String id;
+    private String levelName;
+    private int sort;
+    private String status;
+    private String type;
+    private List<DetailListBean> detailList;
 
-    public String getRecommendName() {
-        return recommendName;
+    public String getAdvertImage() {
+        return advertImage;
     }
 
-    public void setRecommendName(String recommendName) {
-        this.recommendName = recommendName;
+    public void setAdvertImage(String advertImage) {
+        this.advertImage = advertImage;
     }
 
-    public List<ProductReconmmendListBean> getProductReconmmendList() {
-        return productReconmmendList;
+    public String getAdvertUrl() {
+        return advertUrl;
     }
 
-    public void setProductReconmmendList(List<ProductReconmmendListBean> productReconmmendList) {
-        this.productReconmmendList = productReconmmendList;
+    public void setAdvertUrl(String advertUrl) {
+        this.advertUrl = advertUrl;
     }
 
-    public static class ProductReconmmendListBean {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public List<DetailListBean> getDetailList() {
+        return detailList;
+    }
+
+    public void setDetailList(List<DetailListBean> detailList) {
+        this.detailList = detailList;
+    }
+
+    public static class DetailListBean {
         /**
-         * alreadySoldCount : 0
-         * bannerType : 0
-         * freightMaxCount : 0
-         * goodsImg : /user/portrait/201704/a00561d287a14c3e82a9a20635f3a86b.png
-         * goodsName : 高射炮
-         * goodsPrice : 100
-         * isInIndexActivity : 0
-         * price : 1
-         * productNo : 12345
-         * recommendName : 今日推荐
-         * status : 0
-         * stockCount : 0
-         * thumbnailUrl : http://192.168.31.216:8088/img/user/portrait/201704/a00561d287a14c3e82a9a20635f3a86b.png
+         * content :
+         * fans : 0
+         * id : 4
+         * keepCount : 0
+         * recommendId : 2
+         * relevanceId : 83
+         * sort : 0
+         * thumbnail : http://47.93.184.121:8080/wzdq/Aiyg/aiygImage/2018/03/b6bf21cca1d342d197850e52b8dab367.jpg
+         * title : 平谷养老基地
+         * type : 2
          */
 
-        private String alreadySoldCount;
-        private int bannerType;
-        private int freightMaxCount;
-        private String goodsImg;
-        private String goodsName;
-        private String goodsPrice;
-        private int isInIndexActivity;
-        private String price;
-        private String productNo;
-        private String recommendName;
-        private int status;
-        private int stockCount;
-        private String thumbnailUrl;
+        private String content;
+        private String fans;
+        private String id;
+        private String keepCount;
+        private String recommendId;
+        private String relevanceId;
+        private int sort;
+        private String thumbnail;
+        private String title;
+        private String type;
+        /**
+         * applyCount : 1
+         * startDate : 1521264600000
+         */
 
-        public String getAlreadySoldCount() {
-            return alreadySoldCount;
+        private String applyCount;
+        private long startDate;
+
+
+        public String getContent() {
+            return content;
         }
 
-        public void setAlreadySoldCount(String alreadySoldCount) {
-            this.alreadySoldCount = alreadySoldCount;
+        public void setContent(String content) {
+            this.content = content;
         }
 
-        public int getBannerType() {
-            return bannerType;
+        public String getFans() {
+            return fans;
         }
 
-        public void setBannerType(int bannerType) {
-            this.bannerType = bannerType;
+        public void setFans(String fans) {
+            this.fans = fans;
         }
 
-        public int getFreightMaxCount() {
-            return freightMaxCount;
+        public String getId() {
+            return id;
         }
 
-        public void setFreightMaxCount(int freightMaxCount) {
-            this.freightMaxCount = freightMaxCount;
+        public void setId(String id) {
+            this.id = id;
         }
 
-        public String getGoodsImg() {
-            return goodsImg;
+        public String getKeepCount() {
+            return keepCount;
         }
 
-        public void setGoodsImg(String goodsImg) {
-            this.goodsImg = goodsImg;
+        public void setKeepCount(String keepCount) {
+            this.keepCount = keepCount;
         }
 
-        public String getGoodsName() {
-            return goodsName;
+        public String getRecommendId() {
+            return recommendId;
         }
 
-        public void setGoodsName(String goodsName) {
-            this.goodsName = goodsName;
+        public void setRecommendId(String recommendId) {
+            this.recommendId = recommendId;
         }
 
-        public String getGoodsPrice() {
-            return goodsPrice;
+        public String getRelevanceId() {
+            return relevanceId;
         }
 
-        public void setGoodsPrice(String goodsPrice) {
-            this.goodsPrice = goodsPrice;
+        public void setRelevanceId(String relevanceId) {
+            this.relevanceId = relevanceId;
         }
 
-        public int getIsInIndexActivity() {
-            return isInIndexActivity;
+        public int getSort() {
+            return sort;
         }
 
-        public void setIsInIndexActivity(int isInIndexActivity) {
-            this.isInIndexActivity = isInIndexActivity;
+        public void setSort(int sort) {
+            this.sort = sort;
         }
 
-        public String getPrice() {
-            return price;
+        public String getThumbnail() {
+            return thumbnail;
         }
 
-        public void setPrice(String price) {
-            this.price = price;
+        public void setThumbnail(String thumbnail) {
+            this.thumbnail = thumbnail;
         }
 
-        public String getProductNo() {
-            return productNo;
+        public String getTitle() {
+            return title;
         }
 
-        public void setProductNo(String productNo) {
-            this.productNo = productNo;
+        public void setTitle(String title) {
+            this.title = title;
         }
 
-        public String getRecommendName() {
-            return recommendName;
+        public String getType() {
+            return type;
         }
 
-        public void setRecommendName(String recommendName) {
-            this.recommendName = recommendName;
+        public void setType(String type) {
+            this.type = type;
         }
 
-        public int getStatus() {
-            return status;
+        public String getApplyCount() {
+            return applyCount;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setApplyCount(String applyCount) {
+            this.applyCount = applyCount;
         }
 
-        public int getStockCount() {
-            return stockCount;
+        public long getStartDate() {
+            return startDate;
         }
 
-        public void setStockCount(int stockCount) {
-            this.stockCount = stockCount;
-        }
-
-        public String getThumbnailUrl() {
-            return thumbnailUrl;
-        }
-
-        public void setThumbnailUrl(String thumbnailUrl) {
-            this.thumbnailUrl = thumbnailUrl;
+        public void setStartDate(long startDate) {
+            this.startDate = startDate;
         }
     }
 }

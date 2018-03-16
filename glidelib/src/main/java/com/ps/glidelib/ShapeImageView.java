@@ -49,6 +49,8 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
     private float pressedAlpha = 0.1f; // 按下的透明度
     private int pressedColor = 0x1A000000; // 按下的颜色
 
+    private boolean isInterceptClick = false;
+
     @IntDef({ShapeType.RECTANGLE, ShapeType.CIRCLE})
     @Retention(RetentionPolicy.SOURCE)
     public @interface ShapeType {
@@ -71,14 +73,14 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
 
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
-            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ShapeImageViewStyle);
-            borderWidth = array.getDimensionPixelOffset(R.styleable.ShapeImageViewStyle_siv_border_width, borderWidth);
-            borderColor = array.getColor(R.styleable.ShapeImageViewStyle_siv_border_color, borderColor);
-            radius = array.getDimensionPixelOffset(R.styleable.ShapeImageViewStyle_siv_radius, radius);
-            pressedAlpha = array.getFloat(R.styleable.ShapeImageViewStyle_siv_pressed_alpha, pressedAlpha);
+            TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ShapeImageView);
+            borderWidth = array.getDimensionPixelOffset(R.styleable.ShapeImageView_siv_border_width, borderWidth);
+            borderColor = array.getColor(R.styleable.ShapeImageView_siv_border_color, borderColor);
+            radius = array.getDimensionPixelOffset(R.styleable.ShapeImageView_siv_radius, radius);
+            pressedAlpha = array.getFloat(R.styleable.ShapeImageView_siv_pressed_alpha, pressedAlpha);
             if (pressedAlpha > 1) pressedAlpha = 1;
-            pressedColor = array.getColor(R.styleable.ShapeImageViewStyle_siv_pressed_color, pressedColor);
-            shapeType = array.getInteger(R.styleable.ShapeImageViewStyle_siv_shape_type, shapeType);
+            pressedColor = array.getColor(R.styleable.ShapeImageView_siv_pressed_color, pressedColor);
+            shapeType = array.getInteger(R.styleable.ShapeImageView_siv_shape_type, shapeType);
             array.recycle();
         }
 
@@ -183,25 +185,31 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
         }
     }
 
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                pressedPaint.setAlpha((int) (pressedAlpha * 255));
+//                invalidate();
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                pressedPaint.setAlpha(0);
+//                invalidate();
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                break;
+//            default:
+//                pressedPaint.setAlpha(0);
+//                invalidate();
+//                break;
+//        }
+//        return super.onTouchEvent(event);
+//    }
+//
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                pressedPaint.setAlpha((int) (pressedAlpha * 255));
-                invalidate();
-                break;
-            case MotionEvent.ACTION_UP:
-                pressedPaint.setAlpha(0);
-                invalidate();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            default:
-                pressedPaint.setAlpha(0);
-                invalidate();
-                break;
-        }
-        return super.onTouchEvent(event);
+    public boolean dispatchTouchEvent(MotionEvent event) {
+//        onTouchEvent(event);
+        return isInterceptClick;
     }
 
     // 获取Bitmap内容
@@ -260,5 +268,13 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
     public void setShapeType(@ShapeType int shapeType) {
         this.shapeType = shapeType;
         invalidate();
+    }
+
+    /**
+     * 设置是否拦截点击事件
+     * @param interceptClick
+     */
+    public void setInterceptClick(boolean interceptClick) {
+        isInterceptClick = interceptClick;
     }
 }

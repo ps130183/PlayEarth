@@ -21,8 +21,8 @@ public class AppointModel extends BaseModel {
      * @param pageNo
      * @return
      */
-    public Observable<List<AppointDto>> getAppointLists(int pageNo){
-        return getService().getActionRecentList(pageNo)
+    public Observable<List<AppointDto>> getAppointLists(int pageNo,int newType){
+        return getService().getActionRecentList(pageNo,newType)
                 .compose(this.<List<AppointDto>>applySchedulers());
     }
 
@@ -34,6 +34,17 @@ public class AppointModel extends BaseModel {
     public Observable<List<AppointDto>> getAppointAppliedLists(int pageNo){
         return getService().getActionAppliedList(Constant.userLoginInfo.getToken(),pageNo)
                 .compose(this.<List<AppointDto>>applySchedulers());
+    }
+
+    /**
+     * 活动报名
+     * @param name
+     * @param phone
+     * @return
+     */
+    public Observable<String> applyAction(String activityId,String name,String phone){
+        return getService().applyAction(Constant.userLoginInfo.getToken(),activityId,name,phone)
+                .compose(this.<String>applySchedulers());
     }
 
 

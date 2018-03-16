@@ -8,10 +8,11 @@
     <include layout="@layout/_default_divide_line5"/>
 
     <com.ps.glidelib.GlideImageView
+        android:id="@+id/guanggaowei"
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:src="@mipmap/icon_home_guanggao"
-        app:siv_radius="8dp"/>
+        android:src="@mipmap/guanggao_home1"
+        app:siv_radius="4dp"/>
 
     <include layout="@layout/_default_divide_line5"/>
 
@@ -21,14 +22,14 @@
         android:orientation="horizontal"
         android:background="@color/white"
         android:paddingLeft="14dp"
-        android:paddingRight="14dp"
-        android:gravity="center_vertical">
+        android:paddingRight="14dp">
 
         <ImageView
             android:id="@+id/recommendLeft"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:src="@mipmap/icon_home_recommend_left"
+            android:layout_alignParentBottom="true"
             />
 
         <TextView
@@ -37,30 +38,24 @@
             android:layout_height="wrap_content"
             android:text="推荐活动"
             android:textSize="13sp"
-            android:textColor="#333333"
+            android:textColor="@color/text_color_block3"
             android:layout_marginLeft="7dp"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/recommendLeft"/>
 
-        <ImageView
-            android:id="@+id/arrowMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_home_arror_more"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            />
-
-        <TextView
+        <com.ruffian.library.RTextView
             android:id="@+id/recommendMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="更多"
+            android:text="更多  "
             android:textColor="#888888"
             android:textSize="10sp"
-            android:layout_toLeftOf="@+id/arrowMore"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="7dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            app:icon_src_normal="@mipmap/icon_home_arrow_more"
+            app:icon_height="8dp"
+            app:icon_width="5dp"
+            app:icon_direction="right"
             />
 
     </RelativeLayout>

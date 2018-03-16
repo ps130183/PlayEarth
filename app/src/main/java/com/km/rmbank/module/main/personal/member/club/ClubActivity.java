@@ -23,11 +23,13 @@ import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.entity.TabEntity;
+import com.km.rmbank.event.AttentionClubEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.mvp.model.ClubModel;
 import com.km.rmbank.mvp.presenter.ClubPresenter;
 import com.km.rmbank.mvp.view.IClubView;
 import com.km.rmbank.utils.Constant;
+import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 import com.ps.glidelib.GlideUtils;
@@ -63,7 +65,7 @@ public class ClubActivity extends BaseActivity<IClubView,ClubPresenter> implemen
     //是否关注
     private boolean isAttention = false;
 
-    private String title = "玩转地球剑神俱乐部玩转地球剑神俱乐部玩转地球剑神俱乐部";
+    private String title = "";
 
     private ClubDto mClubDto;
 
@@ -107,6 +109,7 @@ public class ClubActivity extends BaseActivity<IClubView,ClubPresenter> implemen
         GlideUtils.loadImage(mInstance,mClubDto.getBackgroundImg(),mViewManager.getImageView(R.id.iv_background));
 
         mViewManager.setText(R.id.attentionNum,mClubDto.getKeepCount() + "");
+        mViewManager.setText(R.id.memberNum,TextUtils.isEmpty(mClubDto.getFans()) ? "0" : mClubDto.getFans());
         mViewManager.setText(R.id.actionNum,"发布过" + mClubDto.getActivityCount() + "个活动，累计参加人数" +mClubDto.getActivityPersonCount() + "人");
 
         isAttention = mClubDto.getKeepStatus();
@@ -172,7 +175,10 @@ public class ClubActivity extends BaseActivity<IClubView,ClubPresenter> implemen
     }
 
 
-
+    /**
+     * 关注俱乐部
+     * @param view
+     */
     @OnClick({R.id.attention_club,R.id.tv_attention_club})
     public void attentionClub(View view){
         getPresenter().attentionClub(mClubDto.getId());
@@ -214,5 +220,6 @@ public class ClubActivity extends BaseActivity<IClubView,ClubPresenter> implemen
     public void attentionClubResult(String result) {
         isAttention = !isAttention;
         notifyAttention();
+        EventBusUtils.post(new AttentionClubEvent(mClubDto.getId(),isAttention));
     }
 }

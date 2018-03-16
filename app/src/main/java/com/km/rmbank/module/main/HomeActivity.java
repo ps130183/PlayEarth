@@ -18,6 +18,8 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
+import com.km.rmbank.dto.ClubDto;
+import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.entity.TabEntity;
 import com.km.rmbank.event.DownloadAppEvent;
@@ -25,12 +27,11 @@ import com.km.rmbank.event.HomeTabLayoutEvent;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.action.PromotionActivity;
-import com.km.rmbank.module.main.fragment.HomeAppointFragment;
-import com.km.rmbank.module.main.fragment.HomeFragment;
+import com.km.rmbank.module.main.fragment.HomeAppointActionFragment;
 import com.km.rmbank.module.main.fragment.HomeRecommendFragment;
 import com.km.rmbank.module.main.fragment.HomeMeFragment;
 import com.km.rmbank.module.main.fragment.HomeShopFragment;
-import com.km.rmbank.module.main.shop.ShopActivity;
+import com.km.rmbank.module.main.fragment.HomeNewFragment;
 import com.km.rmbank.mvp.model.HomeModel;
 import com.km.rmbank.mvp.presenter.HomePresenter;
 import com.km.rmbank.mvp.view.IHomeView;
@@ -44,7 +45,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -61,16 +61,20 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     public final static int REQUEST_PERMISSION_CAMERA = 1;
     public final static int REQUEST_PERMISSION_LOCATION = 2;
 
-    private String[] mTitles = {"首页", "推荐", "熟人购", "我的"};
+    private String[] mTitles = {"首页", "推荐","约么", "熟人购", "我的"};
 
     private int[] mIconUnselectIds = {
-            R.mipmap.icon_home_bottom_home_unselect, //R.mipmap.icon_home_bottom_appoint_unselect,
-            R.mipmap.icon_home_bottom_friends_unselect, R.mipmap.icon_home_bottom_shop_unselect,
-            R.mipmap.icon_home_bottom_me_unselect};
+            R.mipmap.icon_home_bottom_unselect1,
+            R.mipmap.icon_home_bottom_unselect2,
+            R.mipmap.icon_home_bottom_unselect3,
+            R.mipmap.icon_home_bottom_unselect4,
+            R.mipmap.icon_home_bottom_unselect5};
     private int[] mIconSelectIds = {
-            R.mipmap.icon_home_bottom_home_selected, //R.mipmap.icon_home_bottom_appoint_selected,
-            R.mipmap.icon_home_bottom_friends_selected, R.mipmap.icon_home_bottom_shop_selected,
-            R.mipmap.icon_home_bottom_me_selected};
+            R.mipmap.icon_home_bottom_selected1,
+            R.mipmap.icon_home_bottom_selected2,
+            R.mipmap.icon_home_bottom_selected3,
+            R.mipmap.icon_home_bottom_selected4,
+            R.mipmap.icon_home_bottom_selected5};
     private ArrayList<Fragment> fragmentList;
 
     private CommonTabLayout tabLayout;
@@ -103,7 +107,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 //        keyBorad((ViewGroup) mViewManager.findView(R.id.rl_root));
         FrameLayout flContent = mViewManager.findView(R.id.main_page);
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) flContent.getLayoutParams();
-        lp.height = ScreenUtils.getScreenHeight() - ConvertUtils.dp2px(55) - SystemBarHelper.getStatusBarHeight(this);
+        lp.height = ScreenUtils.getScreenHeight() - ConvertUtils.dp2px(48) - SystemBarHelper.getStatusBarHeight(this);
         initTabLayout(tabLayout);
 
 
@@ -188,9 +192,11 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     private void initTabLayout(CommonTabLayout tabLayout) {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(HomeFragment.newInstance(null));
+        fragmentList.add(HomeNewFragment.newInstance(null));
+//        fragmentList.add(HomeFragment.newInstance(null));
 //        fragmentList.add(HomeAppointFragment.newInstance(null));
         fragmentList.add(HomeRecommendFragment.newInstance(null));
+        fragmentList.add(HomeAppointActionFragment.newInstance(null));
         fragmentList.add(HomeShopFragment.newInstance(null));
         fragmentList.add(HomeMeFragment.newInstance(null));
 
@@ -203,31 +209,27 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public boolean onTabSelect(int position) {
-                boolean result = false;
+                boolean result = true;
                 Bundle bundle = new Bundle();
                 bundle.putInt("lastPosition", lastPosition);
                 switch (position) {
                     case 0://首页
 //                        showDialog();
-                        result = true;
                         break;
 //                    case 1://约咖
 ////                        showToast(getResources().getString(R.string.notOpen));
 //                        result = true;
 //                        break;
                     case 1://人脉
-                        result = true;
                         break;
-                    case 2://熟人购
+                    case 3://熟人购
 //                        startActivity(ShopActivity.class, bundle);
-                        result = true;
                         break;
-                    case 3://我的
+                    case 4://我的
                         if (Constant.userLoginInfo.isEmpty()) {
                             startActivity(LoginActivity.class);
                         }
                         EventBusUtils.post(new RefreshPersonalInfoEvent());
-                        result = true;
                         break;
                     default:
                         break;
@@ -262,6 +264,21 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
     @Override
     public void showMapMarkerResult(List<MapMarkerDto> mapMarkerDtos) {
+
+    }
+
+    @Override
+    public void showHomeRecommend(List<HomeRecommendDto> recommendDtos) {
+
+    }
+
+    @Override
+    public void showClubInfo(ClubDto clubDto) {
+
+    }
+
+    @Override
+    public void applyActionSuccess(String actionId, String type) {
 
     }
 

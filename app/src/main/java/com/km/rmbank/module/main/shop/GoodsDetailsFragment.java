@@ -51,7 +51,8 @@ public class GoodsDetailsFragment extends BaseFragment {
             @Override
             public void convert(CommonViewHolder holder, String mData, int position) {
                 GlideImageView imageView =  holder.findView(R.id.iv_goods_details);
-                GlideUtils.loadImageFitHeight(imageView,mData,null);
+                CircleProgressView progressView = holder.findView(R.id.progressView);
+                GlideUtils.loadImageFitHeight(imageView,mData,progressView);
             }
         }).create();
 

@@ -37,8 +37,7 @@
                     android:id="@+id/iv_background"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/icon_user_card_bg" />
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -63,7 +62,6 @@
                             android:layout_height="match_parent"
                             app:riv_border_width="2dp"
                             app:riv_border_color="@color/white"
-                            android:src="@mipmap/icon_banner_1"
                             android:scaleType="centerCrop"
                             app:riv_oval="true" />
                     </android.support.v7.widget.CardView>
@@ -154,7 +152,7 @@
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:maxLines="1"
-                        android:text="俱乐部一句话简介信息"
+                        android:text=""
                         android:textColor="@color/textMainColor"
                         android:textSize="@dimen/textSizeBig" />
 
@@ -165,7 +163,7 @@
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:maxLines="1"
-                        android:text="发布过23个活动，累计参加人数1342人"
+                        android:text=""
                         android:textColor="@color/textSecondColor"
                         android:textSize="@dimen/textSizeContent" />
 

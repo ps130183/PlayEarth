@@ -23,6 +23,7 @@ import com.km.rmbank.mvp.presenter.ShopPresenter;
 import com.km.rmbank.mvp.view.IShopView;
 import com.km.rmbank.oldrecycler.BaseAdapter;
 import com.km.rmbank.oldrecycler.RVUtils;
+import com.km.rmbank.utils.RefreshUtils;
 
 import java.util.List;
 
@@ -66,7 +67,17 @@ public class ShopGoodsListFragment extends BaseFragment<IShopView,ShopPresenter>
             isInIndextActivity = goodsTypeDto.getId();
         }
         initGoodsList();
-        getGoodsList(1);
+        initXRefresh();
+    }
+
+    private void initXRefresh(){
+        RefreshUtils.initXRefreshView(mXRefreshView, new RefreshUtils.OnRefreshListener() {
+            @Override
+            public void refresh() {
+                getGoodsList(1);
+            }
+        });
+        showLoading();
     }
 
 
@@ -110,6 +121,7 @@ public class ShopGoodsListFragment extends BaseFragment<IShopView,ShopPresenter>
 
     @Override
     public void showGoodsList(int pageNo, List<GoodsDto> goodsDtos) {
+        hideLoading();
         GoodsListShoppingAdapter adapter = (GoodsListShoppingAdapter) rvGoodsList.getAdapter();
         adapter.addData(goodsDtos,pageNo);
     }

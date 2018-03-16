@@ -741,7 +741,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/information/list")
-    Observable<Response<List<InformationDto>>> getInformationList(@Field("pageNo") int pageNo);
+    Observable<Response<List<InformationDto>>> getInformationList(
+            @Field("pageNo") int pageNo);
 
     /**
      *   获取首页 动态  平台发布的资讯
@@ -764,14 +765,14 @@ public interface ApiService {
     Observable<Response<String>> getInformationDetail(@Field("id") String id);
 
     /**
-     * 获取活动列表
+     * 获取首页 推荐 内容
      *
      * @param pageNo
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiConstant.API_MODEL + "/product/recommend/list")
-    Observable<Response<List<HomeRecommendDto>>> getHomeActionRecommend(@Field("pageNo") int pageNo);
+    @POST(ApiConstant.API_MODEL + "/headRecommend/list")
+    Observable<Response<List<HomeRecommendDto>>> getHomeRecommend(@Field("pageNo") int pageNo);
 
     /**
      * 获取活动列表
@@ -1219,7 +1220,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/activity/list")
-    Observable<Response<List<AppointDto>>> getActionRecentList(@Field("pageNo") int pageNo);
+    Observable<Response<List<AppointDto>>> getActionRecentList(@Field("pageNo") int pageNo,
+                                                               @Field("newType") int newType);
 
     /**
      * 获取已报名的活动列表
@@ -1545,7 +1547,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/club/list")
-    Observable<Response<List<ClubDto>>> getClubList(@Field("pageNo") int pageNo,
+    Observable<Response<List<ClubDto>>> getClubList(@Field("token") String token,
+                                                    @Field("pageNo") int pageNo,
                                               @Field("isRecommend") String isRecommend);
 
     /**
@@ -1631,6 +1634,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/club/baseList")
     Observable<Response<List<MapMarkerDto>>> getMapMarkers(@Field("default") String def);
+
+
+    /**
+     * 获取地图上  所有 基地会所 数据
+     * @param type  2:基地 3：会所
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/club/baseList")
+    Observable<Response<List<MapMarkerDto>>> getScenicList(@Field("type") String type);
 
     /**
      * 获取基地的特色服务列表

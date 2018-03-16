@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorAccent">#ea6f5a</color>
+    <color name="colorAccent">#3285ff</color>
+    <!--<color name="colorAccent">#ea6f5a</color>-->
 
     <color name="white">#ffffff</color>
     <color name="swipeRefresh">#baffffff</color>
@@ -17,7 +18,7 @@
     <color name="buttonBlueColor">#1e8aed</color>
 
 
-    <color name="defaultBackground">#f1f1f0</color>
+    <color name="defaultBackground">#efeff4</color>
     
     <color name="divideLineColor">#e2e2e2</color>
     <color name="divideLineColor2">#cccccc</color>
@@ -41,6 +42,8 @@
     <!--        新版本  color          -->
     <color name="text_color_block1">#191919</color>
     <color name="text_color_block2">#555555</color>
+    <color name="text_color_block3">#333333</color>
+    <color name="text_color_block4">#888888</color>
 
     <color name="divide_color">#efeff4</color>
 </resources>

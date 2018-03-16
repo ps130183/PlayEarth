@@ -28,7 +28,6 @@
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
                 />
             <include layout="@layout/glide_image_load_progress"/>
 

@@ -189,19 +189,5 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
         }
         getPresenter().getClubInfo(clubId);
     }
-
-    @Override
-    public void onBackPressed() {
-        if (JZVideoPlayer.backPress()) {
-            return;
-        }
-        super.onBackPressed();
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        JZVideoPlayer.releaseAllVideos();
-    }
-
-
+    
 }

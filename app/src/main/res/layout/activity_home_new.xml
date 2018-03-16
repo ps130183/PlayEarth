@@ -40,11 +40,26 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="消息：玩转地球资讯消息"
+                    android:text="消息："
                     android:layout_marginLeft="9dp"
                     android:textSize="11sp"
                     android:textColor="@color/text_color_block2"
                     />
+                <com.gongwen.marqueen.SimpleMarqueeView
+                    android:id="@+id/simpleMarqueeView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:flipInterval="3000"
+                    android:inAnimation="@anim/in_bottom"
+                    android:outAnimation="@anim/out_top"
+                    app:marqueeAnimDuration="1000"
+                    app:smvTextColor="@color/text_color_block2"
+                    app:smvTextEllipsize="end"
+                    app:smvTextGravity="center_vertical"
+                    app:smvTextSingleLine="true"
+                    app:smvTextSize="11sp" >
+
+                </com.gongwen.marqueen.SimpleMarqueeView>
                 
             </LinearLayout>
             

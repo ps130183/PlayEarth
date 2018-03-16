@@ -332,8 +332,11 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         personNum--;
         tvPersonNum.setText(personNum + "");
 
-        limitPersonNum++;
-        tvLimitPersonNum.setText("剩余" + limitPersonNum + "个名额");
+        if (isPlatformActivity){
+            limitPersonNum++;
+            tvLimitPersonNum.setText("剩余" + limitPersonNum + "个名额");
+        }
+
     }
 
     /**
@@ -343,14 +346,19 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
      */
     @OnClick(R.id.add)
     public void addPersonNum(View view) {
-        if (limitPersonNum <= 0){
-            return;
+        if (isPlatformActivity){
+            if (limitPersonNum <= 0){
+                return;
+            }
+            limitPersonNum--;
+            tvLimitPersonNum.setText("剩余" + limitPersonNum + "个名额");
         }
+
+
         personNum++;
         tvPersonNum.setText(personNum + "");
 
-        limitPersonNum--;
-        tvLimitPersonNum.setText("剩余" + limitPersonNum + "个名额");
+
     }
 
     /**

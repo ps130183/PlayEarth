@@ -105,7 +105,7 @@ public class HomeShopFragment extends BaseFragment<IShopView,ShopPresenter> impl
             TabEntity tabEntity = new TabEntity(goodsTypeDto.getProductTypeName(),0,0);
             titleList.add(tabEntity);
         }
-        ViewPagerTabAdapter adapter = new ViewPagerTabAdapter(getFragmentManager(),fragmentList,titleList);
+        ViewPagerTabAdapter adapter = new ViewPagerTabAdapter(getChildFragmentManager(),fragmentList,titleList);
         viewPager.setAdapter(adapter);
         goodsTypesTab.setViewPager(viewPager);
     }

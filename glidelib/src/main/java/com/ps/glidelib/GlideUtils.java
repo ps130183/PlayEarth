@@ -131,6 +131,15 @@ public class GlideUtils {
     }
 
     /**
+     * 加载本地资源图片
+     * @param imageView
+     * @param imageRes
+     */
+    public static void loadImageByRes(GlideImageView imageView,int imageRes){
+        imageView.loadLocalImage(imageRes,R.color.placeholder_color);
+    }
+
+    /**
      * 加载圆形图片 来自网络
      * @param imageView
      * @param imageUrl

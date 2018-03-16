@@ -36,6 +36,8 @@ public class MapMarkerDto implements Parcelable {
     private long updateDate;
     private String userId;
 
+    private int applyCount;
+
     public MapMarkerDto(String clubName, double latidude, double longitude) {
         this.clubName = clubName;
         this.latitude = latidude;
@@ -82,6 +84,14 @@ public class MapMarkerDto implements Parcelable {
         this.id = id;
     }
 
+    public int getApplyCount() {
+        return applyCount;
+    }
+
+    public void setApplyCount(int applyCount) {
+        this.applyCount = applyCount;
+    }
+
     @Override
     public String toString() {
         return "MapMarkerDto{" +
@@ -90,6 +100,15 @@ public class MapMarkerDto implements Parcelable {
                 ", address='" + address + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
+                ", backgroundImg='" + backgroundImg + '\'' +
+                ", clubLogo='" + clubLogo + '\'' +
+                ", clubType='" + clubType + '\'' +
+                ", content='" + content + '\'' +
+                ", createDate=" + createDate +
+                ", isRecommend='" + isRecommend + '\'' +
+                ", updateDate=" + updateDate +
+                ", userId='" + userId + '\'' +
+                ", applyCount=" + applyCount +
                 '}';
     }
 
@@ -177,6 +196,7 @@ public class MapMarkerDto implements Parcelable {
         dest.writeString(this.isRecommend);
         dest.writeLong(this.updateDate);
         dest.writeString(this.userId);
+        dest.writeInt(this.applyCount);
     }
 
     protected MapMarkerDto(Parcel in) {
@@ -193,6 +213,7 @@ public class MapMarkerDto implements Parcelable {
         this.isRecommend = in.readString();
         this.updateDate = in.readLong();
         this.userId = in.readString();
+        this.applyCount = in.readInt();
     }
 
     public static final Creator<MapMarkerDto> CREATOR = new Creator<MapMarkerDto>() {

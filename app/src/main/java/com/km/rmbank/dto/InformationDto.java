@@ -11,6 +11,7 @@ public class InformationDto implements Parcelable {
     private String avatarUrl;
     private String id;
     private String title;
+    private String subtitle;
     private String viewCount;
     /**
      * clubLogo : http://47.93.184.121/img/guest/201707/950332fa76904fa091ce46dd38898fe7.png
@@ -29,6 +30,21 @@ public class InformationDto implements Parcelable {
     private String videoName;
     private String videoUrl;
 
+
+    @Override
+    public String toString() {
+        return "InformationDto{" +
+                "avatarUrl='" + avatarUrl + '\'' +
+                ", id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", viewCount='" + viewCount + '\'' +
+                ", clubLogo='" + clubLogo + '\'' +
+                ", clubName='" + clubName + '\'' +
+                ", videoName='" + videoName + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                '}';
+    }
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -52,6 +68,14 @@ public class InformationDto implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public String getViewCount() {
@@ -107,6 +131,7 @@ public class InformationDto implements Parcelable {
         dest.writeString(this.avatarUrl);
         dest.writeString(this.id);
         dest.writeString(this.title);
+        dest.writeString(this.subtitle);
         dest.writeString(this.viewCount);
         dest.writeString(this.clubLogo);
         dest.writeString(this.clubName);
@@ -118,6 +143,7 @@ public class InformationDto implements Parcelable {
         this.avatarUrl = in.readString();
         this.id = in.readString();
         this.title = in.readString();
+        this.subtitle = in.readString();
         this.viewCount = in.readString();
         this.clubLogo = in.readString();
         this.clubName = in.readString();

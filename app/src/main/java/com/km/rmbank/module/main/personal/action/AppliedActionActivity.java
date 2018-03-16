@@ -74,11 +74,13 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
                         CircleProgressView progressView = holder.findView(R.id.progressView);
                         GlideUtils.loadImageOnPregress(imageView, mData.getActivityPictureUrl(), progressView);
                         holder.setText(R.id.actionTitle, mData.getTitle());
-                        holder.setText(R.id.actionTime, DateUtils.getInstance().dateToString(new Date(mData.getStartDate()), DateUtils.YMDHM));
+                        holder.setText(R.id.actionTime, "举办时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()), DateUtils.YMDHM));
 
-                        holder.getTextView(R.id.free).setVisibility(View.GONE);
-                        holder.setText(R.id.actionAddress, mData.getAddress());
-                        holder.setText(R.id.memberNum, mData.getStatus());
+                        holder.getTextView(R.id.memberNum).setVisibility(View.GONE);
+                        holder.getTextView(R.id.hint).setVisibility(View.GONE);
+                        holder.getTextView(R.id.baoming).setVisibility(View.GONE);
+                        holder.setText(R.id.actionAddress, "地址：" + mData.getAddress());
+                        holder.setText(R.id.free, mData.getStatus());
 
                     }
                 }).addLoadMoreWrapper(new LoadMoreWrapper.OnLoadMoreListener() {
@@ -114,5 +116,10 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
         }
         appointList.addAll(appointDtos);
         actionRecycler.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void applyActionSuccess(String actionId) {
+
     }
 }

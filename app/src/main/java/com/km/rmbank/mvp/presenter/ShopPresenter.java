@@ -33,7 +33,6 @@ public class ShopPresenter extends BasePresenter<IShopView,ShopModel> {
     }
 
     public void getGoodsList(final int pageNo, String isInIndextActivity, int orderBy, String roleId) {
-        getMvpView().showLoading();
         getMvpModel().getGoodsListOfShoppingNew(pageNo,isInIndextActivity,orderBy,roleId)
                 .subscribe(newSubscriber(new Consumer<List<GoodsDto>>() {
                     @Override

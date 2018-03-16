@@ -46,6 +46,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
     private String isRecommend;
     private int keepCount;
     private long updateDate;
+    private String fans;
 
     private String clubType;
     /**
@@ -69,6 +70,8 @@ public class ClubDto extends BaseEntity implements Parcelable {
     private String longitude;
     private String userId;
 
+    private String videoUrl;
+
 
     @Override
     public String toString() {
@@ -87,6 +90,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
                 ", isRecommend='" + isRecommend + '\'' +
                 ", keepCount=" + keepCount +
                 ", updateDate=" + updateDate +
+                ", fans='" + fans + '\'' +
                 ", clubType='" + clubType + '\'' +
                 ", address='" + address + '\'' +
                 ", commodityExplainUrl='" + commodityExplainUrl + '\'' +
@@ -94,9 +98,18 @@ public class ClubDto extends BaseEntity implements Parcelable {
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 ", userId='" + userId + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
                 '}';
     }
 
+
+    public String getFans() {
+        return fans;
+    }
+
+    public void setFans(String fans) {
+        this.fans = fans;
+    }
 
     public String getActivityCount() {
         return activityCount;
@@ -267,6 +280,15 @@ public class ClubDto extends BaseEntity implements Parcelable {
         this.userId = userId;
     }
 
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
     @Override
     public boolean isEmpty() {
         if (TextUtils.isEmpty(clubLogo) || TextUtils.isEmpty(clubName) || TextUtils.isEmpty(content)){
@@ -390,6 +412,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
         dest.writeString(this.isRecommend);
         dest.writeInt(this.keepCount);
         dest.writeLong(this.updateDate);
+        dest.writeString(this.fans);
         dest.writeString(this.clubType);
         dest.writeString(this.address);
         dest.writeString(this.commodityExplainUrl);
@@ -397,6 +420,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
         dest.writeString(this.latitude);
         dest.writeString(this.longitude);
         dest.writeString(this.userId);
+        dest.writeString(this.videoUrl);
     }
 
     protected ClubDto(Parcel in) {
@@ -414,6 +438,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
         this.isRecommend = in.readString();
         this.keepCount = in.readInt();
         this.updateDate = in.readLong();
+        this.fans = in.readString();
         this.clubType = in.readString();
         this.address = in.readString();
         this.commodityExplainUrl = in.readString();
@@ -421,6 +446,7 @@ public class ClubDto extends BaseEntity implements Parcelable {
         this.latitude = in.readString();
         this.longitude = in.readString();
         this.userId = in.readString();
+        this.videoUrl = in.readString();
     }
 
     public static final Creator<ClubDto> CREATOR = new Creator<ClubDto>() {

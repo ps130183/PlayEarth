@@ -1,15 +1,18 @@
 package com.ps.commonadapter.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.*;
+import android.support.v7.widget.DividerItemDecoration;
 import android.util.Log;
 
 import com.andview.refreshview.XRefreshView;
 import com.andview.refreshview.XRefreshViewFooter;
+import com.ps.commonadapter.R;
 import com.ps.commonadapter.adapter.refresh.CustomFooterView;
 import com.ps.commonadapter.adapter.refresh.CustomGifHeader;
 import com.ps.commonadapter.adapter.utils.WrapContentLinearLayoutManager;
@@ -190,8 +193,22 @@ public class RecyclerAdapterHelper<T> {
      * @param orientation
      * @return
      */
+    public RecyclerAdapterHelper addDividerItemDecoration(int orientation, @DrawableRes int drawableRes){
+        android.support.v7.widget.DividerItemDecoration itemDecoration = new DividerItemDecoration(mContext,orientation);
+        if (drawableRes > 0){
+            Drawable drawable = ContextCompat.getDrawable(mContext,drawableRes);
+            itemDecoration.setDrawable(drawable);
+        }
+        mRecyclerView.addItemDecoration(itemDecoration);
+        return this;
+    }
+    /**
+     * 添加分割线
+     * @param orientation
+     * @return
+     */
     public RecyclerAdapterHelper addDividerItemDecoration(int orientation){
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext,orientation));
+        addDividerItemDecoration(orientation, R.drawable.recycler_item_divider);
         return this;
     }
 

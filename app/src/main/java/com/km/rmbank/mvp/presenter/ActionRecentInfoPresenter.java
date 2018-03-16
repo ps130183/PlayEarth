@@ -29,12 +29,12 @@ public class ActionRecentInfoPresenter extends BasePresenter<IActionRecentInfoVi
                 }));
     }
 
-    public void applyAction(String activityId,String name, String phone) {
+    public void applyAction(final String activityId, String name, String phone) {
         getMvpModel().applyAction(activityId,name,phone)
                 .subscribe(newSubscriber(new Consumer<String>() {
                     @Override
                     public void accept(@NonNull String s) throws Exception {
-                        getMvpView().applyActionSuccess();
+                        getMvpView().applyActionSuccess(activityId);
                     }
                 }));
     }

@@ -21,6 +21,7 @@ import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ShareDto;
+import com.km.rmbank.event.ApplyActionEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.mvp.model.ActionRecentInfoModel;
@@ -32,6 +33,7 @@ import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
@@ -252,8 +254,9 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     }
 
     @Override
-    public void applyActionSuccess() {
+    public void applyActionSuccess(String actionId) {
         showToast("报名成功");
+        EventBusUtils.post(new ApplyActionEvent(actionId));
     }
 
     @Override
@@ -298,10 +301,15 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
      */
     @OnClick({R.id.rl_action_apply, R.id.tv_action_apply})
     public void clickApply(View view){
-        if (isMyClub){
-            showToast("不能报名自己的活动");
+        if (Constant.userLoginInfo.isEmpty()){
+            showToast("请先登录，再报名");
+            startActivity(LoginActivity.class);
             return;
         }
+//        if (isMyClub){
+//            showToast("不能报名自己的活动");
+//            return;
+//        }
 
         long holdDate = DateUtils.getInstance().stringDateToMillis(mActionDto.getHoldDate(),DateUtils.YMDHM);
         long curDate = System.currentTimeMillis();
@@ -309,9 +317,10 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
             showToast("报名已截止");
             return;
         }
-        Bundle bundle = new Bundle();
-        bundle.putString("actionId",mActionDto.getId());
-        startActivity(ActionApplyActivity.class,bundle);
+        getPresenter().applyAction(mActionDto.getId(),Constant.userInfo.getName(),Constant.userInfo.getMobilePhone());
+//        Bundle bundle = new Bundle();
+//        bundle.putString("actionId",mActionDto.getId());
+//        startActivity(ActionApplyActivity.class,bundle);
     }
 
     /**

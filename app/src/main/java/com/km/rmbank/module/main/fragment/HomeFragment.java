@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
+import com.km.rmbank.dto.ClubDto;
+import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.module.main.fragment.home.AppointFragment;
@@ -92,4 +94,20 @@ public class HomeFragment extends BaseFragment<IHomeView,HomePresenter> implemen
         bundle.putParcelableArrayList("mapMarkers", (ArrayList<? extends Parcelable>) mapMarkerDtos);
         startActivity(MapActivity.class,bundle);
     }
+
+    @Override
+    public void showHomeRecommend(List<HomeRecommendDto> recommendDtos) {
+
+    }
+
+    @Override
+    public void showClubInfo(ClubDto clubDto) {
+
+    }
+
+    @Override
+    public void applyActionSuccess(String actionId, String type) {
+
+    }
+
 }

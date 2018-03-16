@@ -5,11 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/divide_color"
     tools:context="com.km.rmbank.module.main.fragment.home.AllClubActivity">
-
-    <include layout="@layout/_default_divide_line"/>
-
     <com.andview.refreshview.XRefreshView
         android:id="@+id/xRefreshView"
         android:layout_width="match_parent"

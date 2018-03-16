@@ -10,7 +10,7 @@ import com.km.rmbank.mvp.base.MvpView;
 
 public interface IActionRecentInfoView extends MvpView {
     void showActionRecentInfo(ActionDto actionDto);
-    void applyActionSuccess();
+    void applyActionSuccess(String actionId);
     void followClubSuccess(boolean isFollow);
 
     void addActiveValueSuccess(String result);

@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.jzvd.JZVideoPlayerStandard;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +36,9 @@ public class ClubIntroduceFragment extends BaseFragment {
 
     @BindView(R.id.clubIntroduceRecycler)
     RecyclerView clubIntrduceRecycler;
+
+    @BindView(R.id.jzv_player)
+    JZVideoPlayerStandard jzvPlayer;
 
     public static ClubIntroduceFragment newInstance(Bundle bundle) {
         ClubIntroduceFragment fragment = new ClubIntroduceFragment();
@@ -57,6 +61,13 @@ public class ClubIntroduceFragment extends BaseFragment {
         if (clubDto == null){
             return;
         }
+
+        if (!TextUtils.isEmpty(clubDto.getVideoUrl())){
+            jzvPlayer.setVisibility(View.VISIBLE);
+            jzvPlayer.setUp(clubDto.getVideoUrl()
+                    , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+        }
+
         List<ImageTextIntroduceEntity> introduceEntities = new ArrayList<>();
         for (ClubDto.ClubDetailBean clubDetailBean : clubDto.getClubDetailList()){
             introduceEntities.add(new ImageTextIntroduceEntity(clubDetailBean.getClubContent(),clubDetailBean.getClubImage()));
@@ -83,8 +94,5 @@ public class ClubIntroduceFragment extends BaseFragment {
         }).create();
 
     }
-
-
-
 
 }

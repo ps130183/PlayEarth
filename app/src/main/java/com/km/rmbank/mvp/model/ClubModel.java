@@ -23,7 +23,7 @@ public class ClubModel extends BaseModel {
      * @return
      */
     public Observable<List<ClubDto>> getRecommendClubs(int pageNo){
-        return getService().getClubList(pageNo,"1")
+        return getService().getClubList(Constant.userLoginInfo.getToken(),pageNo,"1")
                 .compose(this.<List<ClubDto>>applySchedulers());
     }
 
@@ -33,7 +33,7 @@ public class ClubModel extends BaseModel {
      * @return
      */
     public Observable<List<ClubDto>> getClubList(int pageNo){
-        return getService().getClubList(pageNo,"")
+        return getService().getClubList(Constant.userLoginInfo.getToken(),pageNo,"")
                 .compose(this.<List<ClubDto>>applySchedulers());
     }
 

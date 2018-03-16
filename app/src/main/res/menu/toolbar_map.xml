@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/map"
         android:title=""
-        android:icon="@mipmap/icon_home_map"
+        android:icon="@mipmap/icon_home_new_map"
         app:showAsAction="always"
         />
 </menu>

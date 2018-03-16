@@ -6,4 +6,8 @@
     <string name="notOpen">施工中，稍后开放</string>
     <string name="toPrevious">&lt;</string>
     <string name="toNext">&gt;</string>
+
+    <string name="baoming"><u>立即报名</u></string>
+    <string name="attention">关注</string>
+    <string name="attentioned">已关注</string>
 </resources>

@@ -57,7 +57,7 @@
     <style name="DivideLine">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/divideLineHeight</item>
-        <item name="android:background">@color/divideLineColor</item>
+        <item name="android:background">@color/divide_color</item>
     </style>
 
     <style name="TextSingleLine">

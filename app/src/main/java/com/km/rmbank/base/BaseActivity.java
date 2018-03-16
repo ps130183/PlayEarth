@@ -56,6 +56,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 
 import butterknife.ButterKnife;
+import cn.jzvd.JZVideoPlayer;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subscribers.DisposableSubscriber;
@@ -169,6 +170,15 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
     protected void onPause() {
         super.onPause();
         KeyboardUtils.hideSoftInput(this);
+        JZVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JZVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
@@ -439,7 +449,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
                     @Override
                     public void onStart() {
                         super.onStart();
-                        DialogUtils.showDownloadDialog(mInstance, "新版本：" + appVersionDto.getVersionView() + "正在下载中，请稍后。。。", false);
+                        DialogUtils.showDownloadDialog(mInstance, "检测到有新版本，正在下载 ..." , false);
                     }
 
                     @Override

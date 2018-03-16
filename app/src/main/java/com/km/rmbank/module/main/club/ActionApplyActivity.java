@@ -58,7 +58,7 @@ public class ActionApplyActivity extends BaseActivity<IActionRecentInfoView,Acti
     }
 
     @Override
-    public void applyActionSuccess() {
+    public void applyActionSuccess(String actionId) {
         showToast("报名成功");
         finish();
     }

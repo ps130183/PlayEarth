@@ -135,7 +135,9 @@ public class GlideImageLoader {
 
     public RequestOptions circleRequestOptions(int placeholderResId, int errorResId) {
         return requestOptions(placeholderResId, errorResId)
-                .transform(new GlideCircleTransformation());
+                .transform(new GlideCircleTransformation())
+                .skipMemoryCache(true) // 跳过内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.NONE); // 不缓存到SDCard中;
     }
 
     public RequestOptions FitHeightRquestOptions(int placeholderResId, int errorResId){

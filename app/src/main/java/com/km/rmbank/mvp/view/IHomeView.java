@@ -1,5 +1,7 @@
 package com.km.rmbank.mvp.view;
 
+import com.km.rmbank.dto.ClubDto;
+import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.mvp.base.MvpView;
 
@@ -11,4 +13,7 @@ import java.util.List;
 
 public interface IHomeView extends MvpView {
     void showMapMarkerResult(List<MapMarkerDto> mapMarkerDtos);
+    void showHomeRecommend(List<HomeRecommendDto> recommendDtos);
+    void showClubInfo(ClubDto clubDto);
+    void applyActionSuccess(String actionId,String type);
 }

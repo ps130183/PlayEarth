@@ -61,13 +61,13 @@ public class ClubPresenter extends BasePresenter<IClubView,ClubModel> {
                 }));
     }
 
-    public void attentionClub(String clubId){
-        getMvpView().showLoading();
+    public void attentionClub(final String clubId){
+//        getMvpView().showLoading();
         getMvpModel().attentionClub(clubId)
                 .subscribe(newSubscriber(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        getMvpView().attentionClubResult(s);
+                        getMvpView().attentionClubResult(clubId);
                     }
                 }));
     }

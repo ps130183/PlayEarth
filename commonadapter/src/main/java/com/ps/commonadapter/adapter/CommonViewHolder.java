@@ -53,6 +53,12 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
         return mConvertView;
     }
 
+    public void setOnItemClick(View.OnClickListener onItemClick){
+        if (onItemClick != null){
+            getConvertView().setOnClickListener(onItemClick);
+        }
+    }
+
     /**
      * 通过view Id 获取控件
      * @param viewId

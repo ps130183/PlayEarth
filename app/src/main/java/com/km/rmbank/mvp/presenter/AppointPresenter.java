@@ -9,6 +9,7 @@ import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 
 import java.util.List;
 
+import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -21,8 +22,8 @@ public class AppointPresenter extends BasePresenter<AppointView,AppointModel> {
         super(mModel);
     }
 
-    public void getAppointList(int pageNo, final LoadMoreWrapper wrapper){
-        getMvpModel().getAppointLists(pageNo)
+    public void getAppointList(int pageNo,int newType, final LoadMoreWrapper wrapper){
+        getMvpModel().getAppointLists(pageNo,newType)
                 .subscribe(newSubscriber(new Consumer<List<AppointDto>>() {
                     @Override
                     public void accept(List<AppointDto> actionDtos) throws Exception {
@@ -37,6 +38,17 @@ public class AppointPresenter extends BasePresenter<AppointView,AppointModel> {
                     @Override
                     public void accept(List<AppointDto> actionDtos) throws Exception {
                         getMvpView().showAppointList(wrapper,actionDtos);
+                    }
+                }));
+    }
+
+
+    public void applyAction(final String activityId, String name, String phone) {
+        getMvpModel().applyAction(activityId,name,phone)
+                .subscribe(newSubscriber(new Consumer<String>() {
+                    @Override
+                    public void accept(@NonNull String s) throws Exception {
+                        getMvpView().applyActionSuccess(activityId);
                     }
                 }));
     }

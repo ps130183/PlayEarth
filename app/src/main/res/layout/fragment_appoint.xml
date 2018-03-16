@@ -1,15 +1,21 @@
-<com.andview.refreshview.XRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/xRefreshView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/divide_color"
     tools:context="com.km.rmbank.module.main.fragment.home.AppointFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/appointRecycler"
+    <com.andview.refreshview.XRefreshView
+        android:id="@+id/xRefreshView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/appointRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
-</com.andview.refreshview.XRefreshView>
+    </com.andview.refreshview.XRefreshView>
+
+</FrameLayout>
