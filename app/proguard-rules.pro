@@ -25,27 +25,47 @@
 
 -keep class com.km.rmbank.dto.** { *; }
 -keep class com.km.rmbank.entity.** { *; }
+-keep class com.km.rmbank.event.** { *; }
+
 
 #-------------------------------------------------------------------------
+
+#-------------------------------百度地图------------------------------------------
+-keep class vi.com.gdi.** { *; }
+    -keep public class com.baidu.** {*;}
+    -keep public class com.mobclick.** {*;}
+    -dontwarn com.baidu.mapapi.utils.*
+    -dontwarn com.baidu.platform.comapi.b.*
+    -dontwarn com.baidu.platform.comapi.map.*
 
 #---------------------------------2.第三方包-------------------------------
 
 #eventBus
-#-keepattributes *Annotation*
-#-keepclassmembers class ** {
-#    @org.greenrobot.eventbus.Subscribe <methods>;
-#}
-#-keep enum org.greenrobot.eventbus.ThreadMode { *; }
-#-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-#    <init>(java.lang.Throwable);
-#}
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
 
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
 }
+#如果你的 target API 低于 Android API 27，请添加：
+-dontwarn com.bumptech.glide.load.resource.bitmap.VideoDecoder
+# for DexGuard only
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+#避免混淆属性动画兼容库
+-dontwarn com.nineoldandroids.*
+-keep class com.nineoldandroids.** { *;}
+
 
 # banner 的混淆代码
 -keep class com.youth.banner.** {

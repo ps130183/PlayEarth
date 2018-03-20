@@ -40,10 +40,11 @@
     <color name="color_btn_click">#0395f7</color>
 
     <!--        新版本  color          -->
+    <color name="text_color_block0">#000000</color>
     <color name="text_color_block1">#191919</color>
-    <color name="text_color_block2">#555555</color>
+    <color name="text_color_block5">#555555</color>
     <color name="text_color_block3">#333333</color>
-    <color name="text_color_block4">#888888</color>
+    <color name="text_color_block8">#888888</color>
 
     <color name="divide_color">#efeff4</color>
 </resources>

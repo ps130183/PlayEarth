@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -318,7 +319,15 @@ public class HomeRecommendFragment extends BaseFragment<IRecommendPersonalView,R
                 public void convert(CommonViewHolder holder, ImageTextIntroduceEntity mData, int position) {
                     GlideImageView imageView =  holder.findView(R.id.image);
                     CircleProgressView progressView = holder.findView(R.id.progressView);
-                    GlideUtils.loadImageFitHeight(imageView,mData.getImageUrl(),progressView);
+                    if (TextUtils.isEmpty(mData.getImageUrl())){
+                        imageView.setVisibility(View.GONE);
+                        progressView.setVisibility(View.GONE);
+                    } else {
+                        imageView.setVisibility(View.VISIBLE);
+                        progressView.setVisibility(View.VISIBLE);
+
+                        GlideUtils.loadImageFitHeight(imageView,mData.getImageUrl(),progressView);
+                    }
 
                     holder.setText(R.id.content,mData.getContent());
                 }

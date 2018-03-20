@@ -42,7 +42,7 @@
             android:text="玩转地球海上资本之旅"
             android:gravity="center_vertical"
             android:textColor="@color/text_color_block3"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
@@ -54,7 +54,7 @@
             android:text="举办时间：2018-04-07"
             android:gravity="center_vertical"
             android:textColor="#888888"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="免费"
                 android:textColor="#3285ff"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 />
 
             <View
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text="5"
                 android:textColor="#3285ff"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:layout_marginRight="2dp"
                 />
             <TextView
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:text="人已报名"
                 android:textColor="#888888"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 />
 
             <com.ruffian.library.RTextView
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/baoming"
                 android:textColor="#3285ff"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:gravity="right|center"
                 app:icon_src_normal="@mipmap/icon_home_arrow_right_baoming"
                 app:icon_height="10dp"

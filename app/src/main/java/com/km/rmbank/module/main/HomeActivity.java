@@ -105,9 +105,9 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
         tabLayout = mViewManager.findView(R.id.tab_layout);
 //        keyBorad((ViewGroup) mViewManager.findView(R.id.rl_root));
-        FrameLayout flContent = mViewManager.findView(R.id.main_page);
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) flContent.getLayoutParams();
-        lp.height = ScreenUtils.getScreenHeight() - ConvertUtils.dp2px(48) - SystemBarHelper.getStatusBarHeight(this);
+//        FrameLayout flContent = mViewManager.findView(R.id.main_page);
+//        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) flContent.getLayoutParams();
+//        lp.height = ScreenUtils.getScreenHeight() - ConvertUtils.dp2px(48) - SystemBarHelper.getStatusBarHeight(this);
         initTabLayout(tabLayout);
 
 

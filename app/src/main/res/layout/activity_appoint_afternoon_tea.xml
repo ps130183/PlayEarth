@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/divide_color"
+    tools:context="com.km.rmbank.module.main.appoint.AppointAfternoonTeaActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/applyAction">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/headerImageView"
+                android:layout_width="match_parent"
+                android:layout_height="155dp"
+                android:src="@mipmap/banner_afternoon_tea"
+                android:layout_marginBottom="9dp"
+                />
+
+            <TextView
+                android:id="@+id/actionName"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="@color/white"
+                android:text="玩转地球高手交流下午茶·邀请函"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_block0"
+                />
+            <include layout="@layout/_default_divide_line"/>
+
+            <TextView
+                android:id="@+id/invitation_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="9dp"
+                android:background="@color/white"
+                android:text="@string/appoint_afternoon_tea"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_block3"
+                android:lineSpacingMultiplier="1.4"
+                />
+
+            <TextView
+                android:id="@+id/actionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="主题：高手交流下午茶"
+                android:textColor="@color/text_color_block0"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="4dp"
+                android:background="@color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:id="@+id/actionTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="时间：2018年4月12日 15：00开始"
+                android:textColor="@color/text_color_block0"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:background="@color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
+
+            <TextView
+                android:id="@+id/actionAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="地址：北京糖人汇（海淀区阜成路73号裕惠大厦C座3层）"
+                android:textColor="@color/text_color_block0"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="23dp"
+                android:background="@color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="@color/white"
+                android:text="具体流程"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_block0"
+                />
+
+            <include layout="@layout/_default_divide_line"/>
+
+            <TextView
+                android:id="@+id/actionContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:background="@color/white"
+                android:text="1.17:30贵宾们开始有序签到\n2.18：开始准备晚宴\n3.活动负责人开始讲述玩转地球\n4.所有贵宾自我交流分享\n5.20：00晚宴结束"
+                android:textSize="12sp"
+                android:textColor="@color/text_color_block3"
+                android:lineSpacingMultiplier="1.5"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="@color/white"
+                android:text="受邀嘉宾"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_block0"
+                />
+
+            <include layout="@layout/_default_divide_line"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/guestRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/applyAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#cc000000"
+        android:layout_alignParentBottom="true"
+        android:text="立即报名"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:onClick="clickApplyAction"/>
+
+</RelativeLayout>

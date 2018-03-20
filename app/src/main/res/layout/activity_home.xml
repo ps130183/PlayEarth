@@ -19,15 +19,18 @@
             android:id="@+id/main_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/line">
+            android:layout_above="@+id/tab_layout"
+            android:layout_marginBottom="0.5dp">
 
         </FrameLayout>
 
-        <View
-            android:id="@+id/line"
-            style="@style/DivideLine"
-            android:layout_marginBottom="48dp"
-            android:layout_alignParentBottom="true"/>
+        <!--<View-->
+            <!--android:id="@+id/line"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.5dp"-->
+            <!--android:background="@color/divide_color"-->
+            <!--android:layout_marginBottom="49dp"-->
+            <!--android:layout_alignParentBottom="true"/>-->
 
         <com.flyco.tablayout.CommonTabLayout
             android:id="@+id/tab_layout"
@@ -35,13 +38,14 @@
             android:layout_height="48dp"
             android:background="#ffffff"
             android:layout_alignParentBottom="true"
-            app:tl_iconHeight="30dp"
-            app:tl_iconWidth="30dp"
+            app:tl_iconHeight="25dp"
+            app:tl_iconWidth="25dp"
+            app:tl_iconMargin="0dp"
             app:tl_indicator_color="#2C97DE"
             app:tl_indicator_height="0dp"
             app:tl_textSelectColor="?attr/colorAccent"
             app:tl_textUnselectColor="#7f8699"
-            app:tl_textsize="11sp"
+            app:tl_textsize="14sp"
             app:tl_underline_color="#DDDDDD"
             app:tl_underline_height="1dp" />
     </RelativeLayout>
@@ -50,6 +54,7 @@
         android:id="@+id/view_line_bottom"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

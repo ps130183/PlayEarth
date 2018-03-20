@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.gongwen.marqueen.SimpleMF;
 import com.gongwen.marqueen.SimpleMarqueeView;
 import com.km.rmbank.R;
@@ -123,6 +124,18 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
         initRecommend();
         initRefresh();
         getPresenter().getUserInfo();
+    }
+
+
+    //解决fragment中 marqueeView 切换 重影的问题
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            simpleMarqueeView.stopFlipping();
+        } else {
+            simpleMarqueeView.startFlipping();
+        }
     }
 
     private void initRefresh() {
@@ -235,6 +248,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
      * 初始化跑马灯
      */
     private void initMarqueeView() {
+        LogUtils.d("homenewFragment initmarqueeView");
         final List<String> datas = Arrays.asList("成功对接项目：1083个",
                 "成功对接资本7.2亿元",
                 "累计接待人数120万人次",

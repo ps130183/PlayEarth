@@ -94,7 +94,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setTitleContent("近期活动");
+        simpleTitleBar.setTitleContent("路演大会");
         simpleTitleBar.setRightMenuRes(R.menu.toolbar_action_recent_share);
         simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -127,12 +127,6 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
         getPresenter().getActionRecentInfo(actionId);
         shareDto = new ShareDto();
 
-//        setLeftIconClick(R.mipmap.ic_left_back_block, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
         initInvitationMans();
     }
 
@@ -306,10 +300,6 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
             startActivity(LoginActivity.class);
             return;
         }
-//        if (isMyClub){
-//            showToast("不能报名自己的活动");
-//            return;
-//        }
 
         long holdDate = DateUtils.getInstance().stringDateToMillis(mActionDto.getHoldDate(),DateUtils.YMDHM);
         long curDate = System.currentTimeMillis();
@@ -318,9 +308,6 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
             return;
         }
         getPresenter().applyAction(mActionDto.getId(),Constant.userInfo.getName(),Constant.userInfo.getMobilePhone());
-//        Bundle bundle = new Bundle();
-//        bundle.putString("actionId",mActionDto.getId());
-//        startActivity(ActionApplyActivity.class,bundle);
     }
 
     /**

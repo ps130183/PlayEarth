@@ -43,7 +43,7 @@
                     android:text="消息："
                     android:layout_marginLeft="9dp"
                     android:textSize="11sp"
-                    android:textColor="@color/text_color_block2"
+                    android:textColor="@color/text_color_block5"
                     />
                 <com.gongwen.marqueen.SimpleMarqueeView
                     android:id="@+id/simpleMarqueeView"
@@ -53,7 +53,7 @@
                     android:inAnimation="@anim/in_bottom"
                     android:outAnimation="@anim/out_top"
                     app:marqueeAnimDuration="1000"
-                    app:smvTextColor="@color/text_color_block2"
+                    app:smvTextColor="@color/text_color_block5"
                     app:smvTextEllipsize="end"
                     app:smvTextGravity="center_vertical"
                     app:smvTextSingleLine="true"

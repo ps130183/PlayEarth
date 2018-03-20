@@ -220,7 +220,8 @@
         <activity android:name=".module.main.HomeNewActivity" />
         <activity android:name=".module.main.fragment.home.InformationActivity" />
         <activity android:name=".module.main.fragment.home.ScenicListActivity" />
-        <activity android:name=".module.main.fragment.home.MoreActionActivity"></activity>
+        <activity android:name=".module.main.fragment.home.MoreActionActivity" />
+        <activity android:name=".module.main.appoint.AppointAfternoonTeaActivity"></activity>
     </application>
 
 </manifest>

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieDrawable;
 import com.airbnb.lottie.OnCompositionLoadedListener;
@@ -54,17 +55,7 @@ public class GlideUtils {
             LottieComposition.Factory.fromAssetFileName(context, "loading.json", new OnCompositionLoadedListener() {
                 @Override
                 public void onCompositionLoaded(@Nullable LottieComposition composition) {
-//                    int ivLeft = imageView.getLeft();
-//                    int ivTop = imageView.getTop();
-//                    int ivRight = imageView.getRight();
-//                    int ivBottom = imageView.getBottom();
-//                    int x = imageView.getWidth() / 2;
-//                    int y = imageView.getHeight() / 2 ;
-//                    Rect rect = composition.getBounds();
-//                    rect.left = ivLeft + x - radius;
-//                    rect.top = ivTop + y - radius;
-//                    rect.right = ivRight - x + radius;
-//                    rect.bottom = ivBottom - y + radius;
+                    drawable.setScale(0.05f);
                     drawable.setComposition(composition);
                 }
             });
@@ -79,6 +70,7 @@ public class GlideUtils {
         GlideApp.with(context)
                 .load(imagePath)
                 .placeholder(getLottieDrawable(context,imageView))
+//                .error(getLottieDrawable(context,imageView))
                 .error(R.drawable.load_image_fail)
                 .centerCrop()
                 .into(imageView);

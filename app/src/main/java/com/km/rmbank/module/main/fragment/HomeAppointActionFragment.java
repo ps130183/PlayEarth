@@ -5,18 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.km.rmbank.R;
 import com.km.rmbank.adapter.ViewPagerTabAdapter;
 import com.km.rmbank.base.BaseFragment;
-import com.km.rmbank.dto.HomeGoodsTypeDto;
 import com.km.rmbank.entity.TabEntity;
-import com.km.rmbank.module.main.fragment.home.AppointFragment;
+import com.km.rmbank.module.main.appoint.AppointFragment;
 
 import java.util.ArrayList;
 import java.util.List;

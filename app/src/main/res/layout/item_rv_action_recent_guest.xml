@@ -8,11 +8,10 @@
     android:background="@color/white"
     android:gravity="center">
 
-    <ImageView
+    <com.ps.glidelib.GlideImageView
         android:id="@+id/iv_guest_protrait"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:scaleType="fitXY"
         android:layout_margin="@dimen/viewSpace16"
         />
 

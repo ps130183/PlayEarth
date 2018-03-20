@@ -1,4 +1,4 @@
-package com.km.rmbank.module.main.fragment.home;
+package com.km.rmbank.module.main.appoint;
 
 
 import android.os.Bundle;
@@ -11,11 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
-import com.bumptech.glide.Glide;
-import com.flyco.tablayout.SlidingTabLayout;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
-import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.event.ApplyActionEvent;
 import com.km.rmbank.module.login.LoginActivity;
@@ -28,7 +25,6 @@ import com.km.rmbank.mvp.view.AppointView;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.EventBusUtils;
-import com.km.rmbank.utils.SwipeRefreshUtils;
 import com.km.rmbank.utils.ViewUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
@@ -45,8 +41,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -145,28 +139,6 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                         GlideUtils.loadImageOnPregress(imageView,mData.getActivityPictureUrl(),progressView);
                         holder.setText(R.id.actionTitle,mData.getTitle());
 
-                        imageView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (mData.getType().equals("1")){
-                                    if ("3".equals(mData.getNewType())){//平台基地活动
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("scenicId",mData.getClubId());
-                                        bundle.putString("activityId",mData.getId());
-                                        startActivity(ScenicActivity.class,bundle);
-                                    } else {
-                                        Bundle bundle = new Bundle();
-                                        bundle.putString("actionId",mData.getId());
-                                        startActivity(ActionRecentInfoActivity.class,bundle);
-                                    }
-                                } else {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("actionPastId",mData.getId());
-                                    startActivity(ActionPastDetailActivity.class,bundle);
-                                }
-                            }
-                        });
-
                         if (mData.getType().equals("1")){//将要举办的活动
                             holder.setText(R.id.memberNum,mData.getApplyCount());
                             hint.setText("人已报名");
@@ -176,7 +148,12 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                             actionAddress.setVisibility(View.VISIBLE);
                             actionAddress.setText("地址：" + mData.getAddress());
 
-                            baoming.setVisibility(View.VISIBLE);
+                            if (newType != 3){
+                                baoming.setVisibility(View.VISIBLE);
+                            } else {
+                                baoming.setVisibility(View.GONE);
+                            }
+
                             free.setText("免费");
                         } else {//咨询
                             holder.setText(R.id.memberNum,mData.getViewCount());
@@ -218,7 +195,12 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                         bundle.putString("scenicId",data.getClubId());
                         bundle.putString("activityId",data.getId());
                         startActivity(ScenicActivity.class,bundle);
-                    } else {
+                    } else if ("1".equals(data.getNewType()) || "2".equals(data.getNewType())){//1:下午茶 2:结缘晚宴
+                        Bundle bundle = new Bundle();
+                        bundle.putString("actionId",data.getId());
+                        bundle.putString("appointType",data.getNewType());
+                        startActivity(AppointAfternoonTeaActivity.class,bundle);
+                    }  else {
                         Bundle bundle = new Bundle();
                         bundle.putString("actionId",data.getId());
                         startActivity(ActionRecentInfoActivity.class,bundle);

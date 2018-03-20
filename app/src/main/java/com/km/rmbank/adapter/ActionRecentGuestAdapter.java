@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.km.rmbank.R;
 import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.oldrecycler.BaseAdapter;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 
 import butterknife.BindView;
@@ -31,14 +32,14 @@ public class ActionRecentGuestAdapter extends BaseAdapter<ActionDto.ActionGuestB
     @Override
     public void createView(ViewHolder holder, int position) {
         ActionDto.ActionGuestBean bean = getItemData(position);
-        GlideUtils.loadImage(mContext,bean.getAvatarUrl(),holder.ivGuestProtrait);
+        GlideUtils.loadCircleImageByUrl(holder.ivGuestProtrait,bean.getAvatarUrl());
         holder.tvGuestIntro.setText(bean.getTitle());
     }
 
     class ViewHolder extends BaseViewHolder{
 
         @BindView(R.id.iv_guest_protrait)
-        ImageView ivGuestProtrait;
+        GlideImageView ivGuestProtrait;
         @BindView(R.id.tv_guest_intro)
         TextView tvGuestIntro;
 

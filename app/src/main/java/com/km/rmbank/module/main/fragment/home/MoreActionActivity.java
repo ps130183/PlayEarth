@@ -1,14 +1,11 @@
 package com.km.rmbank.module.main.fragment.home;
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.FrameLayout;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
-
-import butterknife.BindView;
+import com.km.rmbank.module.main.appoint.AppointFragment;
 
 public class MoreActionActivity extends BaseActivity {
 
@@ -55,7 +52,7 @@ public class MoreActionActivity extends BaseActivity {
         bundle.putInt("type",newType);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.actionList,AppointFragment.newInstance(bundle))
+                .add(R.id.actionList, AppointFragment.newInstance(bundle))
                 .commit();
     }
 }

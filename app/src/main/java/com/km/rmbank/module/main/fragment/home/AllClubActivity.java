@@ -1,12 +1,10 @@
 package com.km.rmbank.module.main.fragment.home;
 
-import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -146,7 +144,7 @@ public class AllClubActivity extends BaseActivity<IClubView, ClubPresenter> impl
                             });
                         } else {
                             attention.setText(R.string.attentioned);
-                            attention.setTextColorNormal(ContextCompat.getColor(mInstance,R.color.text_color_block4));
+                            attention.setTextColorNormal(ContextCompat.getColor(mInstance,R.color.text_color_block8));
                             attention.setOnClickListener(null);
                         }
                     }

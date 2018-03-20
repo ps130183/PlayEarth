@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="俱乐部简介俱乐部简介俱乐部简介俱乐部简介"
-            android:textColor="@color/text_color_block4"
+            android:textColor="@color/text_color_block8"
             android:textSize="10sp"
             android:maxLines="2"
             android:lines="2"
