@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.hpage.PersonalHomePageActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="600dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/userInfoTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="290dp"
+                    android:paddingBottom="@dimen/viewSpace8">
+                    <LinearLayout
+                        android:id="@+id/bgContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="230dp"
+                        android:background="@mipmap/bg_personal_home_page"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:orientation="vertical">
+
+
+                        <android.support.v7.widget.Toolbar
+                            android:id="@+id/toolbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/toolBarHeight"
+                            app:navigationIcon="@mipmap/icon_arrow_left_black_white">
+
+                        </android.support.v7.widget.Toolbar>
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/userInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp"
+                        android:layout_marginTop="63dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:visibility="visible">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="20dp"
+                            android:paddingTop="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingBottom="10dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/userInfo1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <com.ps.glidelib.GlideImageView
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:src="@mipmap/icon_default_protrait"
+                                    app:siv_shape_type="circle"
+                                    />
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="张曼玉"
+                                        android:textSize="23sp"
+                                        android:textColor="@color/text_color_block0"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_marginBottom="15dp"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="玩转地球商旅学苑（北京）文化发展有限公司丨产品经理"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/text_color_block8"
+                                        android:maxLines="2"
+                                        android:ellipsize="end"
+                                        />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="IT互联网丨产品运营"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/text_color_block8"
+                                        />
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/userInfo2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="63dp"
+                                android:orientation="vertical"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:visibility="visible">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="@dimen/viewSpace4"
+                                    android:layout_marginBottom="@dimen/viewSpace2">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:src="@mipmap/icon_php_phone"
+                                        android:layout_marginRight="6dp"
+                                        />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="13242244223"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/text_color_blue"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="@dimen/viewSpace2"
+                                    android:layout_marginBottom="@dimen/viewSpace2">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:src="@mipmap/icon_php_email"
+                                        android:layout_marginRight="6dp"
+                                        />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="13242244223@163.com"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/text_color_block8"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="@dimen/viewSpace2"
+                                    android:layout_marginBottom="@dimen/viewSpace4">
+
+                                    <ImageView
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:src="@mipmap/icon_php_address"
+                                        android:layout_marginRight="6dp"
+                                        />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="北京市左安门内大街"
+                                        android:textSize="13sp"
+                                        android:textColor="@color/text_color_block8"
+                                        />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
+
+                <com.flyco.tablayout.CommonTabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    app:tl_iconWidth="26dp"
+                    app:tl_iconHeight="26dp"
+                    app:tl_iconGravity="TOP"
+                    app:tl_iconMargin="@dimen/viewSpace8"
+                    app:tl_indicator_color="?attr/colorAccent"
+                    app:tl_indicator_height="1dp"
+                    app:tl_indicator_width="40dp"
+                    app:tl_textsize="15sp"
+                    app:tl_textSelectColor="?attr/colorAccent"
+                    app:tl_textUnselectColor="@color/text_color_block0"
+                    app:tl_underline_color="@color/white"
+                    app:tl_underline_height="0.5dp">
+
+                </com.flyco.tablayout.CommonTabLayout>
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:id="@+id/dongTaiContent"
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+
+            </FrameLayout>
+
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</FrameLayout>

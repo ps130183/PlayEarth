@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.view;
 
+import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
@@ -16,4 +17,5 @@ public interface IHomeView extends MvpView {
     void showHomeRecommend(List<HomeRecommendDto> recommendDtos);
     void showClubInfo(ClubDto clubDto);
     void applyActionSuccess(String actionId,String type);
+    void showHomeBanner(List<BannerDto> bannerDtoList);
 }

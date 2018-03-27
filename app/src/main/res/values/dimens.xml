@@ -4,6 +4,7 @@
     <dimen name="toolBarHeight">48dp</dimen>
 
 
+    <dimen name="viewSpace2">2dp</dimen>
     <dimen name="viewSpace4">4dp</dimen>
     <dimen name="viewSpace8">8dp</dimen>
     <dimen name="viewSpace16">16dp</dimen>

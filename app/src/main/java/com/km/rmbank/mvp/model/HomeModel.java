@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.model;
 
+import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
@@ -60,5 +61,14 @@ public class HomeModel extends BaseModel {
     public Observable<String> applyAction(String activityId,String name,String phone){
         return getService().applyAction(Constant.userLoginInfo.getToken(),activityId,name,phone)
                 .compose(this.<String>applySchedulers());
+    }
+
+    /**
+     * 获取首页banner轮播图
+     * @return
+     */
+    public Observable<List<BannerDto>> getHomeBannerList(){
+        return getService().getBannerList("")
+                .compose(this.<List<BannerDto>>applySchedulers());
     }
 }

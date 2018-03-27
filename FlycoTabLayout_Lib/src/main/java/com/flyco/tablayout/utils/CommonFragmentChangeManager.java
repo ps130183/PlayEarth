@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
+import com.flyco.tablayout.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +52,8 @@ public class CommonFragmentChangeManager {
     public void setFragments(ViewHolder holder){
         mCurrentTab = holder.viewIndex;
         FragmentTransaction ft = mFragmentManager.beginTransaction();
+        ft.setCustomAnimations(R.anim.slide_right_in,R.anim.slide_left_out);
+//        ft.setCustomAnimations()
         for (ViewHolder viewHolder : viewHolders){
 
             Fragment fragment = mFragmentManager.findFragmentByTag(viewHolder.tag);

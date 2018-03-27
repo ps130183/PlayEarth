@@ -8,7 +8,6 @@ import com.blankj.utilcode.util.SPUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.km.rmbank.module.main.HomeActivity;
-import com.km.rmbank.module.main.HomeNewActivity;
 
 import butterknife.OnClick;
 
@@ -21,7 +20,6 @@ public class GuideFragment extends BaseFragment {
 
     @OnClick(R.id.to_home)
     public void toHome(View view){
-//        startActivity(HomeNewActivity.class);
         startActivity(HomeActivity.class);
         SPUtils.getInstance().put("isFirst",false);
         getActivity().finish();

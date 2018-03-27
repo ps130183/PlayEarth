@@ -96,6 +96,8 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             //设置状态栏背景色为白色，并且字体、图标颜色为深色
             SystemBarHelper.tintStatusBar(this, Color.WHITE,0f);
             SystemBarHelper.setStatusBarDarkMode(this);
+        } else {
+            SystemBarHelper.setStatusBarDarkMode(this);
         }
 
         LinearLayout mainContent = mViewManager.findView(R.id.mainContent);
@@ -104,17 +106,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         //虚拟按键
         if (NavigationBarUtils.hasNavBar(this)){
             int height = NavigationBarUtils.getNavigationBarHeight(this);
-//            showToast("navigationBar height = " + height);
-//            LogUtils.i("navigationBar height = " + height);
-
-//            mainContent.getLayoutParams().height = ScreenUtils.getScreenHeight();
-//            showToast("screenHeight = " + screenHeight + "  statusBarHeiht = " + statusBarHeiht);
-//            LogUtils.i("screenHeight = " + screenHeight + "  statusBarHeiht = " + statusBarHeiht);
-
-//            LogUtils.i(screenHeight - statusBarHeiht - height);
-//            LogUtils.i(mainContent.getLayoutParams().height);
             mainContent.getLayoutParams().height = screenHeight - statusBarHeiht - height;
-//            LogUtils.i(mainContent.getLayoutParams().height);
         } else {
             LogUtils.i("没有虚拟按键");
 //            mainContent.getLayoutParams().height = screenHeight - statusBarHeiht;

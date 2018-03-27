@@ -157,11 +157,11 @@ public class CircleFriendsFragment extends BaseFragment<ICircleFriendsView,Circl
 
             @Override
             public void submitNewComment(CircleFriendsDto itemData, int position) {
-//                llComment.setVisibility(View.VISIBLE);
-                etComment.requestFocus();
-                KeyboardUtils.showSoftInput(commentAnchor);
-                mConfirmCommentPosition = position;
-                RecyclerUtils.moveToPosition(circleFriendsRecycler,position);
+                showToast("评论功能暂时关闭");
+//                etComment.requestFocus();
+//                KeyboardUtils.showSoftInput(commentAnchor);
+//                mConfirmCommentPosition = position;
+//                RecyclerUtils.moveToPosition(circleFriendsRecycler,position);
             }
 
             @Override

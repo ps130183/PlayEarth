@@ -15,9 +15,9 @@ import android.widget.Toast;
 import com.andview.refreshview.XRefreshView;
 import com.km.rmbank.R;
 import com.km.rmbank.module.login.LoginActivity;
-import com.km.rmbank.module.main.HomeActivity;
-import com.km.rmbank.module.main.fragment.HomeFragment;
 import com.km.rmbank.module.main.fragment.HomeMeFragment;
+import com.km.rmbank.module.main.fragment.HomeNewFragment;
+import com.km.rmbank.module.main.fragment.HomePersonalCenterFragment;
 import com.km.rmbank.mvp.base.MvpPresenter;
 import com.km.rmbank.mvp.base.MvpView;
 import com.km.rmbank.mvp.base.PresenterDelegateImpl;
@@ -166,7 +166,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
         if (mXRefreshView != null && mXRefreshView.mPullRefreshing){
             mXRefreshView.stopRefresh(false);
         }
-        if (this.getClass() == HomeFragment.class || this.getClass() == HomeMeFragment.class){
+        if (this.getClass() == HomeNewFragment.class || this.getClass() == HomePersonalCenterFragment.class){
             return;
         }
         showToast(message);
@@ -174,10 +174,10 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
 
     @Override
     public void userIsNotLogin() {
-        if (this.getClass() == HomeFragment.class || this.getClass() == HomeMeFragment.class){
-            return;
+        if (this.getClass() != HomeNewFragment.class && this.getClass() != HomePersonalCenterFragment.class){
+            startActivity(LoginActivity.class);
         }
-        startActivity(LoginActivity.class);
+
     }
 
     /**

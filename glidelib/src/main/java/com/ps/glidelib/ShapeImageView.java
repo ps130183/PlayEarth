@@ -17,6 +17,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 
 
@@ -49,7 +50,7 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
     private float pressedAlpha = 0.1f; // 按下的透明度
     private int pressedColor = 0x1A000000; // 按下的颜色
 
-    private boolean isInterceptClick = false;
+//    private boolean isInterceptClick = false;
 
     @IntDef({ShapeType.RECTANGLE, ShapeType.CIRCLE})
     @Retention(RetentionPolicy.SOURCE)
@@ -209,7 +210,10 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
 //        onTouchEvent(event);
-        return isInterceptClick;
+        if (!hasOnClickListeners()){
+            return false;
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     // 获取Bitmap内容
@@ -274,7 +278,7 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
      * 设置是否拦截点击事件
      * @param interceptClick
      */
-    public void setInterceptClick(boolean interceptClick) {
-        isInterceptClick = interceptClick;
-    }
+//    public void setInterceptClick(boolean interceptClick) {
+//        isInterceptClick = interceptClick;
+//    }
 }

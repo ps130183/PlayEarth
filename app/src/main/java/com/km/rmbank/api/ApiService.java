@@ -996,7 +996,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiConstant.API_MODEL + "/product/normal/bannerList")
+    @POST(ApiConstant.API_MODEL + "/banner/list")
     Observable<Response<List<BannerDto>>> getHomeBanner(@Field("str") String str);
 
     /**

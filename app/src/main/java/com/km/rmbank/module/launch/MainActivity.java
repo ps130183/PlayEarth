@@ -5,13 +5,11 @@ import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.module.main.HomeActivity;
-import com.km.rmbank.module.main.HomeNewActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -59,7 +57,6 @@ public class MainActivity extends BaseActivity {
                         if (isFirst && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
                             startActivity(GuideActivity.class);
                         } else {
-//                            startActivity(HomeNewActivity.class);
                             startActivity(HomeActivity.class);
                         }
                         finish();

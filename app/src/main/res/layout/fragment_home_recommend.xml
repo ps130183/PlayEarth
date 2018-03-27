@@ -43,7 +43,7 @@
             android:textSize="@dimen/textSizeBig"
             android:textColor="@color/textMainColor"
             android:gravity="center"
-            android:layout_toRightOf="@id/tv_day"
+            android:layout_toRightOf="@+id/tv_day"
             android:layout_marginLeft="@dimen/viewSpace8"
             />
 

@@ -24,6 +24,13 @@ public class BannerDto {
 
     private int bannerToPage;
     private String bannerUrl;
+    /**
+     * imageUrl : http://192.168.10.131:8083/Aiyg/images/jidic.png
+     * linkUrl : http://www.baidu.com
+     */
+
+    private String imageUrl;
+    private String linkUrl;
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -71,5 +78,21 @@ public class BannerDto {
 
     public void setBannerUrl(String bannerUrl) {
         this.bannerUrl = bannerUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
     }
 }

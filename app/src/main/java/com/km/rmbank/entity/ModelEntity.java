@@ -6,18 +6,34 @@ package com.km.rmbank.entity;
 
 public class ModelEntity {
     private int modelRes;
-    private String modelImageUrl;
     private String modelName;
+    private String modelImageUrl;
+    private boolean isSingle;
 
     public ModelEntity(int modelRes, String modelName) {
         this.modelRes = modelRes;
         this.modelName = modelName;
     }
 
-    public ModelEntity(String modelImageUrl, String modelName) {
-        this.modelImageUrl = modelImageUrl;
+    public ModelEntity(String modelImageUrl,String modelName) {
         this.modelName = modelName;
+        this.modelImageUrl = modelImageUrl;
     }
+
+    public ModelEntity(int modelRes, String modelName, boolean isSingle) {
+        this.modelRes = modelRes;
+        this.modelName = modelName;
+        this.isSingle = isSingle;
+    }
+
+    public boolean isSingle() {
+        return isSingle;
+    }
+
+    public void setSingle(boolean single) {
+        isSingle = single;
+    }
+
 
     public String getModelImageUrl() {
         return modelImageUrl;

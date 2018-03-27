@@ -20,6 +20,7 @@ import com.gongwen.marqueen.SimpleMarqueeView;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.km.rmbank.dto.AppointDto;
+import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
@@ -27,14 +28,18 @@ import com.km.rmbank.entity.HomeRecommendEntity;
 import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.ApplyActionEvent;
 import com.km.rmbank.module.login.LoginActivity;
+import com.km.rmbank.module.main.club.ActionPastDetailActivity;
 import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.fragment.home.AllClubActivity;
+import com.km.rmbank.module.main.fragment.home.CircleFriendsActivity;
 import com.km.rmbank.module.main.fragment.home.InformationActivity;
 import com.km.rmbank.module.main.fragment.home.MoreActionActivity;
 import com.km.rmbank.module.main.fragment.home.ScenicListActivity;
 import com.km.rmbank.module.main.map.MapActivity;
 import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
+import com.km.rmbank.module.main.shop.GoodsActivity;
+import com.km.rmbank.module.webview.AgreementActivity;
 import com.km.rmbank.mvp.model.HomeModel;
 import com.km.rmbank.mvp.presenter.HomePresenter;
 import com.km.rmbank.mvp.view.IHomeView;
@@ -118,7 +123,6 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
             }
         });
         initToolbar();
-        initBanner();
         initModuleRecycler();
         initMarqueeView();
         initRecommend();
@@ -143,6 +147,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
             @Override
             public void refresh() {
                 getPresenter().getHomeRecommend();
+                getPresenter().getHomeBannerList();
             }
         });
         showLoading();
@@ -162,28 +167,37 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
     /**
      * 初始化轮播图
      */
-    private void initBanner() {
-        List<Integer> bannerUrls = new ArrayList<>();
-        bannerUrls.add(R.mipmap.icon_home_banner1);
-        bannerUrls.add(R.mipmap.icon_home_banner2);
-        bannerUrls.add(R.mipmap.icon_home_banner3);
+    private void initBanner(final List<BannerDto> bannerDtoList) {
 
-        mBanner.setImages(bannerUrls)
+        mBanner.setImages(bannerDtoList)
                 .isAutoPlay(true)
                 .setDelayTime(3000)
                 .setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
-//                        if (position != 2) {
-//                            startActivity(BecomeMemberActivity.class);
-//                        }
+                        BannerDto bannerDto = bannerDtoList.get(position);
+                        Bundle bundle = new Bundle();
+                        if ("1".equals(bannerDto.getType())){
+                            bundle.putString("actionPastId",bannerDto.getId());
+                            startActivity(ActionPastDetailActivity.class,bundle);
+                        } else if ("2".equals(bannerDto.getType())){
+                            bundle.putString("titleName",bannerDto.getTitle());
+                            bundle.putString("agreementUrl",bannerDto.getLinkUrl());
+                            startActivity(AgreementActivity.class,bundle);
+                        } else if ("3".equals(bannerDto.getType())){
+                            bundle.putString("actionId",bannerDto.getId());
+                            startActivity(ActionRecentInfoActivity.class,bundle);
+                        } else if ("4".equals(bannerDto.getType())){
+                            bundle.putString("productNo",bannerDto.getId());
+                            startActivity(GoodsActivity.class,bundle);
+                        }
                     }
                 })
                 .setImageLoader(new DefaultImageLoader() {
                     @Override
                     public void displayImage(Context context, Object path, ImageView imageView) {
-                        int imageRes = (int) path;
-                        GlideUtils.loadImage(context, imageRes, imageView);
+                        BannerDto bannerDto = (BannerDto) path;
+                        GlideUtils.loadImage(context, bannerDto.getImageUrl(), imageView);
                     }
                 }).start();
     }
@@ -222,7 +236,8 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                         startActivity(InformationActivity.class);
                         break;
                     case 2://人脉圈
-                        showToast(getResources().getString(R.string.notOpen));
+//                        showToast(getResources().getString(R.string.notOpen));
+                        startActivity(CircleFriendsActivity.class);
                         break;
                     case 3://会所
                         bundle.putInt("scenicType", 3);
@@ -399,6 +414,11 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
     public void applyActionSuccess(String actionId,String type) {
         showToast("报名成功");
         EventBusUtils.post(new ApplyActionEvent(actionId,type));
+    }
+
+    @Override
+    public void showHomeBanner(List<BannerDto> bannerDtoList) {
+        initBanner(bannerDtoList);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

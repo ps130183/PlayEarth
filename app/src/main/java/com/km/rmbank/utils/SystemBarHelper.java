@@ -226,18 +226,12 @@ public class SystemBarHelper {
         }
 
         ViewGroup decorView = (ViewGroup) window.getDecorView();
-        ViewGroup contentView = (ViewGroup) window.getDecorView().findViewById(Window.ID_ANDROID_CONTENT);
-        View rootView = contentView.getChildAt(0);
-        int statusBarHeight = getStatusBarHeight(window.getContext());
-        if (rootView != null) {
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rootView.getLayoutParams();
-            ViewCompat.setFitsSystemWindows(rootView, true);
-            lp.topMargin = -statusBarHeight;
-            rootView.setLayoutParams(lp);
-        }
 
-        setTranslucentView(decorView, alpha);
+        if (alpha > 0){
+            setTranslucentView(decorView, alpha);
+        }
     }
+
 
     /** 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上) */
     public static void setStatusBarDarkMode(Activity activity) {
@@ -381,6 +375,44 @@ public class SystemBarHelper {
         }
     }
 
+    /** 创建假的透明栏 */
+    public static void setTranslucentView(ViewGroup container,boolean isVisiable,
+                                           @FloatRange(from = 0.0, to = 1.0) float alpha) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            View translucentView = container.findViewById(R.id.translucent_view);
+            if (translucentView == null) {
+                translucentView = new View(container.getContext());
+                translucentView.setId(R.id.translucent_view);
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(container.getContext()));
+                container.addView(translucentView, lp);
+            }
+            translucentView.setBackgroundColor(Color.argb((int) (alpha * 255), 0, 0, 0));
+            translucentView.setVisibility(isVisiable ? View.VISIBLE : View.GONE);
+
+            //创建加的状态栏
+            setStatusBar(container,Color.WHITE,isVisiable);
+
+
+            //根据状态栏的 状态 调整 主内容区的topMargin值
+            ViewGroup contentView = (ViewGroup) container.findViewById(Window.ID_ANDROID_CONTENT);
+            View rootView = contentView.getChildAt(0);
+            int statusBarHeight = getStatusBarHeight(container.getContext());
+            if (rootView != null) {
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rootView.getLayoutParams();
+                ViewCompat.setFitsSystemWindows(rootView, true);
+                if (!isVisiable){
+                    lp.topMargin = -statusBarHeight;
+                    rootView.setLayoutParams(lp);
+                } else {
+                    lp.topMargin = 0;
+                    rootView.setLayoutParams(lp);
+                }
+
+            }
+        }
+    }
+
 
     /** 获取状态栏高度 */
     public static int getStatusBarHeight(Context context) {
@@ -456,5 +488,88 @@ public class SystemBarHelper {
                 }
             }
         }
+    }
+
+
+
+
+    /**
+     * 兼容状态栏透明（沉浸式）
+     * @param activity
+     */
+    public static void setImmersionStateMode(Activity activity){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT != Build.VERSION_CODES.LOLLIPOP) {
+            // 透明状态栏
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 透明导航栏
+            // getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    // | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
+
+
+    /**
+     * 状态栏颜色字体(白底黑字)修改 MIUI6+
+     * @param activity
+     * @param darkmode
+     * @return
+     */
+    public static boolean setMiuiStatusBarDarkMode(Activity activity, boolean darkmode) {
+        Class<? extends Window> clazz = activity.getWindow().getClass();
+        try {
+            int darkModeFlag = 0;
+            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+            darkModeFlag = field.getInt(layoutParams);
+            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+            extraFlagField.invoke(activity.getWindow(), darkmode ? darkModeFlag : 0, darkModeFlag);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 状态栏颜色字体(白底黑字)修改 Flyme4+
+     * @param activity
+     * @param dark
+     * @return
+     */
+    public static boolean setMeizuStatusBarDarkIcon(Activity activity, boolean dark) {
+        boolean result = false;
+        if (activity != null) {
+            try {
+                WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+                Field darkFlag = WindowManager.LayoutParams.class
+                        .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
+                Field meizuFlags = WindowManager.LayoutParams.class
+                        .getDeclaredField("meizuFlags");
+                darkFlag.setAccessible(true);
+                meizuFlags.setAccessible(true);
+                int bit = darkFlag.getInt(null);
+                int value = meizuFlags.getInt(lp);
+                if (dark) {
+                    value |= bit;
+                } else {
+                    value &= ~bit;
+                }
+                meizuFlags.setInt(lp, value);
+                activity.getWindow().setAttributes(lp);
+                result = true;
+            } catch (Exception e) {
+            }
+        }
+        return result;
     }
 }

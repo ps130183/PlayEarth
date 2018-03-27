@@ -2,13 +2,17 @@ package com.km.rmbank.module.main;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
@@ -18,6 +22,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
+import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
@@ -28,6 +33,7 @@ import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.action.PromotionActivity;
 import com.km.rmbank.module.main.fragment.HomeAppointActionFragment;
+import com.km.rmbank.module.main.fragment.HomePersonalCenterFragment;
 import com.km.rmbank.module.main.fragment.HomeRecommendFragment;
 import com.km.rmbank.module.main.fragment.HomeMeFragment;
 import com.km.rmbank.module.main.fragment.HomeShopFragment;
@@ -88,9 +94,15 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         return R.layout.activity_home;
     }
 
+
     @Override
     public BaseTitleBar getBaseTitleBar() {
         return null;
+    }
+
+    @Override
+    public boolean statusBarTextColorIsDark() {
+        return false;
     }
 
     @Override
@@ -103,6 +115,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         if (savedInstanceState == null) {
         }
 
+        changeStatusBar(0);
         tabLayout = mViewManager.findView(R.id.tab_layout);
 //        keyBorad((ViewGroup) mViewManager.findView(R.id.rl_root));
 //        FrameLayout flContent = mViewManager.findView(R.id.main_page);
@@ -150,9 +163,28 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         LogUtils.e("fragmentList ====== " + fragmentList.size());
         LogUtils.e("tablayout CurrentTab ====== " + tabLayout.getCurrentTab());
         tabLayout.setCurrentTab(position);
+        changeStatusBar(position);
+    }
+
+    /**
+     * 改变状态栏的 状态
+     * @param position
+     */
+    private void changeStatusBar(int position){
+        SystemBarHelper.immersiveStatusBar(this);
+        boolean isShowStatusBar = false;
+        if (position < 5){
+            isShowStatusBar = true;
+        }
+        SystemBarHelper.setTranslucentView((ViewGroup) this.getWindow().getDecorView(),isShowStatusBar,0);
+//        SystemBarHelper.setStatusBar((ViewGroup) this.getWindow().getDecorView(),Color.WHITE,isShowStatusBar);
+
     }
 
 
+    /**
+     * 退出
+     */
     private void exsit() {
         if (isExsit) {
             finish();
@@ -193,11 +225,10 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
         fragmentList = new ArrayList<>();
         fragmentList.add(HomeNewFragment.newInstance(null));
-//        fragmentList.add(HomeFragment.newInstance(null));
-//        fragmentList.add(HomeAppointFragment.newInstance(null));
         fragmentList.add(HomeRecommendFragment.newInstance(null));
         fragmentList.add(HomeAppointActionFragment.newInstance(null));
         fragmentList.add(HomeShopFragment.newInstance(null));
+//        fragmentList.add(HomePersonalCenterFragment.newInstance(null));
         fragmentList.add(HomeMeFragment.newInstance(null));
 
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
@@ -210,25 +241,20 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
             @Override
             public boolean onTabSelect(int position) {
                 boolean result = true;
+                changeStatusBar(position);
                 Bundle bundle = new Bundle();
                 bundle.putInt("lastPosition", lastPosition);
                 switch (position) {
                     case 0://首页
 //                        showDialog();
                         break;
-//                    case 1://约咖
-////                        showToast(getResources().getString(R.string.notOpen));
-//                        result = true;
-//                        break;
+
                     case 1://人脉
                         break;
                     case 3://熟人购
 //                        startActivity(ShopActivity.class, bundle);
                         break;
                     case 4://我的
-                        if (Constant.userLoginInfo.isEmpty()) {
-                            startActivity(LoginActivity.class);
-                        }
                         EventBusUtils.post(new RefreshPersonalInfoEvent());
                         break;
                     default:
@@ -279,6 +305,11 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
     @Override
     public void applyActionSuccess(String actionId, String type) {
+
+    }
+
+    @Override
+    public void showHomeBanner(List<BannerDto> bannerDtoList) {
 
     }
 

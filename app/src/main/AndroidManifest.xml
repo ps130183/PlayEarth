@@ -217,11 +217,12 @@
         <activity android:name=".module.main.personal.ticket.TicketRecordDetailActivity" />
         <activity android:name=".module.main.action.PromotionActivity" />
         <activity android:name=".module.main.personal.action.AppliedActionInfoActivity" />
-        <activity android:name=".module.main.HomeNewActivity" />
         <activity android:name=".module.main.fragment.home.InformationActivity" />
         <activity android:name=".module.main.fragment.home.ScenicListActivity" />
         <activity android:name=".module.main.fragment.home.MoreActionActivity" />
-        <activity android:name=".module.main.appoint.AppointAfternoonTeaActivity"></activity>
+        <activity android:name=".module.main.appoint.AppointAfternoonTeaActivity" />
+        <activity android:name=".module.main.fragment.home.CircleFriendsActivity" />
+        <activity android:name=".module.main.personal.hpage.PersonalHomePageActivity"></activity>
     </application>
 
 </manifest>
