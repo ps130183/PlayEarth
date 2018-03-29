@@ -40,6 +40,7 @@ import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.retrofit.FileDownLoad;
 import com.km.rmbank.retrofit.RetrofitManager;
 import com.km.rmbank.titleBar.SimpleTitleBar;
+import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DialogLoading;
 import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
@@ -307,6 +308,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     @Override
     public void userIsNotLogin() {
+        Constant.userLoginInfo.clear();
         if (this.getClass() == HomeActivity.class){
             return;
         }

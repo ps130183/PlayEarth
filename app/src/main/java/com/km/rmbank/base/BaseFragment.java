@@ -22,6 +22,7 @@ import com.km.rmbank.mvp.base.MvpPresenter;
 import com.km.rmbank.mvp.base.MvpView;
 import com.km.rmbank.mvp.base.PresenterDelegateImpl;
 import com.km.rmbank.mvp.base.ProxyPresenter;
+import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DialogLoading;
 import com.km.rmbank.utils.EventBusUtils;
 
@@ -174,6 +175,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
 
     @Override
     public void userIsNotLogin() {
+        Constant.userLoginInfo.clear();
         if (this.getClass() != HomeNewFragment.class && this.getClass() != HomePersonalCenterFragment.class){
             startActivity(LoginActivity.class);
         }

@@ -207,16 +207,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
             mViewManager.findView(R.id.login).setVisibility(View.VISIBLE);
         }
 
-        GlideImageView userPortrait = mViewManager.findView(R.id.userPortrait);
-        GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
-        userPortrait.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openUserHomePage(v);
-            }
-        });
 
-        mViewManager.setText(R.id.userName,userInfoDto.getName());
         TextView becomeMember = mViewManager.findView(R.id.become_memeber);
         becomeMember.setVisibility(View.VISIBLE);
         String roleName = "";
@@ -232,9 +223,22 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
         }
         mViewManager.setText(R.id.userRoleName,roleName);
 
-        mViewManager.setText(R.id.ticketCount,userInfoDto.getTicketCount() == null ? "" : userInfoDto.getTicketCount());
-        mViewManager.setText(R.id.tv_attention,userInfoDto.getKeepCount() == null ? "" : userInfoDto.getKeepCount());
-        mViewManager.setText(R.id.tv_account,userInfoDto.getBalance()+"");
+
+        if (userInfoDto != null){
+            GlideImageView userPortrait = mViewManager.findView(R.id.userPortrait);
+            GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
+            userPortrait.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openUserHomePage(v);
+                }
+            });
+            mViewManager.setText(R.id.userName,userInfoDto.getName());
+            mViewManager.setText(R.id.ticketCount,userInfoDto.getTicketCount() == null ? "" : userInfoDto.getTicketCount());
+            mViewManager.setText(R.id.tv_attention,userInfoDto.getKeepCount() == null ? "" : userInfoDto.getKeepCount());
+            mViewManager.setText(R.id.tv_account,userInfoDto.getBalance()+"");
+        }
+
     }
 
     /**
@@ -268,7 +272,12 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshPersonalInfo(RefreshPersonalInfoEvent event){
-        getPresenter().getUserInfo();
+        if (Constant.userLoginInfo.isEmpty()){
+            curUserRole = 0;
+            notifyPersonCenter(null);
+        } else {
+            getPresenter().getUserInfo();
+        }
     }
 
     /**

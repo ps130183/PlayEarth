@@ -11,6 +11,10 @@
     <string name="attention">关注</string>
     <string name="attentioned">已关注</string>
 
+    <string name="header_scrolling_behavior">com.km.rmbank.customview.HeaderScrollingBehavior</string>
+    <string name="header_float_behavior">com.km.rmbank.customview.HeaderFloatBehavior</string>
+    <string name="header_Tab_behavior">com.km.rmbank.customview.HeaderTabBehavior</string>
+
     <string name="appoint_afternoon_tea">尊敬的会员：\n
          \t\t您好！\n
          \t\t玩转地球爱眼俱乐部下午茶分享会要开始啦。\n

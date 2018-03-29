@@ -172,7 +172,8 @@
         <activity android:name=".module.main.personal.address.CreateReceiverAddressActivity" />
         <activity android:name=".module.main.personal.setting.SettingActivity" />
         <activity android:name=".module.main.personal.setting.AboutMeActivity" />
-        <activity android:name=".module.webview.AgreementActivity" />
+        <activity android:name=".module.webview.AgreementActivity"
+            android:hardwareAccelerated="true"/>
         <activity android:name=".module.main.personal.order.MyOrderActivity" />
         <activity android:name=".module.main.personal.order.OrderDetailsActivity" />
         <activity android:name=".module.main.personal.order.GoodsEvaluateActivity" />
