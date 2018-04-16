@@ -272,7 +272,7 @@ public class PromotionActivity extends BaseActivity<IMemberView,MemberPresenter>
     @OnClick(R.id.btn_share)
     public void share(View view){
         if (Constant.userLoginInfo.isEmpty()){
-            showToast("请先登录再分享");
+            showToast(getResources().getString(R.string.toast_not_login));
             return;
         }
         ShareDto shareDto = new ShareDto();

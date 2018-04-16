@@ -173,7 +173,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     private void changeStatusBar(int position){
         SystemBarHelper.immersiveStatusBar(this);
         boolean isShowStatusBar = false;
-        if (position < 4){
+        if (position < 5){
             isShowStatusBar = true;
         }
         SystemBarHelper.setTranslucentView((ViewGroup) this.getWindow().getDecorView(),isShowStatusBar,0);
@@ -208,6 +208,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     private void requestLocationPremission() {
         String[] locationPermission = {Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.WRITE_CONTACTS,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE};
         PermissionGen.needPermission(this, REQUEST_PERMISSION_LOCATION, locationPermission);
     }
@@ -228,8 +230,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         fragmentList.add(HomeRecommendFragment.newInstance(null));
         fragmentList.add(HomeAppointActionFragment.newInstance(null));
         fragmentList.add(HomeShopFragment.newInstance(null));
-        fragmentList.add(HomePersonalCenterFragment.newInstance(null));
-//        fragmentList.add(HomeMeFragment.newInstance(null));
+//        fragmentList.add(HomePersonalCenterFragment.newInstance(null));
+        fragmentList.add(HomeMeFragment.newInstance(null));
 
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {
@@ -255,6 +257,11 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 //                        startActivity(ShopActivity.class, bundle);
                         break;
                     case 4://我的
+                        if (Constant.userLoginInfo.isEmpty()){
+                            showToast(getResources().getString(R.string.toast_not_login));
+                            startActivity(LoginActivity.class);
+                            break;
+                        }
                         EventBusUtils.post(new RefreshPersonalInfoEvent());
                         break;
                     default:

@@ -15,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import cn.jarlen.photoedit.operate.OperateView;
+
 /**
  * Created by PengSong on 18/1/31.
  */
@@ -28,9 +30,15 @@ public class ViewUtils {
 
         String fileName = name + ".png";
 
+        Bitmap bm;
+        if (v instanceof OperateView){
+            OperateView operateView = (OperateView) v;
+            bm = Bitmap.createBitmap(operateView.getmWidth(),operateView.getmHeight(),Bitmap.Config.ARGB_8888);
+        } else {
+            bm = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+        }
 
-        Bitmap bm = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
-                Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bm);
         v.draw(canvas);
         String TAG = "TIKTOK";
@@ -58,13 +66,14 @@ public class ViewUtils {
 
     /**
      * 为View设置 margin
+     *
      * @param v
      * @param l
      * @param t
      * @param r
      * @param b
      */
-    public static void setMargins (View v, int l, int t, int r, int b) {
+    public static void setMargins(View v, int l, int t, int r, int b) {
         if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
             p.setMargins(l, t, r, b);

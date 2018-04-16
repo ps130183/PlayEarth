@@ -2,57 +2,29 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
+    android:background="@color/white"
+    android:gravity="center"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp"
-        android:gravity="center_vertical">
-        <com.ps.glidelib.GlideImageView
-            android:id="@+id/modelImage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/icon_pc_model1"
-            android:layout_marginRight="9dp"/>
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/modelImage"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@mipmap/icon_pc_my_order"
+        />
 
-        <TextView
-            android:id="@+id/modelName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="商品管理"
-            android:textSize="15sp"
-            android:textColor="@color/text_color_block5"
-            />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="25dp"
-                android:src="@mipmap/icon_pc_model_arrow_right"
-                android:layout_alignParentRight="true"/>
-        </RelativeLayout>
-    </LinearLayout>
-    
     <View
-        android:id="@+id/line1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/divideLineHeight0.5"
-        android:visibility="gone"
-        android:background="@color/divide_color2"/>
-    
-    <View
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="9dp"
-        android:visibility="gone"
-        android:background="@color/divide_color2"/>
+        android:layout_height="6dp"/>
 
+    <TextView
+        android:id="@+id/modelName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的订单"
+        android:textColor="@color/text_color_block32"
+        android:textSize="13sp"
+        />
+    
 </LinearLayout>

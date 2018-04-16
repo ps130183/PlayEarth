@@ -47,6 +47,7 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
      */
     public void addRippleEffectOnClick(){
         getConvertView().setBackgroundResource(R.drawable.recycler_bg);
+
     }
 
     public View getConvertView() {

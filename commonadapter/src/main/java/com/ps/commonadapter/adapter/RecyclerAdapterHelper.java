@@ -28,6 +28,8 @@ import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 import com.ps.commonadapter.recyclerviewAnimator.animators.SlideInLeftAnimator;
 import com.ps.commonadapter.recyclerviewAnimator.animators.SlideInRightAnimator;
 import com.ps.commonadapter.recyclerviewAnimator.animators.SlideInUpAnimator;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+import com.yqritc.recyclerviewflexibledivider.VerticalDividerItemDecoration;
 
 import java.util.List;
 
@@ -174,6 +176,8 @@ public class RecyclerAdapterHelper<T> {
     public RecyclerAdapterHelper addGrigLayoutMnager(int spanCount){
         GridLayoutManager glm = new GridLayoutManager(mContext,spanCount);
         mRecyclerView.setLayoutManager(glm);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setNestedScrollingEnabled(false);
         return this;
     }
 
@@ -209,6 +213,24 @@ public class RecyclerAdapterHelper<T> {
      */
     public RecyclerAdapterHelper addDividerItemDecoration(int orientation){
         addDividerItemDecoration(orientation, R.drawable.recycler_item_divider);
+        return this;
+    }
+
+    /**
+     * 添加分割线
+     * @return
+     */
+    public RecyclerAdapterHelper addDividerItemDecorationForGrid(int orientation){
+        if (orientation == DividerItemDecoration.VERTICAL){
+            mRecyclerView.addItemDecoration(
+                    new HorizontalDividerItemDecoration.Builder(mContext)
+                            .colorResId(R.color.divide_color).build());
+        } else {
+            mRecyclerView.addItemDecoration(
+                    new VerticalDividerItemDecoration.Builder(mContext)
+                            .colorResId(R.color.divide_color).build());
+        }
+
         return this;
     }
 

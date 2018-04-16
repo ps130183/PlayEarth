@@ -21,6 +21,7 @@ public class HomeRecommendDto {
 
     private String advertImage;
     private String advertUrl;
+    private String urlType;
     private String id;
     private String levelName;
     private int sort;
@@ -90,6 +91,14 @@ public class HomeRecommendDto {
 
     public void setDetailList(List<DetailListBean> detailList) {
         this.detailList = detailList;
+    }
+
+    public String getUrlType() {
+        return urlType;
+    }
+
+    public void setUrlType(String urlType) {
+        this.urlType = urlType;
     }
 
     public static class DetailListBean {

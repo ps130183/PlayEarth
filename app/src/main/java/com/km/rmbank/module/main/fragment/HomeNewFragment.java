@@ -19,7 +19,6 @@ import com.gongwen.marqueen.SimpleMF;
 import com.gongwen.marqueen.SimpleMarqueeView;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
-import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
@@ -32,11 +31,11 @@ import com.km.rmbank.module.main.club.ActionPastDetailActivity;
 import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.fragment.home.AllClubActivity;
 import com.km.rmbank.module.main.fragment.home.CircleFriendsActivity;
+import com.km.rmbank.module.main.experience.ExperienceOfficerActivity;
 import com.km.rmbank.module.main.fragment.home.InformationActivity;
 import com.km.rmbank.module.main.fragment.home.MoreActionActivity;
 import com.km.rmbank.module.main.fragment.home.ScenicListActivity;
 import com.km.rmbank.module.main.map.MapActivity;
-import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.module.main.shop.GoodsActivity;
 import com.km.rmbank.module.webview.AgreementActivity;
@@ -295,7 +294,16 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                         holder.setText(R.id.recommendTitle, mData.getLevelName());
                         GlideImageView guanggaoWei = holder.findView(R.id.guanggaowei);
                         GlideUtils.loadImageOnPregress(guanggaoWei, mData.getAdvertImage(), null);
-
+                        guanggaoWei.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+//                                if ("1".equals(mData.getUrlType())){//199体验官
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("advertUrl",mData.getAdvertUrl());
+                                    startActivity(ExperienceOfficerActivity.class,bundle);
+//                                }
+                            }
+                        });
                         //更多
                         RTextView recommendMore = holder.findView(R.id.recommendMore);
                         recommendMore.setOnClickListener(new View.OnClickListener() {

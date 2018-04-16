@@ -68,7 +68,7 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
     private String actionPastId;
 
     private String clubId;
-    private boolean isMyClub;
+//    private boolean isMyClub;
 
     private ShareDto mShareDto;
 
@@ -82,6 +82,38 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         simpleTitleBar = (SimpleTitleBar) titleBar;
+        simpleTitleBar.setRightMenuRes(R.menu.toolbar_action_recent_share);
+        simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (mShareDto == null){
+                    showToast("获取分享内容失败");
+                    return false;
+                }
+                UmengShareUtils.openShare(ActionPastDetailActivity.this, mShareDto, new UMShareListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+
+                    }
+
+                    @Override
+                    public void onResult(SHARE_MEDIA share_media) {
+                        showToast("分享成功");
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                        showToast("分享失败");
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media) {
+
+                    }
+                });
+                return false;
+            }
+        });
     }
 
     @Override
@@ -93,44 +125,9 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
     public void onFinally(@Nullable Bundle savedInstanceState) {
         actionPastId = getIntent().getStringExtra("actionPastId");
         String activityId = getIntent().getStringExtra("activityId");
-        isMyClub = getIntent().getBooleanExtra("isMyClub",false);
+//        isMyClub = getIntent().getBooleanExtra("isMyClub",false);
 //        initActionPastDetails();
         getPresenter().getActionPastDetails(actionPastId,activityId);
-
-        if (!isMyClub){
-            simpleTitleBar.setRightMenuRes(R.menu.toolbar_action_recent_share);
-            simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    if (mShareDto == null){
-                        showToast("获取分享内容失败");
-                        return false;
-                    }
-                    UmengShareUtils.openShare(ActionPastDetailActivity.this, mShareDto, new UMShareListener() {
-                        @Override
-                        public void onStart(SHARE_MEDIA share_media) {
-
-                        }
-
-                        @Override
-                        public void onResult(SHARE_MEDIA share_media) {
-                            showToast("分享成功");
-                        }
-
-                        @Override
-                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            showToast("分享失败");
-                        }
-
-                        @Override
-                        public void onCancel(SHARE_MEDIA share_media) {
-
-                        }
-                    });
-                    return false;
-                }
-            });
-        }
     }
 
     @Override

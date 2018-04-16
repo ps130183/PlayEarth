@@ -276,22 +276,7 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
             makeMoney.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtils.showShareDialog(mInstance,new DialogUtils.ShareDialogClickListener() {
-                        @Override
-                        public void clickWeixin() {
-                            showToast(getString(R.string.notOpen));
-                        }
 
-                        @Override
-                        public void clickPengyouQuan() {
-                            showToast(getString(R.string.notOpen));
-                        }
-
-                        @Override
-                        public void clickDownload() {
-                            showToast(getString(R.string.notOpen));
-                        }
-                    });
                 }
             });
             makeMoneyPop = new CustomPopWindow.PopupWindowBuilder(mInstance)

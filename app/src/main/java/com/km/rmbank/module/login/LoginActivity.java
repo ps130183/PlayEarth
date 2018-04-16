@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
+import com.ruffian.library.RTextView;
 
 import java.util.Set;
 
@@ -36,9 +38,13 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
 
     private EditText mobilePhone;
     private EditText etSmsCode;
-    private TextView tvSmsCode;
+    private RTextView tvSmsCode;
+
+    private Button btnLogin;
 
     private boolean isSendCode = false;
+    private boolean isCanLogin = false;
+    private boolean isCanSend = false;
 
     private int waitTime = 60;
 
@@ -69,6 +75,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
         mobilePhone = mViewManager.findView(R.id.et_phone);
         etSmsCode = mViewManager.findView(R.id.et_code);
         tvSmsCode = mViewManager.findView(R.id.tv_send_code);
+        btnLogin = mViewManager.findView(R.id.btn_login);
         init();
     }
 
@@ -88,11 +95,37 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
             public void afterTextChanged(Editable s) {
                 if (s.length() >= 11){
                     isSendCode = true;
-                    tvSmsCode.setTextColor(ContextCompat.getColor(LoginActivity.this,R.color.textRedColor));
+                    isCanSend = true;
                 } else {
+                    isCanSend = false;
                     isSendCode = false;
-                    tvSmsCode.setTextColor(ContextCompat.getColor(LoginActivity.this,R.color.textGrayColor));
                 }
+                tvSmsCode.setEnabled(isSendCode);
+                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
+                btnLogin.setEnabled(isCanSend && isCanLogin);
+            }
+        });
+
+        etSmsCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() == 6){
+                    isCanLogin = true;
+                } else {
+                    isCanLogin = false;
+                }
+                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
+                btnLogin.setEnabled(isCanSend && isCanLogin);
             }
         });
 
@@ -120,13 +153,14 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
      * @param view
      */
     public void clickLogin(View view){
+//        startActivity(CreateUserInfoActivity.class);
         String phone = mobilePhone.getText().toString();
         String smsCode = etSmsCode.getText().toString();
         if (!RegexUtils.isMobileExact(phone)){
-            showToast("请填写正确的手机号");
+            showToast("手机号码错误，请重新输入！");
             return;
         } else if (TextUtils.isEmpty(smsCode)){
-            showToast("请填写验证码");
+            showToast("验证码错误，请重新获取！");
             return;
         }
         getPresenter().login(phone,smsCode);
@@ -139,7 +173,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
     public void sendCode(View view){
         String phone = mobilePhone.getText().toString();
         if (!RegexUtils.isMobileExact(phone)){
-            showToast("请填写正确的手机号");
+            showToast("手机号码错误，请重新输入！");
             return;
         } else if (isSendCode){
             waitTime = 60;
@@ -149,9 +183,10 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
 
     @Override
     public void showSmsCode(String smsCode) {
+        showToast("验证码获取成功！");
         tvSmsCode.setText(waitTime+"");
         isSendCode = false;
-        tvSmsCode.setTextColor(ContextCompat.getColor(LoginActivity.this,R.color.textGrayColor));
+        tvSmsCode.setEnabled(isSendCode);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -159,7 +194,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            tvSmsCode.setText(""+waitTime);
+                            tvSmsCode.setText(waitTime+"'");
                         }
                     });
                     try {
@@ -171,9 +206,9 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tvSmsCode.setText("重新发送");
+                        tvSmsCode.setText("重新获取");
                         isSendCode = true;
-                        tvSmsCode.setTextColor(ContextCompat.getColor(LoginActivity.this,R.color.textBlueColor));
+                        tvSmsCode.setEnabled(isSendCode);
                     }
                 });
             }
@@ -188,6 +223,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
                 LogUtils.d("极光别名设置成功 = " + s + "    i =" + i);
             }
         });
+        showToast("登录成功！");
         startActivity(HomeActivity.class);
         KeyboardUtils.hideSoftInput(this);
     }

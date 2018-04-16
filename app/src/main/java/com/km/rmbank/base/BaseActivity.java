@@ -278,10 +278,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         if (mXRefreshView != null && !mXRefreshView.mPullRefreshing){
             mXRefreshView.startRefresh();
         }
-//        if (dialogLoading == null){
-//            dialogLoading = new DialogLoading(this);
-//        }
-//        dialogLoading.show();
+        if (dialogLoading == null){
+            dialogLoading = new DialogLoading(this);
+        }
+        dialogLoading.show();
     }
 
     @Override

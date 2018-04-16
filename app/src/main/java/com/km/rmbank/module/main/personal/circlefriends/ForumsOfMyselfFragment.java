@@ -25,7 +25,6 @@ import com.km.rmbank.mvp.view.ICircleFriendsView;
 import com.km.rmbank.oldrecycler.RVUtils;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.EventBusUtils;
-import com.km.rmbank.utils.RecyclerUtils;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 

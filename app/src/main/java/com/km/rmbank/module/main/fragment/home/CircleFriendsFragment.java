@@ -30,7 +30,6 @@ import com.km.rmbank.mvp.presenter.CircleFriendsPresenter;
 import com.km.rmbank.mvp.view.ICircleFriendsView;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.KeyboardWrapper;
-import com.km.rmbank.utils.RecyclerUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.HeaderAndFooterWrapper;

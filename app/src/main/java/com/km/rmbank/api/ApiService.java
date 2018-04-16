@@ -15,6 +15,7 @@ import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.CalendarActionsDto;
 import com.km.rmbank.dto.CircleFriendsDto;
 import com.km.rmbank.dto.ClubDto;
+import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.EvaluateDto;
 import com.km.rmbank.dto.ForumDto;
 import com.km.rmbank.dto.ForumInfoDto;
@@ -1742,4 +1743,17 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/auth/ticket/record")
     Observable<Response<List<TicketUseRecordDto>>> getTicketUseRecordList(@Field("token") String token,
                                                                           @Field("ticketNo") String ticketNo);
+
+
+    /**------------------我的人脉---------------------*/
+
+    /**
+     *
+     * @param datas
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/addressBook/compare")
+    Observable<Response<List<ContractDto>>> getContracts(@Field("token") String token,
+                                                         @Field("datas") String datas);
 }

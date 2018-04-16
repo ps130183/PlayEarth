@@ -127,6 +127,7 @@ dependencies {
     implementation rootProject.ext.dependencies["jpush"]
     implementation rootProject.ext.dependencies["jcore"]
     implementation rootProject.ext.dependencies["marqueelibrary"]
+    implementation rootProject.ext.dependencies["jpinyin"]
     implementation project(':banner')
     implementation project(':commonadapter')
     implementation project(':glidelib')
@@ -145,6 +146,7 @@ dependencies {
     implementation files('libs/umeng_social_tool.jar')
     implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
     implementation files('libs/BaiduLBS_Android.jar')
-//    implementation files('libs/httpmime-4.1.2.jar')
-//    implementation files('libs/IndoorscapeAlbumPlugin.jar')
+    //    implementation files('libs/httpmime-4.1.2.jar')
+    //    implementation files('libs/IndoorscapeAlbumPlugin.jar')
+    implementation project(':photoedit')
 }

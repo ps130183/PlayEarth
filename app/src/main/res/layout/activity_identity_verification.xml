@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.login.CreateUserInfoActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*为了保护您账户安全，需要实名认证*"
+        android:gravity="center"
+        android:padding="@dimen/viewSpace16"
+        />
+
+    <LinearLayout style="@style/Personal.User.EditCard.pll">
+
+        <LinearLayout style="@style/Personal.User.EditCard.sll">
+
+            <TextView
+                style="@style/Personal.User.EditCard.tv"
+                android:text="姓     名" />
+
+            <EditText
+                android:id="@+id/et_name"
+                style="@style/Personal.User.EditCard.et_nofocuse"
+                android:hint="请输入您身份证上的姓名"
+                android:inputType="text"
+                android:lines="1" />
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <LinearLayout
+            style="@style/Personal.User.EditCard.sll"
+            >
+            <TextView
+                style="@style/Personal.User.EditCard.tv"
+                android:text="身份证"
+                />
+
+            <EditText
+                android:id="@+id/et_position"
+                style="@style/Personal.User.EditCard.et_nofocuse"
+                android:hint="请填写您的身份证号"
+                android:lines="1"
+                android:maxLength="18"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn_bg_default"
+        android:textSize="@dimen/textSizeBig"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="提交"
+        android:layout_margin="@dimen/viewSpace32"
+        android:enabled="false"
+        />
+
+
+
+</LinearLayout>

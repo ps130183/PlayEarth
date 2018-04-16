@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    tools:context="com.km.rmbank.module.main.card.UserNewCardActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/userCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#2d3d4c"
+        android:layout_marginLeft="@dimen/viewSpace32"
+        android:layout_marginRight="@dimen/viewSpace32"
+        android:layout_marginTop="@dimen/viewSpace48"
+        android:layout_marginBottom="@dimen/viewSpace48"
+        app:cardCornerRadius="10dp"
+        app:cardPreventCornerOverlap="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:id="@+id/userInfo"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="vertical"
+                android:background="@drawable/background_user_card">
+
+                <com.ps.glidelib.GlideImageView
+                    android:id="@+id/userPortrait"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@mipmap/icon_default_protrait"
+                    android:layout_gravity="center_horizontal"
+                    app:siv_shape_type="circle"
+                    />
+
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="蒋亚芳"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:textColor="#353f4d"
+                    />
+
+                <TextView
+                    android:id="@+id/userPosition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="UI设计师"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="#353f4d"
+                    />
+                <TextView
+                    android:id="@+id/userCompany"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="玩转地球商旅学院"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="#353f4d"
+                    />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/viewSpace16"
+                    android:layout_toLeftOf="@+id/userQRCode">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="邀请码"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="KL3690"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <ImageView
+                    android:id="@+id/userQRCode"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@mipmap/banner_dinner_party"
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/viewSpace32"
+                    android:layout_marginTop="@dimen/viewSpace16"/>
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="长按识别二维码\n查看他更多信息"
+                    android:textSize="12sp"
+                    android:textColor="#99ffffff"
+                    android:lineSpacingMultiplier="1.3"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32dp"
+                    android:layout_below="@+id/userQRCode"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

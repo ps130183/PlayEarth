@@ -33,5 +33,6 @@ dependencies {
     implementation rootProject.ext.dependencies["recyclerview-v7"]
     implementation rootProject.ext.dependencies["lottie"]
     api rootProject.ext.dependencies["xrefreshview"]
+    implementation rootProject.ext.dependencies["flexibledivider"]
 
 }

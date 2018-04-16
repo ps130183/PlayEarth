@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,11 +23,18 @@ import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
+import com.km.rmbank.module.main.card.UserNewCardActivity;
+import com.km.rmbank.module.main.personal.account.UserAccountActivity;
 import com.km.rmbank.module.main.personal.address.ReceiverAddressActivity;
+import com.km.rmbank.module.main.personal.contacts.ContactsActivity;
 import com.km.rmbank.module.main.personal.hpage.PersonalHomePageActivity;
+import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
 import com.km.rmbank.module.main.personal.member.goodsmanager.GoodsManagerActivity;
+import com.km.rmbank.module.main.personal.order.MyOrderActivity;
 import com.km.rmbank.module.main.personal.setting.AboutMeActivity;
 import com.km.rmbank.module.main.personal.setting.SettingActivity;
+import com.km.rmbank.module.main.personal.ticket.TicketListActivity;
+import com.km.rmbank.module.main.shop.ShoppingCartActivity;
 import com.km.rmbank.mvp.model.UserModel;
 import com.km.rmbank.mvp.presenter.UserPresenter;
 import com.km.rmbank.mvp.view.IUserView;
@@ -53,17 +62,16 @@ import butterknife.OnClick;
  */
 public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPresenter> implements IUserView {
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.commonModuleRecycler)
+    RecyclerView commonModuleRecycler;
+    private String[] commonModuleNames = {"我的订单","地址","卡券","账户","购物车","客服","成为会员"};
+    private int[] commonModuleImgs = {R.mipmap.icon_pc_my_order,R.mipmap.icon_pc_address,R.mipmap.icon_pc_ticket,
+            R.mipmap.icon_pc_my_account,R.mipmap.icon_pc_shop_car,R.mipmap.icon_pc_service,R.mipmap.icon_pc_become_member};
 
-    @BindView(R.id.modelRecycler)
-    RecyclerView modelRecycler;
-    private String[] modelNames = {"俱乐部管理","商品管理","人脉圈","收货地址","客服咨询","关于我们","设置"};
-    private int[] modelImgs = {R.mipmap.icon_pc_model1,R.mipmap.icon_pc_model1,R.mipmap.icon_pc_model1,
-            R.mipmap.icon_pc_model1,R.mipmap.icon_pc_model1,R.mipmap.icon_pc_model1,
-            R.mipmap.icon_pc_model1};
-    private List<ModelEntity> modelEntityList;
-    private int curUserRole = 0; //0：未登录 1：普通用户 2：玩家合伙人 3：俱乐部合伙人
+    @BindView(R.id.memberModuleRecycler)
+    RecyclerView memberModuleRecycler;
+    private String[] memberModuleNames = {"活动","人脉","周边服务"};
+    private int[] memberModuleImgs = {R.mipmap.icon_pc_activity,R.mipmap.icon_pc_contacts,R.mipmap.icon_pc_around_service};
 
     public HomePersonalCenterFragment() {
         // Required empty public constructor
@@ -96,73 +104,57 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      * 初始化 标题栏
      */
     private void initToolbar(){
-        int statusBarHeight = SystemBarHelper.getStatusBarHeight(getContext());
-        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mToolbar.getLayoutParams();
-        lp.topMargin = statusBarHeight;
-        mToolbar.setLayoutParams(lp);
-
-        mToolbar.inflateMenu(R.menu.toolbar_home_personal_center);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        Toolbar mToolbar = mViewManager.findView(R.id.toolbar);
+        mToolbar.setNavigationIcon(R.mipmap.icon_pc_setting);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.qrcode){
-                    showToast("二维码");
-                } else if (item.getItemId() == R.id.message){
-                    showToast("消息");
-                }
-                return false;
+            public void onClick(View v) {
+                startActivity(SettingActivity.class);
             }
         });
     }
 
-    /**
-     * 初始化 用户功能列表
-     */
     private void initRecycler(){
-        modelEntityList = new ArrayList<>();
-        getModelListDatas();
-        RecyclerAdapterHelper<ModelEntity> mHelper = new RecyclerAdapterHelper<>(modelRecycler);
-        mHelper.addLinearLayoutManager()
-                .addCommonAdapter(R.layout.item_personal_center_model, modelEntityList, new RecyclerAdapterHelper.CommonConvert<ModelEntity>() {
+        List<ModelEntity> commonModels = new ArrayList<>();
+        for (int i = 0; i < commonModuleNames.length; i++){
+            commonModels.add(new ModelEntity(commonModuleImgs[i],commonModuleNames[i]));
+        }
+        RecyclerAdapterHelper<ModelEntity> commonHelper = new RecyclerAdapterHelper<>(commonModuleRecycler);
+        commonHelper.addGrigLayoutMnager(4)
+                .addDividerItemDecorationForGrid(DividerItemDecoration.VERTICAL)
+                .addCommonAdapter(R.layout.item_personal_center_model, commonModels, new RecyclerAdapterHelper.CommonConvert<ModelEntity>() {
             @Override
             public void convert(CommonViewHolder holder, ModelEntity mData, int position) {
-                View line1 = holder.findView(R.id.line1);
-                View line2 = holder.findView(R.id.line2);
+                holder.addRippleEffectOnClick();
                 GlideImageView modelImage = holder.findView(R.id.modelImage);
-                TextView modelName = holder.findView(R.id.modelName);
-
                 GlideUtils.loadImageByRes(modelImage,mData.getModelRes());
-                modelName.setText(mData.getModelName());
-
-                if (isShowLine1(position)){
-                    line1.setVisibility(View.VISIBLE);
-                    line2.setVisibility(View.GONE);
-                } else {
-                    line1.setVisibility(View.GONE);
-                    line2.setVisibility(View.VISIBLE);
-                }
+                holder.setText(R.id.modelName,mData.getModelName());
             }
         }).create();
 
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<ModelEntity>() {
+        commonHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<ModelEntity>() {
             @Override
             public void onItemClick(CommonViewHolder holder, ModelEntity data, int position) {
-                if (Constant.userLoginInfo.isEmpty()){
-                    showToast("请先登录");
-                    return;
-                }
                 switch (data.getModelName()){
-                    case "设置":
-                        startActivity(SettingActivity.class);
+                    case "我的订单":
+                        startActivity(MyOrderActivity.class);
                         break;
-                    case "关于我们":
-                        startActivity(AboutMeActivity.class);
-                        break;
-                    case "收货地址":
+                    case "地址":
                         startActivity(ReceiverAddressActivity.class);
                         break;
-                    case "商品管理":
-                        startActivity(GoodsManagerActivity.class);
+                    case "卡券":
+                        startActivity(TicketListActivity.class);
+                        break;
+                    case "账户":
+                        startActivity(UserAccountActivity.class);
+                        break;
+                    case "购物车":
+                        startActivity(ShoppingCartActivity.class);
+                        break;
+                    case "客服":
+                        break;
+                    case "成为会员":
+                        startActivity(BecomeMemberActivity.class);
                         break;
                 }
             }
@@ -171,146 +163,87 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
             public boolean onItemLongClick(CommonViewHolder holder, ModelEntity data, int position) {
                 return false;
             }
+
+        });
+
+
+        List<ModelEntity> memberModels = new ArrayList<>();
+        for (int i = 0; i < memberModuleNames.length; i++){
+            memberModels.add(new ModelEntity(memberModuleImgs[i],memberModuleNames[i]));
+        }
+        RecyclerAdapterHelper<ModelEntity> memberHelper = new RecyclerAdapterHelper<>(memberModuleRecycler);
+        memberHelper.addGrigLayoutMnager(4)
+                .addDividerItemDecorationForGrid(DividerItemDecoration.VERTICAL)
+                .addCommonAdapter(R.layout.item_personal_center_model, memberModels, new RecyclerAdapterHelper.CommonConvert<ModelEntity>() {
+                    @Override
+                    public void convert(CommonViewHolder holder, ModelEntity mData, int position) {
+                        holder.addRippleEffectOnClick();
+                        GlideImageView modelImage = holder.findView(R.id.modelImage);
+                        GlideUtils.loadImageByRes(modelImage,mData.getModelRes());
+                        holder.setText(R.id.modelName,mData.getModelName());
+                    }
+                }).create();
+        memberHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<ModelEntity>() {
+            @Override
+            public void onItemClick(CommonViewHolder holder, ModelEntity data, int position) {
+                switch (data.getModelName()){
+                    case "活动":
+                        showToast(getResources().getString(R.string.notOpen));
+                        break;
+                    case "人脉":
+                        startActivity(ContactsActivity.class);
+                        break;
+                    case "周边服务":
+                        showToast(getResources().getString(R.string.notOpen));
+                        break;
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(CommonViewHolder holder, ModelEntity data, int position) {
+                return false;
+            }
+
         });
     }
 
-    private boolean isShowLine1(int curPosition){
-        if (curUserRole == 0 || curUserRole == 1){//未登录或普通用户
-            return curPosition % 2 == 1;
-        } else if (curUserRole == 2){//玩家合伙人
-            return curPosition % 2 == 0;
-        } else if (curUserRole == 3){//俱乐部合伙人
-            if (curPosition <= 1){
-                return curPosition % 2 == 0;
-            } else {
-                return curPosition % 2 == 1;
-            }
-        }
-        return curPosition % 2 == 0;
-    }
 
     /**
-     * 刷新个人中心 数据
-     * @param userInfoDto
+     * 打开用户名片
+     * @param view
      */
-    private void notifyPersonCenter(UserInfoDto userInfoDto){
-        NestedScrollView scrollView = mViewManager.findView(R.id.nestedScrollView);
-        scrollView.fullScroll(NestedScrollView.FOCUS_UP);
-        modelEntityList.clear();
-        getModelListDatas();
-        modelRecycler.getAdapter().notifyDataSetChanged();
-        if (curUserRole == 0){
-            mViewManager.findView(R.id.llUnlogin).setVisibility(View.VISIBLE);
-            mViewManager.findView(R.id.login).setVisibility(View.GONE);
-        } else {
-            mViewManager.findView(R.id.llUnlogin).setVisibility(View.GONE);
-            mViewManager.findView(R.id.login).setVisibility(View.VISIBLE);
-        }
-
-
-        TextView becomeMember = mViewManager.findView(R.id.become_memeber);
-        becomeMember.setVisibility(View.VISIBLE);
-        String roleName = "";
-        if (curUserRole != 2 && curUserRole != 3){
-            roleName = "普通用户";
-            becomeMember.setText("成为玩家合伙人");
-        } else if (curUserRole == 2){
-            roleName = "玩家合伙人";
-            becomeMember.setText("成为俱乐部合伙人");
-        } else if (curUserRole == 3){
-            roleName = "俱乐部合伙人";
-            becomeMember.setVisibility(View.GONE);
-        }
-        mViewManager.setText(R.id.userRoleName,roleName);
-
-
-        if (userInfoDto != null){
-            GlideImageView userPortrait = mViewManager.findView(R.id.userPortrait);
-            GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
-            userPortrait.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openUserHomePage(v);
-                }
-            });
-            mViewManager.setText(R.id.userName,userInfoDto.getName());
-            mViewManager.setText(R.id.ticketCount,userInfoDto.getTicketCount() == null ? "" : userInfoDto.getTicketCount());
-            mViewManager.setText(R.id.tv_attention,userInfoDto.getKeepCount() == null ? "" : userInfoDto.getKeepCount());
-            mViewManager.setText(R.id.tv_account,userInfoDto.getBalance()+"");
-        }
-
+    @OnClick(R.id.userQRCode)
+    public void clickUserQRCode(View view){
+        startActivity(UserNewCardActivity.class);
     }
 
     /**
-     * 获取个人中心 用户功能列表的名称
+     * 关于我们
+     * @param view
      */
-    private void getModelListDatas(){
-        for (int i=0; i<modelNames.length; i++){
-            //未登录 或 普通用户时  去掉 俱乐部管理 和 商品管理
-            if ((curUserRole == 0 || curUserRole == 1) && (i == 0 || i == 1)){
-                continue;
-            }
-            //玩家合伙人 去掉俱乐部管理
-            if (curUserRole == 2 && i == 0){
-                continue;
-            }
-
-            ModelEntity entity = new ModelEntity(modelImgs[i],modelNames[i],false);
-            modelEntityList.add(entity);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getPresenter().getUserInfo();
+    @OnClick(R.id.aboutMe)
+    public void aboutMe(View view){
+        startActivity(AboutMeActivity.class);
     }
 
     /**
-     * 刷新个人信息
+     * 刷新用户信息
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshPersonalInfo(RefreshPersonalInfoEvent event){
-        if (Constant.userLoginInfo.isEmpty()){
-            curUserRole = 0;
-            notifyPersonCenter(null);
-        } else {
-            getPresenter().getUserInfo();
-        }
-    }
-
-    /**
-     * 打开登录页面
-     * @param view
-     */
-    @OnClick({R.id.ivUnLogin,R.id.unLogin,R.id.tvUnLogin})
-    public void unLogin(View view){
-        startActivity(LoginActivity.class);
-    }
-
-    /**
-     * 打开个人主页
-     * @param view
-     */
-    public void openUserHomePage(View view){
-        startActivity(PersonalHomePageActivity.class);
+    public void refreshUserInfo(RefreshPersonalInfoEvent event){
+        getPresenter().getUserInfo();
     }
 
     @Override
     public void showUserInfo(UserInfoDto userInfoDto) {
-        String roleId = userInfoDto.getRoleId();
-        if ("4".equals(roleId) || (!"2".equals(roleId) && !"1".equals(roleId))){
-            curUserRole = 1;
-        } else if ("2".equals(roleId)){
-            curUserRole = 2;
-        } else if ("1".equals(roleId)){
-            curUserRole = 3;
-        } else {
-            curUserRole = 0;//未登录
-        }
+        Constant.userInfo = userInfoDto;
+        GlideImageView protraitImage = mViewManager.findView(R.id.iv_protrait);
+        GlideUtils.loadImageOnPregress(protraitImage,userInfoDto.getPortraitUrl(),null);
 
-        notifyPersonCenter(userInfoDto);
+        //个人签名
+        mViewManager.setText(R.id.introduce, TextUtils.isEmpty(userInfoDto.getPersonalizedSignature()) ? "暂时没有设置签名" : userInfoDto.getPersonalizedSignature());
+        mViewManager.setText(R.id.keepCount,TextUtils.isEmpty(userInfoDto.getKeepCount()) ? "0" : userInfoDto.getKeepCount());
     }
 
     @Override

@@ -8,29 +8,64 @@ import android.support.v7.widget.RecyclerView;
  */
 
 public class RecyclerUtils {
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    private boolean move = false;
+
+    private int mIndex = 0;
+
+    public RecyclerUtils(RecyclerView mRecyclerView) {
+        this.mRecyclerView = mRecyclerView;
+        mLinearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+    }
+
     /**
      * 移动到指定位置
-     * @param recyclerView
      * @param index
      */
-    public static void moveToPosition(RecyclerView recyclerView, int index) {
+    public void moveToPosition(int index) {
         //获取当前recycleView屏幕可见的第一项和最后一项的Position
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-        int firstItem = linearLayoutManager.findFirstVisibleItemPosition();
-        int lastItem = linearLayoutManager.findLastVisibleItemPosition();
-        //然后区分情况
-        if (index <= firstItem) {
-            //当要置顶的项在当前显示的第一个项的前面时
-            recyclerView.scrollToPosition(index);
-        } else if (index <= lastItem) {
-            //当要置顶的项已经在屏幕上显示时，计算它离屏幕原点的距离
-            int top = recyclerView.getChildAt(index - firstItem).getTop();
-            recyclerView.scrollBy(0, top);
-        } else {
-            //当要置顶的项在当前显示的最后一项的后面时
-            recyclerView.scrollToPosition(index);
-            //记录当前需要在RecyclerView滚动监听里面继续第二次滚动
-//            move = true;
+        int firstItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+        int lastItem = mLinearLayoutManager.findLastVisibleItemPosition();
+        if (index <= firstItem ){
+            mRecyclerView.smoothScrollToPosition(index);
+        }else if ( index <= lastItem ){
+            int top = mRecyclerView.getChildAt(index - firstItem).getTop();
+            mRecyclerView.smoothScrollBy(0, top);
+        }else{
+            mRecyclerView.smoothScrollToPosition(index);
+            move = true;
+        }
+
+        mRecyclerView.addOnScrollListener(new RecyclerViewListener());
+    }
+
+    class RecyclerViewListener extends RecyclerView.OnScrollListener{
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            if (move && newState == RecyclerView.SCROLL_STATE_IDLE ){
+                move = false;
+                int n = mIndex - mLinearLayoutManager.findFirstVisibleItemPosition();
+                if ( 0 <= n && n < mRecyclerView.getChildCount()){
+                    int top = mRecyclerView.getChildAt(n).getTop();
+                    mRecyclerView.smoothScrollBy(0, top);
+                }
+
+            }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            if (move){
+                move = false;
+                int n = mIndex - mLinearLayoutManager.findFirstVisibleItemPosition();
+                if ( 0 <= n && n < mRecyclerView.getChildCount()){
+                    int top = mRecyclerView.getChildAt(n).getTop();
+                    mRecyclerView.scrollBy(0, top);
+                }
+            }
         }
     }
 }

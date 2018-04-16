@@ -101,7 +101,7 @@
     <style name="Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/shape_btn_bg_red</item>
+        <item name="android:background">@drawable/selector_btn_bg_default</item>
         <item name="android:textSize">@dimen/textSizeBig</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
@@ -140,12 +140,11 @@
         <item name="android:paddingLeft">@dimen/viewSpace16</item>
         <item name="android:background">@color/white</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:paddingTop">@dimen/viewSpace8</item>
     </style>
 
     <style name="Personal.User.EditCard.sll" parent="Personal.User.EditCard.ll">
-        <item name="android:paddingTop">@dimen/viewSpace8</item>
-        <item name="android:paddingBottom">@dimen/viewSpace8</item>
+        <item name="android:paddingTop">@dimen/viewSpace16</item>
+        <item name="android:paddingBottom">@dimen/viewSpace16</item>
         <item name="android:orientation">horizontal</item>
     </style>
 

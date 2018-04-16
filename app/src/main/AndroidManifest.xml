@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- 访问手机通讯录权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
     <!-- 支付宝、微信权限 start -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -172,8 +176,9 @@
         <activity android:name=".module.main.personal.address.CreateReceiverAddressActivity" />
         <activity android:name=".module.main.personal.setting.SettingActivity" />
         <activity android:name=".module.main.personal.setting.AboutMeActivity" />
-        <activity android:name=".module.webview.AgreementActivity"
-            android:hardwareAccelerated="true"/>
+        <activity
+            android:name=".module.webview.AgreementActivity"
+            android:hardwareAccelerated="true" />
         <activity android:name=".module.main.personal.order.MyOrderActivity" />
         <activity android:name=".module.main.personal.order.OrderDetailsActivity" />
         <activity android:name=".module.main.personal.order.GoodsEvaluateActivity" />
@@ -223,7 +228,13 @@
         <activity android:name=".module.main.fragment.home.MoreActionActivity" />
         <activity android:name=".module.main.appoint.AppointAfternoonTeaActivity" />
         <activity android:name=".module.main.fragment.home.CircleFriendsActivity" />
-        <activity android:name=".module.main.personal.hpage.PersonalHomePageActivity"></activity>
+        <activity android:name=".module.main.personal.hpage.PersonalHomePageActivity" />
+        <activity android:name=".module.main.personal.contacts.ContactsActivity" />
+        <activity android:name=".module.main.payment.PayContractsActivity" />
+        <activity android:name=".module.login.IdentityVerificationActivity" />
+        <activity android:name=".module.main.experience.ExperienceOfficerActivity" />
+        <activity android:name=".module.main.experience.ExperienceOfficerSahreActivity" />
+        <activity android:name=".module.main.card.UserNewCardActivity"></activity>
     </application>
 
 </manifest>

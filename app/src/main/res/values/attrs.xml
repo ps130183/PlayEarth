@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <declare-styleable name="LetterSideBar">
+        <attr name="selectTextColor" format="color"/>
+        <attr name="unSelectTextColor" format="color"/>
+        <attr name="selectTextBackgroundColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
 </resources>

@@ -12,10 +12,6 @@ import com.xys.libzxing.zxing.encoding.EncodingUtils;
 
 public class QRCodeUtils {
 
-    public static void startQrCode(Context mContext, Class classes){
-//        mContext.startac
-    }
-
     private static Bitmap createQRCode(String content, int widthPix, int heightPix, Bitmap logoBm){
         Bitmap mBitmap = EncodingUtils.createQRCode(content, widthPix, heightPix, logoBm);
         return mBitmap;
