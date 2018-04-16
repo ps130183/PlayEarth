@@ -230,8 +230,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         fragmentList.add(HomeRecommendFragment.newInstance(null));
         fragmentList.add(HomeAppointActionFragment.newInstance(null));
         fragmentList.add(HomeShopFragment.newInstance(null));
-//        fragmentList.add(HomePersonalCenterFragment.newInstance(null));
-        fragmentList.add(HomeMeFragment.newInstance(null));
+        fragmentList.add(HomePersonalCenterFragment.newInstance(null));
+//        fragmentList.add(HomeMeFragment.newInstance(null));
 
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {

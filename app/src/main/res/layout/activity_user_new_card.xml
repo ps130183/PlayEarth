@@ -25,53 +25,65 @@
             android:orientation="vertical"
             android:weightSum="1">
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/userInfo"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:orientation="vertical"
-                android:background="@drawable/background_user_card">
-
-                <com.ps.glidelib.GlideImageView
-                    android:id="@+id/userPortrait"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@mipmap/icon_default_protrait"
-                    android:layout_gravity="center_horizontal"
-                    app:siv_shape_type="circle"
-                    />
-
-
-                <TextView
-                    android:id="@+id/userName"
+                android:layout_height="300dp">
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="蒋亚芳"
-                    android:gravity="center"
-                    android:textSize="25sp"
-                    android:textColor="#353f4d"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/background_user_card"
+                    android:scaleType="fitXY"
+                    app:riv_corner_radius_top_left="10dp"
+                    app:riv_corner_radius_top_right="10dp"
                     />
-
-                <TextView
-                    android:id="@+id/userPosition"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="UI设计师"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="#353f4d"
-                    />
-                <TextView
-                    android:id="@+id/userCompany"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="玩转地球商旅学院"
-                    android:gravity="center"
-                    android:textSize="14sp"
-                    android:textColor="#353f4d"
-                    />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <com.ps.glidelib.GlideImageView
+                        android:id="@+id/userPortrait"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@mipmap/icon_default_protrait"
+                        android:layout_gravity="center_horizontal"
+                        app:siv_shape_type="circle"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/userName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="蒋亚芳"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:textColor="#353f4d"
+                        />
+
+                    <TextView
+                        android:id="@+id/userPosition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="UI设计师"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="#353f4d"
+                        />
+                    <TextView
+                        android:id="@+id/userCompany"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="玩转地球商旅学院"
+                        android:gravity="center"
+                        android:textSize="14sp"
+                        android:textColor="#353f4d"
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+
 
 
             <RelativeLayout
