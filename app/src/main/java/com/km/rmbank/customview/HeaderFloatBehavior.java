@@ -10,7 +10,10 @@ import android.view.View;
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.km.rmbank.R;
+import com.km.rmbank.event.TranslationScaleEvent;
+import com.km.rmbank.utils.EventBusUtils;
 import com.yancy.gallerypick.utils.ScreenUtils;
+import com.yancy.gallerypick.utils.SystemBarHelper;
 
 import java.lang.ref.WeakReference;
 
@@ -59,10 +62,14 @@ public class HeaderFloatBehavior extends CoordinatorLayout.Behavior<View> {
 //        LogUtils.d("scale === " + scale + "   childY === " + child.getY());
 
         float cy = -delayChildY * (1 - scale) + ConvertUtils.dp2px(20);
-//        LogUtils.d("cy === " + cy);
+//        LogUtils.d("bgHeight === " + bgHeight + "  delayY === " + delayY);
 
+        int toolbarHeight = SystemBarHelper.getStatusBarHeight(parent.getContext()) + ConvertUtils.dp2px(48);
+        float ty = dependency.getY() - delayY - toolbarHeight;
+        ty = ty < 0 ? 0 : ty;
+        float tScale = ty / (bgHeight - toolbarHeight);
+        EventBusUtils.post(new TranslationScaleEvent(tScale));
         child.setTranslationY(cy);
-
         return true;
     }
 

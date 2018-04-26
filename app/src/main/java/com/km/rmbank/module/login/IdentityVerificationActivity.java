@@ -108,17 +108,10 @@ public class IdentityVerificationActivity extends BaseActivity<IUserInfoView, Us
             showToast("姓名跟身份证信息不匹配！");
             return;
         }
-        getPresenter().createUserCard(name, position, phone);
-
     }
 
     @Override
-    public void uploadProtraitSuccess(String imageUri) {
-
-    }
-
-    @Override
-    public void updateUserInfoResult(String result) {
+    public void saveUserInfoSuccess() {
 
     }
 

@@ -42,9 +42,9 @@
             app:tl_iconMargin="0dp"
             app:tl_indicator_color="#2C97DE"
             app:tl_indicator_height="0dp"
-            app:tl_textSelectColor="?attr/colorAccent"
-            app:tl_textUnselectColor="#7f8699"
-            app:tl_textsize="14sp"
+            app:tl_textSelectColor="@color/text_color_block1"
+            app:tl_textUnselectColor="@color/text_color_block8"
+            app:tl_textsize="13sp"
             app:tl_underline_color="#DDDDDD"
             app:tl_underline_height="1dp" />
     </RelativeLayout>

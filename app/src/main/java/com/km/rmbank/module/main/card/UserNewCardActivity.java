@@ -76,9 +76,14 @@ public class UserNewCardActivity extends BaseActivity {
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
-        loadUserQRCode();
         initUserCard();
         initShareDialog();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadUserInfo();
     }
 
     private void initUserCard() {
@@ -100,8 +105,7 @@ public class UserNewCardActivity extends BaseActivity {
         FrameLayout userInfo = mViewManager.findView(R.id.userInfo);
         GlideImageView userPortrait = mViewManager.findView(R.id.userPortrait);
         TextView userName = mViewManager.findView(R.id.userName);
-        TextView userPosition = mViewManager.findView(R.id.userPosition);
-        TextView userCompany = mViewManager.findView(R.id.userCompany);
+        TextView userIntroduce = mViewManager.findView(R.id.userIntroduce);
 
         int userInfoHeihgt = (int) (userCardHeight * (57.0 / 90));
         userInfo.getLayoutParams().height = userInfoHeihgt;
@@ -116,21 +120,28 @@ public class UserNewCardActivity extends BaseActivity {
         userNameLp.topMargin = (int) (userInfoHeihgt * (16 / per));
         userName.setTextSize(ConvertUtils.px2sp((float) (userInfoHeihgt * (25 / per))));
 
-        LinearLayout.LayoutParams userPositionLp = (LinearLayout.LayoutParams) userPosition.getLayoutParams();
+        LinearLayout.LayoutParams userPositionLp = (LinearLayout.LayoutParams) userIntroduce.getLayoutParams();
         userPositionLp.topMargin = (int) (userInfoHeihgt * (10 / per));
-        userPosition.setTextSize(ConvertUtils.px2sp((float) (userInfoHeihgt * (13 / per))));
+        userIntroduce.setTextSize(ConvertUtils.px2sp((float) (userInfoHeihgt * (13 / per))));
 
-        LinearLayout.LayoutParams userCompanyLp = (LinearLayout.LayoutParams) userCompany.getLayoutParams();
-        userCompanyLp.topMargin = (int) (userInfoHeihgt * (4 / per));
-        userCompany.setTextSize(ConvertUtils.px2sp((float) (userInfoHeihgt * (13 / per))));
+//        LinearLayout.LayoutParams userCompanyLp = (LinearLayout.LayoutParams) userCompany.getLayoutParams();
+//        userCompanyLp.topMargin = (int) (userInfoHeihgt * (4 / per));
+//        userCompany.setTextSize(ConvertUtils.px2sp((float) (userInfoHeihgt * (13 / per))));
 
 
         int codeHeight = userCardHeight - userInfoHeihgt;
-        int qrcodeWidth = (int) (codeHeight * (160 / 296.0));
+        int qrcodeWidth = (int) (codeHeight * (180 / 296.0));
         ImageView qrCode = mViewManager.findView(R.id.userQRCode);
         qrCode.getLayoutParams().width = qrcodeWidth;
         qrCode.getLayoutParams().height = qrcodeWidth;
 
+    }
+
+    private void loadUserInfo(){
+        GlideImageView userPortrait = mViewManager.findView(R.id.userPortrait);
+        TextView userName = mViewManager.findView(R.id.userName);
+        TextView userIntroduce = mViewManager.findView(R.id.userIntroduce);
+        ImageView qrCode = mViewManager.findView(R.id.userQRCode);
 
         UserInfoDto userInfoDto = Constant.userInfo;
         if (userInfoDto == null){
@@ -138,19 +149,18 @@ public class UserNewCardActivity extends BaseActivity {
         }
         GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
         userName.setText(userInfoDto.getName());
-        userPosition.setText(userInfoDto.getPosition());
+        userIntroduce.setText(userInfoDto.getPersonalizedSignature());
 
         Bitmap userQrcode = QRCodeUtils.createQRCode(mInstance,userInfoDto.getShareUrl());
         qrCode.setImageBitmap(userQrcode);
-
     }
 
 
-    private void loadUserQRCode() {
-        ImageView userQRCode = mViewManager.findView(R.id.userQRCode);
-        Bitmap qrcode = QRCodeUtils.createQRCode(this, "http://www.baidu,com");
-        userQRCode.setImageBitmap(qrcode);
-    }
+//    private void loadUserQRCode() {
+//        ImageView userQRCode = mViewManager.findView(R.id.userQRCode);
+//        Bitmap qrcode = QRCodeUtils.createQRCode(this, "http://www.baidu,com");
+//        userQRCode.setImageBitmap(qrcode);
+//    }
 
     private void initShareDialog() {
         mShareDialog = new DialogUtils.CustomBottomDialog(mInstance, "取消", "编辑名片", "分享微信好友", "分享朋友圈", "保存图片");
@@ -160,6 +170,7 @@ public class UserNewCardActivity extends BaseActivity {
                 mShareDialog.dimiss();
                 switch (i) {
                     case 0://编辑名片
+                        startActivity(CreateNewUserCardActivity.class);
                         break;
                     case 1://分享微信好友
                         shareUserCard(SHARE_MEDIA.WEIXIN);

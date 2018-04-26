@@ -102,6 +102,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
     @Override
     public boolean statusBarTextColorIsDark() {
+        SystemBarHelper.setStatusBarDarkMode(mInstance);
         return false;
     }
 

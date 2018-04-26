@@ -11,9 +11,7 @@ import com.km.rmbank.adapter.MyTeamParentAdapter;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.MyTeamDto;
-import com.km.rmbank.dto.UserCardDto;
 import com.km.rmbank.dto.UserInfoDto;
-import com.km.rmbank.module.main.card.UserCardActivity;
 import com.km.rmbank.mvp.model.MyTeamModel;
 import com.km.rmbank.mvp.presenter.MyTeamPresenter;
 import com.km.rmbank.mvp.view.IMyTeamView;
@@ -73,7 +71,7 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
         Bundle bundle = new Bundle();
 //        bundle.putParcelable("memberDto",itemData);
         bundle.putParcelable("userCard",cardDto);
-        startActivity(UserCardActivity.class,bundle);
+//        startActivity(UserCardActivity.class,bundle);
     }
 
 

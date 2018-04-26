@@ -132,18 +132,19 @@ public class DialogUtils {
             @Override
             public void onFirst() {
 //                clickConfirmListener.clickConfirm(null,0);
-                clickListener.clickConfirm();
+
             }
 
             @Override
             public void onSecond() {
-
+                clickListener.clickConfirm();
             }
-        }).setBtnText("确定","取消").show();
+        }).setBtnColor(R.color.text_color_blocka,R.color.colorAccent,R.color.colorAccent)
+                .setBtnText("取消","确定").show();
     }
 
     /**
-     * 显示架子啊提示框
+     * 显示加载提示框
      * @param content
      * @return
      */

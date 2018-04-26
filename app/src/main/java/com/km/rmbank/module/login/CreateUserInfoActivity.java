@@ -67,12 +67,7 @@ public class CreateUserInfoActivity extends BaseActivity<IUserInfoView,UserInfoP
     }
 
     @Override
-    public void uploadProtraitSuccess(String imageUri) {
-
-    }
-
-    @Override
-    public void updateUserInfoResult(String result) {
+    public void saveUserInfoSuccess() {
 
     }
 

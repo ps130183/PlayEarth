@@ -8,6 +8,7 @@ import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
 import com.yancy.gallerypick.inter.IHandlerCallBack;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ImageUtils {
 
-    private static final String imagePath = "/RMBank/Pictures";
+    private static final String imagePath = File.separator + "WanZhuanDiQiu" + File.separator + "image";
 
     private static int defalutBgColor = 0xffffffff;
     private static int defalutBgColorRed = 0xffd50000;

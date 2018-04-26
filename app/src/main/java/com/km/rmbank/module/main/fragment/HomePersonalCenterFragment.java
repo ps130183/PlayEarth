@@ -1,6 +1,8 @@
 package com.km.rmbank.module.main.fragment;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,7 +26,9 @@ import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.card.UserNewCardActivity;
+import com.km.rmbank.module.main.personal.AttentionGoodsActivity;
 import com.km.rmbank.module.main.personal.account.UserAccountActivity;
+import com.km.rmbank.module.main.personal.action.AppliedActionActivity;
 import com.km.rmbank.module.main.personal.address.ReceiverAddressActivity;
 import com.km.rmbank.module.main.personal.contacts.ContactsActivity;
 import com.km.rmbank.module.main.personal.hpage.PersonalHomePageActivity;
@@ -32,6 +36,7 @@ import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
 import com.km.rmbank.module.main.personal.member.goodsmanager.GoodsManagerActivity;
 import com.km.rmbank.module.main.personal.order.MyOrderActivity;
 import com.km.rmbank.module.main.personal.setting.AboutMeActivity;
+import com.km.rmbank.module.main.personal.setting.HelpDocumentActivity;
 import com.km.rmbank.module.main.personal.setting.SettingActivity;
 import com.km.rmbank.module.main.personal.ticket.TicketListActivity;
 import com.km.rmbank.module.main.shop.ShoppingCartActivity;
@@ -40,6 +45,7 @@ import com.km.rmbank.mvp.presenter.UserPresenter;
 import com.km.rmbank.mvp.view.IUserView;
 import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.utils.Constant;
+import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.km.rmbank.utils.ViewUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
@@ -72,6 +78,11 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
     RecyclerView memberModuleRecycler;
     private String[] memberModuleNames = {"活动","人脉","周边服务"};
     private int[] memberModuleImgs = {R.mipmap.icon_pc_activity,R.mipmap.icon_pc_contacts,R.mipmap.icon_pc_around_service};
+
+    private int messageNum= 0;
+    private int attentionNum = 0;
+    private int dynamicNum = 0;
+    private int fansNum = 0;
 
     public HomePersonalCenterFragment() {
         // Required empty public constructor
@@ -112,6 +123,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
                 startActivity(SettingActivity.class);
             }
         });
+
     }
 
     private void initRecycler(){
@@ -152,6 +164,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
                         startActivity(ShoppingCartActivity.class);
                         break;
                     case "客服":
+                        callServicePhone();
                         break;
                     case "成为会员":
                         startActivity(BecomeMemberActivity.class);
@@ -187,8 +200,8 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
             @Override
             public void onItemClick(CommonViewHolder holder, ModelEntity data, int position) {
                 switch (data.getModelName()){
-                    case "活动":
-                        showToast(getResources().getString(R.string.notOpen));
+                    case "活动"://已报名活动
+                        startActivity(AppliedActionActivity.class);
                         break;
                     case "人脉":
                         startActivity(ContactsActivity.class);
@@ -209,6 +222,69 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
 
 
     /**
+     * 拨打客服电话
+     */
+    private void callServicePhone(){
+        DialogUtils.showDefaultAlertDialog("是否拨打客服电话：13699231246？", new DialogUtils.ClickListener() {
+            @Override
+            public void clickConfirm() {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + "13699231246");
+                intent.setData(data);
+                startActivity(intent);
+            }
+        });
+    }
+    /**
+     * 消息
+     * @param view
+     */
+    @OnClick(R.id.message)
+    public void onClickMessage(View view){
+        if (messageNum == 0){
+            showToast("没有新的通知！");
+            return;
+        }
+    }
+
+    /**
+     * 关注
+     * @param view
+     */
+    @OnClick(R.id.attention)
+    public void onClickAttention(View view){
+        if (attentionNum == 0){
+            showToast("没有关注信息！");
+            return;
+        }
+        startActivity(AttentionGoodsActivity.class);
+    }
+
+    /**
+     * 动态
+     * @param view
+     */
+    @OnClick(R.id.dynamic)
+    public void onClickDynamic(View view){
+        if (dynamicNum == 0){
+            showToast("没有新的动态！");
+            return;
+        }
+    }
+
+    /**
+     * 粉丝
+     * @param view
+     */
+    @OnClick(R.id.fans)
+    public void onClickFans(View view){
+        if (fansNum == 0){
+            showToast("没有粉丝！");
+            return;
+        }
+    }
+
+    /**
      * 打开用户名片
      * @param view
      */
@@ -218,12 +294,26 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
     }
 
     /**
+     * 打开个人主页
+     * @param view
+     */
+    @OnClick(R.id.iv_protrait)
+    public void openUserMainPage(View view){
+        startActivity(PersonalHomePageActivity.class);
+    }
+
+    /**
      * 关于我们
      * @param view
      */
     @OnClick(R.id.aboutMe)
     public void aboutMe(View view){
         startActivity(AboutMeActivity.class);
+    }
+
+    @OnClick(R.id.help)
+    public void openHelp(View view){
+        startActivity(HelpDocumentActivity.class);
     }
 
     /**
@@ -238,12 +328,15 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
     @Override
     public void showUserInfo(UserInfoDto userInfoDto) {
         Constant.userInfo = userInfoDto;
+        attentionNum = TextUtils.isEmpty(userInfoDto.getKeepCount()) ? 0 : Integer.parseInt(userInfoDto.getKeepCount());
         GlideImageView protraitImage = mViewManager.findView(R.id.iv_protrait);
         GlideUtils.loadImageOnPregress(protraitImage,userInfoDto.getPortraitUrl(),null);
 
+        mViewManager.setText(R.id.userName,userInfoDto.getName());
+
         //个人签名
         mViewManager.setText(R.id.introduce, TextUtils.isEmpty(userInfoDto.getPersonalizedSignature()) ? "暂时没有设置签名" : userInfoDto.getPersonalizedSignature());
-        mViewManager.setText(R.id.keepCount,TextUtils.isEmpty(userInfoDto.getKeepCount()) ? "0" : userInfoDto.getKeepCount());
+        mViewManager.setText(R.id.keepCount,attentionNum+"");
     }
 
     @Override

@@ -69,7 +69,7 @@ public class GlideUtils {
 
         GlideApp.with(context)
                 .load(imagePath)
-                .placeholder(getLottieDrawable(context,imageView))
+                .placeholder(R.color.placeholder_color)
 //                .error(getLottieDrawable(context,imageView))
                 .error(R.drawable.load_image_fail)
                 .centerCrop()
@@ -147,5 +147,14 @@ public class GlideUtils {
      */
     public static void loadCircleImageByRes(GlideImageView imageView,int imageRes){
         imageView.loadLocalCircleImage(imageRes,R.color.placeholder_color);
+    }
+
+    /**
+     * 加载本地图片
+     * @param imageView
+     * @param imagePath
+     */
+    public static void loadLocalImage(GlideImageView imageView,String imagePath){
+        imageView.loadLocalImage(imagePath,R.color.placeholder_color);
     }
 }

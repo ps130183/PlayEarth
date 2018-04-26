@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.card.EditUserInfoActivity">
+
+    <RelativeLayout
+        android:id="@+id/userIntroduce"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <EditText
+            android:id="@+id/etUserIntroduce"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@color/white"
+            android:padding="@dimen/viewSpace16"
+            android:hint="您还没有个性签名，添加一个吧"
+            android:gravity="top|left"
+            android:layout_marginTop="10dp"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/introduceLimit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/25"
+            android:textColor="@color/text_color_block1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/viewSpace16" />
+
+    </RelativeLayout>
+
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/userPortrait"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@mipmap/banner_dinner_party"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/viewSpace16"
+        app:siv_radius="8dp"
+        android:visibility="gone"
+        />
+
+</FrameLayout>

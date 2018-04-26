@@ -18,7 +18,6 @@ import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
-import com.km.rmbank.module.main.card.UserCardActivity;
 import com.km.rmbank.module.main.message.MessageActivity;
 import com.km.rmbank.module.main.personal.AttentionGoodsActivity;
 import com.km.rmbank.module.main.personal.account.UserAccountActivity;
@@ -410,7 +409,6 @@ public class HomeMeFragment extends BaseFragment<IUserView,UserPresenter> implem
      */
     @OnClick({R.id.userPortrait,R.id.tv_user_nick_name,R.id.rl_qrcode,R.id.tv_qrcode,R.id.iv_qrcode})
     public void openUserCard(View view){
-        startActivity(UserCardActivity.class);
     }
 
     /**

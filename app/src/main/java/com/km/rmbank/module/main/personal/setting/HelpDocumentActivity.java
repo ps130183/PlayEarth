@@ -1,0 +1,105 @@
+package com.km.rmbank.module.main.personal.setting;
+
+import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
+
+import com.km.rmbank.R;
+import com.km.rmbank.base.BaseActivity;
+
+import butterknife.BindView;
+
+public class HelpDocumentActivity extends BaseActivity {
+
+    @BindView(R.id.webView)
+    public WebView mWebView;
+    @BindView(R.id.progressBar)
+    public ProgressBar mProgressBar;
+
+    @Override
+    public int getContentViewRes() {
+        return R.layout.activity_help_document;
+    }
+
+    @Override
+    public String getTitleContent() {
+        return "帮助文档";
+    }
+
+    @Override
+    public void onFinally(@Nullable Bundle savedInstanceState) {
+
+
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress <= 90) {
+                    mProgressBar.setProgress(newProgress);
+                }
+            }
+        });
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                // 加载某些网站的时候会报:ERR_CONNECTION_REFUSED,因此需要在这里取消进度条的显示
+                if (mProgressBar.getVisibility() == View.VISIBLE) {
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                if (mProgressBar.getVisibility() == View.GONE) {
+                    mProgressBar.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (mProgressBar.getVisibility() == View.VISIBLE) {
+                    mProgressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+        mWebView.loadUrl("http://wanzhuandiqiu.com/accounts/help.html");
+        setOnClickBackLisenter(new OnClickBackLisenter() {
+            @Override
+            public boolean onClickBack() {
+                if (mWebView.canGoBack()) {
+                    mWebView.goBack();
+                    return false;
+                } else {
+                    finish();
+                    return true;
+                }
+            }
+        });
+    }
+
+    @Override
+    public View.OnClickListener getLeftClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mWebView.canGoBack()) {
+                    mWebView.goBack();
+                } else {
+                    finish();
+                }
+            }
+        };
+    }
+
+}

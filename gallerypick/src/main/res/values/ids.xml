@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="gallery_statusbar_view" type="id"/>
+    <item name="gallery_translucent_view" type="id"/>
+    <item name="gallery_scrolling_header" type="id"/>
+</resources>

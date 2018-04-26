@@ -7,8 +7,8 @@ import com.km.rmbank.mvp.base.MvpView;
  */
 
 public interface IUserInfoView extends MvpView {
-    void uploadProtraitSuccess(String imageUri);
-    void updateUserInfoResult(String result);
+
+    void saveUserInfoSuccess();
 
     void createUserCardSuccess(String token);
 }

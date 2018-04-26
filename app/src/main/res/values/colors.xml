@@ -3,6 +3,8 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#3285ff</color>
+    <color name="statusColor">#3e8cff</color>
+    <color name="statusColor2">#6e92ef</color>
     <!--<color name="colorAccent">#ea6f5a</color>-->
 
     <color name="white">#ffffff</color>
@@ -48,6 +50,7 @@
     <color name="text_color_blocka">#acaeba</color>
     <color name="text_color_block32">#323232</color>
     <color name="text_color_block8">#888888</color>
+    <color name="text_color_block87">#878787</color>
 
     <color name="text_color_blue">#2d5ce2</color>
     <color name="text_color_blue2">#3285ff</color>

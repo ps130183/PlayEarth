@@ -297,11 +297,11 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                         guanggaoWei.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-//                                if ("1".equals(mData.getUrlType())){//199体验官
+                                if ("1".equals(mData.getUrlType())){//199体验官
                                     Bundle bundle = new Bundle();
                                     bundle.putString("advertUrl",mData.getAdvertUrl());
                                     startActivity(ExperienceOfficerActivity.class,bundle);
-//                                }
+                                }
                             }
                         });
                         //更多

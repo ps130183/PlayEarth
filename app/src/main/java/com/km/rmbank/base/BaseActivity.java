@@ -97,9 +97,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             //设置状态栏背景色为白色，并且字体、图标颜色为深色
             SystemBarHelper.tintStatusBar(this, Color.WHITE,0f);
             SystemBarHelper.setStatusBarDarkMode(this);
-        } else {
-            SystemBarHelper.setStatusBarDarkMode(this);
         }
+//        else {
+//            SystemBarHelper.setStatusBarDarkMode(this);
+//        }
 
         LinearLayout mainContent = mViewManager.findView(R.id.mainContent);
         int screenHeight = ScreenUtils.getScreenHeight();

@@ -25,6 +25,9 @@
     <!-- umeng 权限 -->
 
 
+    <!-- 打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <!-- 百度地图使用权限 -->
     //读取系统信息，包含系统版本等信息，用作统计
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
@@ -203,8 +206,6 @@
         <activity android:name=".module.main.personal.circlefriends.ReleaseForumActivity" />
         <activity android:name=".module.main.personal.integral.MyIntegralActivity" />
         <activity android:name=".module.main.payment.PaymentActivity" />
-        <activity android:name=".module.main.card.UserCardActivity" />
-        <activity android:name=".module.main.card.CreateUserCardActivity" />
         <activity android:name=".module.main.personal.member.club.ClubIntroCardActivity" />
         <activity android:name=".module.main.club.ActionJoinMemberActivity" />
         <activity android:name=".module.main.club.ActionRecentInfoActivity" />
@@ -234,7 +235,10 @@
         <activity android:name=".module.login.IdentityVerificationActivity" />
         <activity android:name=".module.main.experience.ExperienceOfficerActivity" />
         <activity android:name=".module.main.experience.ExperienceOfficerSahreActivity" />
-        <activity android:name=".module.main.card.UserNewCardActivity"></activity>
+        <activity android:name=".module.main.card.UserNewCardActivity" />
+        <activity android:name=".module.main.card.CreateNewUserCardActivity" />
+        <activity android:name=".module.main.card.EditUserInfoActivity" />
+        <activity android:name=".module.main.personal.setting.HelpDocumentActivity"></activity>
     </application>
 
 </manifest>
