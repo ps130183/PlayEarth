@@ -26,6 +26,7 @@ import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.card.UserNewCardActivity;
+import com.km.rmbank.module.main.message.MessageActivity;
 import com.km.rmbank.module.main.personal.AttentionGoodsActivity;
 import com.km.rmbank.module.main.personal.account.UserAccountActivity;
 import com.km.rmbank.module.main.personal.action.AppliedActionActivity;
@@ -33,6 +34,7 @@ import com.km.rmbank.module.main.personal.address.ReceiverAddressActivity;
 import com.km.rmbank.module.main.personal.contacts.ContactsActivity;
 import com.km.rmbank.module.main.personal.hpage.PersonalHomePageActivity;
 import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
+import com.km.rmbank.module.main.personal.member.MyTeamActivity;
 import com.km.rmbank.module.main.personal.member.goodsmanager.GoodsManagerActivity;
 import com.km.rmbank.module.main.personal.order.MyOrderActivity;
 import com.km.rmbank.module.main.personal.setting.AboutMeActivity;
@@ -76,8 +78,8 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
 
     @BindView(R.id.memberModuleRecycler)
     RecyclerView memberModuleRecycler;
-    private String[] memberModuleNames = {"活动","人脉","周边服务"};
-    private int[] memberModuleImgs = {R.mipmap.icon_pc_activity,R.mipmap.icon_pc_contacts,R.mipmap.icon_pc_around_service};
+    private String[] memberModuleNames = {"活动","人脉","周边服务","商品管理"};
+    private int[] memberModuleImgs = {R.mipmap.icon_pc_activity,R.mipmap.icon_pc_contacts,R.mipmap.icon_pc_around_service,R.mipmap.icon_pc_goods_manager};
 
     private int messageNum= 0;
     private int attentionNum = 0;
@@ -108,7 +110,6 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
     @Override
     public void onCreateView(@Nullable Bundle savedInstanceState) {
         initToolbar();
-        initRecycler();
     }
 
     /**
@@ -141,6 +142,16 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
                 GlideImageView modelImage = holder.findView(R.id.modelImage);
                 GlideUtils.loadImageByRes(modelImage,mData.getModelRes());
                 holder.setText(R.id.modelName,mData.getModelName());
+                if (Constant.userInfo != null && mData.getModelName().equals("成为会员") && Constant.userInfo.getStatus() != 2){
+                    holder.findView(R.id.ivRealNameStatus).setVisibility(View.VISIBLE);
+                    holder.findView(R.id.tvRealNameStatus).setVisibility(View.GONE);
+                } else if (Constant.userInfo != null && mData.getModelName().equals("成为会员") && Constant.userInfo.getStatus() == 2){
+                    holder.findView(R.id.ivRealNameStatus).setVisibility(View.GONE);
+                    holder.findView(R.id.tvRealNameStatus).setVisibility(View.VISIBLE);
+                } else {
+                    holder.findView(R.id.ivRealNameStatus).setVisibility(View.GONE);
+                    holder.findView(R.id.tvRealNameStatus).setVisibility(View.GONE);
+                }
             }
         }).create();
 
@@ -184,6 +195,9 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
         for (int i = 0; i < memberModuleNames.length; i++){
             memberModels.add(new ModelEntity(memberModuleImgs[i],memberModuleNames[i]));
         }
+        if (Constant.userInfo.getType() != 2){
+            memberModels.remove(3);
+        }
         RecyclerAdapterHelper<ModelEntity> memberHelper = new RecyclerAdapterHelper<>(memberModuleRecycler);
         memberHelper.addGrigLayoutMnager(4)
                 .addDividerItemDecorationForGrid(DividerItemDecoration.VERTICAL)
@@ -204,10 +218,15 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
                         startActivity(AppliedActionActivity.class);
                         break;
                     case "人脉":
-                        startActivity(ContactsActivity.class);
+//                        startActivity(ContactsActivity.class);
+                        startActivity(MyTeamActivity.class);
+//                        showToast(getResources().getString(R.string.notOpen));
                         break;
                     case "周边服务":
                         showToast(getResources().getString(R.string.notOpen));
+                        break;
+                    case "商品管理":
+                        startActivity(GoodsManagerActivity.class);
                         break;
                 }
             }
@@ -241,10 +260,11 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      */
     @OnClick(R.id.message)
     public void onClickMessage(View view){
-        if (messageNum == 0){
-            showToast("没有新的通知！");
-            return;
-        }
+//        if (messageNum == 0){
+//
+//            return;
+//        }
+        startActivity(MessageActivity.class);
     }
 
     /**
@@ -299,7 +319,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      */
     @OnClick(R.id.iv_protrait)
     public void openUserMainPage(View view){
-        startActivity(PersonalHomePageActivity.class);
+//        startActivity(PersonalHomePageActivity.class);
     }
 
     /**
@@ -337,6 +357,8 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
         //个人签名
         mViewManager.setText(R.id.introduce, TextUtils.isEmpty(userInfoDto.getPersonalizedSignature()) ? "暂时没有设置签名" : userInfoDto.getPersonalizedSignature());
         mViewManager.setText(R.id.keepCount,attentionNum+"");
+
+        initRecycler();
     }
 
     @Override

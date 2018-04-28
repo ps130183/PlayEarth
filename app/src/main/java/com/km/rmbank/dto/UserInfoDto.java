@@ -64,6 +64,9 @@ public class UserInfoDto implements Cloneable, Parcelable {
 
     private String ticketCount;
 
+    private int status;//0：未验证，1：验证中，2：通过，3：失败
+    private int type;//2:商家
+
     public String getTotal() {
         return total;
     }
@@ -269,6 +272,22 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.ticketCount = ticketCount;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "UserInfoDto{" +
@@ -297,6 +316,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
                 ", position='" + position + '\'' +
                 ", personalizedSignature='" + personalizedSignature + '\'' +
                 ", ticketCount='" + ticketCount + '\'' +
+                ", status=" + status +
+                ", type=" + type +
                 '}';
     }
 
@@ -335,6 +356,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
         dest.writeString(this.position);
         dest.writeString(this.personalizedSignature);
         dest.writeString(this.ticketCount);
+        dest.writeInt(this.status);
+        dest.writeInt(this.type);
     }
 
     protected UserInfoDto(Parcel in) {
@@ -363,6 +386,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.position = in.readString();
         this.personalizedSignature = in.readString();
         this.ticketCount = in.readString();
+        this.status = in.readInt();
+        this.type = in.readInt();
     }
 
     public static final Creator<UserInfoDto> CREATOR = new Creator<UserInfoDto>() {

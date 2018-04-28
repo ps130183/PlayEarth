@@ -1,1 +1,1 @@
-include ':app', ':commonadapter', ':glidelib', ':banner', ':FlycoTabLayout_Lib', ':libqrcode', ':gallerypick', ':ucrop', ':guideShowLib', ':photoedit', ':certificateCamera'
+include ':app', ':commonadapter', ':glidelib', ':banner', ':FlycoTabLayout_Lib', ':libqrcode', ':gallerypick', ':ucrop', ':guideShowLib', ':photoedit', ':identify'

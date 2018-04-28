@@ -1,54 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.km.rmbank.module.login.CreateUserInfoActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="*为了保护您账户安全，需要实名认证*"
-        android:gravity="center"
-        android:padding="@dimen/viewSpace16"
-        />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_submit"
+        android:orientation="vertical">
 
-    <LinearLayout style="@style/Personal.User.EditCard.pll">
 
-        <LinearLayout style="@style/Personal.User.EditCard.sll">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请拍摄您的第二代身份证原件"
+            android:textColor="#445c95"
+            android:textSize="@dimen/textSizeBig"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="30dp"/>
 
-            <TextView
-                style="@style/Personal.User.EditCard.tv"
-                android:text="姓     名" />
-
-            <EditText
-                android:id="@+id/et_name"
-                style="@style/Personal.User.EditCard.et_nofocuse"
-                android:hint="请输入您身份证上的姓名"
-                android:inputType="text"
-                android:lines="1" />
-        </LinearLayout>
-
-        <include layout="@layout/_default_divide_line"/>
 
         <LinearLayout
-            style="@style/Personal.User.EditCard.sll"
-            >
-            <TextView
-                style="@style/Personal.User.EditCard.tv"
-                android:text="身份证"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/ivIdCardFront"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/id_card_front"
                 />
 
-            <EditText
-                android:id="@+id/et_position"
-                style="@style/Personal.User.EditCard.et_nofocuse"
-                android:hint="请填写您的身份证号"
-                android:lines="1"
-                android:maxLength="18"
+            <TextView
+                android:id="@+id/tvIdCardFront"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#868a9b"
+                android:text="身份证正面照"
+                android:gravity="center"
                 />
+
         </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <com.ps.glidelib.GlideImageView
+                    android:id="@+id/ivIdCardBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/id_card_back"
+                    />
+
+                <TextView
+                    android:id="@+id/tvIdCardBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#868a9b"
+                    android:text="身份证反面照"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
@@ -60,11 +94,15 @@
         android:textSize="@dimen/textSizeBig"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:text="提交"
-        android:layout_margin="@dimen/viewSpace32"
+        android:text="下一步"
+        android:layout_marginLeft="@dimen/viewSpace32"
+        android:layout_marginRight="@dimen/viewSpace32"
+        android:layout_marginBottom="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace16"
         android:enabled="false"
+        android:layout_alignParentBottom="true"
         />
 
 
 
-</LinearLayout>
+</RelativeLayout>

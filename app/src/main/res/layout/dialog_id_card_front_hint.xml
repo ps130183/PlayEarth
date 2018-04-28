@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_background_white_corner_15"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拍照示例"
+        android:textColor="@color/text_color_block1"
+        android:textSize="@dimen/textSizeBig"
+        android:layout_margin="@dimen/viewSpace16"
+        android:gravity="center"
+        />
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/imageView"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:src="@drawable/eg_idcard_back"
+        android:layout_marginLeft="@dimen/viewSpace16"
+        android:layout_marginRight="@dimen/viewSpace16"
+        android:layout_gravity="center"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#efefef"/>
+
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="我知道了"
+        android:textSize="@dimen/textSizeBig"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        />
+</LinearLayout>

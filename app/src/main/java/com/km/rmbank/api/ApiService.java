@@ -1756,4 +1756,32 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/auth/addressBook/compare")
     Observable<Response<List<ContractDto>>> getContracts(@Field("token") String token,
                                                          @Field("datas") String datas);
+
+
+    /**
+     * 实名认证 上传身份证信息
+     * @param token
+     * @param idCard
+     * @param realName
+     * @param cardImageUrl  多个图片#分割
+     * @param cardAddress
+     * @param cardSex
+     * @param cardNation
+     * @param cardOffice
+     * @param cardBeginDate
+     * @param cardEndDate
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/realName/validate")
+    Observable<Response<String>> certifyIDCard(@Field("token") String token,
+                                               @Field("idcard") String idCard,
+                                               @Field("realname") String realName,
+                                               @Field("cardImageUrl") String cardImageUrl,
+                                               @Field("cardAddress") String cardAddress,
+                                               @Field("cardSex") String cardSex,
+                                               @Field("cardNation") String cardNation,
+                                               @Field("cardOffice") String cardOffice,
+                                               @Field("cardBeginDate") long cardBeginDate,
+                                               @Field("cardEndDate") long cardEndDate);
 }

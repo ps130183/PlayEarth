@@ -20,22 +20,22 @@ public class GuideActivity extends AbsGuideActivity {
         getWindow().setFlags(flag, flag);
         List<SinglePage> guideContent = new ArrayList<SinglePage>();
 
-        SinglePage page01 = new SinglePage();
-        page01.mBackground = getResources().getDrawable(R.mipmap.guide1);
-        guideContent.add(page01);
-
-        SinglePage page02 = new SinglePage();
-        page02.mBackground = getResources().getDrawable(R.mipmap.guide2);
-        guideContent.add(page02);
-
-        SinglePage page03 = new SinglePage();
-        page03.mBackground = getResources().getDrawable(R.mipmap.guide3);
-        guideContent.add(page03);
-
-        SinglePage page04 = new SinglePage();
-        page04.mBackground = getResources().getDrawable(R.mipmap.guide4);
-
-        guideContent.add(page04);
+//        SinglePage page01 = new SinglePage();
+//        page01.mBackground = getResources().getDrawable(R.mipmap.guide1);
+//        guideContent.add(page01);
+//
+//        SinglePage page02 = new SinglePage();
+//        page02.mBackground = getResources().getDrawable(R.mipmap.guide2);
+//        guideContent.add(page02);
+//
+//        SinglePage page03 = new SinglePage();
+//        page03.mBackground = getResources().getDrawable(R.mipmap.guide3);
+//        guideContent.add(page03);
+//
+//        SinglePage page04 = new SinglePage();
+//        page04.mBackground = getResources().getDrawable(R.mipmap.guide4);
+//
+//        guideContent.add(page04);
         SinglePage page05 = new SinglePage();
         page05.mCustomFragment = new GuideFragment();
         guideContent.add(page05);

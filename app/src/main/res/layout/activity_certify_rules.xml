@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.realname.CertifyRulesActivity">
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:visibility="gone"/>
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/confirm">
+
+    </WebView>
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已阅读"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeBig"
+        android:background="@drawable/selector_btn_bg_default"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/viewSpace16"
+        android:onClick="nextPage"
+        />
+
+</RelativeLayout>

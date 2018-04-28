@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.StringUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.event.UserInfoEvent;
+import com.km.rmbank.module.realname.CertifyCheckActivity;
+import com.km.rmbank.module.realname.CertifyRulesActivity;
+import com.km.rmbank.module.realname.IdentityVerificationActivity;
 import com.km.rmbank.mvp.model.UserInfoModel;
 import com.km.rmbank.mvp.presenter.UserInfoPresenter;
 import com.km.rmbank.mvp.view.IUserInfoView;
@@ -61,8 +63,18 @@ public class CreateNewUserCardActivity extends BaseActivity<IUserInfoView,UserIn
         userPortraitPath = Constant.userInfo.getPortraitUrl();
         GlideUtils.loadImageOnPregress(userPortrait, userPortraitPath,null);
 
+        String userName;
+        if (Constant.userInfo.getStatus() == 0 || Constant.userInfo.getStatus() == 3){
+            userName = "(未实名)";
+        } else if (Constant.userInfo.getStatus() == 1){
+            userName = "(审核中)";
+        } else {
+            userName = "(已实名)";
+        }
+        userName = Constant.userInfo.getName() + userName;
+
         //姓名
-        mViewManager.setText(R.id.userName,Constant.userInfo.getName());
+        mViewManager.setText(R.id.userName,userName);
 
         //个性签名
         userIntroduceContent = Constant.userInfo.getPersonalizedSignature();
@@ -80,6 +92,23 @@ public class CreateNewUserCardActivity extends BaseActivity<IUserInfoView,UserIn
         startActivity(EditUserInfoActivity.class,bundle);
     }
 
+
+    /**
+     * 点击用户姓名
+     * @param view
+     */
+    public void clickUserName(View view) {
+        if (Constant.userInfo.getStatus() == 0 || Constant.userInfo.getStatus() == 3){
+            DialogUtils.showDefaultAlertDialog("为保障您的会员权益，需要您实名认证","去实名认证","取消", new DialogUtils.ClickListener() {
+                @Override
+                public void clickConfirm() {
+                    startActivity(CertifyRulesActivity.class);
+                }
+            });
+        } else if (Constant.userInfo.getStatus() == 1){
+            startActivity(CertifyCheckActivity.class);
+        }
+    }
 
     /**
      * 编辑个人简介  个性签名

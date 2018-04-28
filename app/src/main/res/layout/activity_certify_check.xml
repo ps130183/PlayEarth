@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.realname.CertifyCheckActivity">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/icon_time"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="审核中"
+        android:textSize="@dimen/textSizeHuge"
+        android:textColor="@color/text_color_block1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/viewSpace16"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统审核大概需要1-2个工作日，审核通过后将会以消息或短信通知到您，请您耐心等待！"
+        android:padding="@dimen/viewSpace32"
+        android:textColor="@color/text_color_block5"
+        android:textSize="@dimen/textSizeContent"
+        android:lineSpacingMultiplier="1.3"
+        android:gravity="center"
+        />
+
+</LinearLayout>

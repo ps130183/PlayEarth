@@ -43,6 +43,10 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <uses-feature android:name="android.hardware.camera2.full" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <!-- 多分辨率支持 -->
     <supports-screens
         android:anyDensity="true"
@@ -232,13 +236,20 @@
         <activity android:name=".module.main.personal.hpage.PersonalHomePageActivity" />
         <activity android:name=".module.main.personal.contacts.ContactsActivity" />
         <activity android:name=".module.main.payment.PayContractsActivity" />
-        <activity android:name=".module.login.IdentityVerificationActivity" />
+        <activity android:name=".module.realname.IdentityVerificationActivity" />
         <activity android:name=".module.main.experience.ExperienceOfficerActivity" />
         <activity android:name=".module.main.experience.ExperienceOfficerSahreActivity" />
         <activity android:name=".module.main.card.UserNewCardActivity" />
         <activity android:name=".module.main.card.CreateNewUserCardActivity" />
         <activity android:name=".module.main.card.EditUserInfoActivity" />
-        <activity android:name=".module.main.personal.setting.HelpDocumentActivity"></activity>
+        <activity android:name=".module.main.personal.setting.HelpDocumentActivity" />
+        <activity
+            android:name="com.baidu.ocr.ui.camera.CameraActivity"
+            android:configChanges="screenSize|orientation"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
+        <activity android:name=".module.realname.IDCardHandActivity" />
+        <activity android:name=".module.realname.CertifyRulesActivity" />
+        <activity android:name=".module.realname.CertifyCheckActivity"></activity>
     </application>
 
 </manifest>

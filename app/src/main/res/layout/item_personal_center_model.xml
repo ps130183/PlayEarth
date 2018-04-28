@@ -1,30 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="80dp"
     android:layout_height="80dp"
-    android:background="@color/white"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <com.ps.glidelib.GlideImageView
-        android:id="@+id/modelImage"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@mipmap/icon_pc_my_order"
-        />
-
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="6dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <com.ps.glidelib.GlideImageView
+            android:id="@+id/modelImage"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp"/>
+
+        <TextView
+            android:id="@+id/modelName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的订单"
+            android:textColor="@color/text_color_block32"
+            android:textSize="13sp"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivRealNameStatus"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/icon_certify_idcard_not"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        />
     <TextView
-        android:id="@+id/modelName"
+        android:id="@+id/tvRealNameStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我的订单"
-        android:textColor="@color/text_color_block32"
-        android:textSize="13sp"
+        android:text="已实名"
+        android:textColor="#f91413"
+        android:background="@drawable/shape_certify_idcard_yes"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:textSize="8sp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
         />
-    
-</LinearLayout>
+
+</RelativeLayout>

@@ -37,8 +37,8 @@ import cn.jpush.android.api.TagAliasCallback;
 public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> implements ILoginView {
 
     private EditText mobilePhone;
-    private EditText etSmsCode;
-    private RTextView tvSmsCode;
+//    private EditText etSmsCode;
+//    private RTextView tvSmsCode;
 
     private Button btnLogin;
 
@@ -56,7 +56,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setTitleContent("登录");
+        simpleTitleBar.setTitleContent("欢迎使用「玩转地球」");
         simpleTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +73,8 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
         mobilePhone = mViewManager.findView(R.id.et_phone);
-        etSmsCode = mViewManager.findView(R.id.et_code);
-        tvSmsCode = mViewManager.findView(R.id.tv_send_code);
+//        etSmsCode = mViewManager.findView(R.id.et_code);
+//        tvSmsCode = mViewManager.findView(R.id.tv_send_code);
         btnLogin = mViewManager.findView(R.id.btn_login);
         init();
     }
@@ -93,41 +93,41 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() >= 11){
-                    isSendCode = true;
-                    isCanSend = true;
-                } else {
-                    isCanSend = false;
-                    isSendCode = false;
-                }
-                tvSmsCode.setEnabled(isSendCode);
-                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
-                btnLogin.setEnabled(isCanSend && isCanLogin);
+//                if (s.length() >= 11){
+//                    isSendCode = true;
+//                    isCanSend = true;
+//                } else {
+//                    isCanSend = false;
+//                    isSendCode = false;
+//                }
+//                tvSmsCode.setEnabled(isSendCode);
+//                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
+                btnLogin.setEnabled(s.length() >= 11);
             }
         });
 
-        etSmsCode.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() == 6){
-                    isCanLogin = true;
-                } else {
-                    isCanLogin = false;
-                }
-                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
-                btnLogin.setEnabled(isCanSend && isCanLogin);
-            }
-        });
+//        etSmsCode.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                if (s.length() == 6){
+//                    isCanLogin = true;
+//                } else {
+//                    isCanLogin = false;
+//                }
+//                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
+//                btnLogin.setEnabled(isCanSend && isCanLogin);
+//            }
+//        });
 
         setOnClickBackLisenter(new OnClickBackLisenter() {
             @Override
@@ -154,28 +154,28 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
      */
     public void clickLogin(View view){
 //        startActivity(CreateUserInfoActivity.class);
-        String phone = mobilePhone.getText().toString();
-        String smsCode = etSmsCode.getText().toString();
-        if (!RegexUtils.isMobileExact(phone)){
-            showToast("手机号码错误，请重新输入！");
-            return;
-        } else if (TextUtils.isEmpty(smsCode)){
-            showToast("验证码错误，请重新获取！");
-            return;
-        }
-        getPresenter().login(phone,smsCode);
+//        String phone = mobilePhone.getText().toString();
+//        String smsCode = etSmsCode.getText().toString();
+//        if (!RegexUtils.isMobileExact(phone)){
+//            showToast("手机号码错误，请重新输入！");
+//            return;
+//        } else if (TextUtils.isEmpty(smsCode)){
+//            showToast("验证码错误，请重新获取！");
+//            return;
+//        }
+//        getPresenter().login(phone,smsCode);
+        sendCode();
     }
 
     /**
      * 发送验证码
-     * @param view
      */
-    public void sendCode(View view){
+    public void sendCode(){
         String phone = mobilePhone.getText().toString();
         if (!RegexUtils.isMobileExact(phone)){
             showToast("手机号码错误，请重新输入！");
             return;
-        } else if (isSendCode){
+        } else {
             waitTime = 60;
             getPresenter().getSmsCode(phone);
         }
@@ -184,35 +184,40 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
     @Override
     public void showSmsCode(String smsCode) {
         showToast("验证码获取成功！");
-        tvSmsCode.setText(waitTime+"");
-        isSendCode = false;
-        tvSmsCode.setEnabled(isSendCode);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (waitTime-- > 0){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvSmsCode.setText(waitTime+"'");
-                        }
-                    });
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tvSmsCode.setText("重新获取");
-                        isSendCode = true;
-                        tvSmsCode.setEnabled(isSendCode);
-                    }
-                });
-            }
-        }).start();
+
+        //去填写验证码
+        Bundle bundle = new Bundle();
+        bundle.putString("phone",mobilePhone.getText().toString());
+        startActivity(CreateUserInfoActivity.class,bundle);
+//        tvSmsCode.setText(waitTime+"");
+//        isSendCode = false;
+//        tvSmsCode.setEnabled(isSendCode);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (waitTime-- > 0){
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            tvSmsCode.setText(waitTime+"'");
+//                        }
+//                    });
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tvSmsCode.setText("重新获取");
+//                        isSendCode = true;
+//                        tvSmsCode.setEnabled(isSendCode);
+//                    }
+//                });
+//            }
+//        }).start();
     }
 
     @Override
@@ -230,9 +235,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
 
     @Override
     public void createUserInfo(String userPhone) {
-        Bundle bundle = new Bundle();
-        bundle.putString("phone",userPhone);
-        startActivity(CreateUserInfoActivity.class,bundle);
+
     }
 
     @OnClick(R.id.tv_register_agreement)

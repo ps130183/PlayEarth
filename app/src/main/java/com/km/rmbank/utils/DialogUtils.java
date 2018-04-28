@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,6 +37,8 @@ import com.km.rmbank.oldrecycler.ViewUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
+import com.ps.glidelib.GlideImageView;
+import com.ps.glidelib.GlideUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -126,22 +130,30 @@ public class DialogUtils {
      * @param hintContent
      * @param clickListener
      */
-    public static void showDefaultAlertDialog(String hintContent, final ClickListener clickListener){
-//        StyledDialog
+    public static void showDefaultAlertDialog(String hintContent,String confirm,String cancel, final ClickListener clickListener){
         StyledDialog.buildIosAlert("提示", hintContent, new MyDialogListener() {
             @Override
             public void onFirst() {
-//                clickConfirmListener.clickConfirm(null,0);
-
             }
 
             @Override
             public void onSecond() {
                 clickListener.clickConfirm();
             }
-        }).setBtnColor(R.color.text_color_blocka,R.color.colorAccent,R.color.colorAccent)
-                .setBtnText("取消","确定").show();
+        }).setBtnColor(R.color.colorAccent,R.color.colorAccent,R.color.colorAccent)
+                .setBtnText(cancel,confirm).show();
     }
+
+    /**
+     * ios风格
+     * @param hintContent
+     * @param clickListener
+     */
+    public static void showDefaultAlertDialog(String hintContent, final ClickListener clickListener){
+        showDefaultAlertDialog(hintContent,"确定","取消",clickListener);
+    }
+
+
 
     /**
      * 显示加载提示框
@@ -405,4 +417,65 @@ public class DialogUtils {
             this.onClickShareDialog = onClickShareDialog;
         }
     }
+
+    /**
+     * 身份证扫描提示
+     */
+    public static class IdCardScanHintDialog{
+        private Dialog mDialog;
+        private SuperLvHolder<String> superLvHolder;
+        private Context context;
+        private int mContentImageRes;
+        private View.OnClickListener mOnClickListener;
+
+        public IdCardScanHintDialog(Context context, int contentImageRes, View.OnClickListener onClickListener) {
+            this.context = context;
+            this.mContentImageRes = contentImageRes;
+            this.mOnClickListener = onClickListener;
+
+            superLvHolder = new SuperLvHolder<String>(context) {
+                private GlideImageView imageView;
+                @Override
+                protected void findViews() {
+                    imageView = rootView.findViewById(R.id.imageView);
+                    int mWidth = ScreenUtils.getScreenWidth();
+                    imageView.getLayoutParams().width = mWidth / 3 * 2;
+                    imageView.getLayoutParams().height = mWidth / 3 * 2;
+                    GlideUtils.loadImageByRes(imageView,mContentImageRes);
+
+                    TextView confirm = rootView.findViewById(R.id.confirm);
+                    confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mDialog != null && mDialog.isShowing()){
+                                mDialog.dismiss();
+                            }
+                            if (mOnClickListener != null){
+                                mOnClickListener.onClick(v);
+                            }
+                        }
+                    });
+                }
+
+                @Override
+                protected int setLayoutRes() {
+                    return R.layout.dialog_id_card_front_hint;
+                }
+
+                @Override
+                public void assingDatasAndEvents(Context context, @Nullable String s) {
+
+                }
+            };
+        }
+
+        public void show(){
+            if (mDialog == null){
+                mDialog =  StyledDialog.buildCustom(superLvHolder).show();
+            } else {
+                mDialog.show();
+            }
+        }
+    }
+
 }

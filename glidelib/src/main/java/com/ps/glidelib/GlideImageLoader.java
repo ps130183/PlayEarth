@@ -126,7 +126,9 @@ public class GlideImageLoader {
     public RequestOptions requestOptions(int placeholderResId, int errorResId) {
         return new RequestOptions()
                 .placeholder(placeholderResId)
-                .error(errorResId);
+                .error(errorResId)
+                .skipMemoryCache(true) // 跳过内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
     }
 
     public RequestOptions circleRequestOptions(int placeholderResId) {
