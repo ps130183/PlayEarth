@@ -2,8 +2,10 @@ package com.km.rmbank.module.realname;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.km.rmbank.mvp.view.IUserInfoView;
 import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.StringUtils;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.yancy.gallerypick.utils.ScreenUtils;
@@ -48,6 +51,9 @@ public class IdentityVerificationActivity extends BaseActivity {
 
     @BindView(R.id.btn_submit)
     Button btnSubmit;
+
+    private TextView idCardFrontHint;
+    private TextView idCardBackHint;
 
     private static final String ID_CARD_FRONT_PATH = AppUtils.getImagePath("idCardFront.jpg");
     private static final String ID_CARD_BACK_PATH = AppUtils.getImagePath("idCardBack.jpg");
@@ -71,6 +77,7 @@ public class IdentityVerificationActivity extends BaseActivity {
     public void onFinally(@Nullable Bundle savedInstanceState) {
         init();
     }
+
     @Override
     protected void onDestroy() {
         CameraNativeHelper.release();
@@ -84,8 +91,8 @@ public class IdentityVerificationActivity extends BaseActivity {
         GlideImageView idCardFront = mViewManager.findView(R.id.ivIdCardFront);
         GlideImageView idCardBack = mViewManager.findView(R.id.ivIdCardBack);
 
-        TextView idCardFrontHint = mViewManager.findView(R.id.tvIdCardFront);
-        TextView idCardBackHint = mViewManager.findView(R.id.tvIdCardBack);
+        idCardFrontHint = mViewManager.findView(R.id.tvIdCardFront);
+        idCardBackHint = mViewManager.findView(R.id.tvIdCardBack);
 
         int windowHeight = ScreenUtils.getScreenHeight(mInstance);
         int mHeight = windowHeight - ConvertUtils.dp2px(142) - ScreenUtils.getStatusHeight(mInstance);
@@ -177,11 +184,12 @@ public class IdentityVerificationActivity extends BaseActivity {
 
     /**
      * 拍摄身份证  正面照
+     *
      * @param view
      */
     @OnClick(R.id.ivIdCardFront)
-    public void cameraIdCardFront(View view){
-        if (frontDialog == null){
+    public void cameraIdCardFront(View view) {
+        if (frontDialog == null) {
             frontDialog = new DialogUtils.IdCardScanHintDialog(mInstance, R.drawable.eg_idcard_front, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -194,11 +202,12 @@ public class IdentityVerificationActivity extends BaseActivity {
 
     /**
      * 拍摄身份证  反面照
+     *
      * @param view
      */
     @OnClick(R.id.ivIdCardBack)
-    public void cameraIdCardBack(View view){
-        if (backDialog == null){
+    public void cameraIdCardBack(View view) {
+        if (backDialog == null) {
             backDialog = new DialogUtils.IdCardScanHintDialog(mInstance, R.drawable.eg_idcard_back, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -212,7 +221,7 @@ public class IdentityVerificationActivity extends BaseActivity {
     /**
      * 扫描身份证正面
      */
-    private void scanIdCardFront(){
+    private void scanIdCardFront() {
         Intent intent = new Intent(mInstance, CameraActivity.class);
         intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH, ID_CARD_FRONT_PATH);
         intent.putExtra(CameraActivity.KEY_NATIVE_ENABLE, true);
@@ -227,7 +236,7 @@ public class IdentityVerificationActivity extends BaseActivity {
     /**
      * 扫描身份证反面
      */
-    private void scanIdCardBack(){
+    private void scanIdCardBack() {
         Intent intent = new Intent(mInstance, CameraActivity.class);
         intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
                 ID_CARD_BACK_PATH);
@@ -243,13 +252,13 @@ public class IdentityVerificationActivity extends BaseActivity {
 
     @OnClick(R.id.btn_submit)
     public void submit(View view) {
-        if (mIDCardEntity.idCardBackIsEmpty() || mIDCardEntity.idCardFrontIsEmpty()){
+        if (mIDCardEntity.idCardBackIsEmpty() || mIDCardEntity.idCardFrontIsEmpty()) {
             showToast("请拍摄身份证正反面！");
             return;
         }
         Bundle bundle = new Bundle();
-        bundle.putParcelable("idCardInfo",mIDCardEntity);
-        startActivity(IDCardHandActivity.class,bundle);
+        bundle.putParcelable("idCardInfo", mIDCardEntity);
+        startActivity(IDCardHandActivity.class, bundle);
     }
 
     @Override
@@ -278,13 +287,14 @@ public class IdentityVerificationActivity extends BaseActivity {
      * @param filePath   图片路径
      */
     private void recIDCard(final String idCardSide, String filePath) {
+        showLoading();
         GlideImageView idCard;
-        if (IDCardParams.ID_CARD_SIDE_FRONT.equals(idCardSide)){//正面
-            idCard  = mViewManager.findView(R.id.ivIdCardFront);
+        if (IDCardParams.ID_CARD_SIDE_FRONT.equals(idCardSide)) {//正面
+            idCard = mViewManager.findView(R.id.ivIdCardFront);
         } else {//反面
             idCard = mViewManager.findView(R.id.ivIdCardBack);
         }
-        GlideUtils.loadLocalImage(idCard,filePath);
+        GlideUtils.loadLocalImage(idCard, filePath);
 
         IDCardParams param = new IDCardParams();
         param.setImageFile(new File(filePath));
@@ -298,7 +308,7 @@ public class IdentityVerificationActivity extends BaseActivity {
             @Override
             public void onResult(IDCardResult result) {
                 if (result != null) {
-                    if (mIDCardEntity == null){
+                    if (mIDCardEntity == null) {
                         mIDCardEntity = new IDCardEntity();
                     }
 
@@ -317,25 +327,47 @@ public class IdentityVerificationActivity extends BaseActivity {
                     if (result.getAddress() != null) {//籍贯地址
                         mIDCardEntity.setAddress(result.getAddress().toString());
                     }
-                    if (result.getSignDate() != null){//开始时间
-                        mIDCardEntity.setStartDate(Long.parseLong(result.getSignDate().toString()));
+                    if (result.getSignDate() != null) {//开始时间
+                        mIDCardEntity.setStartDate(result.getSignDate().toString());
                     }
-                    if (result.getExpiryDate() != null){//结束时间
-                        mIDCardEntity.setEndDate(Long.parseLong(result.getExpiryDate().toString()));
+                    if (result.getExpiryDate() != null) {//结束时间
+                        mIDCardEntity.setEndDate(result.getExpiryDate().toString());
                     }
-                    if (result.getIssueAuthority() != null){//签发机关
+                    if (result.getIssueAuthority() != null) {//签发机关
                         mIDCardEntity.setUnit(result.getIssueAuthority().toString());
                     }
 
-                    if (!mIDCardEntity.idCardFrontIsEmpty() && !mIDCardEntity.idCardBackIsEmpty()){
+                    if (IDCardParams.ID_CARD_SIDE_FRONT.equals(idCardSide)) {//正面
+                        if (mIDCardEntity.idCardFrontIsEmpty()) {
+                            idCardFrontHint.setText(StringUtils.getSpannableTextColor("身份证正面照(不可用，请重新拍摄)", "不可用，请重新拍摄", Color.RED));
+                        } else {
+                            idCardFrontHint.setText(StringUtils.getSpannableTextColor("身份证正面照(可用)", "可用", Color.GREEN));
+                        }
+                    } else {//反面
+                        if (mIDCardEntity.idCardBackIsEmpty()) {
+                            idCardBackHint.setText(StringUtils.getSpannableTextColor("身份证反面照(不可用，请重新拍摄)", "不可用，请重新拍摄", Color.RED));
+                        } else {
+                            idCardBackHint.setText(StringUtils.getSpannableTextColor("身份证反面照(可用)", "可用", Color.GREEN));
+                        }
+                    }
+
+
+                    if (!mIDCardEntity.idCardFrontIsEmpty() && !mIDCardEntity.idCardBackIsEmpty()) {
                         LogUtils.d(mIDCardEntity.toString());
                         btnSubmit.setEnabled(true);
                     }
+                    hideLoading();
                 }
             }
 
             @Override
             public void onError(OCRError error) {
+                hideLoading();
+                if (IDCardParams.ID_CARD_SIDE_FRONT.equals(idCardSide)) {//正面
+                    idCardFrontHint.setText(StringUtils.getSpannableTextColor("身份证正面照(不可用，请重新拍摄)", "不可用，请重新拍摄", Color.RED));
+                } else {//反面
+                    idCardBackHint.setText(StringUtils.getSpannableTextColor("身份证反面照(不可用，请重新拍摄)", "不可用，请重新拍摄", Color.RED));
+                }
                 showToast("证件照片模糊，请重新拍摄身份证" + (idCardSide.equals(IDCardParams.ID_CARD_SIDE_FRONT) ? "正面照!" : "反面照!"));
                 Log.d("MainActivity", "onError: " + error.getMessage());
             }

@@ -1,15 +1,12 @@
 package com.km.rmbank.module.login;
 
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -26,7 +23,6 @@ import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
-import com.ruffian.library.RTextView;
 
 import java.util.Set;
 
@@ -153,7 +149,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
      * @param view
      */
     public void clickLogin(View view){
-//        startActivity(CreateUserInfoActivity.class);
+//        startActivity(SmsCodeActivity.class);
 //        String phone = mobilePhone.getText().toString();
 //        String smsCode = etSmsCode.getText().toString();
 //        if (!RegexUtils.isMobileExact(phone)){
@@ -188,7 +184,7 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
         //去填写验证码
         Bundle bundle = new Bundle();
         bundle.putString("phone",mobilePhone.getText().toString());
-        startActivity(CreateUserInfoActivity.class,bundle);
+        startActivity(SmsCodeActivity.class,bundle);
 //        tvSmsCode.setText(waitTime+"");
 //        isSendCode = false;
 //        tvSmsCode.setEnabled(isSendCode);

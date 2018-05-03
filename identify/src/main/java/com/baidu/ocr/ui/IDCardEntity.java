@@ -1,9 +1,8 @@
-package com.km.rmbank.entity;
+package com.baidu.ocr.ui;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.widget.TextView;
 
 /**
  * Created by PengSong on 18/4/27.
@@ -18,8 +17,8 @@ public class IDCardEntity implements Parcelable {
     private String address;
 
     //身份证 反面信息
-    private String startDate;
-    private String endDate;
+    private long startDate;
+    private long endDate;
     private String unit;
 
     public IDCardEntity() {
@@ -65,19 +64,19 @@ public class IDCardEntity implements Parcelable {
         this.address = address;
     }
 
-    public String getStartDate() {
+    public long getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(long startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public long getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(long endDate) {
         this.endDate = endDate;
     }
 
@@ -123,7 +122,7 @@ public class IDCardEntity implements Parcelable {
      * @return
      */
     public boolean idCardBackIsEmpty(){
-        if (TextUtils.isEmpty(startDate) || TextUtils.isEmpty(endDate) || TextUtils.isEmpty(unit)){
+        if (startDate == 0 || endDate == 0 || TextUtils.isEmpty(unit)){
             return true;
         }
         return false;
@@ -141,8 +140,8 @@ public class IDCardEntity implements Parcelable {
         dest.writeString(this.nation);
         dest.writeString(this.num);
         dest.writeString(this.address);
-        dest.writeString(this.startDate);
-        dest.writeString(this.endDate);
+        dest.writeLong(this.startDate);
+        dest.writeLong(this.endDate);
         dest.writeString(this.unit);
     }
 
@@ -152,8 +151,8 @@ public class IDCardEntity implements Parcelable {
         this.nation = in.readString();
         this.num = in.readString();
         this.address = in.readString();
-        this.startDate = in.readString();
-        this.endDate = in.readString();
+        this.startDate = in.readLong();
+        this.endDate = in.readLong();
         this.unit = in.readString();
     }
 

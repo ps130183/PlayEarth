@@ -19,7 +19,7 @@
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="柠小檬"
+            android:text=""
             android:textSize="18sp"
             android:textColor="@color/text_color_block24"
             android:layout_gravity="center"

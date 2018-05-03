@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/banner/banner.iml" filepath="$PROJECT_DIR$/banner/banner.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonadapter/commonadapter.iml" filepath="$PROJECT_DIR$/commonadapter/commonadapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/corelibrary/corelibrary.iml" filepath="$PROJECT_DIR$/corelibrary/corelibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/gallerypick/gallerypick.iml" filepath="$PROJECT_DIR$/gallerypick/gallerypick.iml" />
       <module fileurl="file://$PROJECT_DIR$/glidelib/glidelib.iml" filepath="$PROJECT_DIR$/glidelib/glidelib.iml" />
       <module fileurl="file://$PROJECT_DIR$/guideShowLib/guideShowLib.iml" filepath="$PROJECT_DIR$/guideShowLib/guideShowLib.iml" />

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.km.rmbank.module.login.CreateUserInfoActivity">
+    tools:context="com.km.rmbank.module.login.SmsCodeActivity">
 
     <TextView
         android:id="@+id/smsCodeHint"
@@ -24,8 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         ver:box="6"
-        ver:box_bg_normal="@drawable/verification_edit_bg_normal"
-        ver:box_bg_focus="@drawable/verification_edit_bg_focus"
         ver:child_h_padding="5dp"
         ver:inputType="number"
         android:layout_centerInParent="true"

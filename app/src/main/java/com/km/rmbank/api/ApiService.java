@@ -1782,6 +1782,6 @@ public interface ApiService {
                                                @Field("cardSex") String cardSex,
                                                @Field("cardNation") String cardNation,
                                                @Field("cardOffice") String cardOffice,
-                                               @Field("cardBeginDate") long cardBeginDate,
-                                               @Field("cardEndDate") long cardEndDate);
+                                               @Field("cardBeginDate") String cardBeginDate,
+                                               @Field("cardEndDate") String cardEndDate);
 }

@@ -38,8 +38,8 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
     private static final int COLOR_DRAWABLE_DIMENSION = 1;
 
     // 图片的宽高
-    private int width;
-    private int height;
+    private int width = 1;
+    private int height = 1;
 
     private int borderColor = 0x1A000000; // 边框颜色
     private int borderWidth = 0; // 边框宽度

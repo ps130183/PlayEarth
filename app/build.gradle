@@ -129,7 +129,7 @@ dependencies {
     implementation rootProject.ext.dependencies["jcore"]
     implementation rootProject.ext.dependencies["marqueelibrary"]
     implementation rootProject.ext.dependencies["jpinyin"]
-    implementation rootProject.ext.dependencies["VerificationCodeInput"]
+    //    implementation rootProject.ext.dependencies["VerificationCodeInput"]
     implementation project(':banner')
     implementation project(':commonadapter')
     implementation project(':glidelib')
@@ -152,5 +152,5 @@ dependencies {
     //    implementation files('libs/IndoorscapeAlbumPlugin.jar')
     implementation project(':photoedit')
     implementation project(':identify')
-    implementation files('libs/ocr-sdk.jar')
+    implementation project(':corelibrary')
 }

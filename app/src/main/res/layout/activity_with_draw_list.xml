@@ -30,7 +30,7 @@
         android:id="@+id/btn_add_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorAccent"
+        android:background="@drawable/selector_btn_bg_default"
         android:layout_alignParentBottom="true"
         android:padding="@dimen/viewSpace8"
         android:layout_margin="@dimen/viewSpace16">
@@ -38,7 +38,7 @@
             android:id="@+id/tv_new_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ic_add_black_48px"
+            android:drawableLeft="@mipmap/ic_add_white_48px"
             android:text="新建账户"
             android:textColor="@color/white"
             android:textStyle="bold"

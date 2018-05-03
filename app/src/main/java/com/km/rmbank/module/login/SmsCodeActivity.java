@@ -1,40 +1,34 @@
 package com.km.rmbank.module.login;
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.PhoneUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.dalimao.corelibrary.VerificationCodeInput;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.dto.UserLoginDto;
 import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.mvp.model.LoginModel;
-import com.km.rmbank.mvp.model.UserInfoModel;
 import com.km.rmbank.mvp.presenter.LoginPresenter;
-import com.km.rmbank.mvp.presenter.UserInfoPresenter;
 import com.km.rmbank.mvp.view.ILoginView;
-import com.km.rmbank.mvp.view.IUserInfoView;
 import com.km.rmbank.utils.Constant;
 
 import java.util.Set;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
-public class CreateUserInfoActivity extends BaseActivity<ILoginView,LoginPresenter> implements ILoginView {
+/**
+ * 短信验证码
+ */
+public class SmsCodeActivity extends BaseActivity<ILoginView,LoginPresenter> implements ILoginView {
 
 
     private String phone;
@@ -49,7 +43,7 @@ public class CreateUserInfoActivity extends BaseActivity<ILoginView,LoginPresent
 
     @Override
     public int getContentViewRes() {
-        return R.layout.activity_create_user_info;
+        return R.layout.activity_sms_code;
     }
 
     @Override
@@ -67,7 +61,6 @@ public class CreateUserInfoActivity extends BaseActivity<ILoginView,LoginPresent
         phone = getIntent().getStringExtra("phone");
         TextView smsCodeHint = mViewManager.findView(R.id.smsCodeHint);
         smsCodeHint.setText("验证码已发送到" + hidePhone(phone) + "的手机上");
-
         daojishi();
 
 

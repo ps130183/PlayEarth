@@ -7,7 +7,9 @@ import android.widget.TextView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
+import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.event.UserInfoEvent;
+import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.module.realname.CertifyCheckActivity;
 import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.module.realname.IdentityVerificationActivity;
@@ -16,6 +18,7 @@ import com.km.rmbank.mvp.presenter.UserInfoPresenter;
 import com.km.rmbank.mvp.view.IUserInfoView;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.EventBusUtils;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 
@@ -143,7 +146,8 @@ public class CreateNewUserCardActivity extends BaseActivity<IUserInfoView,UserIn
     @Override
     public void saveUserInfoSuccess() {
         showToast("保存成功！");
-        finish();
+        startActivity(HomeActivity.class);
+        EventBusUtils.post(new RefreshPersonalInfoEvent());
     }
 
     @Override

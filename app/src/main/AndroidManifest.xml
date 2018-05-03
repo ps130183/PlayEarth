@@ -218,7 +218,7 @@
         <activity android:name=".module.main.personal.action.AppliedActionActivity" />
         <activity android:name=".module.main.personal.member.BecomeMemberActivity" />
         <activity android:name=".module.main.payment.PaySuccessActivity" />
-        <activity android:name=".module.login.CreateUserInfoActivity" />
+        <activity android:name=".module.login.SmsCodeActivity" />
         <activity android:name=".module.main.map.MapActivity" />
         <activity android:name=".module.main.scenic.ScenicActivity" />
         <activity android:name=".module.main.scenic.SelectDateActivity" />
