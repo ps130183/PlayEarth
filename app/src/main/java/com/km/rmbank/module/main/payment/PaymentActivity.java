@@ -2,12 +2,15 @@ package com.km.rmbank.module.main.payment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import com.km.rmbank.dto.ScenicServiceDto;
 import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.dto.UserBalanceDto;
 import com.km.rmbank.dto.WeiCharParamsDto;
+import com.km.rmbank.entity.PayTypeEntity;
 import com.km.rmbank.event.PaySuccessEvent;
 import com.km.rmbank.event.WXPayResult;
 import com.km.rmbank.module.main.HomeActivity;
@@ -35,6 +39,7 @@ import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.wxpay.WxUtil;
 import com.ps.commonadapter.adapter.CommonViewHolder;
+import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
@@ -43,6 +48,7 @@ import com.ps.glidelib.progress.CircleProgressView;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,33 +59,14 @@ import io.reactivex.functions.Consumer;
 
 public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter> implements IPaymentView {
 
-    private boolean[] paymentTypes = {false,false,false,false};
-
-    @BindView(R.id.cb_balance)
-    CheckBox cbBalance;
-    @BindView(R.id.cb_weichat)
-    CheckBox cbWeiChat;
-    @BindView(R.id.cb_alipay)
-    CheckBox cbAlipay;
-    @BindView(R.id.cb_bank)
-    CheckBox cbBank;
-
-    @BindView(R.id.tv_balance_intro)
-    TextView tvBalanceIntro;
-
-    @BindView(R.id.ll_pay_balance)
-    RelativeLayout llPayBalance;
-
     @BindView(R.id.tv_amount)
     TextView tvAmount;
 
     private PayOrderDto mPayOrderDto;
-    //为0：商品 支付  3：体验会员，2：合伙人会员 5：约咖
-    private int paymentForObj;
-    private String mAmount;//支付金额
+
     private int payType = 0;//默认0：商品，1：会员支付,2:基地活动报名
 
-    private boolean becomeVip2 = false;
+    private List<PayTypeEntity> payTypeEntities;
 
     //基地活动
     ScenicServiceDto mServiceDto;
@@ -110,32 +97,109 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     }
 
     private void init(){
-        paymentForObj = getIntent().getIntExtra("paymentForObj",0);
-        mAmount = getIntent().getStringExtra("amount");
         mPayOrderDto = getIntent().getParcelableExtra("payOrderDto");
-        becomeVip2 = getIntent().getBooleanExtra("becomeVip2",false);
         payType = getIntent().getIntExtra("payType",0);
 
 
         if (payType == 1){//认证会员支付时，隐藏余额支付 和 积分
-            llPayBalance.setVisibility(View.GONE);
+//            llPayBalance.setVisibility(View.GONE);
             createPayOrderSuccess(mPayOrderDto);
         } else if (payType == 2){//参加基地活动等  报名
             initScenicOrder();
         }else { //商品支付
             createPayOrderSuccess(mPayOrderDto);
-            //普通用户隐藏 余额支付
-            if ("4".equals(Constant.userInfo.getRoleId()) || "3".equals(Constant.userInfo.getRoleId())){
-                llPayBalance.setVisibility(View.GONE);
-            } else {
-                llPayBalance.setVisibility(View.VISIBLE);
-            }
         }
 
         getPresenter().getBalance();
-
+        initPayTypeRecycler();
 
     }
+
+    /**
+     * 初始化支付方式的列表
+     */
+    private void initPayTypeRecycler(){
+        final RecyclerView payTypeRecycler = mViewManager.findView(R.id.payTypeRecycler);
+        //取消item的刷新动画
+//        ((SimpleItemAnimator)payTypeRecycler.getItemAnimator()).setSupportsChangeAnimations(false);
+        payTypeEntities = new ArrayList<>();
+        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_weixin,"微信支付"));
+        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_alipay,"支付宝"));
+//        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_weixin,"微信支付"));
+
+        RecyclerAdapterHelper<PayTypeEntity> mHelper = new RecyclerAdapterHelper<>(payTypeRecycler);
+        mHelper.addLinearLayoutManager()
+                .addDividerItemDecoration(DividerItemDecoration.VERTICAL)
+                .addCommonAdapter(R.layout.item_payment_type, payTypeEntities, new RecyclerAdapterHelper.CommonConvert<PayTypeEntity>() {
+            @Override
+            public void convert(CommonViewHolder holder, PayTypeEntity mData, final int position) {
+                ImageView payImage = holder.findView(R.id.payImage);
+                String tag = mData.getPayImageRes()+"";
+                if (!tag.equals(payImage.getTag())){
+                    payImage.setTag(mData.getPayImageRes()+"");
+                    payImage.setImageResource(mData.getPayImageRes());
+                }
+
+                holder.setText(R.id.payName,mData.getPayName());
+                CheckBox checkBox = holder.findView(R.id.checkbox);
+                checkBox.setChecked(mData.isChecked());
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for (int i = 0; i < payTypeEntities.size(); i++){
+                            PayTypeEntity entity = payTypeEntities.get(i);
+                            if (position == i){
+                                entity.setChecked(true);
+                            } else {
+                                entity.setChecked(false);
+                            }
+                        }
+                        //局部刷新
+                        payTypeRecycler.getAdapter().notifyDataSetChanged();
+                    }
+                });
+            }
+        }).create();
+
+        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<PayTypeEntity>() {
+            @Override
+            public void onItemClick(CommonViewHolder holder, PayTypeEntity data, int position) {
+                for (int i = 0; i < payTypeEntities.size(); i++){
+                    PayTypeEntity entity = payTypeEntities.get(i);
+                    if (position == i){
+                        entity.setChecked(true);
+                    } else {
+                        entity.setChecked(false);
+                    }
+                }
+                //局部刷新
+                payTypeRecycler.getAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            public boolean onItemLongClick(CommonViewHolder holder, PayTypeEntity data, int position) {
+                return false;
+            }
+
+        });
+    }
+
+    /**
+     * 获取选中的支付方式
+     * @return
+     */
+    private int getPayTypePosition(){
+        int position = -1;
+        for (int i = 0; i < payTypeEntities.size(); i++){
+            PayTypeEntity entity = payTypeEntities.get(i);
+            if (entity.isChecked()){
+                position = i;
+                break;
+            }
+        }
+        return position;
+    }
+
 
 
     /**
@@ -149,7 +213,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
         totalPersonNum = getIntent().getIntExtra("personNum",1);
         personNum = totalPersonNum;
         totalPrice = (float) (mServiceDto.getPrice() * personNum);
-        tvAmount.setText(totalPrice + "元");
+        tvAmount.setText(totalPrice + "");
 
 
         LinearLayout llTicket = mViewManager.findView(R.id.ll_ticket);
@@ -232,39 +296,39 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
 
     }
 
-    @OnCheckedChanged({R.id.cb_balance, R.id.cb_weichat, R.id.cb_alipay, R.id.cb_bank})
-    public void  choosePaymentType(CompoundButton buttonView, boolean isChecked){
-        if (isChecked){
-            switch (buttonView.getId()){
-                case R.id.cb_balance:
-                    refreshPaymentType(0);
-                    break;
-                case R.id.cb_weichat:
-                    refreshPaymentType(1);
-                    break;
-                case R.id.cb_alipay:
-                    refreshPaymentType(2);
-                    break;
-                case R.id.cb_bank:
-                    refreshPaymentType(3);
-                    break;
-            }
-        }
-
-    }
-    private void refreshPaymentType(int position){
-        for (int i = 0; i < paymentTypes.length; i++){
-            if (position == i){
-                paymentTypes[i] = true;
-            } else {
-                paymentTypes[i] = false;
-            }
-        }
-        cbBalance.setChecked(paymentTypes[0]);
-        cbWeiChat.setChecked(paymentTypes[1]);
-        cbAlipay.setChecked(paymentTypes[2]);
-        cbBank.setChecked(paymentTypes[3]);
-    }
+//    @OnCheckedChanged({R.id.cb_balance, R.id.cb_weichat, R.id.cb_alipay, R.id.cb_bank})
+//    public void  choosePaymentType(CompoundButton buttonView, boolean isChecked){
+//        if (isChecked){
+//            switch (buttonView.getId()){
+//                case R.id.cb_balance:
+//                    refreshPaymentType(0);
+//                    break;
+//                case R.id.cb_weichat:
+//                    refreshPaymentType(1);
+//                    break;
+//                case R.id.cb_alipay:
+//                    refreshPaymentType(2);
+//                    break;
+//                case R.id.cb_bank:
+//                    refreshPaymentType(3);
+//                    break;
+//            }
+//        }
+//
+//    }
+//    private void refreshPaymentType(int position){
+//        for (int i = 0; i < paymentTypes.length; i++){
+//            if (position == i){
+//                paymentTypes[i] = true;
+//            } else {
+//                paymentTypes[i] = false;
+//            }
+//        }
+//        cbBalance.setChecked(paymentTypes[0]);
+//        cbWeiChat.setChecked(paymentTypes[1]);
+//        cbAlipay.setChecked(paymentTypes[2]);
+//        cbBank.setChecked(paymentTypes[3]);
+//    }
 
     @OnClick(R.id.btn_to_pay)
     public void toPay(View view){
@@ -280,27 +344,22 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
             getPresenter().applyScenicAction(mServiceDto.getId(),totalPersonNum+"",startDate,"",totalPrice+"",ticketNos.toString());
             return;
         }
-        int position = -1;
-        for (int i = 0; i < paymentTypes.length; i++){
-            if (paymentTypes[i]){
-                position = i;
-            }
-        }
-        switch (position){
-            case 0://余额
+
+        switch (getPayTypePosition()){
+            case 0://微信
+                getPresenter().getWeiChatParams(mPayOrderDto.getPayNumber());
+                break;
+            case 1://支付宝
+//                AlipayUtils
+                getPresenter().getAliPayOrder(mPayOrderDto.getPayNumber());
+                break;
+            case 2://余额
                 DialogUtils.showDefaultAlertDialog("是否使用余额支付？", new DialogUtils.ClickListener() {
                     @Override
                     public void clickConfirm() {
                         getPresenter().payBalance(mPayOrderDto.getPayNumber());
                     }
                 });
-                break;
-            case 1://微信
-                getPresenter().getWeiChatParams(mPayOrderDto.getPayNumber());
-                break;
-            case 2://支付宝
-//                AlipayUtils
-                getPresenter().getAliPayOrder(mPayOrderDto.getPayNumber());
                 break;
             case 3://银行卡
                 break;
@@ -371,7 +430,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
 
     @Override
     public void showUserBalance(UserBalanceDto userBalanceDto) {
-        tvBalanceIntro.setText("您的可用余额是" + userBalanceDto.getBalance() + "元");
+//        tvBalanceIntro.setText("您的可用余额是" + userBalanceDto.getBalance() + "元");
     }
 
     @Override
@@ -381,27 +440,22 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
             paySuccess(false);
             return;
         }
-        int position = -1;
-        for (int i = 0; i < paymentTypes.length; i++){
-            if (paymentTypes[i]){
-                position = i;
-            }
-        }
-        switch (position){
-            case 0://余额
+
+        switch (getPayTypePosition()){
+            case 0://微信
+                getPresenter().getWeiChatParams(mPayOrderDto.getPayNumber());
+                break;
+            case 1://支付宝
+//                AlipayUtils
+                getPresenter().getAliPayOrder(mPayOrderDto.getPayNumber());
+                break;
+            case 2://余额
                 DialogUtils.showDefaultAlertDialog("是否使用余额支付？", new DialogUtils.ClickListener() {
                     @Override
                     public void clickConfirm() {
                         getPresenter().payBalance(mPayOrderDto.getPayNumber());
                     }
                 });
-                break;
-            case 1://微信
-                getPresenter().getWeiChatParams(mPayOrderDto.getPayNumber());
-                break;
-            case 2://支付宝
-//                AlipayUtils
-                getPresenter().getAliPayOrder(mPayOrderDto.getPayNumber());
                 break;
             case 3://银行卡
                 break;

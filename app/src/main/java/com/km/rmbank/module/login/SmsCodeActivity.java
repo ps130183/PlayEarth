@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.dalimao.corelibrary.VerificationCodeInput;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
+import com.km.rmbank.customview.VerificationCodeInput;
 import com.km.rmbank.dto.UserLoginDto;
 import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.mvp.model.LoginModel;

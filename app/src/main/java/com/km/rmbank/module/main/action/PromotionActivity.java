@@ -1,9 +1,7 @@
 package com.km.rmbank.module.main.action;
 
-import android.app.Dialog;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,14 +21,11 @@ import com.km.rmbank.dto.MemberDto;
 import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.dto.ShareDto;
 import com.km.rmbank.module.main.payment.PaymentActivity;
-import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
 import com.km.rmbank.mvp.model.MemberModel;
 import com.km.rmbank.mvp.presenter.MemberPresenter;
 import com.km.rmbank.mvp.view.IMemberView;
 import com.km.rmbank.retrofit.ApiConstant;
-import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.km.rmbank.utils.animator.AnimatorViewWrapper;
@@ -119,7 +114,7 @@ public class PromotionActivity extends BaseActivity<IMemberView,MemberPresenter>
                         RadioButton rbtnCheck = holder.findView(R.id.rbtnCheck);
 
                         memberName.setText(mData.getMemberName());
-                        introduce.setText(mData.getMemberRecommend());
+                        introduce.setText(mData.getSmemberRecommend());
 
                         rbtnCheck.setChecked(mData.isChecked());
 

@@ -11,7 +11,7 @@ public class MemberDto {
      * memberId : 2
      * memberMoney : 2000
      * memberName : 玩家合伙人
-     * memberRecommend : 这里有你需要的
+     * smemberRecommend : 这里有你需要的
      快过来吧
      我们能给你很多好玩的
      和好吃的
@@ -22,7 +22,7 @@ public class MemberDto {
     private String memberId;
     private String memberMoney;
     private String memberName;
-    private String memberRecommend;
+    private String smemberRecommend;
     private String scene;
 
     private boolean isChecked = false;
@@ -59,12 +59,12 @@ public class MemberDto {
         this.memberName = memberName;
     }
 
-    public String getMemberRecommend() {
-        return memberRecommend;
+    public String getSmemberRecommend() {
+        return smemberRecommend;
     }
 
-    public void setMemberRecommend(String memberRecommend) {
-        this.memberRecommend = memberRecommend;
+    public void setSmemberRecommend(String smemberRecommend) {
+        this.smemberRecommend = smemberRecommend;
     }
 
     public String getScene() {

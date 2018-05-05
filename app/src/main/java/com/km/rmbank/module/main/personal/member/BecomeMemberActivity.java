@@ -1,77 +1,48 @@
 package com.km.rmbank.module.main.personal.member;
 
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ConvertUtils;
 import com.km.rmbank.R;
+import com.km.rmbank.adapter.ViewPagerTabAdapter;
 import com.km.rmbank.base.BaseActivity;
-import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.MemberDto;
 import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.module.main.payment.PaymentActivity;
+import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.mvp.model.MemberModel;
 import com.km.rmbank.mvp.presenter.MemberPresenter;
 import com.km.rmbank.mvp.view.IMemberView;
-import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.SystemBarHelper;
-import com.km.rmbank.utils.animator.AnimatorViewWrapper;
-import com.km.rmbank.utils.animator.ShowViewAnimator;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.ps.commonadapter.adapter.CommonViewHolder;
-import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
+import com.zhy.magicviewpager.transformer.ScaleInTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class BecomeMemberActivity extends BaseActivity<IMemberView,MemberPresenter> implements IMemberView {
 
-    @BindView(R.id.webView)
-    WebView webView;
+    @BindView(R.id.memberIntroduce)
+    WebView memberIntroduce;
+    private List<MemberDto> mMemberDtos;
+    private int curMemberPosition = 0;
 
-    @BindView(R.id.memberRecycler)
-    RecyclerView memberRecycler;
-    private List<MemberDto> memberList;
-
-    @BindView(R.id.rlDialog)
-    RelativeLayout rlDialog;
-
-    @BindView(R.id.rlMember)
-    RelativeLayout rlMember;
-    private int memberType = -1;
-
+    @BindView(R.id.btn_confirm)
+    TextView btnConfirm;
     @Override
     public int getContentViewRes() {
         return R.layout.activity_become_member;
     }
 
     @Override
-    public BaseTitleBar getBaseTitleBar() {
-        return null;
-    }
-
-    @Override
-    public boolean statusBarTextColorIsDark() {
-        return false;
+    public String getTitleContent() {
+        return Constant.userInfo.getName();
     }
 
     @Override
@@ -81,98 +52,73 @@ public class BecomeMemberActivity extends BaseActivity<IMemberView,MemberPresent
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
-        memberType = getIntent().getIntExtra("memberType",-1);
-        SystemBarHelper.immersiveStatusBar(this);
-        int statusBarHeight = SystemBarHelper.getStatusBarHeight(mInstance);
-        Toolbar toolbar = mViewManager.findView(R.id.toolBar);
-        toolbar.setPadding(0, statusBarHeight, 0, 0);
-        toolbar.getLayoutParams().height = ConvertUtils.dp2px(48) + statusBarHeight;
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mViewManager.setText(R.id.userName, Constant.userInfo.getName());
-        webView.loadUrl(ApiConstant.API_BASE_URL + ApiConstant.API_MODEL + "/memberExample");
-        initRecycler();
-
-        initDialog();
-    }
-
-    private void initRecycler(){
-        memberList = new ArrayList<>();
-
-        RecyclerAdapterHelper<MemberDto> mHelper = new RecyclerAdapterHelper<>(memberRecycler);
-        mHelper.addLinearLayoutManager()
-                .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
-                .addCommonAdapter(R.layout.item_member, memberList, new RecyclerAdapterHelper.CommonConvert<MemberDto>() {
-            @Override
-            public void convert(CommonViewHolder holder, MemberDto mData, final int position) {
-                TextView memberName = holder.getTextView(R.id.memberName);
-                TextView introduce = holder.getTextView(R.id.introduce);
-                RadioButton rbtnCheck = holder.findView(R.id.rbtnCheck);
-
-                memberName.setText(mData.getMemberName());
-                introduce.setText(mData.getMemberRecommend());
-
-                rbtnCheck.setChecked(mData.isChecked());
-
-                rbtnCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            checkMember(position);
-                        }
-                    }
-                });
-
-            }
-        }).create();
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<MemberDto>() {
-            @Override
-            public void onItemClick(CommonViewHolder holder, MemberDto data, int position) {
-                checkMember(position);
-            }
-
-            @Override
-            public boolean onItemLongClick(CommonViewHolder holder, MemberDto data, int position) {
-                return false;
-            }
-        });
         getPresenter().getMemberList();
     }
 
-    private void checkMember(int position){
-        for (int i = 0; i < memberList.size(); i++){
-            MemberDto memberDto = memberList.get(i);
-            memberDto.setChecked(false);
-            if (i == position){
-                memberDto.setChecked(true);
+
+    private void initViewPager(final List<MemberDto> memberDtos){
+        this.mMemberDtos = memberDtos;
+        List<Fragment> fragmentList = new ArrayList<>();
+
+        for (MemberDto memberDto : memberDtos){
+            Bundle bundle = new Bundle();
+            if ("2".equals(memberDto.getMemberId())){
+                bundle.putInt("imageRes",R.drawable.member_type_2);
+            } else {
+                bundle.putInt("imageRes",R.drawable.member_type_1);
             }
+            fragmentList.add(MemberTypeFragment.newInstance(bundle));
         }
-        new Handler().post(new Runnable() {
+
+        ViewPager viewPager = mViewManager.findView(R.id.viewPager);
+        viewPager.setPageMargin(20);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setPageTransformer(true,new ScaleInTransformer());
+        ViewPagerTabAdapter adapter = new ViewPagerTabAdapter(getSupportFragmentManager(),fragmentList,null);
+        viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void run() {
-                memberRecycler.getAdapter().notifyDataSetChanged();
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                showMemberIntroduce(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
+        showMemberIntroduce(0);
+    }
 
+    private void showMemberIntroduce(int position){
+        if (mMemberDtos == null){
+            return;
+        }
+        curMemberPosition = position;
+        MemberDto memberDto = mMemberDtos.get(position);
+        memberIntroduce.loadData(memberDto.getSmemberRecommend(),"text/html; charset=UTF-8", null);
+
+        if ("1".equals(Constant.userInfo.getRoleId())){//俱乐部合伙人
+            btnConfirm.setText("您已开通俱乐部合伙人");
+            btnConfirm.setEnabled(false);
+        } else if ("2".equals(Constant.userInfo.getRoleId())){//玩家合伙人
+            btnConfirm.setText("您已开通玩家合伙人");
+            btnConfirm.setEnabled(false);
+        } else if ("4".equals(Constant.userInfo.getRoleId())) {//普通用户
+            btnConfirm.setText("立即开通");
+            btnConfirm.setEnabled(true);
+        }
     }
 
     @Override
     public void showMemberList(List<MemberDto> memberDtos) {
-        memberList.addAll(memberDtos);
-        memberRecycler.getAdapter().notifyDataSetChanged();
-        if (memberType > 0){
-            openDialog();
-            for (MemberDto memberDto : memberDtos){
-                if (memberDto.getMemberId().equals("8")){
-                    memberDto.setChecked(true);
-                    break;
-                }
-            }
-        }
+        initViewPager(memberDtos);
     }
 
     @Override
@@ -188,83 +134,20 @@ public class BecomeMemberActivity extends BaseActivity<IMemberView,MemberPresent
         startActivity(PaymentActivity.class,bundle);
     }
 
-    private AnimatorViewWrapper animatorViewWrapper;
-    private int height;
-    private void initDialog(){
-        animatorViewWrapper = new AnimatorViewWrapper(rlMember);
-        height = animatorViewWrapper.getHeight();
-        rlDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeDialog();
-            }
-        });
-    }
-
-
-    @OnClick(R.id.btn_open)
-    public void clickOpne(View view){
-        openDialog();
-    }
-
-    @OnClick(R.id.close)
-    public void clickClose(View view){
-        closeDialog();
-    }
-    private void openDialog(){
-        ObjectAnimator animator = ObjectAnimator.ofInt(animatorViewWrapper,"height",0,height);
-        animator.setDuration(300);
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                rlDialog.setVisibility(View.VISIBLE);
-            }
-        });
-        animator.start();
-    }
-
-    private void closeDialog(){
-        ObjectAnimator animator = ObjectAnimator.ofInt(animatorViewWrapper,"height",height,0);
-        animator.setDuration(300);
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                rlDialog.setVisibility(View.GONE);
-            }
-        });
-        animator.start();
-    }
-
     /**
-     * 获取选中的会员
-     * @return
-     */
-    private MemberDto getCurCheckedMember(){
-        MemberDto memberDto = null;
-
-        for (MemberDto memberDto1 : memberList){
-            if (memberDto1.isChecked()){
-                memberDto = memberDto1;
-            }
-        }
-
-        return memberDto;
-    }
-
-    /**
-     * 立即开通会员
+     * 实名认证
      * @param view
      */
-    @OnClick(R.id.btn_become)
-    public void become(View view){
-        MemberDto memberDto = getCurCheckedMember();
-        if (memberDto == null){
-            showToast("请选择会员类型");
-            return;
-        }
-        getPresenter().createPayOrder(memberDto.getMemberMoney(),memberDto.getMemberId());
+    public void certifyIDCard(View view) {
+        startActivity(CertifyRulesActivity.class);
     }
 
-
-
+    /**
+     * 立即开通
+     * @param view
+     */
+    public void confirmToPay(View view) {
+        MemberDto memberDto = mMemberDtos.get(curMemberPosition);
+        getPresenter().createPayOrder(memberDto.getMemberMoney(),memberDto.getMemberId());
+    }
 }

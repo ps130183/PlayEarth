@@ -83,8 +83,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:support-v4:27.0.2'
+    implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation rootProject.ext.dependencies["androidTestImplementation-runner"]
     androidTestImplementation rootProject.ext.dependencies["androidTestImplementation-espresso-core"]
@@ -129,6 +128,7 @@ dependencies {
     implementation rootProject.ext.dependencies["jcore"]
     implementation rootProject.ext.dependencies["marqueelibrary"]
     implementation rootProject.ext.dependencies["jpinyin"]
+    implementation rootProject.ext.dependencies["magic-viewpager"]
     //    implementation rootProject.ext.dependencies["VerificationCodeInput"]
     implementation project(':banner')
     implementation project(':commonadapter')
@@ -152,5 +152,4 @@ dependencies {
     //    implementation files('libs/IndoorscapeAlbumPlugin.jar')
     implementation project(':photoedit')
     implementation project(':identify')
-    implementation project(':corelibrary')
 }

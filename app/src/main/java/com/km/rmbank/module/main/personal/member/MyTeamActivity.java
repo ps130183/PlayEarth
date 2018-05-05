@@ -37,7 +37,7 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setTitleContent("我的团队");
+        simpleTitleBar.setTitleContent("我的人脉");
     }
 
     @Override

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/viewSpace32"
+    android:paddingRight="@dimen/viewSpace16"
+    android:paddingTop="@dimen/viewSpace4"
+    android:paddingBottom="@dimen/viewSpace4"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/payImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/icon_pay_weixin"
+        android:layout_marginRight="@dimen/viewSpace8"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:id="@+id/payName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="微信支付"
+        android:textSize="@dimen/textSizeContent"
+        android:textColor="@color/text_color_block1"
+        android:layout_toRightOf="@+id/payImage"
+        android:layout_centerVertical="true"
+        />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/check_personal_contacts"
+        android:layout_alignParentRight="true"
+        />
+</RelativeLayout>

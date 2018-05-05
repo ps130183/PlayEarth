@@ -1,155 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.km.rmbank.module.main.personal.member.BecomeMemberActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_above="@+id/btn_confirm">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/certifyIDCard"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-            <ImageView
+            android:layout_height="wrap_content"
+            android:text="@string/certifyIDCardHint"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeContent"
+            android:paddingLeft="@dimen/viewSpace16"
+            android:paddingRight="@dimen/viewSpace16"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:background="#f91413"
+            android:onClick="certifyIDCard"
+            />
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@mipmap/bg_become_member"
-                android:scaleType="centerCrop"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="宋小宝"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-                android:layout_centerInParent="true"
-                />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:clipChildren="false"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="20dp"
+                    >
+                    <android.support.v4.view.ViewPager
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="33dp"
+                        android:clipChildren="false"
+                        android:layout_marginRight="33dp"
+                        android:layout_height="180dp"
+                        android:layout_gravity="center"
+                        >
+                    </android.support.v4.view.ViewPager>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/userName"
-                android:layout_centerHorizontal="true">
-                <TextView
-                    android:id="@+id/hint"
-                    android:layout_width="wrap_content"
+                </FrameLayout>
+
+
+                <WebView
+                    android:id="@+id/memberIntroduce"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="成为合伙人和我们一起玩转地球"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="#704032"
-                    android:layout_marginRight="@dimen/viewSpace8"
+                    android:layout_marginTop="@dimen/viewSpace16"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
                     />
-                <Button
-                    android:id="@+id/btn_open"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:text="开通"
-                    android:textColor="#704032"
-                    android:background="#fcffca"
-                    android:layout_toRightOf="@+id/hint"/>
-            </RelativeLayout>
+            </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolBar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolBarHeight"
-                android:paddingLeft="@dimen/viewSpace8"
-                app:navigationIcon="@mipmap/icon_back_white_member">
-
-            </android.support.v7.widget.Toolbar>
-        </RelativeLayout>
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/viewSpace8">
-
-        </WebView>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlDialog"
+
+
+    <TextView
+        android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#64000000"
-        android:visibility="gone">
+        android:layout_height="@dimen/toolBarHeight"
+        android:text="立即开通"
+        android:textSize="@dimen/textSizeHuge"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/shape_become_member_btn_background"
+        android:layout_alignParentBottom="true"
+        android:onClick="confirmToPay"
+        />
 
-        <ImageView
-            android:id="@+id/close"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/icon_close"
-            android:layout_above="@+id/rlMember"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/viewSpace16"
-            />
-
-        <RelativeLayout
-            android:id="@+id/rlMember"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/white"
-            android:layout_alignParentBottom="true">
-
-            <TextView
-                android:id="@+id/tv_about_wzdq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="关于玩转地球  |  服务协议与续费规则"
-                android:gravity="center"
-                android:layout_alignParentBottom="true"
-                android:padding="@dimen/viewSpace4"
-                />
-
-            <Button
-                android:id="@+id/btn_become"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffcf00"
-                android:layout_marginLeft="@dimen/viewSpace64"
-                android:layout_marginRight="@dimen/viewSpace64"
-                android:layout_above="@+id/tv_about_wzdq"
-                android:text="立即开通"
-                android:textColor="#704032"/>
-
-            <com.ruffian.library.RTextView
-                android:id="@+id/joinMe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="加入我们"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                app:icon_src_normal="@mipmap/icon_member_join_our"
-                app:icon_width="40dp"
-                app:icon_height="40dp"
-                android:padding="@dimen/viewSpace8"
-                />
-            <include
-                android:id="@+id/line"
-                layout="@layout/_default_divide_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divideLineHeight"
-                android:layout_below="@+id/joinMe"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/memberRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/line"
-                android:layout_above="@+id/btn_become">
-
-            </android.support.v7.widget.RecyclerView>
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-
-</FrameLayout>
+</RelativeLayout>

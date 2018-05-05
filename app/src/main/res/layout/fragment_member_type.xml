@@ -1,0 +1,25 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.km.rmbank.module.main.personal.member.MemberTypeFragment">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:cardBackgroundColor="#00ffffff"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="@dimen/viewSpace8"
+        app:cardElevation="5dp">
+        <com.ps.glidelib.GlideImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:siv_radius="10dp"
+            />
+    </android.support.v7.widget.CardView>
+
+
+
+</FrameLayout>

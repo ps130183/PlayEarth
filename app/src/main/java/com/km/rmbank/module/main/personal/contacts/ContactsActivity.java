@@ -18,6 +18,7 @@ import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.customview.LetterSideBar;
 import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.module.main.payment.PayContractsActivity;
+import com.km.rmbank.module.main.payment.PaymentActivity;
 import com.km.rmbank.mvp.model.ContactsModel;
 import com.km.rmbank.mvp.presenter.ContractsPresenter;
 import com.km.rmbank.mvp.view.ContractsView;
@@ -404,7 +405,7 @@ public class ContactsActivity extends BaseActivity<ContractsView,ContractsPresen
         } else {
 //            List<ContractDto> contractDtos = getInvitationContracts();
 //            showToast("当前邀请人数为：" + contractDtos.size() + "人");
-            startActivity(PayContractsActivity.class);
+            startActivity(PaymentActivity.class);
         }
     }
 }

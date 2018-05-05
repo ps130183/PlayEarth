@@ -238,7 +238,6 @@
         <activity android:name=".module.main.payment.PayContractsActivity" />
         <activity android:name=".module.realname.IdentityVerificationActivity" />
         <activity android:name=".module.main.experience.ExperienceOfficerActivity" />
-        <activity android:name=".module.main.experience.ExperienceOfficerSahreActivity" />
         <activity android:name=".module.main.card.UserNewCardActivity" />
         <activity android:name=".module.main.card.CreateNewUserCardActivity" />
         <activity android:name=".module.main.card.EditUserInfoActivity" />
@@ -249,7 +248,7 @@
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <activity android:name=".module.realname.IDCardHandActivity" />
         <activity android:name=".module.realname.CertifyRulesActivity" />
-        <activity android:name=".module.realname.CertifyCheckActivity"></activity>
+        <activity android:name=".module.realname.CertifyCheckActivity" />
     </application>
 
 </manifest>

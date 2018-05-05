@@ -19,7 +19,7 @@
         android:textSize="@dimen/textSizeBig"
         />
 
-    <com.dalimao.corelibrary.VerificationCodeInput
+    <com.km.rmbank.customview.VerificationCodeInput
         android:id="@+id/vertificationCodeInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
