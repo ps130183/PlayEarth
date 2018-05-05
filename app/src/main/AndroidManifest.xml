@@ -189,7 +189,8 @@
         <activity android:name=".module.main.personal.order.MyOrderActivity" />
         <activity android:name=".module.main.personal.order.OrderDetailsActivity" />
         <activity android:name=".module.main.personal.order.GoodsEvaluateActivity" />
-        <activity android:name=".module.main.personal.member.MyTeamActivity" />
+        <activity android:name=".module.main.personal.member.MyTeamActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".module.main.personal.member.club.ClubActivity" />
         <activity android:name=".module.main.personal.member.goodsmanager.GoodsManagerActivity" />
         <activity
@@ -235,7 +236,6 @@
         <activity android:name=".module.main.fragment.home.CircleFriendsActivity" />
         <activity android:name=".module.main.personal.hpage.PersonalHomePageActivity" />
         <activity android:name=".module.main.personal.contacts.ContactsActivity" />
-        <activity android:name=".module.main.payment.PayContractsActivity" />
         <activity android:name=".module.realname.IdentityVerificationActivity" />
         <activity android:name=".module.main.experience.ExperienceOfficerActivity" />
         <activity android:name=".module.main.card.UserNewCardActivity" />
@@ -249,6 +249,7 @@
         <activity android:name=".module.realname.IDCardHandActivity" />
         <activity android:name=".module.realname.CertifyRulesActivity" />
         <activity android:name=".module.realname.CertifyCheckActivity" />
+        <activity android:name=".module.main.payment.PayContractsOrderSuccessActivity"/>
     </application>
 
 </manifest>

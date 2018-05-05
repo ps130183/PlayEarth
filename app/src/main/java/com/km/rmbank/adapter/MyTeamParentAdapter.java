@@ -49,7 +49,7 @@ public class MyTeamParentAdapter extends BaseAdapter<MyTeamDto> implements BaseA
                 }
             }
         });
-        holder.tvMemberNumber.setText(teamEntity.getNum()+"人");
+        holder.tvMemberNumber.setText(teamEntity.getNum()+"");
     }
 
     class ViewHolder extends BaseViewHolder {
@@ -74,7 +74,7 @@ public class MyTeamParentAdapter extends BaseAdapter<MyTeamDto> implements BaseA
 
         private void initMember(){
             RVUtils.setLinearLayoutManage(rvMember, LinearLayoutManager.VERTICAL);
-            RVUtils.addDivideItemForRv(rvMember,RVUtils.DIVIDER_COLOR_ACCOUNT_DETAILS,2);
+            RVUtils.addDivideItemForRv(rvMember,RVUtils.DIVIDER_COLOR_DEFAULT,1);
             teamMemberAdapter = new TeamMemberAdapter(mContext);
             rvMember.setAdapter(teamMemberAdapter);
             rvMember.setVisibility(View.GONE);

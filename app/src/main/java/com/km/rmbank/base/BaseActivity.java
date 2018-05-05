@@ -78,7 +78,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     private ProxyPresenter<P> proxyPresenter;
 
-    private DialogLoading dialogLoading;
+    protected DialogLoading dialogLoading;
 
 
     protected XRefreshView mXRefreshView;

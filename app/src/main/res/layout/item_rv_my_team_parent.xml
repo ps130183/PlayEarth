@@ -8,25 +8,37 @@
     <RelativeLayout
         android:id="@+id/rl_team"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="44dp">
 
         <TextView
             android:id="@+id/tv_team_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已邀请合伙人"
-            android:textSize="@dimen/textSizeHuge"
-            android:textColor="@color/textMainColor"
+            android:textSize="15sp"
+            android:textColor="@color/text_color_block1"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/viewSpace32"
+            android:layout_marginLeft="@dimen/viewSpace16"
             />
 
         <TextView
             android:id="@+id/tv_member_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="21人"
-            android:textSize="@dimen/textSizeContent"
+            android:text="21"
+            android:textSize="15sp"
+            android:textColor="@color/colorAccent"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_member_number_nuit"
+            />
+
+        <TextView
+            android:id="@+id/tv_member_number_nuit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="人"
+            android:textSize="15sp"
+            android:textColor="@color/text_color_block1"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/viewSpace16"
@@ -41,7 +53,8 @@
         android:id="@+id/rv_member"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/viewSpace32">
+        android:background="@color/white"
+        android:paddingLeft="@dimen/viewSpace16">
 
     </android.support.v7.widget.RecyclerView>
 

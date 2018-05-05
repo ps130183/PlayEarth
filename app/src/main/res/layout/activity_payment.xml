@@ -11,12 +11,27 @@
         android:orientation="vertical"
         tools:context=".module.main.payment.PaymentActivity">
 
+        <TextView
+            android:id="@+id/peopleNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/viewSpace16"
+            android:text="本次邀请人脉数 2 个"
+            android:visibility="gone"/>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
         <LinearLayout
-            style="@style/BackGauge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
+            android:paddingTop="@dimen/viewSpace16"
+            android:paddingLeft="@dimen/viewSpace16"
+            android:paddingBottom="@dimen/viewSpace16"
             android:paddingRight="@dimen/viewSpace16">
 
             <TextView
@@ -47,13 +62,15 @@
                     android:textSize="29sp"
                     />
             </LinearLayout>
+
+
         </LinearLayout>
 
-        <View
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/divideLineHeight"
-            android:background="@color/divideLineColor" />
-
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:src="@drawable/pay_money_bottom"/>
 
         <TextView
             android:layout_width="match_parent"

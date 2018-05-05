@@ -2,6 +2,7 @@ package com.km.rmbank.mvp.model;
 
 import com.google.gson.Gson;
 import com.km.rmbank.dto.ContractDto;
+import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.mvp.base.BaseModel;
 import com.km.rmbank.utils.Constant;
 
@@ -24,5 +25,16 @@ public class ContactsModel extends BaseModel {
         Gson gson = new Gson();
         return getService().getContracts(Constant.userLoginInfo.getToken(),gson.toJson(contractDtoList))
                 .compose(this.<List<ContractDto>>applySchedulers());
+    }
+
+    /**
+     * 获取绑定通讯录 人员的 订单
+     * @param phones
+     * @return
+     */
+    public Observable<PayOrderDto> getContactsPayOrder(List<String> phones){
+        Gson gson = new Gson();
+        return getService().getContactsPayOrder(Constant.userLoginInfo.getToken(),gson.toJson(phones))
+                .compose(this.<PayOrderDto>applySchedulers());
     }
 }

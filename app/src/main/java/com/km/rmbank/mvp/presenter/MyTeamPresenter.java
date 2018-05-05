@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.presenter;
 
+import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.MyTeamDto;
 import com.km.rmbank.dto.UserCardDto;
 import com.km.rmbank.dto.UserInfoDto;
@@ -7,10 +8,14 @@ import com.km.rmbank.mvp.base.BasePresenter;
 import com.km.rmbank.mvp.model.MyTeamModel;
 import com.km.rmbank.mvp.view.IMyTeamView;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by PengSong on 18/1/24.
@@ -41,6 +46,29 @@ public class MyTeamPresenter extends BasePresenter<IMyTeamView,MyTeamModel> {
                     @Override
                     public void accept(UserInfoDto userCardDto) throws Exception {
                         getMvpView().showUserCard(userCardDto);
+                    }
+                }));
+    }
+
+    public void getContracts(List<ContractDto> contractDtoList){
+        getMvpModel().getAllContracts(contractDtoList)
+                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(newSubscriber(new Consumer<List<ContractDto>>() {
+                    @Override
+                    public void accept(List<ContractDto> contractDtoList) throws Exception {
+                        List<ContractDto> contractDtos = new ArrayList<>();
+                        List<ContractDto> linkManDtos = new ArrayList<>();
+
+                        for (ContractDto contractDto : contractDtoList){
+                            if ("0".equals(contractDto.getStatus())){//没绑定
+                                contractDto.setChecked(true);
+                                linkManDtos.add(contractDto);
+                            } else {
+                                contractDtos.add(contractDto);
+                            }
+                        }
+                        getMvpView().showContracts(contractDtos,linkManDtos);
                     }
                 }));
     }

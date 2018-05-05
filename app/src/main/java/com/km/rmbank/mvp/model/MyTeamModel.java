@@ -1,5 +1,7 @@
 package com.km.rmbank.mvp.model;
 
+import com.google.gson.Gson;
+import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.MyTeamDto;
 import com.km.rmbank.dto.UserCardDto;
 import com.km.rmbank.dto.UserInfoDto;
@@ -33,5 +35,16 @@ public class MyTeamModel extends BaseModel {
     public Observable<UserInfoDto> getUserCardById(String userId){
         return getService().getUserCardById(Constant.userLoginInfo.getToken(),userId)
                 .compose(this.<UserInfoDto>applySchedulers());
+    }
+
+    /**
+     * 提交本地手机联系人信息，跟后台比对以后 返回 相应的状态，绑定、未绑定
+     * @param contractDtoList
+     * @return
+     */
+    public Observable<List<ContractDto>> getAllContracts(List<ContractDto> contractDtoList){
+        Gson gson = new Gson();
+        return getService().getContracts(Constant.userLoginInfo.getToken(),gson.toJson(contractDtoList))
+                .compose(this.<List<ContractDto>>applySchedulers());
     }
 }

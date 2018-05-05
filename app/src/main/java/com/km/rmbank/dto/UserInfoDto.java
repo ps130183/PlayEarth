@@ -64,7 +64,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
 
     private String ticketCount;
 
-    private int status;//0：未验证，1：验证中，2：通过，3：失败
+    private int status;//实名认证  0：未验证，1：验证中，2：通过，3：失败
     private int type;//2:商家
 
     public String getTotal() {

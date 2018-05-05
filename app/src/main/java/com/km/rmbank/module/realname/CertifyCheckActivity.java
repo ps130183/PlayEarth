@@ -4,10 +4,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.module.main.HomeActivity;
+import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
+import com.km.rmbank.utils.Constant;
 
 public class CertifyCheckActivity extends BaseActivity {
 
@@ -30,6 +33,13 @@ public class CertifyCheckActivity extends BaseActivity {
                 return true;
             }
         });
+
+        TextView becomeMember = mViewManager.findView(R.id.becomeMember);
+        if ("4".equals(Constant.userInfo.getRoleId())){
+            becomeMember.setVisibility(View.VISIBLE);
+        } else {
+            becomeMember.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -42,4 +52,11 @@ public class CertifyCheckActivity extends BaseActivity {
         };
     }
 
+    /**
+     * 成为玩家合伙人
+     * @param view
+     */
+    public void becomeMember(View view) {
+        startActivity(BecomeMemberActivity.class);
+    }
 }

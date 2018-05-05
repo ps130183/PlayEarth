@@ -42,4 +42,5 @@
 </string>
 
     <string name="certifyIDCardHint">为保障您的会员权益，需要您先实名认证，去认证 ></string>
+    <string name="memberHint">长期绑定用户，需要您成为玩家合伙人，去成为合伙人 ></string>
 </resources>

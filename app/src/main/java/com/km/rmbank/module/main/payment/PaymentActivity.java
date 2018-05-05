@@ -6,6 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.text.Html;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.CheckBox;
@@ -57,7 +58,12 @@ import butterknife.OnClick;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 
-public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter> implements IPaymentView {
+public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter> implements IPaymentView {
+
+    @BindView(R.id.line)
+    View line;
+    @BindView(R.id.peopleNumber)
+    TextView peopleNumber;
 
     @BindView(R.id.tv_amount)
     TextView tvAmount;
@@ -72,9 +78,10 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     ScenicServiceDto mServiceDto;
     private List<TicketDto> mTicketList;
     private int totalPersonNum;
-    private  int personNum;
+    private int personNum;
     private float totalPrice = 0;
     private SparseArray<String> checkTicketNos;
+
     @Override
     public int getContentViewRes() {
         return R.layout.activity_payment;
@@ -96,17 +103,24 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
         init();
     }
 
-    private void init(){
+    private void init() {
         mPayOrderDto = getIntent().getParcelableExtra("payOrderDto");
-        payType = getIntent().getIntExtra("payType",0);
+        payType = getIntent().getIntExtra("payType", 0);
 
 
-        if (payType == 1){//认证会员支付时，隐藏余额支付 和 积分
+        if (payType == 1) {//认证会员支付时，隐藏余额支付 和 积分
 //            llPayBalance.setVisibility(View.GONE);
             createPayOrderSuccess(mPayOrderDto);
-        } else if (payType == 2){//参加基地活动等  报名
+        } else if (payType == 2) {//参加基地活动等  报名
             initScenicOrder();
-        }else { //商品支付
+        } else if (payType == 3) {//绑定通讯录人员
+            line.setVisibility(View.GONE);
+            peopleNumber.setVisibility(View.VISIBLE);
+            int number = getIntent().getIntExtra("number", 0);
+            String content = "可邀请人脉数  <font color='#3285ff'>" + number + "</font>  个";
+            peopleNumber.setText(Html.fromHtml(content));
+            createPayOrderSuccess(mPayOrderDto);
+        } else { //商品支付
             createPayOrderSuccess(mPayOrderDto);
         }
 
@@ -118,55 +132,58 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     /**
      * 初始化支付方式的列表
      */
-    private void initPayTypeRecycler(){
+    private void initPayTypeRecycler() {
         final RecyclerView payTypeRecycler = mViewManager.findView(R.id.payTypeRecycler);
         //取消item的刷新动画
 //        ((SimpleItemAnimator)payTypeRecycler.getItemAnimator()).setSupportsChangeAnimations(false);
         payTypeEntities = new ArrayList<>();
-        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_weixin,"微信支付"));
-        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_alipay,"支付宝"));
+        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_weixin, "微信支付"));
+        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_alipay, "支付宝"));
+        if (payType == 0 || payType == 2) {
+            payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_yuer, "余额支付"));
+        }
 //        payTypeEntities.add(new PayTypeEntity(R.mipmap.icon_pay_weixin,"微信支付"));
 
         RecyclerAdapterHelper<PayTypeEntity> mHelper = new RecyclerAdapterHelper<>(payTypeRecycler);
         mHelper.addLinearLayoutManager()
                 .addDividerItemDecoration(DividerItemDecoration.VERTICAL)
                 .addCommonAdapter(R.layout.item_payment_type, payTypeEntities, new RecyclerAdapterHelper.CommonConvert<PayTypeEntity>() {
-            @Override
-            public void convert(CommonViewHolder holder, PayTypeEntity mData, final int position) {
-                ImageView payImage = holder.findView(R.id.payImage);
-                String tag = mData.getPayImageRes()+"";
-                if (!tag.equals(payImage.getTag())){
-                    payImage.setTag(mData.getPayImageRes()+"");
-                    payImage.setImageResource(mData.getPayImageRes());
-                }
-
-                holder.setText(R.id.payName,mData.getPayName());
-                CheckBox checkBox = holder.findView(R.id.checkbox);
-                checkBox.setChecked(mData.isChecked());
-                checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        for (int i = 0; i < payTypeEntities.size(); i++){
-                            PayTypeEntity entity = payTypeEntities.get(i);
-                            if (position == i){
-                                entity.setChecked(true);
-                            } else {
-                                entity.setChecked(false);
-                            }
+                    public void convert(CommonViewHolder holder, PayTypeEntity mData, final int position) {
+                        ImageView payImage = holder.findView(R.id.payImage);
+                        String tag = mData.getPayImageRes() + "";
+                        if (!tag.equals(payImage.getTag())) {
+                            payImage.setTag(mData.getPayImageRes() + "");
+                            payImage.setImageResource(mData.getPayImageRes());
                         }
-                        //局部刷新
-                        payTypeRecycler.getAdapter().notifyDataSetChanged();
+
+                        holder.setText(R.id.payName, mData.getPayName());
+                        CheckBox checkBox = holder.findView(R.id.checkbox);
+                        checkBox.setChecked(mData.isChecked());
+                        checkBox.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                for (int i = 0; i < payTypeEntities.size(); i++) {
+                                    PayTypeEntity entity = payTypeEntities.get(i);
+                                    if (position == i) {
+                                        entity.setChecked(true);
+                                    } else {
+                                        entity.setChecked(false);
+                                    }
+                                }
+                                //局部刷新
+                                payTypeRecycler.getAdapter().notifyDataSetChanged();
+                            }
+                        });
                     }
-                });
-            }
-        }).create();
+                }).create();
 
         mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<PayTypeEntity>() {
             @Override
             public void onItemClick(CommonViewHolder holder, PayTypeEntity data, int position) {
-                for (int i = 0; i < payTypeEntities.size(); i++){
+                for (int i = 0; i < payTypeEntities.size(); i++) {
                     PayTypeEntity entity = payTypeEntities.get(i);
-                    if (position == i){
+                    if (position == i) {
                         entity.setChecked(true);
                     } else {
                         entity.setChecked(false);
@@ -186,13 +203,14 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
 
     /**
      * 获取选中的支付方式
+     *
      * @return
      */
-    private int getPayTypePosition(){
+    private int getPayTypePosition() {
         int position = -1;
-        for (int i = 0; i < payTypeEntities.size(); i++){
+        for (int i = 0; i < payTypeEntities.size(); i++) {
             PayTypeEntity entity = payTypeEntities.get(i);
-            if (entity.isChecked()){
+            if (entity.isChecked()) {
                 position = i;
                 break;
             }
@@ -201,16 +219,15 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     }
 
 
-
     /**
      * 初始化基地活动 订单 信息
      */
-    private void initScenicOrder(){
+    private void initScenicOrder() {
         checkTicketNos = new SparseArray<>();
         //优惠券列表
         mTicketList = getIntent().getParcelableArrayListExtra("ticketList");
         mServiceDto = getIntent().getParcelableExtra("scenicService");
-        totalPersonNum = getIntent().getIntExtra("personNum",1);
+        totalPersonNum = getIntent().getIntExtra("personNum", 1);
         personNum = totalPersonNum;
         totalPrice = (float) (mServiceDto.getPrice() * personNum);
         tvAmount.setText(totalPrice + "");
@@ -218,7 +235,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
 
         LinearLayout llTicket = mViewManager.findView(R.id.ll_ticket);
         llTicket.setVisibility(View.VISIBLE);
-        if (mTicketList == null || mTicketList.size() == 0){
+        if (mTicketList == null || mTicketList.size() == 0) {
             llTicket.setVisibility(View.GONE);
         }
         RecyclerView ticketRecycler = mViewManager.findView(R.id.ticketList);
@@ -226,73 +243,73 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
         mHelper.addLinearLayoutManager()
                 .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
                 .addCommonAdapter(R.layout.item_payement_ticket_list, mTicketList, new RecyclerAdapterHelper.CommonConvert<TicketDto>() {
-            @Override
-            public void convert(CommonViewHolder holder, final TicketDto mData, final int position) {
-                GlideImageView imageView = holder.findView(R.id.ticketLogo);
-                CircleProgressView progressView = holder.findView(R.id.progressView);
-                GlideUtils.loadImageOnPregress(imageView,mData.getTicketLogo(),progressView);
-
-                holder.setText(R.id.ticketName,mData.getName());
-                final String type = mData.getType();
-                String num = mData.getNum();
-                TextView ticketContent = holder.findView(R.id.ticketContent);
-                ticketContent.setVisibility(View.VISIBLE);
-                if ("1".equals(type)){//自己用
-                    ticketContent.setText("可用次数：" + num);
-                } else if ("2".equals(type)){//朋友用
-                    ticketContent.setText("可邀请人数：" + num);
-                } else {
-                    ticketContent.setVisibility(View.GONE);
-                }
-
-                holder.setText(R.id.useDate,"优惠券使用期限：" + DateUtils.getInstance().getDateToYMD(mData.getValidateTime()) + "止");
-
-                CheckBox checkBox = holder.findView(R.id.rightCheck);
-                checkBox.setChecked(mData.isChecked());
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked){//选中
-                            if (!mData.isChecked()){
-                                mData.setChecked(true);
-                            }
-                            if ("5".equals(mData.getTicketId())){//自己用
-                                personNum--;
-                            } else if ("6".equals(mData.getTicketId())){//朋友用
-                                if (totalPersonNum == 1){
-                                    mData.setChecked(false);
-                                    return;
-                                }
-                                int num = Integer.parseInt(mData.getNum());
-                                personNum -= totalPersonNum - 1 < num ? totalPersonNum - 1 : num;
-                                if (personNum < 0){
-                                    personNum = 0;
-                                }
-                            }
-                            checkTicketNos.append(position,mData.getTicketNo());
+                    public void convert(CommonViewHolder holder, final TicketDto mData, final int position) {
+                        GlideImageView imageView = holder.findView(R.id.ticketLogo);
+                        CircleProgressView progressView = holder.findView(R.id.progressView);
+                        GlideUtils.loadImageOnPregress(imageView, mData.getTicketLogo(), progressView);
 
-                        } else {//取消选中
-                            if (mData.isChecked()){
-                                mData.setChecked(false);
-                            }
-                            if ("5".equals(mData.getTicketId())){//自己用
-                                personNum++;
-                            } else if ("6".equals(mData.getTicketId())){//朋友用
-                                if (totalPersonNum == 1){
-                                    mData.setChecked(true);
-                                    return;
-                                }
-                                personNum += (totalPersonNum - 1);
-                            }
-                            checkTicketNos.remove(position);
+                        holder.setText(R.id.ticketName, mData.getName());
+                        final String type = mData.getType();
+                        String num = mData.getNum();
+                        TextView ticketContent = holder.findView(R.id.ticketContent);
+                        ticketContent.setVisibility(View.VISIBLE);
+                        if ("1".equals(type)) {//自己用
+                            ticketContent.setText("可用次数：" + num);
+                        } else if ("2".equals(type)) {//朋友用
+                            ticketContent.setText("可邀请人数：" + num);
+                        } else {
+                            ticketContent.setVisibility(View.GONE);
                         }
-                        totalPrice = (float) (mServiceDto.getPrice() * personNum);
-                        tvAmount.setText(totalPrice + "元");
-                    }
-                });
 
-            }
-        }).create();
+                        holder.setText(R.id.useDate, "优惠券使用期限：" + DateUtils.getInstance().getDateToYMD(mData.getValidateTime()) + "止");
+
+                        CheckBox checkBox = holder.findView(R.id.rightCheck);
+                        checkBox.setChecked(mData.isChecked());
+                        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked) {//选中
+                                    if (!mData.isChecked()) {
+                                        mData.setChecked(true);
+                                    }
+                                    if ("5".equals(mData.getTicketId())) {//自己用
+                                        personNum--;
+                                    } else if ("6".equals(mData.getTicketId())) {//朋友用
+                                        if (totalPersonNum == 1) {
+                                            mData.setChecked(false);
+                                            return;
+                                        }
+                                        int num = Integer.parseInt(mData.getNum());
+                                        personNum -= totalPersonNum - 1 < num ? totalPersonNum - 1 : num;
+                                        if (personNum < 0) {
+                                            personNum = 0;
+                                        }
+                                    }
+                                    checkTicketNos.append(position, mData.getTicketNo());
+
+                                } else {//取消选中
+                                    if (mData.isChecked()) {
+                                        mData.setChecked(false);
+                                    }
+                                    if ("5".equals(mData.getTicketId())) {//自己用
+                                        personNum++;
+                                    } else if ("6".equals(mData.getTicketId())) {//朋友用
+                                        if (totalPersonNum == 1) {
+                                            mData.setChecked(true);
+                                            return;
+                                        }
+                                        personNum += (totalPersonNum - 1);
+                                    }
+                                    checkTicketNos.remove(position);
+                                }
+                                totalPrice = (float) (mServiceDto.getPrice() * personNum);
+                                tvAmount.setText(totalPrice + "元");
+                            }
+                        });
+
+                    }
+                }).create();
 
     }
 
@@ -331,21 +348,21 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
 //    }
 
     @OnClick(R.id.btn_to_pay)
-    public void toPay(View view){
-        if (payType == 2){//报名基地活动
+    public void toPay(View view) {
+        if (payType == 2) {//报名基地活动
             String startDate = getIntent().getStringExtra("startDate");
             StringBuffer ticketNos = new StringBuffer();
-            for (int i = 0; i < checkTicketNos.size(); i++){
+            for (int i = 0; i < checkTicketNos.size(); i++) {
                 ticketNos.append(checkTicketNos.valueAt(i)).append("#");
             }
             if (checkTicketNos.size() > 0) {
                 ticketNos.deleteCharAt(ticketNos.length() - 1);
             }
-            getPresenter().applyScenicAction(mServiceDto.getId(),totalPersonNum+"",startDate,"",totalPrice+"",ticketNos.toString());
+            getPresenter().applyScenicAction(mServiceDto.getId(), totalPersonNum + "", startDate, "", totalPrice + "", ticketNos.toString());
             return;
         }
 
-        switch (getPayTypePosition()){
+        switch (getPayTypePosition()) {
             case 0://微信
                 getPresenter().getWeiChatParams(mPayOrderDto.getPayNumber());
                 break;
@@ -374,18 +391,18 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     public void createPayOrderSuccess(PayOrderDto payOrderDto) {
         mPayOrderDto = payOrderDto;
         tvAmount.setText(payOrderDto.getSumPrice() + "元");
-        if ("0".equals(mPayOrderDto.getSumPrice())){ //积分抵扣以后 0元 直接跳到成功页面
+        if ("0".equals(mPayOrderDto.getSumPrice())) { //积分抵扣以后 0元 直接跳到成功页面
             EventBusUtils.post(new PaySuccessEvent(payType));
         }
     }
 
     @Override
     public void getAlipayParamsSuccess(String alipayParamsDto) {
-        AlipayUtils.toPay(PaymentActivity.this,alipayParamsDto)
+        AlipayUtils.toPay(PaymentActivity.this, alipayParamsDto)
                 .subscribe(new Consumer<PayResult>() {
                     @Override
                     public void accept(@NonNull PayResult authResult) throws Exception {
-                        switch (authResult.getResultStatus()){
+                        switch (authResult.getResultStatus()) {
                             case "9000"://支付成功
                                 paySuccess(true);
                                 break;
@@ -413,7 +430,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     @Override
     public void getWeiCharParamsSuccess(WeiCharParamsDto weicharParams) {
 //        Logger.d(weicharParams.toString());
-        if (WxUtil.check(this,WxUtil.getWXAPI(this))){
+        if (WxUtil.check(this, WxUtil.getWXAPI(this))) {
             WxUtil.toPayByWXAPI(weicharParams);
         }
     }
@@ -436,12 +453,12 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     @Override
     public void applyScenicResult(PayOrderDto payOrderDto) {
         mPayOrderDto = payOrderDto;
-        if (payOrderDto.getSumPrice().equals("0") || payOrderDto.getSumPrice().equals("0.0")){
+        if (payOrderDto.getSumPrice().equals("0") || payOrderDto.getSumPrice().equals("0.0")) {
             paySuccess(false);
             return;
         }
 
-        switch (getPayTypePosition()){
+        switch (getPayTypePosition()) {
             case 0://微信
                 getPresenter().getWeiChatParams(mPayOrderDto.getPayNumber());
                 break;
@@ -467,8 +484,8 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void wxpayResult(WXPayResult result){
-        if (result.getBaseResp().errCode == 0){//支付成功
+    public void wxpayResult(WXPayResult result) {
+        if (result.getBaseResp().errCode == 0) {//支付成功
             paySuccess(true);
         } else {
             showToast("支付失败");
@@ -478,26 +495,30 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
     /**
      * 支付成功
      */
-    private void paySuccess(boolean isCheck){
-        if (isCheck){
+    private void paySuccess(boolean isCheck) {
+        if (isCheck) {
             getPresenter().checkPayResult(mPayOrderDto.getPayNumber());
         } else {
-            if (payType != 0){//会员充值
+            if (payType != 0) {//会员充值
                 Bundle bundle = new Bundle();
                 String hint1;
                 String hint2;
-                if (payType == 2){
-                    if (totalPrice == 0){
+                if (payType == 2) {
+                    if (totalPrice == 0) {
                         hint1 = "报名成功";
-                        hint2 = "请到“我的-已报名活动”中查看";
+                        hint2 = "请到“我的-活动”中查看";
                     } else {
                         hint1 = "支付成功";
-                        hint2 = "请到“我的-已报名活动”中查看";
+                        hint2 = "请到“我的-活动”中查看";
                     }
-                    bundle.putString("hint1",hint1);
-                    bundle.putString("hint2",hint2);
+                    bundle.putString("hint1", hint1);
+                    bundle.putString("hint2", hint2);
+                } else if (payType == 3) {
+                    Bundle bundle1 = getIntent().getExtras();
+                    startActivity(PayContractsOrderSuccessActivity.class, bundle1);
+                    return;
                 }
-                startActivity(PaySuccessActivity.class,bundle);
+                startActivity(PaySuccessActivity.class, bundle);
                 finish();
             } else {
                 startActivity(HomeActivity.class);
@@ -507,5 +528,5 @@ public class PaymentActivity extends BaseActivity<IPaymentView,PaymentPresenter>
         }
     }
 
-    
+
 }

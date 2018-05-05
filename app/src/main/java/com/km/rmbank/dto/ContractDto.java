@@ -1,12 +1,15 @@
 package com.km.rmbank.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by PengSong on 18/4/2.
  */
 
-public class ContractDto {
+public class ContractDto implements Parcelable {
     private String personId;
 
     private String nickName;
@@ -134,4 +137,48 @@ public class ContractDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.personId);
+        dest.writeString(this.nickName);
+        dest.writeString(this.personNamePinyin);
+        dest.writeStringList(this.phones);
+        dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
+        dest.writeLong(this.createDate);
+        dest.writeString(this.id);
+        dest.writeString(this.phone);
+        dest.writeString(this.roleId);
+        dest.writeString(this.status);
+    }
+
+    protected ContractDto(Parcel in) {
+        this.personId = in.readString();
+        this.nickName = in.readString();
+        this.personNamePinyin = in.readString();
+        this.phones = in.createStringArrayList();
+        this.isChecked = in.readByte() != 0;
+        this.createDate = in.readLong();
+        this.id = in.readString();
+        this.phone = in.readString();
+        this.roleId = in.readString();
+        this.status = in.readString();
+    }
+
+    public static final Parcelable.Creator<ContractDto> CREATOR = new Parcelable.Creator<ContractDto>() {
+        @Override
+        public ContractDto createFromParcel(Parcel source) {
+            return new ContractDto(source);
+        }
+
+        @Override
+        public ContractDto[] newArray(int size) {
+            return new ContractDto[size];
+        }
+    };
 }

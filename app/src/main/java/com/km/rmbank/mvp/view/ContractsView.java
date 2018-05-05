@@ -1,6 +1,7 @@
 package com.km.rmbank.mvp.view;
 
 import com.km.rmbank.dto.ContractDto;
+import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.mvp.base.MvpView;
 
 import java.util.List;
@@ -11,4 +12,5 @@ import java.util.List;
 
 public interface ContractsView extends MvpView {
     void showContracts(List<ContractDto> contractDtos,List<ContractDto> linkManDtos);
+    void showPayOrder(PayOrderDto payOrderDto,int number);
 }

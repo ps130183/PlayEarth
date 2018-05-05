@@ -1784,4 +1784,15 @@ public interface ApiService {
                                                @Field("cardOffice") String cardOffice,
                                                @Field("cardBeginDate") String cardBeginDate,
                                                @Field("cardEndDate") String cardEndDate);
+
+    /**
+     * 获取通讯录 支付订单
+     * @param token
+     * @param phone
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/userAdressBook/order/create")
+    Observable<Response<PayOrderDto>> getContactsPayOrder(@Field("token") String token,
+                                                            @Field("phones") String phone);
 }

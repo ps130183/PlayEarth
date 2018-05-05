@@ -21,7 +21,7 @@ import io.reactivex.functions.Predicate;
 
 public class RVUtils {
 
-    public static final int DIVIDER_COLOR_DEFAULT = 0xfff4f2f2;
+    public static final int DIVIDER_COLOR_DEFAULT = 0xfff2f3f7;
     public static final int DIVIDER_COLOR_WHITE = 0xffffffff;
     public static final int DIVIDER_COLOR_ACCOUNT_DETAILS = 0xffcfcdcd;
 

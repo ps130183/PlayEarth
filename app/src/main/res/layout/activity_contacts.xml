@@ -45,30 +45,30 @@
 
 
 
-        <com.km.rmbank.customview.LetterSideBar
-            android:id="@+id/letterSide"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            app:textSize="13sp"
-            app:selectTextColor="#fb9035"
-            app:unSelectTextColor="@color/text_color_block3"
-            app:selectTextBackgroundColor="#00ffffff"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/viewSpace16"
-            android:layout_marginBottom="@dimen/viewSpace16"/>
+        <!--<com.km.rmbank.customview.LetterSideBar-->
+            <!--android:id="@+id/letterSide"-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:textSize="13sp"-->
+            <!--app:selectTextColor="#fb9035"-->
+            <!--app:unSelectTextColor="@color/text_color_block3"-->
+            <!--app:selectTextBackgroundColor="#00ffffff"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginTop="@dimen/viewSpace16"-->
+            <!--android:layout_marginBottom="@dimen/viewSpace16"/>-->
 
-        <com.ruffian.library.RTextView
-            android:id="@+id/letterHint"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:background_normal="#99000000"
-            android:text="A"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:gravity="center"
-            app:corner_radius="40dp"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
+        <!--<com.ruffian.library.RTextView-->
+            <!--android:id="@+id/letterHint"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--app:background_normal="#99000000"-->
+            <!--android:text="A"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="18sp"-->
+            <!--android:gravity="center"-->
+            <!--app:corner_radius="40dp"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:visibility="gone"/>-->
     </RelativeLayout>
 
 
@@ -98,15 +98,39 @@
             android:background="@color/white"
             android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/invitation"
+        <RelativeLayout
+            android:id="@+id/rlInvitation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="一键邀请"
-            android:textColor="@color/white"
-            android:textSize="19sp"
-            android:gravity="center"
-            android:background="@color/colorAccent"/>
+            android:background="@color/colorAccent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true">
+                <TextView
+                    android:id="@+id/invitation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="一键邀请"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:gravity="center"
+                    />
+
+                <TextView
+                    android:id="@+id/invitation1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(可邀请3人)"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.km.rmbank.mvp.presenter;
 import android.view.View;
 
 import com.km.rmbank.dto.ContractDto;
+import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.mvp.base.BasePresenter;
 import com.km.rmbank.mvp.model.ContactsModel;
 import com.km.rmbank.mvp.view.ContractsView;
@@ -29,63 +30,43 @@ public class ContractsPresenter extends BasePresenter<ContractsView,ContactsMode
     }
 
     public void getContracts(List<ContractDto> contractDtoList){
-        getMvpModel().getAllContracts(contractDtoList)
-                .observeOn(Schedulers.io())
-                .map(new Function<List<ContractDto>, List<ContractDto>>() {
-                    @Override
-                    public List<ContractDto> apply(List<ContractDto> contractDtoList) throws Exception {
-                        return orderByLetter(contractDtoList);
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(newSubscriber(new Consumer<List<ContractDto>>() {
-                    @Override
-                    public void accept(List<ContractDto> contractDtoList) throws Exception {
-                        List<ContractDto> contractDtos = new ArrayList<>();
-                        List<ContractDto> linkManDtos = new ArrayList<>();
+//        getMvpModel().getAllContracts(contractDtoList)
+//                .observeOn(Schedulers.io())
+//                .map(new Function<List<ContractDto>, List<ContractDto>>() {
+//                    @Override
+//                    public List<ContractDto> apply(List<ContractDto> contractDtoList) throws Exception {
+//                        return orderByLetter(contractDtoList);
+//                    }
+//                })
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(newSubscriber(new Consumer<List<ContractDto>>() {
+//                    @Override
+//                    public void accept(List<ContractDto> contractDtoList) throws Exception {
+//                        List<ContractDto> contractDtos = new ArrayList<>();
+//                        List<ContractDto> linkManDtos = new ArrayList<>();
+//
+//                        for (ContractDto contractDto : contractDtoList){
+//                            if ("0".equals(contractDto.getStatus())){//没绑定
+//                                contractDto.setChecked(true);
+//                                linkManDtos.add(contractDto);
+//                            } else {
+//                                contractDtos.add(contractDto);
+//                            }
+//                        }
+//                        getMvpView().showContracts(contractDtos,linkManDtos);
+//                    }
+//                }));
+    }
 
-                        for (ContractDto contractDto : contractDtoList){
-                            if ("0".equals(contractDto.getStatus())){//没绑定
-                                contractDto.setChecked(true);
-                                linkManDtos.add(contractDto);
-                            } else {
-                                contractDtos.add(contractDto);
-                            }
-                        }
-                        getMvpView().showContracts(contractDtos,linkManDtos);
+    public void getContactsPayOrder(final List<String> phones){
+        getMvpView().showLoading();
+        getMvpModel().getContactsPayOrder(phones)
+                .subscribe(newSubscriber(new Consumer<PayOrderDto>() {
+                    @Override
+                    public void accept(PayOrderDto payOrderDto) throws Exception {
+                        getMvpView().showPayOrder(payOrderDto,phones.size());
                     }
                 }));
     }
 
-    private static Comparator<ContractDto> comparator = new Comparator<ContractDto>() {
-        @Override
-        public int compare(ContractDto o1, ContractDto o2) {
-            CharSequence p1 = o1.getPersonNamePinyin().subSequence(0, 1);
-            CharSequence p2 = o2.getPersonNamePinyin().subSequence(0, 1);
-
-            if (p1.charAt(0) > p2.charAt(0)) {
-                return 1;
-            } else if (p1.charAt(0) == p2.charAt(0)) {
-                return 0;
-            }
-            return -1;
-        }
-    };
-
-    /**
-     * 根据汉字首字母排序
-     *
-     * @param contractDtoList
-     * @return
-     */
-    private List<ContractDto> orderByLetter(List<ContractDto> contractDtoList) {
-        //将人名转换为拼音
-        for (ContractDto contractDto : contractDtoList) {
-            String pinyin = ContractUtils.HanziToPinyin(contractDto.getNickName());
-            contractDto.setPersonNamePinyin(pinyin);
-        }
-        Collections.sort(contractDtoList, comparator);
-
-        return contractDtoList;
-    }
 }
