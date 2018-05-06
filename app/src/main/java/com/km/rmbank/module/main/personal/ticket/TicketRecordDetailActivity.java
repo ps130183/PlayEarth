@@ -9,6 +9,8 @@ import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.dto.TicketUseRecordDto;
 import com.km.rmbank.utils.DateUtils;
 
+import java.util.Date;
+
 public class TicketRecordDetailActivity extends BaseActivity {
 
 
@@ -28,6 +30,6 @@ public class TicketRecordDetailActivity extends BaseActivity {
         mViewManager.setText(R.id.scenicName,ticketUseRecordDto.getClubCommodityName());
         mViewManager.setText(R.id.personNum,ticketUseRecordDto.getPersonNum()+"");
         mViewManager.setText(R.id.price,ticketUseRecordDto.getPrice() + "元");
-        mViewManager.setText(R.id.useDate, DateUtils.getInstance().getDate(ticketUseRecordDto.getTripDate()));
+        mViewManager.setText(R.id.useDate, DateUtils.getInstance().dateToString(new Date(ticketUseRecordDto.getTripDate()),DateUtils.YMDHM));
     }
 }

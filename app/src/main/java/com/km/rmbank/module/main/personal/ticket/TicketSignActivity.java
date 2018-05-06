@@ -4,6 +4,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,10 +18,12 @@ import com.km.rmbank.mvp.model.TicketListModel;
 import com.km.rmbank.mvp.view.ITicketListView;
 import com.km.rmbank.mvp.view.TicketListPresenter;
 import com.km.rmbank.titleBar.SimpleTitleBar;
+import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.QRCodeUtils;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TicketSignActivity extends BaseActivity<ITicketListView,TicketListPresenter> implements ITicketListView {
@@ -34,7 +37,7 @@ public class TicketSignActivity extends BaseActivity<ITicketListView,TicketListP
 
     @Override
     public String getTitleContent() {
-        return "签到";
+        return "电子券签到";
     }
 
     @Override
@@ -60,6 +63,11 @@ public class TicketSignActivity extends BaseActivity<ITicketListView,TicketListP
         if (ticketDto == null){
             return;
         }
+
+        mViewManager.setText(R.id.ticketName,ticketDto.getName());
+        mViewManager.setText(R.id.ticketDate,"使用期限：" + DateUtils.getInstance().getDateToYMD(ticketDto.getValidateTime()));
+        mViewManager.setText(R.id.ticketCount, ticketDto.getNum() + "次");
+
         ImageView qrCodeSign = mViewManager.findView(R.id.qrCodeSign);
         qrCodeSign.setImageBitmap(QRCodeUtils.createQRCode(mInstance,"http://www.baidu.com"));
 

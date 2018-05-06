@@ -60,7 +60,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
 
     @BindView(R.id.commonModuleRecycler)
     RecyclerView commonModuleRecycler;
-    private String[] commonModuleNames = {"我的订单","地址","卡券","账户","购物车","客服","成为会员"};
+    private String[] commonModuleNames = {"我的订单","地址","电子券","账户","购物车","客服","成为会员"};
     private int[] commonModuleImgs = {R.mipmap.icon_pc_my_order,R.mipmap.icon_pc_address,R.mipmap.icon_pc_ticket,
             R.mipmap.icon_pc_my_account,R.mipmap.icon_pc_shop_car,R.mipmap.icon_pc_service,R.mipmap.icon_pc_become_member};
 
@@ -153,7 +153,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
                     case "地址":
                         startActivity(ReceiverAddressActivity.class);
                         break;
-                    case "卡券":
+                    case "电子券":
                         startActivity(TicketListActivity.class);
                         break;
                     case "账户":

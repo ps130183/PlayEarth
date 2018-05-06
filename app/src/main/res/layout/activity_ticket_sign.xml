@@ -6,26 +6,95 @@
     android:layout_height="match_parent"
     tools:context="com.km.rmbank.module.main.personal.ticket.TicketSignActivity">
 
-    <ImageView
-        android:id="@+id/qrCodeSign"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="@dimen/viewSpace64"
-        android:layout_centerHorizontal="true"
-        />
-
-    <TextView
-        android:id="@+id/signCode"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="@dimen/textSizeBig"
-        android:textColor="@color/textMainColor"
-        android:gravity="center"
-        android:layout_below="@+id/qrCodeSign"
-        android:layout_marginTop="@dimen/viewSpace8"
-        />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/viewSpace64"
+        android:layout_marginLeft="@dimen/viewSpace16"
+        android:layout_marginRight="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace32"
+        app:cardBackgroundColor="@color/white">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/viewSpace16"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ticketName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/viewSpace16"
+                android:layout_marginTop="@dimen/viewSpace16"
+                android:text="基地两天一晚（限自己）"
+                android:textColor="@color/text_color_block1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/ticketDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/viewSpace4"
+                android:text="使用期限：2018.09.08"
+                android:textColor="@color/text_color_blocka"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/viewSpace4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="剩余次数："
+                    android:textColor="@color/text_color_blocka"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/ticketCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7次"
+                    android:textColor="@color/text_color_red"
+                    android:textSize="13sp"
+                    />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/viewSpace32"
+                android:background="@color/divide_color" />
+
+            <ImageView
+                android:id="@+id/qrCodeSign"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/viewSpace16" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/signCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/text_color_block1"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
 
 
 </RelativeLayout>

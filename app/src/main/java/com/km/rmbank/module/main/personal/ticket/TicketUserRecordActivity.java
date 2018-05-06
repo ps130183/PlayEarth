@@ -13,6 +13,7 @@ import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.dto.TicketUseRecordDto;
 import com.km.rmbank.utils.DateUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
+import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 
 import java.util.List;
@@ -34,9 +35,9 @@ public class TicketUserRecordActivity extends BaseActivity {
         TicketDto ticketDto = getIntent().getParcelableExtra("ticketDto");
         TextView personNum = mViewManager.findView(R.id.personNum);
         if (ticketDto.getType().equals("1")){
-            personNum.setText("剩余" + ticketDto.getNum() + "次");
+            personNum.setText("- 剩余" + ticketDto.getNum() + "次 -");
         } else if (ticketDto.getType().equals("2")){
-            personNum.setText("剩余" + ticketDto.getNum() + "人");
+            personNum.setText("- 剩余" + ticketDto.getNum() + "人 -");
         } else {
             personNum.setText("");
         }
@@ -50,16 +51,21 @@ public class TicketUserRecordActivity extends BaseActivity {
             public void convert(CommonViewHolder holder, final TicketUseRecordDto mData, int position) {
                 holder.setText(R.id.scenicName, mData.getClubCommodityName());
                 holder.setText(R.id.useDate, "使用时间：" + DateUtils.getInstance().getDate(mData.getTripDate()));
-                TextView moreRecord = holder.findView(R.id.moreRecord);
-                moreRecord.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("ticketUseRecordDetail",mData);
-                        startActivity(TicketRecordDetailActivity.class,bundle);
-                    }
-                });
+
             }
         }).create();
+        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<TicketUseRecordDto>() {
+            @Override
+            public void onItemClick(CommonViewHolder holder, TicketUseRecordDto data, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("ticketUseRecordDetail",data);
+                startActivity(TicketRecordDetailActivity.class,bundle);
+            }
+
+            @Override
+            public boolean onItemLongClick(CommonViewHolder holder, TicketUseRecordDto data, int position) {
+                return false;
+            }
+        });
     }
 }

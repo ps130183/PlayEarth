@@ -3,50 +3,56 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:layout_margin="@dimen/viewSpace16"
-    android:background="@color/white"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="10dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/scenicName"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingTop="@dimen/viewSpace16"
+        android:paddingBottom="@dimen/viewSpace16"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:text="活动名称"
-            android:textSize="@dimen/textSizeBig"
-            android:padding="@dimen/viewSpace8"
-            android:maxLines="2"
-            android:ellipsize="end"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_toLeftOf="@+id/arrowRight">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingLeft="@dimen/viewSpace8"
-            android:paddingRight="@dimen/viewSpace8">
+            <TextView
+                android:id="@+id/scenicName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="活动名称"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_block1"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"/>
+
             <TextView
                 android:id="@+id/useDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="使用时间：2018-09-23"
+                android:textColor="@color/text_color_blocka"
+                android:textSize="13sp"
                 />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/moreRecord"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="查看更多>>"
-                android:textColor="?attr/colorAccent"
-                android:layout_alignParentRight="true"
-                />
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/arrowRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_arrow_right_gray"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
 
-    </LinearLayout>
 
 </android.support.v7.widget.CardView>

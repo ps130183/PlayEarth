@@ -6,77 +6,217 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="124dp"
         android:layout_margin="@dimen/viewSpace16"
         app:cardCornerRadius="10dp"
-        android:background="@color/white">
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="@dimen/viewSpace16">
-                <com.ps.glidelib.GlideImageView
-                    android:id="@+id/ticketLogo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:siv_shape_type="circle" />
-                <include layout="@layout/glide_image_load_progress"/>
-            </FrameLayout>
-
-
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="84dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/ticketName"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="基地使用券限两人"
-                    android:textColor="@color/textMainColor"
-                    android:textSize="@dimen/textSizeHuge"
-                    android:textStyle="bold"
-                    android:gravity="bottom"/>
+                <com.ps.glidelib.GlideImageView
+                    android:id="@+id/ticketLogo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@mipmap/icon_ticket1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginRight="@dimen/viewSpace16"
+                    />
+
+                <RelativeLayout
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ticket_line"
+                        android:scaleType="centerCrop"
+                        android:layout_centerHorizontal="true"
+                        />
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ticket_triangle_down"/>
+
+
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-                    <TextView
-                        android:id="@+id/ticketStatus"
+                    android:layout_height="match_parent">
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已过期"
-                        android:textColor="@color/white"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:paddingLeft="@dimen/viewSpace16"
-                        android:paddingRight="@dimen/viewSpace16"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/shape_ticket_past_due"
-                        android:layout_centerVertical="true"/>
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/viewSpace16">
+                        <TextView
+                            android:id="@+id/ticketName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="两天一夜基底油"
+                            android:textColor="@color/text_color_block24"
+                            android:textSize="15sp"
+                            />
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="两天一夜基底油"
+                            android:textColor="@color/text_color_blocka1"
+                            android:textSize="13sp"
+                            />
+                    </LinearLayout>
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/useDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="优惠券使用期限：2018年12月31日止"
-                    android:textColor="@color/textSecondColor"
-                    android:textSize="@dimen/textSizeSmall"
-                    android:gravity="center_vertical"/>
-
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/bottomBackground"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#f3fbfe"
+                android:paddingLeft="@dimen/viewSpace16"
+                android:paddingRight="@dimen/viewSpace16">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="使用期限："
+                        android:textColor="@color/text_color_block6"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:id="@+id/useDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="2018.08.09日截止"
+                        android:textColor="@color/text_color_block6"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="剩余"
+                        android:textColor="@color/text_color_block6"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        />
+                    <TextView
+                        android:id="@+id/ticketCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="7"
+                        android:textColor="@color/text_color_red"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="次"
+                        android:textColor="@color/text_color_block6"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+
         </LinearLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<FrameLayout-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:layout_margin="@dimen/viewSpace16">-->
+                <!--<com.ps.glidelib.GlideImageView-->
+                    <!--android:id="@+id/ticketLogo"-->
+                    <!--android:layout_width="60dp"-->
+                    <!--android:layout_height="60dp"-->
+                    <!--app:siv_shape_type="circle" />-->
+                <!--<include layout="@layout/glide_image_load_progress"/>-->
+            <!--</FrameLayout>-->
+
+
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/ticketName"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="基地使用券限两人"-->
+                    <!--android:textColor="@color/textMainColor"-->
+                    <!--android:textSize="@dimen/textSizeHuge"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:gravity="bottom"/>-->
+
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/ticketStatus"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="已过期"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:paddingTop="2dp"-->
+                        <!--android:paddingBottom="2dp"-->
+                        <!--android:paddingLeft="@dimen/viewSpace16"-->
+                        <!--android:paddingRight="@dimen/viewSpace16"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:background="@drawable/shape_ticket_past_due"-->
+                        <!--android:layout_centerVertical="true"/>-->
+                <!--</RelativeLayout>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/useDate"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:text="优惠券使用期限：2018年12月31日止"-->
+                    <!--android:textColor="@color/textSecondColor"-->
+                    <!--android:textSize="@dimen/textSizeSmall"-->
+                    <!--android:gravity="center_vertical"/>-->
+
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
 
     </android.support.v7.widget.CardView>
 

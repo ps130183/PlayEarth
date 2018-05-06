@@ -46,13 +46,16 @@
     <color name="text_color_block24">#242424</color>
     <color name="text_color_block1">#191919</color>
     <color name="text_color_block5">#555555</color>
+    <color name="text_color_block6">#666666</color>
     <color name="text_color_block3">#333333</color>
     <color name="text_color_blocka">#acaeba</color>
+    <color name="text_color_blocka1">#a1a1a1</color>
     <color name="text_color_block32">#323232</color>
     <color name="text_color_block8">#888888</color>
     <color name="text_color_block87">#878787</color>
 
     <color name="text_color_blue">#2d5ce2</color>
+    <color name="text_color_red">#f91413</color>
     <color name="text_color_blue2">#3285ff</color>
 
     <color name="divide_color">#efeff4</color>
@@ -62,4 +65,10 @@
     <color name="colorCollapsedFloatBackground">#e4e4e4</color>
 
     <color name="background_color">#f2f3f7</color>
+
+    <color name="ticket_bg1">#fffafa</color>
+    <color name="ticket_bg2">#f3fbfe</color>
+    <color name="ticket_bg3">#fef9f0</color>
+    <color name="ticket_bg4">#fef3fe</color>
+    <color name="ticket_bg5">#effbfb</color>
 </resources>
