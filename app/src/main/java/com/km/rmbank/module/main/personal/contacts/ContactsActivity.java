@@ -1,7 +1,12 @@
 package com.km.rmbank.module.main.personal.contacts;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.PhoneUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.customview.LetterSideBar;
@@ -23,7 +29,9 @@ import com.km.rmbank.mvp.presenter.ContractsPresenter;
 import com.km.rmbank.mvp.view.ContractsView;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.ContractUtils;
+import com.km.rmbank.utils.DialogUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
+import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 
@@ -42,10 +50,11 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class ContactsActivity extends BaseActivity<ContractsView,ContractsPresenter> implements ContractsView {
+public class ContactsActivity extends BaseActivity<ContractsView, ContractsPresenter> implements ContractsView {
 
     private int curPage = 0;
     private List<Contact> mContact;
+
     @Override
     public int getContentViewRes() {
         return R.layout.activity_contacts;
@@ -67,19 +76,41 @@ public class ContactsActivity extends BaseActivity<ContractsView,ContractsPresen
         initRecycler();
     }
 
-    private void initRecycler(){
+    private void initRecycler() {
         mContact = new ArrayList<>();
         RecyclerView contactRecycler = mViewManager.findView(R.id.contactRecycler);
         RecyclerAdapterHelper<Contact> mHelper = new RecyclerAdapterHelper<>(contactRecycler);
         mHelper.addLinearLayoutManager()
                 .addCommonAdapter(R.layout.item_personal_contacts, mContact, new RecyclerAdapterHelper.CommonConvert<Contact>() {
+                    @Override
+                    public void convert(CommonViewHolder holder, Contact mData, int position) {
+                        holder.setText(R.id.nickName, mData.getContactName());
+                        holder.setText(R.id.personPhone, mData.getPhone());
+                    }
+                }).create();
+        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<Contact>() {
             @Override
-            public void convert(CommonViewHolder holder, Contact mData, int position) {
-                holder.setText(R.id.nickName,mData.getContactName());
-                holder.setText(R.id.personPhone,mData.getPhone());
+            public void onItemClick(CommonViewHolder holder, final Contact data, int position) {
+                DialogUtils.showDefaultAlertDialog("是否拨打电话 " + data.getPhone() + "?", new DialogUtils.ClickListener() {
+                    @Override
+                    public void clickConfirm() {
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        Uri phone = Uri.parse("tel:" + data.getPhone());
+                        intent.setData(phone);
+                        startActivity(intent);
+                    }
+                });
+
             }
-        }).create();
-        getPresenter().getContracts(null,curPage);
+
+            @Override
+            public boolean onItemLongClick(CommonViewHolder holder, Contact data, int position) {
+                return false;
+            }
+
+        });
+
+        getPresenter().getContracts(null, curPage);
         initLetterSideBar();
 
         contactRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -96,30 +127,30 @@ public class ContactsActivity extends BaseActivity<ContractsView,ContractsPresen
         });
     }
 
-    private void initLetterSideBar(){
+    private void initLetterSideBar() {
         LetterSideBar sideBar = mViewManager.findView(R.id.letterSideBar);
         sideBar.setOnSideBarTouchListener(new LetterSideBar.SideBarTouchListener() {
             @Override
             public void onTouch(String letter, boolean isTouch) {
-                if (!isTouch){
+                if (!isTouch) {
                     int position = getPositionByLetter(letter);
-                    if (position < 0){
+                    if (position < 0) {
                         return;
                     }
                     RecyclerView contactRecycler = mViewManager.findView(R.id.contactRecycler);
                     LinearLayoutManager llm = (LinearLayoutManager) contactRecycler.getLayoutManager();
                     //定位到指定项如果该项可以置顶就将其置顶显示
-                    llm.scrollToPositionWithOffset(position,0);
+                    llm.scrollToPositionWithOffset(position, 0);
                 }
             }
         });
     }
 
-    private int getPositionByLetter(String letter){
+    private int getPositionByLetter(String letter) {
         int position = -1;
-        for (int i = 0; i < mContact.size();i++){
+        for (int i = 0; i < mContact.size(); i++) {
             Contact contact = mContact.get(i);
-            if (letter.toLowerCase().equals(contact.getContactNameFirstLetter())){
+            if (letter.toLowerCase().equals(contact.getContactNameFirstLetter())) {
                 position = i;
                 break;
             }
@@ -130,15 +161,15 @@ public class ContactsActivity extends BaseActivity<ContractsView,ContractsPresen
 
     @Override
     public void showContracts(LoadMoreWrapper wrapper, List<Contact> contacts) {
-        if (wrapper != null){
+        if (wrapper != null) {
             wrapper.setLoadMoreFinish(contacts.size());
         }
         mContact.addAll(contacts);
         RecyclerView contactRecycler = mViewManager.findView(R.id.contactRecycler);
         contactRecycler.getAdapter().notifyDataSetChanged();
-        if (contacts.size() > 0){
+        if (contacts.size() > 0) {
             curPage++;
-            getPresenter().getContracts(null,curPage);
+            getPresenter().getContracts(null, curPage);
         }
     }
 
@@ -149,6 +180,7 @@ public class ContactsActivity extends BaseActivity<ContractsView,ContractsPresen
 
     /**
      * 打开转换人脉页面
+     *
      * @param view
      */
     public void openTransformContact(View view) {
