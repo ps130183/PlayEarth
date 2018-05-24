@@ -94,19 +94,19 @@
                 android:textSize="12sp"
                 />
 
-            <com.ruffian.library.RTextView
-                android:id="@+id/rt_apply_action"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/baoming"
-                android:textColor="#3285ff"
-                android:textSize="12sp"
-                android:gravity="right|center"
-                app:icon_src_normal="@mipmap/icon_home_arrow_right_baoming"
-                app:icon_height="10dp"
-                app:icon_width="10dp"
-                app:icon_direction="right"
-                />
+            <!--<com.ruffian.library.RTextView-->
+                <!--android:id="@+id/rt_apply_action"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/baoming"-->
+                <!--android:textColor="#3285ff"-->
+                <!--android:textSize="12sp"-->
+                <!--android:gravity="right|center"-->
+                <!--app:icon_src_normal="@mipmap/icon_home_arrow_right_baoming"-->
+                <!--app:icon_height="10dp"-->
+                <!--app:icon_width="10dp"-->
+                <!--app:icon_direction="right"-->
+                <!--/>-->
 
         </LinearLayout>
 

@@ -14,13 +14,13 @@
             >
             <TextView
                 style="@style/Personal.User.EditCard.tv"
-                android:text="姓        名"
+                android:text="收货人："
                 />
 
             <EditText
                 android:id="@+id/et_name"
                 style="@style/Personal.User.EditCard.et"
-                android:hint="请输入您的真实姓名"
+                android:hint="请填写收货人姓名"
                 />
         </LinearLayout>
         <include layout="@layout/_default_divide_line"/>
@@ -29,13 +29,13 @@
             >
             <TextView
                 style="@style/Personal.User.EditCard.tv"
-                android:text="手        机"
+                android:text="手机号："
                 />
 
             <EditText
                 android:id="@+id/et_phone"
                 style="@style/Personal.User.EditCard.et"
-                android:hint="请输入您的手机号码"
+                android:hint="请填写收货手机号码"
                 android:inputType="phone"
                 android:maxLength="11"
                 />
@@ -61,13 +61,13 @@
             >
             <TextView
                 style="@style/Personal.User.EditCard.tv"
-                android:text="详细地址"
+                android:text="详细地址："
                 />
 
             <EditText
                 android:id="@+id/et_address_detail"
                 style="@style/Personal.User.EditCard.et"
-                android:hint="请输入您的详细地址"
+                android:hint="请填写详细收货地址"
                 />
         </LinearLayout>
 

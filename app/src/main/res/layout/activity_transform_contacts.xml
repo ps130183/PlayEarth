@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.contacts.TransformContactsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/bottom">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="@dimen/viewSpace16"
+            android:paddingRight="@dimen/viewSpace16">
+
+            <TextView
+                android:id="@+id/pageNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本页100人，共2页"
+                android:textColor="@color/text_color_block32"
+                android:textSize="@dimen/textSizeContent"
+                android:layout_centerVertical="true"
+                />
+
+            <com.ruffian.library.RTextView
+                android:id="@+id/curPageNumber"
+                android:layout_width="100dp"
+                android:layout_height="28dp"
+                android:text="第1页"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:icon_src_normal="@mipmap/icon_tranform_contacts_triangle"
+                app:icon_height="20dp"
+                app:icon_width="20dp"
+                app:icon_direction="right"
+                app:background_normal="@color/white"
+                app:border_color_normal="#dddddd"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="#9b9b9b"
+                android:paddingLeft="@dimen/viewSpace8"
+                android:paddingTop="@dimen/viewSpace4"
+                android:paddingBottom="@dimen/viewSpace4"
+                app:border_width_normal="1dp"
+                app:corner_radius="4dp"
+                android:onClick="showChoosePage"
+                />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/transformRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        >
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="全选"
+            android:layout_marginLeft="@dimen/viewSpace8"
+            android:button="@drawable/check_personal_contacts"
+            android:onClick="checkAllContacts"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:onClick="transformContact">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="转换人脉"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSizeBig"
+                android:gravity="center|right"
+                android:background="@color/colorAccent" />
+            <TextView
+                android:id="@+id/checkedContactNumber"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="（0）"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSizeContent"
+                android:gravity="center|left"
+                android:background="@color/colorAccent" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

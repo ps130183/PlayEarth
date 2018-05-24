@@ -1,4 +1,4 @@
-package com.km.rmbank.module.main.personal.member;
+package com.km.rmbank.module.main.personal.contacts;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,12 +15,15 @@ import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.adapter.SuperLvHolder;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.km.rmbank.R;
-import com.km.rmbank.adapter.MyTeamParentAdapter;
+import com.km.rmbank.adapter.TeamAdapter;
+import com.km.rmbank.adapter.TeamSubItem;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.MyTeamDto;
 import com.km.rmbank.dto.UserInfoDto;
+import com.km.rmbank.event.RefreshMyTeamDataEvent;
+import com.km.rmbank.module.main.card.UserNewCardActivity;
 import com.km.rmbank.module.main.personal.contacts.ContactsActivity;
 import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.mvp.model.MyTeamModel;
@@ -31,11 +34,16 @@ import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.ContractUtils;
 import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.EventBusUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -44,11 +52,13 @@ import io.reactivex.schedulers.Schedulers;
 import kr.co.namee.permissiongen.PermissionGen;
 import kr.co.namee.permissiongen.PermissionSuccess;
 
-public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> implements IMyTeamView,MyTeamParentAdapter.onClickUserListener {
+public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> implements IMyTeamView {
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
+    private TeamAdapter mTeamAdapter;
+    private List<Object> teamDtoList;
     //获取 当前手机通讯录中，系统已存在的用户列表 和  不存在的用户列表
     private List<ContractDto> mContractDtos,mLinkManDtos;
     @Override
@@ -70,123 +80,114 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
         initRecycler();
+        getPresenter().getMyTeamData();
     }
+
+
+    public void initRecycler() {
+//        teamDtoList = new ArrayList<>();
+        if (teamDtoList == null){
+            teamDtoList = new ArrayList<>();
+        }
+        RVUtils.setLinearLayoutManage(mRecyclerView, LinearLayoutManager.VERTICAL);
+//        RVUtils.addDivideItemForRv(mRecyclerView,RVUtils.DIVIDER_COLOR_DEFAULT,1);
+        mTeamAdapter = new TeamAdapter(teamDtoList);
+        mRecyclerView.setAdapter(mTeamAdapter);
+        mTeamAdapter.setOnClickSubListener(new TeamSubItem.OnClickSubListener() {
+            @Override
+            public void onClick(Object model) {
+                MyTeamDto.MemberDtoListBean memberDtoListBean = (MyTeamDto.MemberDtoListBean) model;
+                getPresenter().getUserCardById(memberDtoListBean.getId());
+            }
+        });
+    }
+
 
     @Override
     protected void onResume() {
         super.onResume();
-        mContractDtos = null;
-        mLinkManDtos = null;
+//        if (Constant.mUnBindingContractList != null){
+//            mViewManager.setText(R.id.linkContractNum, String.valueOf(Constant.mUnBindingContractList.size()));
+//        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refresh(RefreshMyTeamDataEvent event){
         getPresenter().getMyTeamData();
-        requestContractPremission();
     }
 
-    public void initRecycler() {
-        RVUtils.setLinearLayoutManage(mRecyclerView, LinearLayoutManager.VERTICAL);
-        RVUtils.addDivideItemForRv(mRecyclerView,RVUtils.DIVIDER_COLOR_DEFAULT,5);
-        MyTeamParentAdapter adapter = new MyTeamParentAdapter(this);
-        mRecyclerView.setAdapter(adapter);
-        adapter.setOnClickUserListener(this);
-
-    }
-
-
-    /**
-     * 请求使用权限
-     */
-    private void requestContractPremission() {
-        String[] locationPermission = {
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.WRITE_CONTACTS};
-        PermissionGen.needPermission(this, 1, locationPermission);
-    }
-
-    @PermissionSuccess(requestCode = 1)
-    public void getLocationPermissionSuccess() {
-        getAllContracts();
-    }
-
-    /**
-     * 获取所有的手机联系人信息
-     */
-    private void getAllContracts() {
-        showLoading();
-        Observable.just(1)
-                .map(new Function<Integer, List<ContractDto>>() {
-                    @Override
-                    public List<ContractDto> apply(Integer integer) throws Exception {
-                        return ContractUtils.getAllPhoneContracts(mInstance);
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<ContractDto>>() {
-                    @Override
-                    public void accept(List<ContractDto> personalDynamicDtos) throws Exception {
-                        getPresenter().getContracts(personalDynamicDtos);
-                    }
-                });
-    }
+//    /**
+//     * 获取所有的手机联系人信息
+//     */
+//    private void getAllContracts() {
+//        showLoading();
+//        Observable.just(1)
+//                .map(new Function<Integer, List<ContractDto>>() {
+//                    @Override
+//                    public List<ContractDto> apply(Integer integer) throws Exception {
+//                        return ContractUtils.getAllPhoneContracts(mInstance);
+//                    }
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<List<ContractDto>>() {
+//                    @Override
+//                    public void accept(List<ContractDto> personalDynamicDtos) throws Exception {
+//                        getPresenter().getContracts(personalDynamicDtos);
+//                    }
+//                });
+//    }
 
     @Override
     public void showMyTeam(List<MyTeamDto> teamEntities) {
-        MyTeamParentAdapter adapter = (MyTeamParentAdapter) mRecyclerView.getAdapter();
-        adapter.addData(teamEntities);
+        teamDtoList.clear();
+        teamDtoList.addAll(teamEntities);
+        mTeamAdapter.updateData(teamDtoList);
+//        initRecycler();
     }
 
     @Override
     public void showUserCard(UserInfoDto cardDto) {
         Bundle bundle = new Bundle();
-//        bundle.putParcelable("memberDto",itemData);
         bundle.putParcelable("userCard",cardDto);
-//        startActivity(UserCardActivity.class,bundle);
-    }
-
-    @Override
-    public void hideLoading() {
-        if (dialogLoading != null && mContractDtos != null){
-            dialogLoading.hide();
-        }
+        startActivity(UserNewCardActivity.class,bundle);
     }
 
     @Override
     public void showContracts(List<ContractDto> contractDtos, List<ContractDto> linkManDtos) {
-        hideLoading();
         mContractDtos = contractDtos;
         mLinkManDtos = linkManDtos;
         String numbers = linkManDtos.size() + "";
-        mViewManager.setText(R.id.linkContractNum,numbers);
-    }
-
-
-    @Override
-    public void clickUser(MyTeamDto.MemberDtoListBean itemData, int position) {
-        getPresenter().getUserCardById(itemData.getId());
-//        showToast(itemData.toString());
 
     }
 
+
+    /**
+     * 打开联系人通讯录列表
+     * @param view
+     */
+    @OnClick(R.id.myContact)
+    public void openContactList(View view){
+        startActivity(ContactsActivity.class);
+    }
 
     /**
      * 打开 联系人列表
      * @param view
      */
     public void openContractList(View view) {
-        if (mContractDtos == null || mLinkManDtos == null){
+        if (Constant.mUnBindingContractList == null){
             showToast("正在获取通讯录信息，请稍后...");
             return;
         }
-        final Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("contractList", (ArrayList<? extends Parcelable>) mContractDtos);
-        bundle.putParcelableArrayList("linkManList", (ArrayList<? extends Parcelable>) mLinkManDtos);
 
         final String contentValue1 = "1.  我们将导入您的手机通讯录，您可以邀请通讯录的好友成为您的人脉！(短信0.1元/条)";
         final String contentValue2 = "2.  终身绑定需要您<font color='#3285ff'>实名认证</font>并<font color='#3285ff'>成为玩家合伙人</font>，否则您名下的用户随时可能会被其他玩家合伙人抢走哦！";
-        if (Constant.userInfo.getStatus() == 0) {
+        if (Constant.userInfo.getStatus() == 0 || Constant.userInfo.getStatus() == 3) {
             StyledDialog.buildIosAlert("欢迎使用通讯录","", new MyDialogListener() {
                 @Override
                 public void onFirst() {
-                    startActivity(ContactsActivity.class,bundle);
+                    startActivity(ContactsActivity.class);
                 }
 
                 @Override
@@ -216,7 +217,7 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
                     .setBtnText("取消", "立即认证").show();
 
         } else {
-            startActivity(ContactsActivity.class,bundle);
+            startActivity(ContactsActivity.class);
         }
     }
 

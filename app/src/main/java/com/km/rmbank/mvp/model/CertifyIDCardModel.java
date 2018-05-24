@@ -4,6 +4,7 @@ import com.km.rmbank.entity.IDCardEntity;
 import com.km.rmbank.mvp.base.BaseModel;
 import com.km.rmbank.retrofit.RetrofitManager;
 import com.km.rmbank.utils.Constant;
+import com.km.rmbank.utils.ImageUtils;
 import com.km.rmbank.utils.fileupload.FileUploadingListener;
 import com.km.rmbank.utils.fileupload.UploadFileRequestBody;
 

@@ -5,6 +5,8 @@
     <!-- 网络使用权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 安装未知应用来源的权限 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!-- 访问手机通讯录权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -60,6 +62,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/_destop_icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
@@ -124,7 +127,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@style/WXSahreNoTitleBar" />
         <!-- 微信支付回调 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -189,8 +192,9 @@
         <activity android:name=".module.main.personal.order.MyOrderActivity" />
         <activity android:name=".module.main.personal.order.OrderDetailsActivity" />
         <activity android:name=".module.main.personal.order.GoodsEvaluateActivity" />
-        <activity android:name=".module.main.personal.member.MyTeamActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".module.main.personal.contacts.MyTeamActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".module.main.personal.member.club.ClubActivity" />
         <activity android:name=".module.main.personal.member.goodsmanager.GoodsManagerActivity" />
         <activity
@@ -215,7 +219,9 @@
         <activity android:name=".module.main.club.ActionJoinMemberActivity" />
         <activity android:name=".module.main.club.ActionRecentInfoActivity" />
         <activity android:name=".module.main.club.ActionApplyActivity" />
-        <activity android:name=".module.main.club.ActionPastDetailActivity" />
+        <activity
+            android:name=".module.main.club.ActionPastDetailActivity"
+            android:hardwareAccelerated="true" />
         <activity android:name=".module.main.personal.action.AppliedActionActivity" />
         <activity android:name=".module.main.personal.member.BecomeMemberActivity" />
         <activity android:name=".module.main.payment.PaySuccessActivity" />
@@ -249,7 +255,16 @@
         <activity android:name=".module.realname.IDCardHandActivity" />
         <activity android:name=".module.realname.CertifyRulesActivity" />
         <activity android:name=".module.realname.CertifyCheckActivity" />
-        <activity android:name=".module.main.payment.PayContractsOrderSuccessActivity"/>
+        <activity android:name=".module.main.payment.PayContractsOrderSuccessActivity" />
+        <activity android:name=".module.realname.CertifyIdCardSuccessActivity" />
+
+        <service
+            android:name=".service.ContractService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".module.main.personal.contacts.TransformContactsActivity" />
+        <activity android:name=".module.main.personal.contacts.PayTransformContactActivity"></activity>
     </application>
 
 </manifest>

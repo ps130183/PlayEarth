@@ -24,8 +24,9 @@ import com.km.rmbank.module.main.personal.AttentionGoodsActivity;
 import com.km.rmbank.module.main.personal.account.UserAccountActivity;
 import com.km.rmbank.module.main.personal.action.AppliedActionActivity;
 import com.km.rmbank.module.main.personal.address.ReceiverAddressActivity;
+import com.km.rmbank.module.main.personal.hpage.PersonalHomePageActivity;
 import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
-import com.km.rmbank.module.main.personal.member.MyTeamActivity;
+import com.km.rmbank.module.main.personal.contacts.MyTeamActivity;
 import com.km.rmbank.module.main.personal.member.goodsmanager.GoodsManagerActivity;
 import com.km.rmbank.module.main.personal.order.MyOrderActivity;
 import com.km.rmbank.module.main.personal.setting.AboutMeActivity;
@@ -232,11 +233,11 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      * 拨打客服电话
      */
     private void callServicePhone(){
-        DialogUtils.showDefaultAlertDialog("是否拨打客服电话：13699231246？", new DialogUtils.ClickListener() {
+        DialogUtils.showDefaultAlertDialog("是否拨打客服电话：" + Constant.SERVICE_PHONE + "?", new DialogUtils.ClickListener() {
             @Override
             public void clickConfirm() {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + "13699231246");
+                Uri data = Uri.parse("tel:" + Constant.SERVICE_PHONE);
                 intent.setData(data);
                 startActivity(intent);
             }
@@ -275,7 +276,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
     @OnClick(R.id.dynamic)
     public void onClickDynamic(View view){
         if (dynamicNum == 0){
-            showToast("没有新的动态！");
+            showToast(getResources().getString(R.string.notOpen));
             return;
         }
     }
@@ -287,7 +288,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
     @OnClick(R.id.fans)
     public void onClickFans(View view){
         if (fansNum == 0){
-            showToast("没有粉丝！");
+            showToast(getResources().getString(R.string.notOpen));
             return;
         }
     }
@@ -307,7 +308,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      */
     @OnClick(R.id.iv_protrait)
     public void openUserMainPage(View view){
-//        startActivity(PersonalHomePageActivity.class);
+        startActivity(PersonalHomePageActivity.class);
     }
 
     /**

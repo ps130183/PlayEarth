@@ -264,18 +264,20 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
 
                         holder.setText(R.id.useDate, "优惠券使用期限：" + DateUtils.getInstance().getDateToYMD(mData.getValidateTime()) + "止");
 
-                        CheckBox checkBox = holder.findView(R.id.rightCheck);
+                        final CheckBox checkBox = holder.findView(R.id.rightCheck);
                         checkBox.setChecked(mData.isChecked());
                         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (personNum  == 0){
+                                    checkBox.setChecked(false);
+                                    return;
+                                }
                                 if (isChecked) {//选中
                                     if (!mData.isChecked()) {
                                         mData.setChecked(true);
                                     }
-                                    if ("5".equals(mData.getTicketId())) {//自己用
-                                        personNum--;
-                                    } else if ("6".equals(mData.getTicketId())) {//朋友用
+                                    if ("6".equals(mData.getTicketId())) {//朋友用
                                         if (totalPersonNum == 1) {
                                             mData.setChecked(false);
                                             return;
@@ -285,6 +287,8 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                                         if (personNum < 0) {
                                             personNum = 0;
                                         }
+                                    } else {//自己用的券
+                                        personNum--;
                                     }
                                     checkTicketNos.append(position, mData.getTicketNo());
 
@@ -292,19 +296,19 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                                     if (mData.isChecked()) {
                                         mData.setChecked(false);
                                     }
-                                    if ("5".equals(mData.getTicketId())) {//自己用
-                                        personNum++;
-                                    } else if ("6".equals(mData.getTicketId())) {//朋友用
+                                    if ("6".equals(mData.getTicketId())) {//朋友用
                                         if (totalPersonNum == 1) {
                                             mData.setChecked(true);
                                             return;
                                         }
                                         personNum += (totalPersonNum - 1);
+                                    } else {//自己用的券
+                                        personNum++;
                                     }
                                     checkTicketNos.remove(position);
                                 }
                                 totalPrice = (float) (mServiceDto.getPrice() * personNum);
-                                tvAmount.setText(totalPrice + "元");
+                                tvAmount.setText(totalPrice + "");
                             }
                         });
 
@@ -481,6 +485,11 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                 showToast("请选择支付方式");
                 break;
         }
+    }
+
+    @Override
+    public void showPayResult(String result) {
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

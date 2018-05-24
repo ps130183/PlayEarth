@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.km.rmbank.module.main.personal.member.MyTeamActivity">
+    tools:context="com.km.rmbank.module.main.personal.contacts.MyTeamActivity">
     <LinearLayout
         android:id="@+id/activity_my_team"
         android:layout_width="match_parent"
@@ -12,50 +12,23 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/myContact"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@color/white"
             android:onClick="openContractList">
 
-            <LinearLayout
-                android:id="@+id/contract"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="我的通讯录"
+                android:textColor="@color/text_color_block24"
+                android:textSize="17sp"
                 android:layout_centerInParent="true"
-                android:orientation="horizontal"
-                android:onClick="openContractList">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="通讯录可导入："
-                    android:textColor="@color/text_color_block24"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/linkContractNum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" 人"
-                    android:textColor="@color/text_color_block24"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@drawable/shape_background_circle_red"
-                android:layout_toRightOf="@+id/contract"
-                android:layout_alignTop="@+id/contract"/>
+                android:layout_margin="@dimen/viewSpace16"/>
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView

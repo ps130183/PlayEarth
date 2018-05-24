@@ -78,7 +78,7 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
 
                         holder.getTextView(R.id.memberNum).setVisibility(View.GONE);
                         holder.getTextView(R.id.hint).setVisibility(View.GONE);
-                        holder.getTextView(R.id.baoming).setVisibility(View.GONE);
+//                        holder.getTextView(R.id.baoming).setVisibility(View.GONE);
                         holder.setText(R.id.actionAddress, "地址：" + mData.getAddress());
                         holder.setText(R.id.free, mData.getStatus());
 

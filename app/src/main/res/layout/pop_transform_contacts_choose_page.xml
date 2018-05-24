@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="3dp"
+    android:background="@drawable/shape_pop_transform_contacts_choose_page">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/choosePage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="400dp">
+
+    </android.support.v7.widget.RecyclerView>
+</FrameLayout>

@@ -33,13 +33,6 @@ public class CertifyCheckActivity extends BaseActivity {
                 return true;
             }
         });
-
-        TextView becomeMember = mViewManager.findView(R.id.becomeMember);
-        if ("4".equals(Constant.userInfo.getRoleId())){
-            becomeMember.setVisibility(View.VISIBLE);
-        } else {
-            becomeMember.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -50,13 +43,5 @@ public class CertifyCheckActivity extends BaseActivity {
                 startActivity(HomeActivity.class);
             }
         };
-    }
-
-    /**
-     * 成为玩家合伙人
-     * @param view
-     */
-    public void becomeMember(View view) {
-        startActivity(BecomeMemberActivity.class);
     }
 }

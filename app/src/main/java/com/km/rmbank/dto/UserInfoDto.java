@@ -64,6 +64,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
 
     private String ticketCount;
 
+    private String cardId;
+
     private int status;//实名认证  0：未验证，1：验证中，2：通过，3：失败
     private int type;//2:商家
 
@@ -288,6 +290,14 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.type = type;
     }
 
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
     @Override
     public String toString() {
         return "UserInfoDto{" +
@@ -316,6 +326,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
                 ", position='" + position + '\'' +
                 ", personalizedSignature='" + personalizedSignature + '\'' +
                 ", ticketCount='" + ticketCount + '\'' +
+                ", cardId='" + cardId + '\'' +
                 ", status=" + status +
                 ", type=" + type +
                 '}';
@@ -356,6 +367,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
         dest.writeString(this.position);
         dest.writeString(this.personalizedSignature);
         dest.writeString(this.ticketCount);
+        dest.writeString(this.cardId);
         dest.writeInt(this.status);
         dest.writeInt(this.type);
     }
@@ -386,6 +398,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.position = in.readString();
         this.personalizedSignature = in.readString();
         this.ticketCount = in.readString();
+        this.cardId = in.readString();
         this.status = in.readInt();
         this.type = in.readInt();
     }

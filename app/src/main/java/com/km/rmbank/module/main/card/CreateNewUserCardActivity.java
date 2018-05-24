@@ -11,6 +11,7 @@ import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.event.UserInfoEvent;
 import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.module.realname.CertifyCheckActivity;
+import com.km.rmbank.module.realname.CertifyIdCardSuccessActivity;
 import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.module.realname.IdentityVerificationActivity;
 import com.km.rmbank.mvp.model.UserInfoModel;
@@ -110,6 +111,8 @@ public class CreateNewUserCardActivity extends BaseActivity<IUserInfoView,UserIn
             });
         } else if (Constant.userInfo.getStatus() == 1){
             startActivity(CertifyCheckActivity.class);
+        } else {
+            startActivity(CertifyIdCardSuccessActivity.class);
         }
     }
 

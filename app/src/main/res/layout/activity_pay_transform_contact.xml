@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module.main.personal.contacts.PayTransformContactActivity">
+    <LinearLayout
+        android:id="@+id/activity_payment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_above="@+id/toPay">
+
+        <TextView
+            android:id="@+id/transformContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/viewSpace16"
+            android:text="本次可转换人脉数 2 个"
+            android:visibility="visible"/>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/viewSpace16"
+            android:paddingLeft="@dimen/viewSpace16"
+            android:paddingBottom="@dimen/viewSpace16"
+            android:paddingRight="@dimen/viewSpace16">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需支付金额(元)"
+                android:textColor="@color/text_color_block3"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"
+                    android:textColor="@color/text_color_block0"
+                    />
+
+                <TextView
+                    android:id="@+id/totalMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1.20"
+                    android:textColor="@color/text_color_block0"
+                    android:textSize="29sp"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            android:src="@drawable/pay_money_bottom"/>
+
+        <TextView
+            android:id="@+id/invitedContactsNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="已被别人转换3人"
+            android:padding="@dimen/viewSpace16"
+            android:textColor="@color/text_color_block3"
+            android:textSize="15sp"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/invitedContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingBottom="@dimen/viewSpace8"
+            android:paddingTop="@dimen/viewSpace8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/viewSpace8"
+                android:layout_marginLeft="@dimen/viewSpace16"
+                android:text="其他支付方式"
+                android:textSize="@dimen/textSizeContent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divideLineHeight"
+                android:background="@color/divideLineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/viewSpace8"
+                android:paddingLeft="@dimen/viewSpace16"
+                android:paddingRight="@dimen/viewSpace16"
+                android:paddingTop="@dimen/viewSpace8">
+
+                <TextView
+                    android:id="@+id/tv_pay_type_bank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/viewSpace4"
+                    android:text="银行卡支付"
+                    android:textColor="@color/textMainColor"
+                    android:textSize="@dimen/textSizeBig" />
+
+                <TextView
+                    android:id="@+id/tv_bank_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_pay_type_bank"
+                    android:text="快捷又安全" />
+
+
+                <CheckBox
+                    android:id="@+id/cb_bank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divideLineHeight"
+                android:background="@color/divideLineColor" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_ticket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="优惠券"
+                android:textSize="@dimen/textSizeBig"
+                android:textColor="@color/textMainColor"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/viewSpace16"
+                />
+            <include layout="@layout/_default_divide_line"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ticketList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/toPay"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeBig"
+        android:gravity="center"
+        android:onClick="toPay"/>
+
+</RelativeLayout>

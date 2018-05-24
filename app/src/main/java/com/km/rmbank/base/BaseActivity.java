@@ -1,14 +1,21 @@
 package com.km.rmbank.base;
 
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +32,7 @@ import com.andview.refreshview.XRefreshView;
 import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.dto.AppVersionDto;
@@ -44,6 +52,7 @@ import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DialogLoading;
 import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
+import com.km.rmbank.utils.Md5Util;
 import com.km.rmbank.utils.NavigationBarUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.km.rmbank.utils.ViewUtils;
@@ -55,12 +64,15 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.IOException;
 
 import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subscribers.DisposableSubscriber;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
 
 /**
@@ -93,9 +105,9 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         mViewManager = new ViewManager(this, R.layout.base_activity_layout);
         setContentView(mViewManager.getContentView());
 
-        if (statusBarTextColorIsDark()){
+        if (statusBarTextColorIsDark()) {
             //设置状态栏背景色为白色，并且字体、图标颜色为深色
-            SystemBarHelper.tintStatusBar(this, Color.WHITE,0f);
+            SystemBarHelper.tintStatusBar(this, Color.WHITE, 0f);
             SystemBarHelper.setStatusBarDarkMode(this);
         }
 //        else {
@@ -106,7 +118,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         int screenHeight = ScreenUtils.getScreenHeight();
         int statusBarHeiht = BarUtils.getStatusBarHeight();
         //虚拟按键
-        if (NavigationBarUtils.hasNavBar(this)){
+        if (NavigationBarUtils.hasNavBar(this)) {
             int height = NavigationBarUtils.getNavigationBarHeight(this);
             mainContent.getLayoutParams().height = screenHeight - statusBarHeiht - height;
         } else {
@@ -131,7 +143,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         View contentView = LayoutInflater.from(this).inflate(getContentViewRes(), null, false);
         baseContent.addView(contentView);
 
-        PresenterDelegateImpl<V,P> presenterDelegate = new PresenterDelegateImpl<V,P>(createPresenter(), (V) this);
+        PresenterDelegateImpl<V, P> presenterDelegate = new PresenterDelegateImpl<V, P>(createPresenter(), (V) this);
         proxyPresenter = new ProxyPresenter(presenterDelegate);
         proxyPresenter.oncreate(savedInstanceState);
 
@@ -145,7 +157,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         return null;
     }
 
-    public final P getPresenter(){
+    public final P getPresenter() {
         return proxyPresenter.getPresenter();
     }
 
@@ -180,7 +192,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         super.onDestroy();
         proxyPresenter.onDestroy();
         EventBusUtils.unregister(this);
-        if (dialogLoading != null && dialogLoading.isShowing()){
+        if (dialogLoading != null && dialogLoading.isShowing()) {
             dialogLoading.dismiss();
         }
     }
@@ -199,9 +211,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     /**
      * 状态栏的字体颜色是否是深色
+     *
      * @return
      */
-    public boolean statusBarTextColorIsDark(){
+    public boolean statusBarTextColorIsDark() {
         return true;
     }
 
@@ -218,7 +231,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
      *
      * @param titleBar
      */
-    protected void onCreateTitleBar(BaseTitleBar titleBar){};
+    protected void onCreateTitleBar(BaseTitleBar titleBar) {
+    }
+
+    ;
 
     /**
      * activity的默认加载结束 ，正式 加载页面的具体内容
@@ -276,10 +292,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     @Override
     public void showLoading() {
-        if (mXRefreshView != null && !mXRefreshView.mPullRefreshing){
+        if (mXRefreshView != null && !mXRefreshView.mPullRefreshing) {
             mXRefreshView.startRefresh();
         }
-        if (dialogLoading == null){
+        if (dialogLoading == null) {
             dialogLoading = new DialogLoading(this);
         }
         dialogLoading.show();
@@ -287,10 +303,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     @Override
     public void hideLoading() {
-        if (mXRefreshView != null && mXRefreshView.mPullRefreshing){
+        if (mXRefreshView != null && mXRefreshView.mPullRefreshing) {
             mXRefreshView.stopRefresh();
         }
-        if (dialogLoading != null){
+        if (dialogLoading != null) {
             dialogLoading.hide();
         }
     }
@@ -298,10 +314,10 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     @Override
     public void showError(String message) {
-        if (mXRefreshView != null && mXRefreshView.mPullRefreshing){
+        if (mXRefreshView != null && mXRefreshView.mPullRefreshing) {
             mXRefreshView.stopRefresh(false);
         }
-        if (this.getClass() == HomeActivity.class){
+        if (this.getClass() == HomeActivity.class) {
             return;
         }
         showToast(message);
@@ -310,7 +326,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
     @Override
     public void userIsNotLogin() {
         Constant.userLoginInfo.clear();
-        if (this.getClass() == HomeActivity.class){
+        if (this.getClass() == HomeActivity.class) {
             return;
         }
         startActivity(LoginActivity.class);
@@ -318,14 +334,16 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     /**
      * 启动activity
+     *
      * @param activityClass
      */
-    public void startActivity(Class activityClass){
-        startActivity(activityClass,null);
+    public void startActivity(Class activityClass) {
+        startActivity(activityClass, null);
     }
 
     /**
      * 启动activity
+     *
      * @param activityClass
      * @param bundle
      */
@@ -364,6 +382,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     /**
      * 检测是否有新版本的app
+     *
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -385,9 +404,9 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e instanceof BaseModel.APIException){
+                        if (e instanceof BaseModel.APIException) {
                             BaseModel.APIException exception = (BaseModel.APIException) e;
-                            if (!event.getActivity().getClass().equals(HomeActivity.class)){
+                            if (!event.getActivity().getClass().equals(HomeActivity.class)) {
                                 showToast(exception.message);
                             }
                         } else {
@@ -404,10 +423,11 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     /**
      * 更新app
+     *
      * @param appVersionDto
      */
     private void updateApp(final AppVersionDto appVersionDto) {
-        if (1 == appVersionDto.getFoce()){//强制更新
+        if (1 == appVersionDto.getFoce()) {//强制更新
             downloadApp(appVersionDto);
         } else {//不强制更新
             DialogUtils.showDefaultAlertDialog("检测到新版本 " + appVersionDto.getVersionView() + "，是否更新？", new DialogUtils.ClickListener() {
@@ -421,56 +441,153 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     }
 
-    private void downloadApp(final AppVersionDto appVersionDto){
-        String path = AppUtils.getDownloadAppPath("wzdq-resplease-" + System.currentTimeMillis() + "-" + appVersionDto.getVersionView() + ".apk");
-        String url = appVersionDto.getAppUrl();
-        new FinalDownFiles(false, mInstance, url,
-                path,
-                new FinalDownFileResult() {
+    private void downloadApp(final AppVersionDto appVersionDto) {
+        final String path = AppUtils.getDownloadAppPath("wzdq-resplease-" + appVersionDto.getVersionView() + ".apk");
+        File file = new File(path);
+        if (file.exists() && appVersionDto.getMd5().equals(Md5Util.getMd5ByFile(file))) {//文件存在
+            DialogUtils.showDefaultAlertDialog("检测到已下载文件，是否安装？", new DialogUtils.ClickListener() {
+                @Override
+                public void clickConfirm() {
+                    checkIsAndroidO(path);
+                }
+            });
+//            Md5Util.getMd5ByFile(file);
+        } else {//不存在改文件，去下载
+            SPUtils.getInstance().put("curAppPath",path);
+            String url = appVersionDto.getAppUrl();
+            new FinalDownFiles(false, mInstance, url,
+                    path,
+                    new FinalDownFileResult() {
 
-                    @Override
-                    public void onSuccess(DownInfo downInfo) {
-                        super.onSuccess(downInfo);
-                        LogUtils.i("成功==",downInfo.toString());
-                        installApp(downInfo.getSavePath());
-                    }
+                        @Override
+                        public void onSuccess(DownInfo downInfo) {
+                            super.onSuccess(downInfo);
+                            LogUtils.i("成功==", downInfo.toString());
+                            checkIsAndroidO(downInfo.getSavePath());
+//                            installApp(downInfo.getSavePath());
+                        }
 
-                    @Override
-                    public void onCompleted() {
-                        super.onCompleted();
-                        DialogUtils.DismissLoadDialog();
-                    }
+                        @Override
+                        public void onCompleted() {
+                            super.onCompleted();
+                            DialogUtils.DismissLoadDialog();
+                        }
 
-                    @Override
-                    public void onStart() {
-                        super.onStart();
-                        DialogUtils.showDownloadDialog(mInstance, "检测到有新版本，正在下载 ..." , false);
-                    }
+                        @Override
+                        public void onStart() {
+                            super.onStart();
+                            DialogUtils.showDownloadDialog(mInstance, "检测到有新版本，正在下载 ...", false);
+                        }
 
-                    @Override
-                    public void onPause() {
-                        super.onPause();
-                    }
+                        @Override
+                        public void onPause() {
+                            super.onPause();
+                        }
 
-                    @Override
-                    public void onStop() {
-                        super.onStop();
-                        DialogUtils.DismissLoadDialog();
-                    }
+                        @Override
+                        public void onStop() {
+                            super.onStop();
+                            DialogUtils.DismissLoadDialog();
+                        }
 
-                    @Override
-                    public void onLoading(long readLength, long countLength) {
-                        super.onLoading(readLength, countLength);
-                        LogUtils.i("下载过程=="," countLength = "+countLength+"    readLength = " +readLength);
-                        DialogUtils.setProgressValue((int) ((readLength * 100) / countLength));
-                    }
+                        @Override
+                        public void onLoading(long readLength, long countLength) {
+                            super.onLoading(readLength, countLength);
+                            LogUtils.i("下载过程==", " countLength = " + countLength + "    readLength = " + readLength);
+                            DialogUtils.setProgressValue((int) ((readLength * 100) / countLength));
+                        }
 
-                    @Override
-                    public void onErroe(Throwable e) {
-                        super.onErroe(e);
-                        DialogUtils.DismissLoadDialog();
-                    }
-                });
+                        @Override
+                        public void onErroe(Throwable e) {
+                            super.onErroe(e);
+                            DialogUtils.DismissLoadDialog();
+                        }
+                    });
+        }
+
+    }
+
+
+    private static final int INSTALL_PACKAGES_REQUESTCODE = 1000;
+
+    /**
+     * 判断是否是8.0系统,是的话需要获取此权限，判断开没开，没开的话处理未知应用来源权限问题,否则直接安装
+     */
+    private void checkIsAndroidO(String path) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            boolean b = getPackageManager().canRequestPackageInstalls();
+            if (!b) {//没有权限
+                DialogUtils.showDefaultAlertDialog("安装应用需要打开未知来源权限，请去设置中开启权限",
+                        new DialogUtils.ClickListener() {
+                            @Override
+                            public void clickConfirm() {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    startInstallPermissionSettingActivity();
+                                }
+                            }
+
+                        });
+                return;
+            }
+//            if (b) {
+//                installApp(path);//安装应用的逻辑(写自己的就可以)
+//            } else {
+//                //请求安装未知应用来源的权限
+//               requestInstallPackages();
+//            }
+        }
+
+        installApp(path);
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void startInstallPermissionSettingActivity() {
+        //注意这个是8.0新API
+//        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+//        startActivityForResult(intent, 10086);
+        //请求安装未知应用来源的权限
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, INSTALL_PACKAGES_REQUESTCODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case INSTALL_PACKAGES_REQUESTCODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    String appPath = SPUtils.getInstance().getString("curAppPath");
+                    installApp(appPath);
+                } else {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                    startActivityForResult(intent, 10086);
+                }
+                break;
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10086) {
+            String appPath = SPUtils.getInstance().getString("curAppPath");
+            installApp(appPath);
+        }
+    }
+
+    /**
+     * 请求使用权限
+     */
+    private void requestInstallPackages() {
+        String[] locationPermission = {Manifest.permission.REQUEST_INSTALL_PACKAGES};
+        PermissionGen.needPermission(this, INSTALL_PACKAGES_REQUESTCODE, locationPermission);
+    }
+
+    @PermissionSuccess(requestCode = INSTALL_PACKAGES_REQUESTCODE)
+    public void getLocationPermissionSuccess() {
+//        installApp();
+        showToast("申请权限成功");
     }
 
     /**
@@ -486,18 +603,19 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
         //判读版本是否在7.0以上
-        if (Build.VERSION.SDK_INT >= 24) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //provider authorities
             Uri apkUri = FileProvider.getUriForFile(mInstance, "com.km.rmbank.fileprovider", apk);
             //Granting Temporary Permissions to a URI
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
         } else {
             intent.setDataAndType(Uri.fromFile(apk), "application/vnd.android.package-archive");
         }
 
         startActivity(intent);
-        android.os.Process.killProcess(android.os.Process.myPid());
+//        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
 

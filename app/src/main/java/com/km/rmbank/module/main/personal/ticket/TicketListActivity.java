@@ -96,23 +96,29 @@ public class TicketListActivity extends BaseActivity<ITicketListView,TicketListP
                     case "6"://朋友基地券
                         GlideUtils.loadImageByRes(imageView,R.mipmap.icon_ticket2);
                         bottomBg.setBackgroundColor(getResources().getColor(ticketbgs[1]));
+                        holder.setText(R.id.ticketSubTitle,"限朋友使用");
                         break;
                     case "7"://路演官课程
                         GlideUtils.loadImageByRes(imageView,R.mipmap.icon_ticket5);
                         bottomBg.setBackgroundColor(getResources().getColor(ticketbgs[3]));
+                        holder.setText(R.id.ticketSubTitle,"限本人使用");
                         break;
                     case "8"://俱乐部通票
                         GlideUtils.loadImageByRes(imageView,R.mipmap.icon_ticket3);
                         bottomBg.setBackgroundColor(getResources().getColor(ticketbgs[2]));
+                        holder.setText(R.id.ticketSubTitle,"限本人使用");
                         break;
+                    case "5":
                     case "9"://自己基地券
                         GlideUtils.loadImageByRes(imageView,R.mipmap.icon_ticket1);
                         bottomBg.setBackgroundColor(getResources().getColor(ticketbgs[0]));
+                        holder.setText(R.id.ticketSubTitle,"限本人使用");
                         break;
 
                     default://其他券
                         GlideUtils.loadImageByRes(imageView,R.mipmap.icon_ticket4);
                         bottomBg.setBackgroundColor(getResources().getColor(ticketbgs[4]));
+                        holder.setText(R.id.ticketSubTitle,"限本人使用");
                         break;
                 }
 

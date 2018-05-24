@@ -38,29 +38,7 @@
         </RelativeLayout>
 
         <include layout="@layout/_default_divide_line"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_push_message_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="允许其他人查看名片"
-                style="@style/Personal.User.Setting.tv"
-                />
 
-            <com.rey.material.widget.Switch
-                android:id="@+id/swich_usercard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:checked="false"
-                style="@style/Switch_theme"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/viewSpace16"
-                />
-        </RelativeLayout>
 
 
     </LinearLayout>

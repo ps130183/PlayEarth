@@ -61,17 +61,21 @@ public class UserNewCardActivity extends BaseActivity {
 
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
-        SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setRightMenuRes(R.menu.toolbar_user_card_more);
-        simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.more && mShareDialog != null) {
-                    mShareDialog.show();
+        UserInfoDto userInfoDto = getIntent().getParcelableExtra("userCard");
+        if (userInfoDto == null){//是自己的名片
+            SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
+            simpleTitleBar.setRightMenuRes(R.menu.toolbar_user_card_more);
+            simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.more && mShareDialog != null) {
+                        mShareDialog.show();
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
+
     }
 
     @Override
@@ -124,11 +128,6 @@ public class UserNewCardActivity extends BaseActivity {
         userPositionLp.topMargin = (int) (userInfoHeihgt * (10 / per));
         userIntroduce.setTextSize(ConvertUtils.px2sp((float) (userInfoHeihgt * (13 / per))));
 
-//        LinearLayout.LayoutParams userCompanyLp = (LinearLayout.LayoutParams) userCompany.getLayoutParams();
-//        userCompanyLp.topMargin = (int) (userInfoHeihgt * (4 / per));
-//        userCompany.setTextSize(ConvertUtils.px2sp((float) (userInfoHeihgt * (13 / per))));
-
-
         int codeHeight = userCardHeight - userInfoHeihgt;
         int qrcodeWidth = (int) (codeHeight * (180 / 296.0));
         ImageView qrCode = mViewManager.findView(R.id.userQRCode);
@@ -143,9 +142,9 @@ public class UserNewCardActivity extends BaseActivity {
         TextView userIntroduce = mViewManager.findView(R.id.userIntroduce);
         ImageView qrCode = mViewManager.findView(R.id.userQRCode);
 
-        UserInfoDto userInfoDto = Constant.userInfo;
-        if (userInfoDto == null){
-            return;
+        UserInfoDto userInfoDto = getIntent().getParcelableExtra("userCard");//= Constant.userInfo;
+        if (userInfoDto == null && Constant.userInfo != null){
+            userInfoDto = Constant.userInfo;
         }
         GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
         userName.setText(userInfoDto.getName());
@@ -153,6 +152,8 @@ public class UserNewCardActivity extends BaseActivity {
 
         Bitmap userQrcode = QRCodeUtils.createQRCode(mInstance,userInfoDto.getShareUrl());
         qrCode.setImageBitmap(userQrcode);
+
+        mViewManager.setText(R.id.userPhone,userInfoDto.getMobilePhone());
     }
 
 

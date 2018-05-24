@@ -51,6 +51,7 @@ public class MyTeamPresenter extends BasePresenter<IMyTeamView,MyTeamModel> {
     }
 
     public void getContracts(List<ContractDto> contractDtoList){
+        getMvpView().showLoading();
         getMvpModel().getAllContracts(contractDtoList)
                 .observeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

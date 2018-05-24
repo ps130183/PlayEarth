@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
@@ -53,6 +54,7 @@ public class InformationActivity extends BaseActivity<InformationView,Informatio
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
+
         initRecycler();
     }
 

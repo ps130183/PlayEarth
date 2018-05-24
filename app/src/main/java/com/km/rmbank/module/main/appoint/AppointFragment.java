@@ -115,24 +115,6 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                         TextView actionTime = holder.getTextView(R.id.actionTime);
                         TextView actionAddress =  holder.getTextView(R.id.actionAddress);
                         TextView hint = holder.findView(R.id.hint);
-                        RTextView baoming = holder.findView(R.id.baoming);
-                        baoming.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (Constant.userLoginInfo.isEmpty()){
-                                    showToast("请先登录，再报名");
-                                    startActivity(LoginActivity.class);
-                                    return;
-                                }
-                                long holdDate = DateUtils.getInstance().stringDateToMillis(DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM),DateUtils.YMDHM);
-                                long curDate = System.currentTimeMillis();
-                                if (curDate >= holdDate){
-                                    showToast("报名已截止");
-                                    return;
-                                }
-                                getPresenter().applyAction(mData.getId(), Constant.userInfo.getName(),Constant.userInfo.getMobilePhone());
-                            }
-                        });
 
                         GlideImageView imageView = holder.findView(R.id.actionImae);
                         CircleProgressView progressView = holder.findView(R.id.progressView);
@@ -148,18 +130,13 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                             actionAddress.setVisibility(View.VISIBLE);
                             actionAddress.setText("地址：" + mData.getAddress());
 
-                            if (newType != 3){
-                                baoming.setVisibility(View.VISIBLE);
-                            } else {
-                                baoming.setVisibility(View.GONE);
-                            }
 
                             free.setText("免费");
                         } else {//咨询
                             holder.setText(R.id.memberNum,mData.getViewCount());
                             free.setText(mData.getStatus());
                             hint.setText("人已浏览");
-                            baoming.setVisibility(View.GONE);
+//                            baoming.setVisibility(View.GONE);
                             if (mData.getStartDate() == 0){
                                 actionTime.setVisibility(View.INVISIBLE);
                             } else {

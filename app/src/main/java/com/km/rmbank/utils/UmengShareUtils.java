@@ -91,11 +91,55 @@ public class UmengShareUtils {
         web.setDescription(shareDto.getContent());
 
         new ShareAction(activity).withText(shareDto.getContent())
-                .setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE)
+                .setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
 
                 .withText(shareDto.getContent())
                 .withMedia(web)
                 .setCallback(listener).open();
+    }
+
+    /**
+     * 开启分享
+     * @param activity
+     * @param shareDto  分享的数据
+     * @param shareMedia 分享的类型  比如：微信、朋友圈等
+     */
+    public static void openShare(Activity activity, ShareDto shareDto, SHARE_MEDIA shareMedia){
+        if (shareDto == null){
+            ToastUtils.showShort("暂未获取到分享内容");
+            return;
+        }
+        UMWeb web = new UMWeb(shareDto.getPageUrl());
+        web.setTitle(shareDto.getTitle());
+        web.setThumb(new UMImage(activity, shareDto.getSharePicUrl()));
+        web.setDescription(shareDto.getContent());
+
+        new ShareAction(activity).withText(shareDto.getContent())
+                .setPlatform(shareMedia)
+                .withText(shareDto.getContent())
+                .withMedia(web)
+                .setCallback(new UMShareListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+
+
+                    }
+
+                    @Override
+                    public void onResult(SHARE_MEDIA share_media) {
+                        ToastUtils.showShort("分享成功");
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                        ToastUtils.showShort("分享失败");
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media) {
+                        ToastUtils.showShort("取消分享");
+                    }
+                }).share();
     }
 
     /**

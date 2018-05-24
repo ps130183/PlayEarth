@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.km.rmbank.module.realname.CertifyCheckActivity">
+    tools:context="com.km.rmbank.module.main.payment.PayContractsOrderSuccessActivity">
 
     <TextView
         android:id="@+id/becomeMember"
@@ -26,7 +26,7 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/icon_time"
+        android:src="@mipmap/icon_success"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="120dp"
         />

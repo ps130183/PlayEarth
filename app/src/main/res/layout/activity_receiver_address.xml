@@ -9,16 +9,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/btn_create_receiver_address">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-
-    <Button
-        android:id="@+id/btn_create_receiver_address"
-        style="@style/Button"
-        android:text="新增收货地址"
-        android:layout_alignParentBottom="true"
-        />
 
 </RelativeLayout>

@@ -161,11 +161,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="优惠券"
-                android:textSize="@dimen/textSizeBig"
-                android:textColor="@color/textMainColor"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/viewSpace16"
+                android:text="可用的电子券:"
+                android:padding="@dimen/viewSpace16"
+                android:textColor="@color/text_color_block3"
+                android:textSize="15sp"
                 />
             <include layout="@layout/_default_divide_line"/>
             <android.support.v7.widget.RecyclerView

@@ -27,7 +27,7 @@ import com.km.rmbank.module.main.personal.circlefriends.MyForumInfosActivity;
 import com.km.rmbank.module.main.personal.integral.MyIntegralActivity;
 import com.km.rmbank.module.main.personal.leader.MeetingListActivity;
 import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
-import com.km.rmbank.module.main.personal.member.MyTeamActivity;
+import com.km.rmbank.module.main.personal.contacts.MyTeamActivity;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.module.main.personal.member.goodsmanager.GoodsManagerActivity;
 import com.km.rmbank.module.main.personal.order.MyOrderActivity;

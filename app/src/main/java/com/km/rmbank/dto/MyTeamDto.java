@@ -3,13 +3,15 @@ package com.km.rmbank.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.zaihuishou.expandablerecycleradapter.model.ExpandableListItem;
+
 import java.util.List;
 
 /**
  * Created by kamangkeji on 17/4/19.
  */
 
-public class MyTeamDto {
+public class MyTeamDto extends Object implements ExpandableListItem {
 
     /**
      * memberDtoList : [{"age":"0","birthday":567964800000,"createDate":1492582613000,"gender":"0","id":"16","mobilePhone":"15303202521","nickName":"15303202521","parentId":"3","personalizedSignature":"这家伙很懒没有留下个人介绍","portraitUrl":"/default/default_icon_head.png","roleId":"4","roleUpdateDate":1492582613000,"total":0,"type":"1","updateDate":1492582613000}]
@@ -20,6 +22,7 @@ public class MyTeamDto {
     private int num;
     private String roleName;
     private List<MemberDtoListBean> memberDtoList;
+    private boolean mExpanded = true;
 
     public int getNum() {
         return num;
@@ -43,6 +46,21 @@ public class MyTeamDto {
 
     public void setMemberDtoList(List<MemberDtoListBean> memberDtoList) {
         this.memberDtoList = memberDtoList;
+    }
+
+    @Override
+    public List<?> getChildItemList() {
+        return memberDtoList;
+    }
+
+    @Override
+    public boolean isExpanded() {
+        return mExpanded;
+    }
+
+    @Override
+    public void setExpanded(boolean isExpanded) {
+        mExpanded = isExpanded;
     }
 
     public static class MemberDtoListBean implements Parcelable {
@@ -81,6 +99,7 @@ public class MyTeamDto {
         private String type;
         private String updateDate;
         private String referrerPhone;
+        private String source;
 
 
         public String getName() {
@@ -222,6 +241,14 @@ public class MyTeamDto {
         public MemberDtoListBean() {
         }
 
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
         @Override
         public int describeContents() {
             return 0;
@@ -246,6 +273,7 @@ public class MyTeamDto {
             dest.writeString(this.type);
             dest.writeString(this.updateDate);
             dest.writeString(this.referrerPhone);
+            dest.writeString(this.source);
         }
 
         protected MemberDtoListBean(Parcel in) {
@@ -266,6 +294,7 @@ public class MyTeamDto {
             this.type = in.readString();
             this.updateDate = in.readString();
             this.referrerPhone = in.readString();
+            this.source = in.readString();
         }
 
         public static final Creator<MemberDtoListBean> CREATOR = new Creator<MemberDtoListBean>() {

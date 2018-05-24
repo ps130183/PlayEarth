@@ -45,7 +45,7 @@ public class CreateReceiverAddressActivity extends BaseActivity<IReceiverAddress
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setTitleContent("新建收货地址");
+        simpleTitleBar.setTitleContent("添加收货地址");
         simpleTitleBar.setRightMenuContent("保存");
         simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +65,7 @@ public class CreateReceiverAddressActivity extends BaseActivity<IReceiverAddress
         mReceiverAddressDto = getIntent().getParcelableExtra("receiverAddressDto");
 
         if (mReceiverAddressDto != null){//修改编辑
-            simpleTitleBar.setTitleContent("编辑收货地址");
+            simpleTitleBar.setTitleContent("修改收货地址");
 //            cityPick.getOptionsPosition(mReceiverAddressDto.getId());
             initReceiverAddress();
         }

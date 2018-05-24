@@ -1,59 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/white"
-        >
+    android:layout_height="65dp"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_user_portrait"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_user_nick_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="这是昵称"
-                android:textSize="@dimen/textSizeContent"
-                android:textColor="@color/text_color_block1"
-                android:layout_marginLeft="@dimen/viewSpace8"
-                />
+    <View
+        android:id="@+id/middleView"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_user_portrait" />
 
-            <TextView
-                android:id="@+id/from"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="来源：手机通讯录"
-                android:textSize="@dimen/textSizeContent"
-                android:textColor="@color/text_color_blocka"
-                android:layout_marginLeft="@dimen/viewSpace8"
-                />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/tv_user_nick_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/middleView"
+        android:layout_alignLeft="@+id/middleView"
+        android:layout_marginLeft="@dimen/viewSpace8"
+        android:text="这是昵称"
+        android:textColor="@color/text_color_block1"
+        android:textSize="@dimen/textSizeContent" />
 
 
+    <TextView
+        android:id="@+id/from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/middleView"
+        android:layout_below="@+id/middleView"
+        android:layout_marginLeft="@dimen/viewSpace8"
+        android:text="来源：手机通讯录"
+        android:textColor="@color/text_color_blocka"
+        android:textSize="@dimen/textSizeContent" />
 
-        <com.ps.glidelib.GlideImageView
-            android:id="@+id/iv_user_portrait"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            app:siv_shape_type="circle"
-            android:layout_marginLeft="@dimen/viewSpace8"/>
+    <TextView
+        android:id="@+id/userPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/arrowRight"
+        android:text="1560923329"
+        android:textColor="@color/text_color_blocka"
+        android:textSize="@dimen/textSizeContent" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_arrow_right_gray"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
 
-    </RelativeLayout>
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/iv_user_portrait"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/viewSpace8"
+        app:siv_shape_type="circle" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/arrowRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_arrow_right_gray" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:layout_marginLeft="@dimen/viewSpace8"
+        android:background="@color/divide_color"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

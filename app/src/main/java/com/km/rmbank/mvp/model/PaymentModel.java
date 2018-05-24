@@ -84,4 +84,14 @@ public class PaymentModel extends BaseModel {
                 .compose(this.<PayOrderDto>applySchedulers());
     }
 
+    /**
+     * 支付结果回调
+     * @param payNumber
+     * @return
+     */
+    public Observable<String> payResultResponse(String payNumber){
+        return getService().payResultResponse(payNumber)
+                .compose(this.<String>applySchedulers());
+    }
+
 }

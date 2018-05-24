@@ -41,6 +41,7 @@ import com.km.rmbank.module.main.fragment.HomeNewFragment;
 import com.km.rmbank.mvp.model.HomeModel;
 import com.km.rmbank.mvp.presenter.HomePresenter;
 import com.km.rmbank.mvp.view.IHomeView;
+import com.km.rmbank.service.ContractService;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.DialogUtils;
@@ -217,6 +218,14 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
     @PermissionSuccess(requestCode = REQUEST_PERMISSION_LOCATION)
     public void getLocationPermissionSuccess() {
+        startContract();
+    }
+
+    /**
+     * 获取当前手机联系人信息，并分析是否可邀请加入我的人脉
+     */
+    private void startContract(){
+        startService(new Intent(this,ContractService.class));
     }
 
     /**

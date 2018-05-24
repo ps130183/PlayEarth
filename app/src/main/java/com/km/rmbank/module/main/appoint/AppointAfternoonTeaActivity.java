@@ -27,6 +27,7 @@ import com.km.rmbank.oldrecycler.RVUtils;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
+import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.ps.glidelib.GlideImageView;
@@ -44,6 +45,7 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
 
     private String actionId;
     private ShareDto shareDto;
+    private DialogUtils.CustomBottomDialog mShareDialog;
     private String appointType="";
 
     private ActionDto mActionDto;
@@ -98,8 +100,11 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
                     startActivity(LoginActivity.class);
                     return false;
                 }
+                if (mShareDialog == null){
+                    throw new IllegalArgumentException("初始化分享弹出框失败！！！");
+                }
                 if (item.getItemId() == R.id.share){
-                    openShare();
+                    mShareDialog.show();
                 }
                 return false;
             }
@@ -118,6 +123,7 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
         shareDto = new ShareDto();
 
         initInvitationMans();
+        initShareDialog();
     }
 
     /**
@@ -141,29 +147,20 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
     }
 
 
-
-    private void openShare(){
-        UmengShareUtils.openShare(this, shareDto, new UMShareListener() {
+    private void initShareDialog(){
+        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
+        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
             @Override
-            public void onStart(SHARE_MEDIA share_media) {
-
-            }
-
-            @Override
-            public void onResult(SHARE_MEDIA share_media) {
-                showToast("分享成功");
-                getPresenter().addActiveValue(actionId);
-            }
-
-            @Override
-            public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                LogUtils.d(throwable.getMessage());
-//                showToast("分享失败");
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA share_media) {
-                showToast("取消分享");
+            public void clickShareDialog(String itemName, int i) {
+                mShareDialog.dimiss();
+                switch (i){
+                    case 0://分享到微信好友
+                        UmengShareUtils.openShare(mInstance,shareDto,SHARE_MEDIA.WEIXIN);
+                        break;
+                    case 1://分享朋友圈
+                        UmengShareUtils.openShare(mInstance,shareDto,SHARE_MEDIA.WEIXIN_CIRCLE);
+                        break;
+                }
             }
         });
     }

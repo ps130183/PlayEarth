@@ -33,6 +33,13 @@
         <item name="android:dropDownVerticalOffset">30dip</item>
     </style>
 
+    <style name="WXSahreNoTitleBar">
+        <item name="windowNoTitle">true</item>
+        <!--<item name="windowContentOverlay">@null</item>-->
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
     <style name="Switch_theme" parent="Material.Widget.Switch">
         <item name="sw_trackSize">19dp</item>
         <item name="sw_trackCap">round</item>
@@ -137,7 +144,6 @@
 
     <style name="Personal.User.EditCard.pll" parent="Personal.User.EditCard.ll">
         <item name="android:layout_marginTop">@dimen/viewSpace8</item>
-        <item name="android:paddingLeft">@dimen/viewSpace16</item>
         <item name="android:background">@color/white</item>
         <item name="android:orientation">vertical</item>
     </style>
@@ -145,13 +151,16 @@
     <style name="Personal.User.EditCard.sll" parent="Personal.User.EditCard.ll">
         <item name="android:paddingTop">@dimen/viewSpace16</item>
         <item name="android:paddingBottom">@dimen/viewSpace16</item>
+        <item name="android:paddingLeft">@dimen/viewSpace16</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="Personal.User.EditCard.tv">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">@dimen/textSizeBig</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_color_block1</item>
         <item name="android:layout_marginRight">@dimen/viewSpace16</item>
     </style>
 
@@ -174,6 +183,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/textSizeContent</item>
+        <item name="android:textColor">@color/text_color_block1</item>
         <item name="android:background">@color/white</item>
     </style>
 

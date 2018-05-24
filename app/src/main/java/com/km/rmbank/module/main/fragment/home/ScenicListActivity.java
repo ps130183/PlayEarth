@@ -62,15 +62,15 @@ public class ScenicListActivity extends BaseActivity<ScenicListView,ScenicListPr
 
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
-        SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setRightMenuRes(R.menu.toolbar_map);
-        simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                getPresenter().getMapMarkers();
-                return true;
-            }
-        });
+//        SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
+//        simpleTitleBar.setRightMenuRes(R.menu.toolbar_map);
+//        simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                getPresenter().getMapMarkers();
+//                return true;
+//            }
+//        });
     }
 
     @Override

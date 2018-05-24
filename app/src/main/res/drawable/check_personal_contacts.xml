@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false" android:drawable="@mipmap/icon_check_can_not"/>
     <item android:state_checked="true"  android:drawable="@mipmap/icon_check_yes"/>
     <item android:state_checked="false"  android:drawable="@mipmap/icon_check_no"/>
-    <item android:drawable="@mipmap/icon_check_no"/>
 </selector>

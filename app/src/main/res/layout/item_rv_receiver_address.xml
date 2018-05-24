@@ -1,79 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swiper_layout"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
-
-    <TextView
-        android:id="@+id/tv_delete"
-        android:layout_width="80dp"
-        android:layout_height="match_parent"
-        android:background="@color/color_red"
-        android:text="删除"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textSizeBig"
-        android:gravity="center"
-        />
+    android:layout_height="100dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginLeft="@dimen/viewSpace16"
+    android:layout_marginRight="@dimen/viewSpace16"
+    android:layout_marginTop="@dimen/viewSpace8"
+    android:layout_marginBottom="@dimen/viewSpace8">
 
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="60dp"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/viewSpace16"
-        android:paddingRight="@dimen/viewSpace16"
-        android:paddingTop="@dimen/viewSpace8"
-        android:paddingBottom="@dimen/viewSpace8">
-
-        <TextView
-            android:id="@+id/tv_receiver_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="姓名"
-            android:textSize="@dimen/textSizeBig"
-            android:textColor="@color/textMainColor"
-            android:layout_marginRight="@dimen/viewSpace16"
-            />
-        <TextView
-            android:id="@+id/tv_receiver_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="156****3245"
-            android:textColor="@color/textMainColor"
-            android:textSize="@dimen/textSizeContent"
-            android:layout_toRightOf="@id/tv_receiver_name"
-            android:layout_marginLeft="@dimen/viewSpace16"
-            android:layout_alignBottom="@id/tv_receiver_name"
-            />
-
-        <TextView
-            android:id="@+id/tv_receiver_address"
+        android:paddingRight="@dimen/viewSpace16">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="北京市昌平区霍营街道"
-            android:layout_below="@id/tv_receiver_name"
-            android:layout_marginTop="@dimen/viewSpace4"
-            android:layout_marginBottom="@dimen/viewSpace4"
-            android:layout_toLeftOf="@+id/iv_receiver_arrow_right"
-            />
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+            <TextView
+                android:id="@+id/tv_receiver_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名"
+                android:textColor="@color/text_color_block1"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_receiver_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="北京市昌平区霍营街道"
+                android:textColor="#696969"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/_default_divide_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
         <CheckBox
             android:id="@+id/cb_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:button="@drawable/check_personal_contacts"
             android:text=" 设为默认"
-            android:layout_below="@id/tv_receiver_address"
-            android:button="@drawable/selector_shopcart_check"
-            />
-        <ImageView
-            android:id="@+id/iv_receiver_arrow_right"
+            android:textColor="@color/text_color_block8"
+            android:textSize="13sp" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_chevron_right_black_36dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            />
+            android:layout_marginRight="@dimen/viewSpace16">
 
+            <com.ruffian.library.RTextView
+                android:id="@+id/editAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="编辑"
+                android:textColor="@color/text_color_block8"
+                android:textSize="13sp"
+                app:icon_height="25dp"
+                app:icon_src_normal="@mipmap/icon_edit_address"
+                app:icon_width="25dp" />
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="30dp" />
+
+            <com.ruffian.library.RTextView
+                android:id="@+id/deleteAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="删除"
+                android:textColor="@color/text_color_block8"
+                android:textSize="13sp"
+                app:icon_height="25dp"
+                app:icon_src_normal="@mipmap/icon_delete_address"
+                app:icon_width="25dp" />
+
+        </LinearLayout>
     </RelativeLayout>
-</com.daimajia.swipe.SwipeLayout>
+
+
+</LinearLayout>

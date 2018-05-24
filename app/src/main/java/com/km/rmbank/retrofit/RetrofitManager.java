@@ -66,7 +66,7 @@ public class RetrofitManager {
                 .addInterceptor(cacheInterceptor) //缓存拦截器
 //                    .addNetworkInterceptor(cacheInterceptor)//网络拦截器
                 .retryOnConnectionFailure(true)//错误重连
-                .connectTimeout(15, TimeUnit.SECONDS)//连接超时 15秒
+                .connectTimeout(60, TimeUnit.SECONDS)//连接超时 15秒
                 //网络拦截器，可以用于重试或重写
 //                    .addNetworkInterceptor(authorizationInterceptor)
                 //网络请求缓存，未实现

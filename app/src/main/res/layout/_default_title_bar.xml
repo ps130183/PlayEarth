@@ -18,7 +18,7 @@
             android:ellipsize="end"
             android:maxLength="11"
             android:maxLines="1"
-            android:text="标题栏标题栏标题栏标题栏标题栏"
+            android:text=""
             android:textColor="@color/textMainColor"
             android:textSize="18sp"
             android:textStyle="bold" />

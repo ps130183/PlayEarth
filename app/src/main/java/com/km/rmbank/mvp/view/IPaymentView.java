@@ -19,4 +19,6 @@ public interface IPaymentView extends MvpView {
     void showUserBalance(UserBalanceDto userBalanceDto);
 
     void applyScenicResult(PayOrderDto payOrderDto);
+
+    void showPayResult(String result);
 }

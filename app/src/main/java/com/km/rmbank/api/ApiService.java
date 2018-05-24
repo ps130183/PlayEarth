@@ -39,6 +39,7 @@ import com.km.rmbank.dto.MessageDto;
 import com.km.rmbank.dto.MyFriendsDto;
 import com.km.rmbank.dto.MyTeamDto;
 import com.km.rmbank.dto.NearbyVipDto;
+import com.km.rmbank.dto.PayOrderContactDto;
 import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.dto.ReceiverAddressDto;
 import com.km.rmbank.dto.RecommendPersonalDto;
@@ -1795,4 +1796,24 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/auth/userAdressBook/order/create")
     Observable<Response<PayOrderDto>> getContactsPayOrder(@Field("token") String token,
                                                             @Field("phones") String phone);
+
+    /**
+     * 获取转换人脉支付订单
+     * @param token
+     * @param datas
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/addressBook/compare/send")
+    Observable<Response<PayOrderContactDto>> getContactsOrder(@Field("token") String token,
+                                                              @Field("datas") String datas);
+
+    /**
+     * 支付结果回调
+     * @param payNumber
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/alipay/notify/test")
+    Observable<Response<String>> payResultResponse(@Field("payNumber") String payNumber);
 }

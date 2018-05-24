@@ -1,7 +1,6 @@
 package com.km.rmbank.module.main.personal.address;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,6 +42,14 @@ public class ReceiverAddressActivity extends BaseActivity<IReceiverAddressView,R
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
         simpleTitleBar.setTitleContent("收货地址");
+
+        simpleTitleBar.setRightMenuContent("添加");
+        simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(CreateReceiverAddressActivity.class);
+            }
+        });
     }
 
     @Override
@@ -64,9 +71,7 @@ public class ReceiverAddressActivity extends BaseActivity<IReceiverAddressView,R
 
     public void initRecyclerView() {
         RVUtils.setLinearLayoutManage(mRecyclerView, LinearLayoutManager.VERTICAL);
-        RVUtils.addDivideItemForRv(mRecyclerView);
         ReceiverAddressAdapter addressAdapter = new ReceiverAddressAdapter(this);
-        addressAdapter.setMode(Attributes.Mode.Single);
         addressAdapter.setSelectOtherAddress(selecteOtherAddress);
         mRecyclerView.setAdapter(addressAdapter);
         addressAdapter.setItemClickListener(new BaseAdapter.ItemClickListener<ReceiverAddressDto>() {
@@ -75,10 +80,6 @@ public class ReceiverAddressActivity extends BaseActivity<IReceiverAddressView,R
                 if (selecteOtherAddress){
                     EventBusUtils.post(new OtherAddressEvent(itemData));
                     finish();
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("receiverAddressDto",itemData);
-                    startActivity(CreateReceiverAddressActivity.class,bundle);
                 }
             }
         });
@@ -92,10 +93,17 @@ public class ReceiverAddressActivity extends BaseActivity<IReceiverAddressView,R
         });
 
         //删除
-        addressAdapter.setOnDeleteListener(new ReceiverAddressAdapter.onDeleteListener() {
+        addressAdapter.setOnAddressChangeListener(new ReceiverAddressAdapter.onAddressChangeListener() {
             @Override
             public void deleteReceiverAddress(ReceiverAddressDto receiverAddressDto) {
                 getPresenter().deleteReceiverAddress(receiverAddressDto);
+            }
+
+            @Override
+            public void editReceiverAddress(ReceiverAddressDto receiverAddressDto) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("receiverAddressDto",receiverAddressDto);
+                startActivity(CreateReceiverAddressActivity.class,bundle);
             }
         });
     }
@@ -115,10 +123,5 @@ public class ReceiverAddressActivity extends BaseActivity<IReceiverAddressView,R
     public void deleteReceiverSuccess(ReceiverAddressDto receiverAddressDto) {
         ReceiverAddressAdapter adapter = (ReceiverAddressAdapter) mRecyclerView.getAdapter();
         adapter.removeData(receiverAddressDto);
-    }
-
-    @OnClick(R.id.btn_create_receiver_address)
-    public void createReceiverAddress(View view){
-        startActivity(CreateReceiverAddressActivity.class);
     }
 }

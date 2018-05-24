@@ -2,34 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/personContent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:background="@color/white"
     android:paddingLeft="15dp"
-    android:paddingTop="13dp"
-    android:paddingBottom="13dp"
-    android:paddingRight="30dp">
-
-    <TextView
-        android:id="@+id/status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="已被别人绑定"
-        android:textSize="14sp"
-        android:textColor="@color/text_color_blue2"
-        android:layout_gravity="right"
-        android:gravity="center"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        />
+    android:paddingTop="13dp">
 
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
         android:button="@drawable/check_personal_contacts"
+        android:layout_centerVertical="true"
         android:visibility="gone"
         />
 
@@ -38,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_toLeftOf="@+id/status">
+        android:layout_toRightOf="@+id/checkbox">
 
         <TextView
             android:id="@+id/nickName"
@@ -73,5 +56,23 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已邀请"
+        android:textSize="@dimen/textSizeContent"
+        android:textColor="@color/text_color_block3"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/viewSpace16"
+        android:visibility="gone"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divide_color"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

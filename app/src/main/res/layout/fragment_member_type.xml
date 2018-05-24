@@ -12,12 +12,26 @@
         app:cardCornerRadius="10dp"
         android:layout_margin="@dimen/viewSpace8"
         app:cardElevation="5dp">
-        <com.ps.glidelib.GlideImageView
-            android:id="@+id/imageView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:siv_radius="10dp"
-            />
+            android:layout_height="match_parent">
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:siv_radius="10dp"
+                />
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/openMember"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/open_member_player"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
 

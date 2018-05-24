@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     signingConfigs {
@@ -8,7 +9,6 @@ android {
             keyPassword 'rmbank2017'
             storeFile file('/Users/PengSong/Desktop/ASWorkSpace/PlayEarth/app/src/main/java/RMBankKeystore.jks')
             storePassword 'rmbank2017'
-            v2SigningEnabled false
         }
     }
 
@@ -129,6 +129,7 @@ dependencies {
     implementation rootProject.ext.dependencies["jcore"]
     implementation rootProject.ext.dependencies["marqueelibrary"]
     implementation rootProject.ext.dependencies["jpinyin"]
+    implementation rootProject.ext.dependencies["greendao"]
     implementation rootProject.ext.dependencies["magic-viewpager"]
     //    implementation rootProject.ext.dependencies["VerificationCodeInput"]
     implementation project(':banner')
@@ -147,10 +148,20 @@ dependencies {
     implementation files('libs/umeng_social_net.jar')
     implementation files('libs/umeng_social_shareboard.jar')
     implementation files('libs/umeng_social_tool.jar')
+    //    implementation 'com.umeng.sdk:share-wechat:latest.integration'
+    //    compile 'com.umeng.sdk:shareboard-widget:latest.integration'
     implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
     implementation files('libs/BaiduLBS_Android.jar')
     //    implementation files('libs/httpmime-4.1.2.jar')
     //    implementation files('libs/IndoorscapeAlbumPlugin.jar')
     implementation project(':photoedit')
     implementation project(':identify')
+    implementation project(':expandablerecycleradapter')
+}
+
+//数据库的配置信息
+greendao {
+    schemaVersion 3
+    daoPackage 'com.km.rmbank.greendao.gen'
+    targetGenDir 'src/main/java'
 }

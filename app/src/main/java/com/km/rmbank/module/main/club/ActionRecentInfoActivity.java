@@ -50,6 +50,10 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     @BindView(R.id.iv_club_background)
     ImageView ivClubBackground;
 
+    @BindView(R.id.simple_tb_title_name)
+    TextView titleName;
+
+
     @BindView(R.id.tv_action_title)
     TextView tvActionTitle;
     @BindView(R.id.iv_club_logo)
@@ -85,6 +89,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     private boolean isMyClub;
 
     private ShareDto shareDto;
+    private DialogUtils.CustomBottomDialog mShareDialog;
 
     @Override
     public int getContentViewRes() {
@@ -94,7 +99,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setTitleContent("路演大会");
+//        simpleTitleBar.setTitleContent("路演大会");
         simpleTitleBar.setRightMenuRes(R.menu.toolbar_action_recent_share);
         simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -104,8 +109,11 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
                     startActivity(LoginActivity.class);
                     return false;
                 }
+                if (mShareDialog == null){
+                    throw new IllegalArgumentException("初始化分享弹出框失败！！！");
+                }
                 if (item.getItemId() == R.id.share){
-                    openShare();
+                    mShareDialog.show();
                 }
                 return false;
             }
@@ -128,6 +136,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
         shareDto = new ShareDto();
 
         initInvitationMans();
+        initShareDialog();
     }
 
 
@@ -137,28 +146,21 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
         rvInvitationMans.setAdapter(adapter);
     }
 
-    private void openShare(){
-        UmengShareUtils.openShare(this, shareDto, new UMShareListener() {
-            @Override
-            public void onStart(SHARE_MEDIA share_media) {
 
-            }
-
+    private void initShareDialog(){
+        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
+        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
             @Override
-            public void onResult(SHARE_MEDIA share_media) {
-                showToast("分享成功");
-                getPresenter().addActiveValue(actionId);
-            }
-
-            @Override
-            public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                LogUtils.d(throwable.getMessage());
-//                showToast("分享失败");
-            }
-
-            @Override
-            public void onCancel(SHARE_MEDIA share_media) {
-                showToast("取消分享");
+            public void clickShareDialog(String itemName, int i) {
+                mShareDialog.dimiss();
+                switch (i){
+                    case 0://分享到微信好友
+                        UmengShareUtils.openShare(mInstance,shareDto,SHARE_MEDIA.WEIXIN);
+                        break;
+                    case 1://分享朋友圈
+                        UmengShareUtils.openShare(mInstance,shareDto,SHARE_MEDIA.WEIXIN_CIRCLE);
+                        break;
+                }
             }
         });
     }
@@ -200,6 +202,8 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
         shareDto.setSharePicUrl(actionDto.getActivityPictureUrl());
         shareDto.setPageUrl(actionDto.getWebActivityUrl());
 
+//        initShareDialog();
+
 //        if (isMyClub && !"1".equals(actionDto.getActivityType())){
 //            setRightBtnClick("编辑", new View.OnClickListener() {
 //                @Override
@@ -221,6 +225,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
 
         GlideUtils.loadImage(mInstance,actionDto.getBackgroundImg(),ivClubBackground);
         tvActionTitle.setText(actionDto.getTitle());
+        titleName.setText(actionDto.getTitle());
         GlideUtils.loadImageOnPregress(ivClubLogo,actionDto.getClubLogo(),null);
         tvClubName.setText(actionDto.getClubName());
 
@@ -307,7 +312,14 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
             showToast("报名已截止");
             return;
         }
-        getPresenter().applyAction(mActionDto.getId(),Constant.userInfo.getName(),Constant.userInfo.getMobilePhone());
+
+        DialogUtils.showDefaultAlertDialog("是否报名《" + mActionDto.getTitle() + "》活动？", new DialogUtils.ClickListener() {
+            @Override
+            public void clickConfirm() {
+                getPresenter().applyAction(mActionDto.getId(),Constant.userInfo.getName(),Constant.userInfo.getMobilePhone());
+            }
+        });
+
     }
 
     /**

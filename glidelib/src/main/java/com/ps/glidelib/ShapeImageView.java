@@ -225,7 +225,8 @@ public class ShapeImageView extends android.support.v7.widget.AppCompatImageView
             } else if (drawable instanceof ColorDrawable) {
                 bitmap = Bitmap.createBitmap(COLOR_DRAWABLE_DIMENSION, COLOR_DRAWABLE_DIMENSION, BITMAP_CONFIG);
             } else {
-                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), BITMAP_CONFIG);
+                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth() == 0 ? 1 : drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight() == 0 ? 1 : drawable.getIntrinsicHeight(), BITMAP_CONFIG);
             }
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());

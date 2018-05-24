@@ -7,8 +7,10 @@ import android.widget.TextView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.dto.ReceiverAddressDto;
+import com.km.rmbank.oldrecycler.BaseAdapter;
 import com.km.rmbank.oldrecycler.BaseSwipeRvAdapter;
 import com.km.rmbank.utils.DialogUtils;
+import com.ruffian.library.RTextView;
 
 import butterknife.BindView;
 
@@ -16,10 +18,10 @@ import butterknife.BindView;
  * Created by kamangkeji on 17/3/30.
  */
 
-public class ReceiverAddressAdapter extends BaseSwipeRvAdapter<ReceiverAddressDto> implements BaseSwipeRvAdapter.IAdapter<ReceiverAddressAdapter.ViewHolder> {
+public class ReceiverAddressAdapter extends BaseAdapter<ReceiverAddressDto> implements BaseAdapter.IAdapter<ReceiverAddressAdapter.ViewHolder> {
 
     private onSetDefaultListener onSetDefaultListener;
-    private onDeleteListener onDeleteListener;
+    private onAddressChangeListener onAddressChangeListener;
 
     //选择收货地址
     private boolean selectOtherAddress;
@@ -39,7 +41,6 @@ public class ReceiverAddressAdapter extends BaseSwipeRvAdapter<ReceiverAddressDt
         final ReceiverAddressDto receiverAddressDto = getItemData(position);
         if (selectOtherAddress){
             holder.cbDefault.setVisibility(View.GONE);
-            holder.getmSwiperLayout().setSwipeEnabled(false);
         } else {
             holder.cbDefault.setChecked(receiverAddressDto.isDefault() == 1);
             holder.cbDefault.setOnClickListener(new View.OnClickListener() {
@@ -51,15 +52,23 @@ public class ReceiverAddressAdapter extends BaseSwipeRvAdapter<ReceiverAddressDt
                 }
             });
 
-            holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            holder.editAddress.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (onDeleteListener != null){
-                        DialogUtils.showDefaultAlertDialog("是否要删除该收货地址？", new DialogUtils.ClickListener() {
+                    if (onAddressChangeListener != null){
+                        onAddressChangeListener.editReceiverAddress(receiverAddressDto);
+                    }
+                }
+            });
+
+            holder.deleteAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onAddressChangeListener != null){
+                        DialogUtils.showDefaultAlertDialog("确定删除收货地址？", new DialogUtils.ClickListener() {
                             @Override
                             public void clickConfirm() {
-                                holder.getmSwiperLayout().close(true);
-                                onDeleteListener.deleteReceiverAddress(receiverAddressDto);
+                                onAddressChangeListener.deleteReceiverAddress(receiverAddressDto);
                             }
                         });
                     }
@@ -67,26 +76,26 @@ public class ReceiverAddressAdapter extends BaseSwipeRvAdapter<ReceiverAddressDt
             });
         }
         holder.tvReceiverName.setText(receiverAddressDto.getReceivePerson());
-        holder.tvReceiverPhone.setText(receiverAddressDto.getReceivePersonPhone());
         holder.tvReceiverAddress.setText(receiverAddressDto.getReceiveAddress());
 
 
     }
 
-    class ViewHolder extends BaseSwipeViewHolder{
+    class ViewHolder extends BaseViewHolder{
 
         @BindView(R.id.tv_receiver_name)
         TextView tvReceiverName;
-        @BindView(R.id.tv_receiver_phone)
-        TextView tvReceiverPhone;
+
         @BindView(R.id.tv_receiver_address)
         TextView tvReceiverAddress;
 
         @BindView(R.id.cb_default)
         CheckBox cbDefault;
 
-        @BindView(R.id.tv_delete)
-        TextView tvDelete;
+        @BindView(R.id.editAddress)
+        RTextView editAddress;
+        @BindView(R.id.deleteAddress)
+        RTextView deleteAddress;
         public ViewHolder(View itemView) {
             super(itemView);
         }
@@ -105,11 +114,14 @@ public class ReceiverAddressAdapter extends BaseSwipeRvAdapter<ReceiverAddressDt
         this.onSetDefaultListener = onSetDefaultListener;
     }
 
-    public interface onDeleteListener{
+    public interface onAddressChangeListener {
         void deleteReceiverAddress(ReceiverAddressDto receiverAddressDto);
+        void editReceiverAddress(ReceiverAddressDto receiverAddressDto);
     }
 
-    public void setOnDeleteListener(ReceiverAddressAdapter.onDeleteListener onDeleteListener) {
-        this.onDeleteListener = onDeleteListener;
+
+
+    public void setOnAddressChangeListener(onAddressChangeListener onAddressChangeListener) {
+        this.onAddressChangeListener = onAddressChangeListener;
     }
 }

@@ -1,13 +1,21 @@
 package com.km.rmbank.mvp.presenter;
 
+import android.content.Context;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.km.rmbank.dto.ContactDto;
 import com.km.rmbank.dto.ContractDto;
+import com.km.rmbank.dto.PayOrderContactDto;
 import com.km.rmbank.dto.PayOrderDto;
+import com.km.rmbank.greendao.ContactManager;
+import com.km.rmbank.greendao.bean.Contact;
 import com.km.rmbank.mvp.base.BasePresenter;
+import com.km.rmbank.mvp.base.MvpModel;
 import com.km.rmbank.mvp.model.ContactsModel;
 import com.km.rmbank.mvp.view.ContractsView;
 import com.km.rmbank.utils.ContractUtils;
+import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,44 +37,26 @@ public class ContractsPresenter extends BasePresenter<ContractsView,ContactsMode
         super(mModel);
     }
 
-    public void getContracts(List<ContractDto> contractDtoList){
-//        getMvpModel().getAllContracts(contractDtoList)
-//                .observeOn(Schedulers.io())
-//                .map(new Function<List<ContractDto>, List<ContractDto>>() {
-//                    @Override
-//                    public List<ContractDto> apply(List<ContractDto> contractDtoList) throws Exception {
-//                        return orderByLetter(contractDtoList);
-//                    }
-//                })
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(newSubscriber(new Consumer<List<ContractDto>>() {
-//                    @Override
-//                    public void accept(List<ContractDto> contractDtoList) throws Exception {
-//                        List<ContractDto> contractDtos = new ArrayList<>();
-//                        List<ContractDto> linkManDtos = new ArrayList<>();
-//
-//                        for (ContractDto contractDto : contractDtoList){
-//                            if ("0".equals(contractDto.getStatus())){//没绑定
-//                                contractDto.setChecked(true);
-//                                linkManDtos.add(contractDto);
-//                            } else {
-//                                contractDtos.add(contractDto);
-//                            }
-//                        }
-//                        getMvpView().showContracts(contractDtos,linkManDtos);
-//                    }
-//                }));
+    public void getContracts(final LoadMoreWrapper wrapper, final int pageNo){
+        ContactManager.getInstance().getContactByOffset(pageNo)
+                .subscribe(new Consumer<List<Contact>>() {
+                    @Override
+                    public void accept(List<Contact> contacts) throws Exception {
+                        getMvpView().showContracts(wrapper,contacts);
+                    }
+                });
     }
 
-    public void getContactsPayOrder(final List<String> phones){
+    public void getContactsPayOrder(final List<ContactDto> contactDtos){
         getMvpView().showLoading();
-        getMvpModel().getContactsPayOrder(phones)
-                .subscribe(newSubscriber(new Consumer<PayOrderDto>() {
+        getMvpModel().getContactsPayOrder(contactDtos)
+                .subscribe(new Consumer<PayOrderContactDto>() {
                     @Override
-                    public void accept(PayOrderDto payOrderDto) throws Exception {
-                        getMvpView().showPayOrder(payOrderDto,phones.size());
+                    public void accept(PayOrderContactDto s) throws Exception {
+                        getMvpView().hideLoading();
+                        getMvpView().showPayContactOrder(s);
                     }
-                }));
+                });
     }
 
 }

@@ -23,6 +23,7 @@ public class MemberDto {
     private String memberMoney;
     private String memberName;
     private String smemberRecommend;
+    private String memberImage;
     private String scene;
 
     private boolean isChecked = false;
@@ -81,5 +82,13 @@ public class MemberDto {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public String getMemberImage() {
+        return memberImage;
+    }
+
+    public void setMemberImage(String memberImage) {
+        this.memberImage = memberImage;
     }
 }

@@ -95,4 +95,18 @@ public class BannerDto {
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
     }
+
+    @Override
+    public String toString() {
+        return "BannerDto{" +
+                "avatarUrl='" + avatarUrl + '\'' +
+                ", id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", title='" + title + '\'' +
+                ", bannerToPage=" + bannerToPage +
+                ", bannerUrl='" + bannerUrl + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", linkUrl='" + linkUrl + '\'' +
+                '}';
+    }
 }

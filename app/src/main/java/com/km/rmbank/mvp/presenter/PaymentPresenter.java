@@ -96,4 +96,14 @@ public class PaymentPresenter extends BasePresenter<IPaymentView,PaymentModel> {
                     }
                 }));
     }
+
+    public void payResultResponse(String payNumber){
+        getMvpModel().payResultResponse(payNumber)
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        getMvpView().showPayResult(s);
+                    }
+                });
+    }
 }

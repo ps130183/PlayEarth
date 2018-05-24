@@ -30,8 +30,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SettingActivity extends BaseActivity {
 
-    @BindView(R.id.swich_usercard)
-    Switch swichUsercard;
+//    @BindView(R.id.swich_usercard)
+//    Switch swichUsercard;
 
     @BindView(R.id.tv_cache_size)
     TextView tvCacheSize;
@@ -49,7 +49,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
-        swichUsercard.setChecked(Constant.isAllowUserCard);
+//        swichUsercard.setChecked(Constant.isAllowUserCard);
 
 //        swichUsercard.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
 //            @Override

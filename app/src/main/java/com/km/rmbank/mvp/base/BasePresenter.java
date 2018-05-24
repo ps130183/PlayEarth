@@ -12,6 +12,7 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import retrofit2.HttpException;
 
 /**
  * Created by PengSong on 18/1/8.
@@ -107,10 +108,12 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
 //                        ActivityUtils.startActivity(LoginActivity.class);
 //                    }
                 } else if (e instanceof SocketTimeoutException) {
-                    mView.showError("请求超时，请稍后再试");
+                    mView.showError("请求超时，请稍后再试！");
                 } else if (e instanceof ConnectException) {
-                    mView.showError("连接服务器失败，请稍后再试");
-                } else if (e instanceof NullPointerException) {
+                    mView.showError("连接服务器失败，请稍后再试！");
+                } else if (e instanceof HttpException){
+                    mView.showError("网络异常，请稍后再试！");
+                }else if (e instanceof NullPointerException) {
                     try {
                         onNext.accept((T) "");
                     } catch (Exception e1) {
@@ -130,7 +133,7 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
 
             @Override
             public void onNext(T t) {
-                mView.hideLoading();
+//                mView.hideLoading();
                 try {
                     onNext.accept(t);
                 } catch (Exception e) {

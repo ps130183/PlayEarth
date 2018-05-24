@@ -466,24 +466,24 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
         TextView appliedPersonNum = holder.findView(R.id.appliedPersonNum);
         appliedPersonNum.setText(mData.getApplyCount());
 
-        RTextView rtApplyAction = holder.findView(R.id.rt_apply_action);
-        rtApplyAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Constant.userLoginInfo.isEmpty()) {
-                    showToast("请先登录，再报名");
-                    startActivity(LoginActivity.class);
-                    return;
-                }
-                long holdDate = DateUtils.getInstance().stringDateToMillis(DateUtils.getInstance().dateToString(new Date(mData.getStartDate()), DateUtils.YMDHM), DateUtils.YMDHM);
-                long curDate = System.currentTimeMillis();
-                if (curDate >= holdDate) {
-                    showToast("报名已截止");
-                    return;
-                }
-                getPresenter().applyAction(mData.getRelevanceId(), Constant.userInfo.getName(), Constant.userInfo.getMobilePhone(),type);
-            }
-        });
+//        RTextView rtApplyAction = holder.findView(R.id.rt_apply_action);
+//        rtApplyAction.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (Constant.userLoginInfo.isEmpty()) {
+//                    showToast("请先登录，再报名");
+//                    startActivity(LoginActivity.class);
+//                    return;
+//                }
+//                long holdDate = DateUtils.getInstance().stringDateToMillis(DateUtils.getInstance().dateToString(new Date(mData.getStartDate()), DateUtils.YMDHM), DateUtils.YMDHM);
+//                long curDate = System.currentTimeMillis();
+//                if (curDate >= holdDate) {
+//                    showToast("报名已截止");
+//                    return;
+//                }
+//                getPresenter().applyAction(mData.getRelevanceId(), Constant.userInfo.getName(), Constant.userInfo.getMobilePhone(),type);
+//            }
+//        });
     }
 
     /**
