@@ -5,6 +5,7 @@ import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.dto.UserLoginDto;
 import com.km.rmbank.retrofit.ApiConstant;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class Constant {
     //获取名片 接口
     public static final String QRCODE_URL = ApiConstant.API_BASE_URL +  "/user/saoUserCard/info/send?mobilePhone=";
 
+    public static final String SAVE_PATH_DEFAULT = File.separator + "WanZhuanDiQiu" + File.separator + "app" + File.separator;
 
     static {
         if (userLoginInfo == null){

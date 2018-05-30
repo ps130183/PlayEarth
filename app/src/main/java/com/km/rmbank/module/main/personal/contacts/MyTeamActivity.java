@@ -1,9 +1,7 @@
 package com.km.rmbank.module.main.personal.contacts;
 
-import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +22,6 @@ import com.km.rmbank.dto.MyTeamDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.event.RefreshMyTeamDataEvent;
 import com.km.rmbank.module.main.card.UserNewCardActivity;
-import com.km.rmbank.module.main.personal.contacts.ContactsActivity;
 import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.mvp.model.MyTeamModel;
 import com.km.rmbank.mvp.presenter.MyTeamPresenter;
@@ -32,9 +29,6 @@ import com.km.rmbank.mvp.view.IMyTeamView;
 import com.km.rmbank.oldrecycler.RVUtils;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.ContractUtils;
-import com.km.rmbank.utils.DialogUtils;
-import com.km.rmbank.utils.EventBusUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -44,13 +38,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
-import kr.co.namee.permissiongen.PermissionGen;
-import kr.co.namee.permissiongen.PermissionSuccess;
 
 public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> implements IMyTeamView {
 
@@ -59,8 +46,6 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
 
     private TeamAdapter mTeamAdapter;
     private List<Object> teamDtoList;
-    //获取 当前手机通讯录中，系统已存在的用户列表 和  不存在的用户列表
-    private List<ContractDto> mContractDtos,mLinkManDtos;
     @Override
     public int getContentViewRes() {
         return R.layout.activity_my_team;
@@ -85,7 +70,6 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
 
 
     public void initRecycler() {
-//        teamDtoList = new ArrayList<>();
         if (teamDtoList == null){
             teamDtoList = new ArrayList<>();
         }
@@ -100,50 +84,19 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
                 getPresenter().getUserCardById(memberDtoListBean.getId());
             }
         });
+
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        if (Constant.mUnBindingContractList != null){
-//            mViewManager.setText(R.id.linkContractNum, String.valueOf(Constant.mUnBindingContractList.size()));
-//        }
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refresh(RefreshMyTeamDataEvent event){
         getPresenter().getMyTeamData();
     }
 
-//    /**
-//     * 获取所有的手机联系人信息
-//     */
-//    private void getAllContracts() {
-//        showLoading();
-//        Observable.just(1)
-//                .map(new Function<Integer, List<ContractDto>>() {
-//                    @Override
-//                    public List<ContractDto> apply(Integer integer) throws Exception {
-//                        return ContractUtils.getAllPhoneContracts(mInstance);
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<List<ContractDto>>() {
-//                    @Override
-//                    public void accept(List<ContractDto> personalDynamicDtos) throws Exception {
-//                        getPresenter().getContracts(personalDynamicDtos);
-//                    }
-//                });
-//    }
-
     @Override
-    public void showMyTeam(List<MyTeamDto> teamEntities) {
-        teamDtoList.clear();
-        teamDtoList.addAll(teamEntities);
-        mTeamAdapter.updateData(teamDtoList);
-//        initRecycler();
+    public void showMyTeam(final List<MyTeamDto> teamDtoList) {
+        this.teamDtoList.addAll(teamDtoList);
+        mTeamAdapter.updateData(this.teamDtoList);
     }
 
     @Override
@@ -155,8 +108,6 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
 
     @Override
     public void showContracts(List<ContractDto> contractDtos, List<ContractDto> linkManDtos) {
-        mContractDtos = contractDtos;
-        mLinkManDtos = linkManDtos;
         String numbers = linkManDtos.size() + "";
 
     }
@@ -220,6 +171,5 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
             startActivity(ContactsActivity.class);
         }
     }
-
 
 }

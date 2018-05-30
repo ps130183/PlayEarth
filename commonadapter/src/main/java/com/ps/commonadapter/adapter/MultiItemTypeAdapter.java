@@ -4,9 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
-
-import com.ps.commonadapter.R;
 import com.ps.commonadapter.adapter.base.ItemViewDelegate;
 import com.ps.commonadapter.adapter.base.ItemViewDelegateManager;
 

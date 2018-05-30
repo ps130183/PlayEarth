@@ -1,19 +1,26 @@
 package com.km.rmbank.base;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.support.v4.app.ActivityCompat;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.hss01248.dialog.ActivityStackManager;
 import com.hss01248.dialog.StyledDialog;
 import com.km.rmbank.greendao.GreenDaoManager;
+import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.service.ContractService;
 import com.km.rmbank.utils.UmengShareUtils;
 
@@ -46,16 +53,17 @@ public class BaseApplication extends MultiDexApplication {
         initDb();
     }
 
-    public static BaseApplication getInstance(){
+    public static BaseApplication getInstance() {
         return mInstance;
     }
 
     /**
      * 初始化数据库配置
      */
-    private void initDb(){
+    private void initDb() {
         GreenDaoManager.getInstance().initDb(getInstance());
     }
+
 
     /**
      * 初始化百度地图

@@ -20,6 +20,7 @@ import android.view.WindowManager;
 
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.SDCardUtils;
+import com.km.rmbank.utils.Constant;
 
 import java.io.File;
 
@@ -272,6 +273,19 @@ public class AppUtils {
         String filePath = Environment.getExternalStorageDirectory().getPath() + File.separator + "WanZhuanDiQiu" + File.separator + "image";
         FileUtils.createOrExistsDir(filePath);
         return filePath + File.separator + imageName;
+    }
+
+    /**
+     * 获取文件的存储路径
+     * @param spaceName 文件夹名称
+     * @param fileName 文件名
+     * @return
+     */
+    public static String getPath(String spaceName,String fileName){
+        if (!SDCardUtils.isSDCardEnable()) return "";
+        String filePath = Environment.getExternalStorageDirectory().getPath() + Constant.SAVE_PATH_DEFAULT + File.separator + fileName;
+        FileUtils.createOrExistsDir(filePath);
+        return filePath ;
     }
 
 

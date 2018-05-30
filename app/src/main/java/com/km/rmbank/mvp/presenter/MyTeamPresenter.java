@@ -2,7 +2,6 @@ package com.km.rmbank.mvp.presenter;
 
 import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.MyTeamDto;
-import com.km.rmbank.dto.UserCardDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.mvp.base.BasePresenter;
 import com.km.rmbank.mvp.model.MyTeamModel;
@@ -12,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -32,8 +29,8 @@ public class MyTeamPresenter extends BasePresenter<IMyTeamView,MyTeamModel> {
         getMvpModel().getMyTeam()
                 .subscribe(newSubscriber(new Consumer<List<MyTeamDto>>() {
                     @Override
-                    public void accept(@NonNull List<MyTeamDto> myTeamDtos) throws Exception {
-                        getMvpView().showMyTeam(myTeamDtos);
+                    public void accept(List<MyTeamDto> teamDtoList) throws Exception {
+                        getMvpView().showMyTeam(teamDtoList);
                     }
                 }));
 

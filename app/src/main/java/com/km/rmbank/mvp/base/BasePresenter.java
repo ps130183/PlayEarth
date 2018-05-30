@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException;
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.functions.Consumer;
 import retrofit2.HttpException;
 
@@ -113,6 +114,8 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
                     mView.showError("连接服务器失败，请稍后再试！");
                 } else if (e instanceof HttpException){
                     mView.showError("网络异常，请稍后再试！");
+                } else if (e instanceof OnErrorNotImplementedException){
+                    mView.showError("找不到请求的接口");
                 }else if (e instanceof NullPointerException) {
                     try {
                         onNext.accept((T) "");

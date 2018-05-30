@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_team"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.km.rmbank.module.main.personal.contacts.MyTeamActivity">
-    <LinearLayout
-        android:id="@+id/activity_my_team"
+
+    <RelativeLayout
+        android:id="@+id/myContact"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:onClick="openContractList">
 
-        <RelativeLayout
-            android:id="@+id/myContact"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@color/white"
-            android:onClick="openContractList">
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/viewSpace16"
+            android:text="我的通讯录"
+            android:textColor="@color/text_color_block24"
+            android:textSize="17sp" />
+    </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的通讯录"
-                android:textColor="@color/text_color_block24"
-                android:textSize="17sp"
-                android:layout_centerInParent="true"
-                android:layout_margin="@dimen/viewSpace16"/>
-        </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
 

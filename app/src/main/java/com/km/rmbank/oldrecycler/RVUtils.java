@@ -28,7 +28,7 @@ public class RVUtils {
     public static void setLinearLayoutManage(RecyclerView rc, int orientation){
         WrapContentLinearLayoutManager llm = new WrapContentLinearLayoutManager(rc.getContext(),orientation,false);
         llm.setSmoothScrollbarEnabled(true);
-        llm.setAutoMeasureEnabled(true);
+        llm.setAutoMeasureEnabled(false);
         rc.setLayoutManager(llm);
         rc.setHasFixedSize(true);
         rc.setNestedScrollingEnabled(false);
