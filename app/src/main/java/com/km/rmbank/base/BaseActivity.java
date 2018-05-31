@@ -449,7 +449,7 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             });
 //            Md5Util.getMd5ByFile(file);
         } else {//不存在改文件，去下载
-            SPUtils.getInstance().put("curAppPath",path);
+            SPUtils.getInstance().put("curAppPath", path);
             String url = appVersionDto.getAppUrl();
             new FinalDownFiles(false, mInstance, url,
                     path,
@@ -503,14 +503,11 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     }
 
-
-    private static final int INSTALL_PACKAGES_REQUESTCODE = 1000;
-
     /**
      * 判断是否是8.0系统,是的话需要获取此权限，判断开没开，没开的话处理未知应用来源权限问题,否则直接安装
      */
     private void checkIsAndroidO(String path) {
-        if (Build.VERSION.SDK_INT >= 26) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             boolean b = getPackageManager().canRequestPackageInstalls();
             if (!b) {//没有权限
                 DialogUtils.showDefaultAlertDialog("安装应用需要打开未知来源权限，请去设置中开启权限",
@@ -525,12 +522,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
                         });
                 return;
             }
-//            if (b) {
-//                installApp(path);//安装应用的逻辑(写自己的就可以)
-//            } else {
-//                //请求安装未知应用来源的权限
-//               requestInstallPackages();
-//            }
         }
 
         installApp(path);
@@ -539,29 +530,12 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void startInstallPermissionSettingActivity() {
+        Uri packageURI = Uri.parse("package:" + getPackageName());
         //注意这个是8.0新API
-//        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-//        startActivityForResult(intent, 10086);
-        //请求安装未知应用来源的权限
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, INSTALL_PACKAGES_REQUESTCODE);
+        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,packageURI);
+        startActivityForResult(intent, 10086);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case INSTALL_PACKAGES_REQUESTCODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    String appPath = SPUtils.getInstance().getString("curAppPath");
-                    installApp(appPath);
-                } else {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-                    startActivityForResult(intent, 10086);
-                }
-                break;
-
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -570,20 +544,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             String appPath = SPUtils.getInstance().getString("curAppPath");
             installApp(appPath);
         }
-    }
-
-    /**
-     * 请求使用权限
-     */
-    private void requestInstallPackages() {
-        String[] locationPermission = {Manifest.permission.REQUEST_INSTALL_PACKAGES};
-        PermissionGen.needPermission(this, INSTALL_PACKAGES_REQUESTCODE, locationPermission);
-    }
-
-    @PermissionSuccess(requestCode = INSTALL_PACKAGES_REQUESTCODE)
-    public void getLocationPermissionSuccess() {
-//        installApp();
-        showToast("申请权限成功");
     }
 
     /**
