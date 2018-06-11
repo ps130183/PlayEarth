@@ -216,11 +216,9 @@
         <activity android:name=".module.main.personal.integral.MyIntegralActivity" />
         <activity android:name=".module.main.payment.PaymentActivity" />
         <activity android:name=".module.main.personal.member.club.ClubIntroCardActivity" />
-        <activity android:name=".module.main.club.ActionJoinMemberActivity" />
-        <activity android:name=".module.main.club.ActionRecentInfoActivity" />
-        <activity android:name=".module.main.club.ActionApplyActivity" />
+        <activity android:name=".module.main.appoint.ActionRecentInfoActivity" />
         <activity
-            android:name=".module.main.club.ActionPastDetailActivity"
+            android:name=".module.main.appoint.ActionPastDetailActivity"
             android:hardwareAccelerated="true" />
         <activity android:name=".module.main.personal.action.AppliedActionActivity" />
         <activity android:name=".module.main.personal.member.BecomeMemberActivity" />
@@ -264,7 +262,9 @@
             android:exported="true" />
 
         <activity android:name=".module.main.personal.contacts.TransformContactsActivity" />
-        <activity android:name=".module.main.personal.contacts.PayTransformContactActivity"></activity>
+        <activity android:name=".module.main.personal.contacts.PayTransformContactActivity" />
+        <activity android:name=".module.main.card.UserNewCardDetailsActivity" />
+        <activity android:name=".module.main.card.UserCardActivity"></activity>
     </application>
 
 </manifest>

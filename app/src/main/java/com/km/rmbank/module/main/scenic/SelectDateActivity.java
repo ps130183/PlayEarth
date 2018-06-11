@@ -1,7 +1,6 @@
 package com.km.rmbank.module.main.scenic;
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.View;
@@ -13,11 +12,8 @@ import com.haibin.calendarview.CalendarView;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
-import com.km.rmbank.dto.CalendarActionsDto;
 import com.km.rmbank.entity.CheckDateEntity;
 import com.km.rmbank.event.SelectDateResultEvent;
-import com.km.rmbank.module.main.club.ActionPastDetailActivity;
-import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.EventBusUtils;
 

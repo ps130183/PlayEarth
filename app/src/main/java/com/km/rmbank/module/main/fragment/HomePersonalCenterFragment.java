@@ -18,6 +18,7 @@ import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
+import com.km.rmbank.module.main.card.UserCardActivity;
 import com.km.rmbank.module.main.card.UserNewCardActivity;
 import com.km.rmbank.module.main.message.MessageActivity;
 import com.km.rmbank.module.main.personal.AttentionGoodsActivity;
@@ -299,6 +300,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      */
     @OnClick(R.id.userQRCode)
     public void clickUserQRCode(View view){
+//        startActivity(UserCardActivity.class);
         startActivity(UserNewCardActivity.class);
     }
 
@@ -308,7 +310,7 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      */
     @OnClick(R.id.iv_protrait)
     public void openUserMainPage(View view){
-        startActivity(PersonalHomePageActivity.class);
+//        startActivity(PersonalHomePageActivity.class);
     }
 
     /**

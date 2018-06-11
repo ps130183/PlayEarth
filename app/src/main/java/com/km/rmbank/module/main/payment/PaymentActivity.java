@@ -79,6 +79,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
     private List<TicketDto> mTicketList;
     private int totalPersonNum;
     private int personNum;
+    private int personal = 0;
     private float totalPrice = 0;
     private SparseArray<String> checkTicketNos;
 
@@ -238,11 +239,20 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
         if (mTicketList == null || mTicketList.size() == 0) {
             llTicket.setVisibility(View.GONE);
         }
+        List<TicketDto> ticketDtos = new ArrayList<>();
+        for (TicketDto ticketDto : mTicketList){
+            if (totalPersonNum == 1 && "6".equals(ticketDto.getTicketId())){
+
+            } else {
+                ticketDtos.add(ticketDto);
+            }
+
+        }
         RecyclerView ticketRecycler = mViewManager.findView(R.id.ticketList);
         final RecyclerAdapterHelper<TicketDto> mHelper = new RecyclerAdapterHelper<>(ticketRecycler);
         mHelper.addLinearLayoutManager()
                 .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
-                .addCommonAdapter(R.layout.item_payement_ticket_list, mTicketList, new RecyclerAdapterHelper.CommonConvert<TicketDto>() {
+                .addCommonAdapter(R.layout.item_payement_ticket_list, ticketDtos, new RecyclerAdapterHelper.CommonConvert<TicketDto>() {
                     @Override
                     public void convert(CommonViewHolder holder, final TicketDto mData, final int position) {
                         GlideImageView imageView = holder.findView(R.id.ticketLogo);
@@ -269,10 +279,6 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (personNum  == 0){
-                                    checkBox.setChecked(false);
-                                    return;
-                                }
                                 if (isChecked) {//选中
                                     if (!mData.isChecked()) {
                                         mData.setChecked(true);
@@ -280,6 +286,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                                     if ("6".equals(mData.getTicketId())) {//朋友用
                                         if (totalPersonNum == 1) {
                                             mData.setChecked(false);
+                                            checkBox.setChecked(false);
                                             return;
                                         }
                                         int num = Integer.parseInt(mData.getNum());
@@ -287,10 +294,15 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                                         if (personNum < 0) {
                                             personNum = 0;
                                         }
-                                    } else {//自己用的券
+                                        checkTicketNos.append(position, mData.getTicketNo());
+                                    } else if (personal == 0){//自己用的券
+                                        personal = 1;
                                         personNum--;
+                                        checkTicketNos.append(position, mData.getTicketNo());
+                                    } else {
+                                        mData.setChecked(false);
+                                        checkBox.setChecked(false);
                                     }
-                                    checkTicketNos.append(position, mData.getTicketNo());
 
                                 } else {//取消选中
                                     if (mData.isChecked()) {
@@ -299,11 +311,15 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                                     if ("6".equals(mData.getTicketId())) {//朋友用
                                         if (totalPersonNum == 1) {
                                             mData.setChecked(true);
+                                            checkBox.setChecked(true);
                                             return;
                                         }
                                         personNum += (totalPersonNum - 1);
-                                    } else {//自己用的券
+                                    } else if (personal == 1){//自己用的券
+                                        personal = 0;
                                         personNum++;
+                                    } else {
+                                        checkBox.setChecked(true);
                                     }
                                     checkTicketNos.remove(position);
                                 }

@@ -68,19 +68,19 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     public final static int REQUEST_PERMISSION_CAMERA = 1;
     public final static int REQUEST_PERMISSION_LOCATION = 2;
 
-    private String[] mTitles = {"首页", "推荐","约么", "熟人购", "我的"};
+    private String[] mTitles = {"首页","约么", "我的"};
 
     private int[] mIconUnselectIds = {
             R.mipmap.icon_home_bottom_unselect1,
-            R.mipmap.icon_home_bottom_unselect2,
+//            R.mipmap.icon_home_bottom_unselect2,
             R.mipmap.icon_home_bottom_unselect3,
-            R.mipmap.icon_home_bottom_unselect4,
+//            R.mipmap.icon_home_bottom_unselect4,
             R.mipmap.icon_home_bottom_unselect5};
     private int[] mIconSelectIds = {
             R.mipmap.icon_home_bottom_selected1,
-            R.mipmap.icon_home_bottom_selected2,
+//            R.mipmap.icon_home_bottom_selected2,
             R.mipmap.icon_home_bottom_selected3,
-            R.mipmap.icon_home_bottom_selected4,
+//            R.mipmap.icon_home_bottom_selected4,
             R.mipmap.icon_home_bottom_selected5};
     private ArrayList<Fragment> fragmentList;
 
@@ -162,8 +162,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         int position = intent.getIntExtra("position", 0);
-        LogUtils.e("fragmentList ====== " + fragmentList.size());
-        LogUtils.e("tablayout CurrentTab ====== " + tabLayout.getCurrentTab());
+//        LogUtils.e("fragmentList ====== " + fragmentList.size());
+//        LogUtils.e("tablayout CurrentTab ====== " + tabLayout.getCurrentTab());
         tabLayout.setCurrentTab(position);
         changeStatusBar(position);
     }
@@ -173,7 +173,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
      * @param position
      */
     private void changeStatusBar(int position){
-        SystemBarHelper.immersiveStatusBar(this);
+//        SystemBarHelper.immersiveStatusBar(this);
         boolean isShowStatusBar = false;
         if (position < 5){
             isShowStatusBar = true;
@@ -237,9 +237,9 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
         fragmentList = new ArrayList<>();
         fragmentList.add(HomeNewFragment.newInstance(null));
-        fragmentList.add(HomeRecommendFragment.newInstance(null));
+//        fragmentList.add(HomeRecommendFragment.newInstance(null));
         fragmentList.add(HomeAppointActionFragment.newInstance(null));
-        fragmentList.add(HomeShopFragment.newInstance(null));
+//        fragmentList.add(HomeShopFragment.newInstance(null));
         fragmentList.add(HomePersonalCenterFragment.newInstance(null));
 //        fragmentList.add(HomeMeFragment.newInstance(null));
 
@@ -263,10 +263,10 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
                     case 1://人脉
                         break;
-                    case 3://熟人购
-//                        startActivity(ShopActivity.class, bundle);
-                        break;
-                    case 4://我的
+//                    case 3://熟人购
+////                        startActivity(ShopActivity.class, bundle);
+//                        break;
+                    case 2://我的
                         if (Constant.userLoginInfo.isEmpty()){
                             showToast(getResources().getString(R.string.toast_not_login));
                             startActivity(LoginActivity.class);

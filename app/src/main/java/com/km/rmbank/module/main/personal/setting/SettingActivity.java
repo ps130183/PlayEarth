@@ -123,6 +123,7 @@ public class SettingActivity extends BaseActivity {
             public void clickConfirm() {
 //                showToast("退出登录");
                 Constant.userLoginInfo.clear();
+                Constant.userInfo = null;
 //                EventBusUtils.post(new LogoutEntity(true));
                 startActivity(LoginActivity.class);
             }

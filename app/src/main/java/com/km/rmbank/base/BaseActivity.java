@@ -1,19 +1,15 @@
 package com.km.rmbank.base;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -42,7 +38,6 @@ import com.km.rmbank.mvp.base.PresenterDelegateImpl;
 import com.km.rmbank.mvp.base.ProxyPresenter;
 import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.retrofit.FileDownLoad;
-import com.km.rmbank.retrofit.RetrofitManager;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DialogLoading;
@@ -51,7 +46,6 @@ import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.Md5Util;
 import com.km.rmbank.utils.NavigationBarUtils;
 import com.km.rmbank.utils.SystemBarHelper;
-import com.km.rmbank.utils.ViewUtils;
 import com.laojiang.retrofithttp.weight.downfilesutils.FinalDownFiles;
 import com.laojiang.retrofithttp.weight.downfilesutils.action.FinalDownFileResult;
 import com.laojiang.retrofithttp.weight.downfilesutils.downfiles.DownInfo;
@@ -60,15 +54,11 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.ButterKnife;
 import cn.jzvd.JZVideoPlayer;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.subscribers.DisposableSubscriber;
-import kr.co.namee.permissiongen.PermissionGen;
-import kr.co.namee.permissiongen.PermissionSuccess;
 
 
 /**
@@ -106,9 +96,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             SystemBarHelper.tintStatusBar(this, Color.WHITE, 0f);
             SystemBarHelper.setStatusBarDarkMode(this);
         }
-//        else {
-//            SystemBarHelper.setStatusBarDarkMode(this);
-//        }
 
         LinearLayout mainContent = mViewManager.findView(R.id.mainContent);
         int screenHeight = ScreenUtils.getScreenHeight();

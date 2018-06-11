@@ -4,6 +4,7 @@ package com.km.rmbank.module.main.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -26,9 +27,8 @@ import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.entity.HomeRecommendEntity;
 import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.ApplyActionEvent;
-import com.km.rmbank.module.login.LoginActivity;
-import com.km.rmbank.module.main.club.ActionPastDetailActivity;
-import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
+import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
+import com.km.rmbank.module.main.appoint.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.fragment.home.AllClubActivity;
 import com.km.rmbank.module.main.fragment.home.CircleFriendsActivity;
 import com.km.rmbank.module.main.experience.ExperienceOfficerActivity;
@@ -42,7 +42,6 @@ import com.km.rmbank.module.webview.AgreementActivity;
 import com.km.rmbank.mvp.model.HomeModel;
 import com.km.rmbank.mvp.presenter.HomePresenter;
 import com.km.rmbank.mvp.view.IHomeView;
-import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.RefreshUtils;
@@ -51,6 +50,10 @@ import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.ps.mrcyclerview.BViewHolder;
+import com.ps.mrcyclerview.ItemViewConvert;
+import com.ps.mrcyclerview.MRecyclerView;
+import com.ps.mrcyclerview.click.OnClickItemListener;
 import com.ruffian.library.RTextView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -61,7 +64,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -81,7 +83,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
     private int[] moduleImages = {R.mipmap.icon_home_module_club, R.mipmap.icon_home_module_information,
             R.mipmap.icon_home_module_friend_circle, R.mipmap.icon_home_module_huisuo, R.mipmap.icon_home_module_jidi};
     @BindView(R.id.moduleRecycler)
-    RecyclerView moduleRecycler;
+    MRecyclerView moduleRecycler;
 
     //首页推荐
     @BindView(R.id.recommendRecycler)
@@ -205,29 +207,31 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
      * 初始化模块
      */
     private void initModuleRecycler() {
-        List<ModelEntity> modelEntities = new ArrayList<>();
+        List<Object> modelEntities = new ArrayList<>();
         for (String moduleName : moduleNames) {
             modelEntities.add(new ModelEntity("", moduleName));
         }
-        RecyclerAdapterHelper<ModelEntity> mHelper = new RecyclerAdapterHelper<>(moduleRecycler);
-        mHelper.addGrigLayoutMnager(5)
-                .addCommonAdapter(R.layout.item_home_new_module, modelEntities, new RecyclerAdapterHelper.CommonConvert<ModelEntity>() {
-                    @Override
-                    public void convert(CommonViewHolder holder, ModelEntity mData, int position) {
-                        holder.setText(R.id.moduleName, mData.getModelName());
-                        GlideImageView moduleImage = holder.findView(R.id.moduleImage);
-                        if (TextUtils.isEmpty(mData.getModelImageUrl())) {
-                            GlideUtils.loadCircleImageByRes(moduleImage, moduleImages[position]);
-                        } else {
-                            GlideUtils.loadImageOnPregress(moduleImage, mData.getModelImageUrl(), null);
-                        }
-                    }
-                }).create();
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<ModelEntity>() {
+        moduleRecycler.addContentLayout(R.layout.item_home_new_module, new ItemViewConvert() {
             @Override
-            public void onItemClick(CommonViewHolder holder, ModelEntity data, int position) {
+            public void convert(@NonNull BViewHolder holder, Object o, int position) {
+                ModelEntity mData = (ModelEntity) o;
+                holder.setText(R.id.moduleName, mData.getModelName());
+                GlideImageView moduleImage = holder.findView(R.id.moduleImage);
+                if (TextUtils.isEmpty(mData.getModelImageUrl())) {
+                    GlideUtils.loadCircleImageByRes(moduleImage, moduleImages[position]);
+                } else {
+                    GlideUtils.loadImageOnPregress(moduleImage, mData.getModelImageUrl(), null);
+                }
+
+            }
+        }).create();
+        moduleRecycler.update(modelEntities);
+
+        moduleRecycler.addClickItemListener(new OnClickItemListener() {
+            @Override
+            public void clickItem(Object o, int i) {
                 Bundle bundle = new Bundle();
-                switch (position) {
+                switch (i) {
                     case 0://俱乐部
                         startActivity(AllClubActivity.class);
                         break;
@@ -248,11 +252,6 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                         break;
 
                 }
-            }
-
-            @Override
-            public boolean onItemLongClick(CommonViewHolder holder, ModelEntity data, int position) {
-                return false;
             }
         });
     }

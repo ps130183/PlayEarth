@@ -1,17 +1,14 @@
 package com.km.rmbank.module.main.fragment.home;
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.webkit.WebView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.dto.InformationDto;
-import com.km.rmbank.module.main.club.ActionPastDetailActivity;
+import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
 import com.km.rmbank.mvp.model.InformationModel;
 import com.km.rmbank.mvp.presenter.InformationPresenter;
 import com.km.rmbank.mvp.view.InformationView;

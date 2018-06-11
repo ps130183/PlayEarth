@@ -4,8 +4,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 16,
             targetSdkVersion : 27,
-            versionCode      : 29,
-            versionName      : "4.4.3"
+            versionCode      : 31,
+            versionName      : "4.5.1"
     ]
 
     dependencies = [
@@ -23,6 +23,8 @@ ext {
             "recyclerview-v7"     : "com.android.support:recyclerview-v7:27.+",
             "swipelayout" : "com.daimajia.swipelayout:library:1.2.0@aar",
             "xrefreshview" : "com.huxq17.xrefreshview:xrefreshview:3.6.9",
+            //自己的recyclerView
+            "MRecycler" : "com.github.ps130183:MRecycler:1.0",
             //层级recyclerView
             "expandablerecycleradapter" : "com.zaihuishou:expandablerecycleradapter:1.0.3",
             //recyclerView 分割线

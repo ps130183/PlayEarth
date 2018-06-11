@@ -1,10 +1,13 @@
 package com.km.rmbank.entity;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by PengSong on 18/1/18.
  */
 
-public class ModelEntity {
+public class ModelEntity implements ItemDelegate {
     private int modelRes;
     private String modelName;
     private String modelImageUrl;
@@ -57,5 +60,10 @@ public class ModelEntity {
 
     public void setModelName(String modelName) {
         this.modelName = modelName;
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_home_new_module;
     }
 }

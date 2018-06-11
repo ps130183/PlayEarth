@@ -90,13 +90,15 @@
                     android:background="@color/divide_color"/>
 
 
-                <android.support.v7.widget.RecyclerView
+                <com.ps.mrcyclerview.MRecyclerView
                     android:id="@+id/moduleRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="88dp"
-                    android:background="@color/white">
+                    app:lmType="grid"
+                    app:spanCount="5"
+                    app:dividerWidth="0">
 
-                </android.support.v7.widget.RecyclerView>
+                </com.ps.mrcyclerview.MRecyclerView>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recommendRecycler"

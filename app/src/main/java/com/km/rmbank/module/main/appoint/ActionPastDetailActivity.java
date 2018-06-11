@@ -1,4 +1,4 @@
-package com.km.rmbank.module.main.club;
+package com.km.rmbank.module.main.appoint;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -44,6 +44,7 @@ import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.UmengShareUtils;
+import com.km.rmbank.utils.WebViewUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
@@ -65,26 +66,8 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
 
     @BindView(R.id.simple_tb_title_name)
     TextView tvTitle;
-//
-//    @BindView(R.id.tv_action_name)
-//    TextView tvActionName;
-//    @BindView(R.id.tv_club_name)
-//    TextView tvClubName;
-//    @BindView(R.id.iv_club_logo)
-//    ImageView ivClubLogo;
-//    @BindView(R.id.tv_release_time)
-//    TextView tvReleaseTime;
-//    @BindView(R.id.rv_action_past_details)
-//    RecyclerView rvActionPastDetails;
-
-//    @BindView(R.id.jzv_player)
-//    JZVideoPlayerStandard jzvPlayer;
-
 
     private String actionPastId;
-
-//    private String clubId;
-//    private boolean isMyClub;
 
     private ShareDto mShareDto;
 
@@ -132,15 +115,13 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
     public void onFinally(@Nullable Bundle savedInstanceState) {
         actionPastId = getIntent().getStringExtra("actionPastId");
         String activityId = getIntent().getStringExtra("activityId");
-//////        isMyClub = getIntent().getBooleanExtra("isMyClub",false);
-//////        initActionPastDetails();
         getPresenter().getActionPastDetails(actionPastId,activityId);
 
 
         getWindow().setFlags(//强制打开GPU渲染
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-        setUpWebViewDefaults(mWebView);
+        WebViewUtils.setUpWebViewDefaults(mWebView);
         mWebView.setWebChromeClient(new WebChromeClient() {
             public Bitmap getDefaultVideoPoster() {
                 if (this == null) {
@@ -186,15 +167,6 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
         });
 
         initShareDialog();
-//        if (!TextUtils.isEmpty(actionPastId)){
-//            mWebView.loadUrl(ApiConstant.API_BASE_URL + ApiConstant.API_MODEL + "/accounts/information/html/doyouwanttodate3.html?pId=" + actionPastId);
-//        } else if(!TextUtils.isEmpty(activityId)){
-//            mWebView.loadUrl(ApiConstant.API_BASE_URL + ApiConstant.API_MODEL + "/accounts/information/html/doyouwanttodate4.html?activityId=" + activityId);
-//        } else {
-//            showToast("获取不到资讯的内容！");
-//            finish();
-//        }
-
     }
 
     @Override
@@ -225,35 +197,6 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
                 }
             }
         });
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void setUpWebViewDefaults(WebView webView) {
-        WebSettings settings = webView.getSettings();
-
-        // Enable Javascript
-        settings.setJavaScriptEnabled(true);
-
-        // Use WideViewport and Zoom out if there is no viewport defined
-        settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
-
-        // Enable pinch to zoom without the zoom buttons
-        settings.setBuiltInZoomControls(false);
-
-        // Allow use of Local Storage
-        settings.setDomStorageEnabled(true);
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-            // Hide the zoom controls for HONEYCOMB+
-            settings.setDisplayZoomControls(false);
-        }
-
-        // Enable remote debugging via chrome://inspect
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WebView.setWebContentsDebuggingEnabled(true);
-        }
-
     }
 
     @Override

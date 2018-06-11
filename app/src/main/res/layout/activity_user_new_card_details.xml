@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.card.UserNewCardDetailsActivity">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/userPortrait"
+                android:layout_width="match_parent"
+                android:layout_height="260dp" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="玩小球"
+                android:textSize="25sp"
+                android:textColor="@color/text_color_block1"
+                android:background="@color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="35dp"
+                />
+
+            <TextView
+                android:id="@+id/userCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="玩转地球商旅学苑（北京）文化发展有限公司"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_block1"
+                android:background="@color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="35dp"
+                />
+
+            <TextView
+                android:id="@+id/userPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UI设计"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_block1"
+                android:background="@color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="23dp"
+                android:paddingBottom="35dp"
+                />
+
+            <com.ruffian.library.RTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="兼任"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_block1"
+                android:padding="@dimen/viewSpace16"
+                app:background_normal="@color/white"
+                app:icon_height="20dp"
+                app:icon_width="20dp"
+                app:icon_src_normal="@mipmap/icon_triangle_blue_right"
+                android:layout_marginTop="@dimen/viewSpace16"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divideLineHeight"
+                android:background="@color/divide_color"/>
+
+            <com.ps.mrcyclerview.MRecyclerView
+                android:id="@+id/partTimeJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingLeft="25dp">
+
+            </com.ps.mrcyclerview.MRecyclerView>
+
+            <com.ruffian.library.RTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="名片信息"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_block1"
+                android:padding="@dimen/viewSpace16"
+                app:background_normal="@color/white"
+                app:icon_height="20dp"
+                app:icon_width="20dp"
+                app:icon_src_normal="@mipmap/icon_triangle_blue_right"
+                android:layout_marginTop="@dimen/viewSpace16"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divideLineHeight"
+                android:background="@color/divide_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:paddingLeft="25dp"
+                android:paddingTop="25dp"
+                android:paddingBottom="30dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_block24"
+                        android:layout_marginRight="20dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="13567876289"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_blocka"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="行业"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_block24"
+                        android:layout_marginRight="20dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="互联网产品|平台"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_blocka"
+                        />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="邮箱"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_block24"
+                        android:layout_marginRight="20dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2341213213@qq.com"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_blocka"
+                        />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="地址"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_block24"
+                        android:layout_marginRight="20dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="北京市左安门内大街左安溪园甲2-9玩转地球商旅学苑"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_blocka"
+                        />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="签名"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_block24"
+                        android:layout_marginRight="20dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我就是我 不一样的烟火"
+                        android:textSize="15sp"
+                        android:textColor="@color/text_color_blocka"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+    <com.ruffian.library.RTextView
+        android:id="@+id/myIntroduce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的\n自传"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        app:background_normal="@color/colorAccent"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        app:corner_radius_top_left="35dp"
+        app:corner_radius_bottom_left="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        />
+</RelativeLayout>
+

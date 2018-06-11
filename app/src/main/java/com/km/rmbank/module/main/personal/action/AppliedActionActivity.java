@@ -1,7 +1,6 @@
 package com.km.rmbank.module.main.personal.action;
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,9 +9,7 @@ import android.view.View;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
-import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.AppointDto;
-import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
 import com.km.rmbank.mvp.model.AppointModel;
 import com.km.rmbank.mvp.presenter.AppointPresenter;
 import com.km.rmbank.mvp.view.AppointView;

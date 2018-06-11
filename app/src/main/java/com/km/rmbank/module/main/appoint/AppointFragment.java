@@ -15,14 +15,10 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.event.ApplyActionEvent;
-import com.km.rmbank.module.login.LoginActivity;
-import com.km.rmbank.module.main.club.ActionPastDetailActivity;
-import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.scenic.ScenicActivity;
 import com.km.rmbank.mvp.model.AppointModel;
 import com.km.rmbank.mvp.presenter.AppointPresenter;
 import com.km.rmbank.mvp.view.AppointView;
-import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.ViewUtils;
@@ -33,7 +29,6 @@ import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.glidelib.progress.CircleProgressView;
-import com.ruffian.library.RTextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -172,11 +167,6 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                         bundle.putString("scenicId",data.getClubId());
                         bundle.putString("activityId",data.getId());
                         startActivity(ScenicActivity.class,bundle);
-                    } else if ("1".equals(data.getNewType()) || "2".equals(data.getNewType())){//1:下午茶 2:结缘晚宴
-                        Bundle bundle = new Bundle();
-                        bundle.putString("actionId",data.getId());
-                        bundle.putString("appointType",data.getNewType());
-                        startActivity(AppointAfternoonTeaActivity.class,bundle);
                     }  else {
                         Bundle bundle = new Bundle();
                         bundle.putString("actionId",data.getId());

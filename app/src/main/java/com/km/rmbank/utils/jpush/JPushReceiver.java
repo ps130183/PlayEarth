@@ -1,6 +1,5 @@
 package com.km.rmbank.utils.jpush;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +8,11 @@ import android.os.Bundle;
 import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.km.rmbank.dto.JPushDto;
-import com.km.rmbank.module.main.club.ActionPastDetailActivity;
-import com.km.rmbank.module.main.club.ActionRecentInfoActivity;
+import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
+import com.km.rmbank.module.main.appoint.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.message.MessageActivity;
 
 import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.service.PushService;
 
 /**
  * Created by kamangkeji on 17/6/26.

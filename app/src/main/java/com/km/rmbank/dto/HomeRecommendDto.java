@@ -1,5 +1,8 @@
 package com.km.rmbank.dto;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 import java.util.List;
 
 /**
@@ -229,5 +232,6 @@ public class HomeRecommendDto {
         public void setStartDate(long startDate) {
             this.startDate = startDate;
         }
+
     }
 }
