@@ -300,8 +300,8 @@ public class HomePersonalCenterFragment extends BaseFragment<IUserView,UserPrese
      */
     @OnClick(R.id.userQRCode)
     public void clickUserQRCode(View view){
-//        startActivity(UserCardActivity.class);
-        startActivity(UserNewCardActivity.class);
+        startActivity(UserCardActivity.class);
+//        startActivity(UserNewCardActivity.class);
     }
 
     /**

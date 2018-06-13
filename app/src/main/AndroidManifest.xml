@@ -264,7 +264,8 @@
         <activity android:name=".module.main.personal.contacts.TransformContactsActivity" />
         <activity android:name=".module.main.personal.contacts.PayTransformContactActivity" />
         <activity android:name=".module.main.card.UserNewCardDetailsActivity" />
-        <activity android:name=".module.main.card.UserCardActivity"></activity>
+        <activity android:name=".module.main.card.UserCardActivity" />
+        <activity android:name=".module.main.card.UserCardModifyActivity"></activity>
     </application>
 
 </manifest>

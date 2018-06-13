@@ -4,12 +4,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
+import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.entity.PartTimeJob;
+import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
@@ -32,6 +35,18 @@ public class UserNewCardDetailsActivity extends BaseActivity {
     @Override
     public String getTitleContent() {
         return "名片";
+    }
+
+    @Override
+    protected void onCreateTitleBar(BaseTitleBar titleBar) {
+        SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
+        simpleTitleBar.setRightMenuContent("编辑");
+        simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(UserCardModifyActivity.class);
+            }
+        });
     }
 
     @Override

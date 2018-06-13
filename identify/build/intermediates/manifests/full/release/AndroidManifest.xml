@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="com.baidu.ocr.ui"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="31"
+    android:versionName="4.5.1" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="27" />
+
+</manifest>

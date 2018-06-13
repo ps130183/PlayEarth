@@ -139,7 +139,8 @@ public class UserCardActivity extends BaseActivity {
                 mShareDialog.dimiss();
                 switch (i) {
                     case 0://编辑名片
-                        startActivity(CreateNewUserCardActivity.class);
+//                        startActivity(CreateNewUserCardActivity.class);
+                        startActivity(UserCardModifyActivity.class);
                         break;
                     case 1://分享微信好友
                         shareUserCard(SHARE_MEDIA.WEIXIN);

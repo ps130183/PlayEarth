@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MRecyclerView">
+        <attr name="loadMoreLayout" format="reference"/>
+        <attr name="loadMoreFinishLayout" format="reference"/>
+        <attr name="loadMoreErrorLayout" format="reference"/>
+        <attr name="emptyLayout" format="reference"/>
+        <attr name="lmType" format="enum">
+            <enum name="linear" value="0"/>
+            <enum name="grid" value="1"/>
+            <enum name="staggeredGrid" value="2"/>
+        </attr>
+        <attr name="orientation" format="enum">
+            <enum name="vertical" value="0"/>
+            <enum name="horizontal" value="1"/>
+        </attr>
+        <attr name="spanCount" format="integer"/>
+        <attr name="dividerWidth" format="integer"/>
+        <attr name="dividerColor" format="color"/>
+    </declare-styleable>
+</resources>

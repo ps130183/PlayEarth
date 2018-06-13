@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"
+            android:padding="2dp"
+            android:background="@drawable/shape_border_corner_5">
+
+            <EditText
+                android:id="@+id/userCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/viewSpace16"
+                android:hint="请输入组织名称"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_block1"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layerType="software"
+                android:background="@drawable/shape_divider_imaginary_line"/>
+
+            <EditText
+                android:id="@+id/userPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="@dimen/viewSpace16"
+                android:hint="请输入职务"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_block1"
+                />
+
+        </LinearLayout>
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/icon_close1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"/>
+
+</RelativeLayout>
