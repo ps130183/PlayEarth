@@ -31,13 +31,13 @@ public class WithDrawPresenter extends BasePresenter<IWithDrawView,WithDrawModel
                 }));
     }
 
-    public void submitWithdraw(WithDrawAccountDto withDrawAccountDto, String money) {
+    public void submitWithdraw(WithDrawAccountDto withDrawAccountDto, final String money) {
         getMvpView().showLoading();
         getMvpModel().submitWithDraw(withDrawAccountDto,money)
                 .subscribe(newSubscriber(new Consumer() {
                     @Override
                     public void accept(@NonNull Object o) throws Exception {
-                        getMvpView().withdrawSuccess();
+                        getMvpView().withdrawSuccess(money);
                     }
                 }));
     }
@@ -63,7 +63,7 @@ public class WithDrawPresenter extends BasePresenter<IWithDrawView,WithDrawModel
     }
 
     public void getWithDrawList() {
-        getMvpView().showLoading();
+//        getMvpView().showLoading();
         getMvpModel().getWithDrawAccount()
                 .subscribe(newSubscriber(new Consumer<List<WithDrawAccountDto>>() {
                     @Override

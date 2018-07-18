@@ -127,6 +127,23 @@ public class TicketDto implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return "TicketDto{" +
+                "createDate=" + createDate +
+                ", name='" + name + '\'' +
+                ", num='" + num + '\'' +
+                ", status='" + status + '\'' +
+                ", ticketId='" + ticketId + '\'' +
+                ", ticketLogo='" + ticketLogo + '\'' +
+                ", ticketNo='" + ticketNo + '\'' +
+                ", type='" + type + '\'' +
+                ", userId='" + userId + '\'' +
+                ", validateTime=" + validateTime +
+                ", isChecked=" + isChecked +
+                '}';
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

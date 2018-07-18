@@ -11,7 +11,6 @@
         android:id="@+id/guanggaowei"
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:src="@mipmap/guanggao_home1"
         app:siv_radius="4dp"/>
 
     <include layout="@layout/_default_divide_line5"/>
@@ -60,11 +59,11 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <com.ps.mrcyclerview.MRecyclerView
         android:id="@+id/contentRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.ps.mrcyclerview.MRecyclerView>
 
 </LinearLayout>

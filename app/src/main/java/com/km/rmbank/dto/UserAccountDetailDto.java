@@ -1,10 +1,13 @@
 package com.km.rmbank.dto;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by kamangkeji on 17/4/1.
  */
 
-public class UserAccountDetailDto {
+public class UserAccountDetailDto implements ItemDelegate {
 
     /**
      * amount : 100
@@ -68,5 +71,22 @@ public class UserAccountDetailDto {
 
     public void setExplain(String explain) {
         this.explain = explain;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAccountDetailDto{" +
+                "amount='" + amount + '\'' +
+                ", tradeDirection='" + tradeDirection + '\'' +
+                ", tradeType='" + tradeType + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", explain='" + explain + '\'' +
+                '}';
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_rv_account_details;
     }
 }

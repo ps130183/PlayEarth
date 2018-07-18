@@ -3,17 +3,13 @@ package com.km.rmbank.module.main.card;
 import android.Manifest;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,20 +17,15 @@ import com.blankj.utilcode.util.ConvertUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
-import com.km.rmbank.entity.IndustryEntity;
 import com.km.rmbank.event.UserInfoEvent;
 import com.km.rmbank.titleBar.SimpleTitleBar;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.imageselector.ImageUtils;
-import com.ps.commonadapter.adapter.CommonViewHolder;
-import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.yancy.gallerypick.utils.ScreenUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,7 +37,7 @@ public class EditUserInfoActivity extends BaseActivity implements Toolbar.OnMenu
 
     @BindView(R.id.userPortrait)
     GlideImageView userPortrait;
-    private DialogUtils.CustomBottomDialog mSelectPhotoDialog;
+    private WindowBottomDialog mSelectPhotoDialog;
     private String userPortraitPath;
 
     private int editType = -1;
@@ -187,8 +178,8 @@ public class EditUserInfoActivity extends BaseActivity implements Toolbar.OnMenu
     }
 
     private void initSelectPhotoDialog() {
-        mSelectPhotoDialog = new DialogUtils.CustomBottomDialog(mInstance, "取消", "拍照", "从相册选择");
-        mSelectPhotoDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mSelectPhotoDialog = new WindowBottomDialog(mInstance, "取消", "拍照", "从相册选择");
+        mSelectPhotoDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mSelectPhotoDialog.dimiss();

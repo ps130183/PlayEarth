@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.account.bank.MyBankCardListActivity">
+
+    <com.ps.mrcyclerview.MRecyclerView
+        android:id="@+id/bankCardRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom">
+
+    </com.ps.mrcyclerview.MRecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:onClick="addNewBankCard"
+        >
+        <com.ruffian.library.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  添加银行卡"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/text_color_block24"
+            app:icon_src_normal="@mipmap/icon_add_bank_card"
+            app:icon_width="20dp"
+            app:icon_height="20dp"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

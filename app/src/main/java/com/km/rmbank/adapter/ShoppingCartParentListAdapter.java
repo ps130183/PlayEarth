@@ -16,7 +16,7 @@ import com.km.rmbank.dto.ShoppingCartDto;
 import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.oldrecycler.BaseAdapter;
 import com.km.rmbank.oldrecycler.RVUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

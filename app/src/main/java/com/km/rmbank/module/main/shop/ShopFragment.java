@@ -32,8 +32,6 @@ import com.km.rmbank.utils.animator.ShowViewAnimator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
-import com.zaaach.toprightmenu.MenuItem;
-import com.zaaach.toprightmenu.TopRightMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +113,7 @@ RecyclerView rvGt1;
     private String levelOneId = "";//一级分类 Id
     private String levelTwoId = "";//二级分类Id
 
-    private TopRightMenu mTopRightMenu;
+//    private TopRightMenu mTopRightMenu;
 
 
 
@@ -184,9 +182,9 @@ RecyclerView rvGt1;
 
     @OnClick(R.id.iv_more)
     public void moreClick(View view){
-        if (mTopRightMenu != null){
-            mTopRightMenu.showAsDropDown(ivMore,-230,0);
-        }
+//        if (mTopRightMenu != null){
+//            mTopRightMenu.showAsDropDown(ivMore,-230,0);
+//        }
     }
 
     private void initSwipeRefresh(){
@@ -202,36 +200,36 @@ RecyclerView rvGt1;
      * 初始化 右上角弹出框
      */
     private void initToolbarRight(){
-        mTopRightMenu = new TopRightMenu(getActivity());
-
-//添加菜单项
-        List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(new MenuItem(R.mipmap.ic_message_gray, "消息"));
-        menuItems.add(new MenuItem(R.mipmap.ic_shopping_cart_32, "购物车"));
-
-        mTopRightMenu
-                .setHeight(RecyclerView.LayoutParams.WRAP_CONTENT)     //默认高度480
-                .setWidth(320)      //默认宽度wrap_content
-                .showIcon(true)     //显示菜单图标，默认为true
-                .dimBackground(true)        //背景变暗，默认为true
-                .needAnimationStyle(true)   //显示动画，默认为true
-                .setAnimationStyle(R.style.TRM_ANIM_STYLE)
-                .addMenuList(menuItems)
-//                .addMenuItem(new MenuItem(R.mipmap.facetoface, "面对面快传"))
-//                .addMenuItem(new MenuItem(R.mipmap.pay, "付款"))
-                .setOnMenuItemClickListener(new TopRightMenu.OnMenuItemClickListener() {
-                    @Override
-                    public void onMenuItemClick(int position) {
-                        switch (position){
-                            case 0:
-                                startActivity(MessageActivity.class);
-                                break;
-                            case 1:
-                                startActivity(ShoppingCartActivity.class);
-                                break;
-                        }
-                    }
-                });
+//        mTopRightMenu = new TopRightMenu(getActivity());
+//
+////添加菜单项
+//        List<MenuItem> menuItems = new ArrayList<>();
+//        menuItems.add(new MenuItem(R.mipmap.ic_message_gray, "消息"));
+//        menuItems.add(new MenuItem(R.mipmap.ic_shopping_cart_32, "购物车"));
+//
+//        mTopRightMenu
+//                .setHeight(RecyclerView.LayoutParams.WRAP_CONTENT)     //默认高度480
+//                .setWidth(320)      //默认宽度wrap_content
+//                .showIcon(true)     //显示菜单图标，默认为true
+//                .dimBackground(true)        //背景变暗，默认为true
+//                .needAnimationStyle(true)   //显示动画，默认为true
+//                .setAnimationStyle(R.style.TRM_ANIM_STYLE)
+//                .addMenuList(menuItems)
+////                .addMenuItem(new MenuItem(R.mipmap.facetoface, "面对面快传"))
+////                .addMenuItem(new MenuItem(R.mipmap.pay, "付款"))
+//                .setOnMenuItemClickListener(new TopRightMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public void onMenuItemClick(int position) {
+//                        switch (position){
+//                            case 0:
+//                                startActivity(MessageActivity.class);
+//                                break;
+//                            case 1:
+//                                startActivity(ShoppingCartActivity.class);
+//                                break;
+//                        }
+//                    }
+//                });
 //                .showAsDropDown(ivMore, -225, 0);    //带偏移量
     }
 

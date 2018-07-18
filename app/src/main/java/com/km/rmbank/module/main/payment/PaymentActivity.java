@@ -5,15 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.km.rmbank.R;
@@ -34,9 +33,8 @@ import com.km.rmbank.mvp.model.PaymentModel;
 import com.km.rmbank.mvp.presenter.PaymentPresenter;
 import com.km.rmbank.mvp.view.IPaymentView;
 import com.km.rmbank.titleBar.SimpleTitleBar;
-import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.wxpay.WxUtil;
 import com.ps.commonadapter.adapter.CommonViewHolder;
@@ -53,7 +51,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
@@ -75,12 +72,13 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
     private List<PayTypeEntity> payTypeEntities;
 
     //基地活动
-    ScenicServiceDto mServiceDto;
+//    ScenicServiceDto mServiceDto;
     private List<TicketDto> mTicketList;
     private int totalPersonNum;
     private int personNum;
     private int personal = 0;
     private float totalPrice = 0;
+    private float actionPrice = 0;
     private SparseArray<String> checkTicketNos;
 
     @Override
@@ -227,10 +225,11 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
         checkTicketNos = new SparseArray<>();
         //优惠券列表
         mTicketList = getIntent().getParcelableArrayListExtra("ticketList");
-        mServiceDto = getIntent().getParcelableExtra("scenicService");
+//        mServiceDto = getIntent().getParcelableExtra("scenicService");
         totalPersonNum = getIntent().getIntExtra("personNum", 1);
         personNum = totalPersonNum;
-        totalPrice = (float) (mServiceDto.getPrice() * personNum);
+        actionPrice = getIntent().getFloatExtra("price",0);
+        totalPrice = actionPrice * personNum;
         tvAmount.setText(totalPrice + "");
 
 
@@ -323,7 +322,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
                                     }
                                     checkTicketNos.remove(position);
                                 }
-                                totalPrice = (float) (mServiceDto.getPrice() * personNum);
+                                totalPrice = actionPrice * personNum;
                                 tvAmount.setText(totalPrice + "");
                             }
                         });
@@ -371,6 +370,17 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
     public void toPay(View view) {
         if (payType == 2) {//报名基地活动
             String startDate = getIntent().getStringExtra("startDate");
+//            if (startDate <= 0 ){
+//                showToast("获取不到举办时间，请稍后再试！");
+//                return;
+//            }
+            if (TextUtils.isEmpty(startDate)){
+                showToast("获取不到举办时间，请稍后再试！");
+                return;
+            }
+            long startTime = Long.valueOf(startDate);
+            String startTime1 = DateUtils.getInstance().getDate(startTime);
+            String actionId = getIntent().getStringExtra("actionId");
             StringBuffer ticketNos = new StringBuffer();
             for (int i = 0; i < checkTicketNos.size(); i++) {
                 ticketNos.append(checkTicketNos.valueAt(i)).append("#");
@@ -378,7 +388,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
             if (checkTicketNos.size() > 0) {
                 ticketNos.deleteCharAt(ticketNos.length() - 1);
             }
-            getPresenter().applyScenicAction(mServiceDto.getId(), totalPersonNum + "", startDate, "", totalPrice + "", ticketNos.toString());
+            getPresenter().applyScenicAction(actionId, totalPersonNum + "", startTime1, "", totalPrice + "", ticketNos.toString());
             return;
         }
 

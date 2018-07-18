@@ -30,6 +30,9 @@ ext {
             //recyclerView 分割线
             "flexibledivider" : "com.yqritc:recyclerview-flexibledivider:1.4.0",
 
+            //页面侧滑
+            "swipelayout" : "com.daimajia.swipelayout:library:1.2.0@aar",
+
             //android Test
             "androidTestImplementation-runner" : "com.android.support.test:runner:1.0.1",
             "androidTestImplementation-espresso-core" : "com.android.support.test.espresso:espresso-core:3.0.1",
@@ -68,17 +71,10 @@ ext {
             "utilcode" : "com.blankj:utilcode:1.15.1",
             "butterknife" : 'com.jakewharton:butterknife:8.8.1',
             "butterknife-compiler" : 'com.jakewharton:butterknife-compiler:8.8.1',
-            //tableLayout
-            "FlycoTabLayout_Lib" : "com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar",
 
-            //logger
-            "logger" : "com.orhanobut:logger:2.1.1",
 
             //photoView
             "photoView" : "com.github.chrisbanes:PhotoView:2.0.0",
-
-            //右上角菜单
-            "toprightmenu" : "com.zaaach:toprightmenu:1.0",
 
             //弹出提示框
             "DialogUtil" : "com.github.hss01248:DialogUtil:1.2.6",
@@ -117,6 +113,7 @@ ext {
 
             //数据库管理工具
             "greendao" : "org.greenrobot:greendao:3.2.2",
+            "android-database-sqlcipher" : "net.zetetic:android-database-sqlcipher:3.5.2",
 
             //激光推送
             "jpush" : "cn.jiguang.sdk:jpush:3.1.1",  // 此处以JPush 3.1.1 版本为例。

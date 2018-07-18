@@ -1,24 +1,17 @@
 package com.km.rmbank.module.main.experience;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
@@ -27,18 +20,15 @@ import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.QRCodeUtils;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.km.rmbank.utils.ViewUtils;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.yancy.gallerypick.utils.ScreenUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import butterknife.OnClick;
 import cn.jarlen.photoedit.operate.ImageObject;
@@ -50,7 +40,7 @@ public class ExperienceOfficerActivity extends BaseActivity {
     private OperateView operateView;
 
     private OperateUtils operateUtils;
-    private DialogUtils.CustomBottomDialog mShareDialog;
+    private WindowBottomDialog mShareDialog;
     @Override
     public int getContentViewRes() {
         return R.layout.activity_experience_officer;
@@ -124,8 +114,8 @@ public class ExperienceOfficerActivity extends BaseActivity {
     }
 
     private void initShareDialog() {
-        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance, "取消",  "分享微信好友", "分享朋友圈", "保存图片");
-        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mShareDialog = new WindowBottomDialog(mInstance, "取消",  "分享微信好友", "分享朋友圈", "保存图片");
+        mShareDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mShareDialog.dimiss();

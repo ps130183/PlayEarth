@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.model;
 
+import com.google.gson.Gson;
 import com.km.rmbank.dto.UserCardDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.mvp.base.BaseModel;
@@ -29,11 +30,16 @@ public class UserInfoModel extends BaseModel {
      * @param userInfoDto
      * @return
      */
-    public Observable<String> createUserCart(UserInfoDto userInfoDto){
-        return getService().createUserCard(Constant.userLoginInfo.getToken(),
+    public Observable<String> saveUserInfo(UserInfoDto userInfoDto){
+        Gson gson = new Gson();
+        return getService().saveUserInfo(Constant.userLoginInfo.getToken(),
                 userInfoDto.getPortraitUrl(),
-                userInfoDto.getName(),userInfoDto.getMobilePhone(),userInfoDto.getPosition(),
-                userInfoDto.getPersonalizedSignature(),userInfoDto.getDetailedAddress())
+                userInfoDto.getName(),userInfoDto.getCompany(),userInfoDto.getPosition(),
+                userInfoDto.getIndustryId(),
+                userInfoDto.getCardPhone(),userInfoDto.getAllowStutas(),
+                userInfoDto.getDetailedAddress(),
+                userInfoDto.getEmailAddress(),userInfoDto.getPersonalizedSignature(),
+                gson.toJson(userInfoDto.getIdentityList()),gson.toJson(userInfoDto.getDemandList()),gson.toJson(userInfoDto.getProvideList()))
                 .compose(this.<String>applySchedulers());
     }
 

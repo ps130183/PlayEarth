@@ -5,13 +5,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.MenuItem;
-import android.view.ViewTreeObserver;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,8 +17,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.hss01248.dialog.StyledDialog;
-import com.hss01248.dialog.interfaces.MyItemDialogListener;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
@@ -28,7 +24,7 @@ import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.QRCodeUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.km.rmbank.utils.UmengShareUtils;
@@ -41,13 +37,12 @@ import com.yancy.gallerypick.utils.ScreenUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserNewCardActivity extends BaseActivity {
 
     private List<String> shareBottoms;
-    private DialogUtils.CustomBottomDialog mShareDialog;
+    private WindowBottomDialog mShareDialog;
 
     @Override
     public int getContentViewRes() {
@@ -164,8 +159,8 @@ public class UserNewCardActivity extends BaseActivity {
 //    }
 
     private void initShareDialog() {
-        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance, "取消", "编辑名片", "分享微信好友", "分享朋友圈", "保存图片");
-        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mShareDialog = new WindowBottomDialog(mInstance, "取消", "编辑名片", "分享微信好友", "分享朋友圈", "保存图片");
+        mShareDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mShareDialog.dimiss();
@@ -239,6 +234,5 @@ public class UserNewCardActivity extends BaseActivity {
             });
         }
     }
-
 
 }

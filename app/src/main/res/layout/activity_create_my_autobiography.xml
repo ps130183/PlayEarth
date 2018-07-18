@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.card.auto.CreateMyAutobiographyActivity">
+
+    <com.ps.mrcyclerview.MRecyclerView
+        android:id="@+id/autobiography"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_edit">
+
+    </com.ps.mrcyclerview.MRecyclerView>
+
+    <LinearLayout
+        android:id="@+id/bottom_edit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <com.ruffian.library.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="图片"
+            app:icon_width="25dp"
+            app:icon_height="25dp"
+            app:icon_src_normal="@mipmap/icon_picture"
+            app:icon_direction="top"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:onClick="addImageContent"
+            />
+
+        <com.ruffian.library.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文字"
+            app:icon_width="25dp"
+            app:icon_height="25dp"
+            app:icon_src_normal="@mipmap/icon_text"
+            app:icon_direction="top"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:onClick="addTextContent"
+            />
+
+        <com.ruffian.library.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="视频"
+            app:icon_width="25dp"
+            app:icon_height="25dp"
+            app:icon_src_normal="@mipmap/icon_video"
+            app:icon_direction="top"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

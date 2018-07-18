@@ -11,13 +11,17 @@ import com.km.rmbank.dto.ActiveValueDetailDto;
 import com.km.rmbank.dto.ActiveValueDto;
 import com.km.rmbank.dto.AppVersionDto;
 import com.km.rmbank.dto.AppointDto;
+import com.km.rmbank.dto.BankDto;
 import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.CalendarActionsDto;
 import com.km.rmbank.dto.CircleFriendsDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ContractDto;
+import com.km.rmbank.dto.EarthTaskDetailsDto;
+import com.km.rmbank.dto.EarthTaskDto;
+import com.km.rmbank.dto.TaskSignInDto;
+import com.km.rmbank.entity.EarthTaskEntity;
 import com.km.rmbank.dto.EvaluateDto;
-import com.km.rmbank.dto.ForumDto;
 import com.km.rmbank.dto.ForumInfoDto;
 import com.km.rmbank.dto.GoodsDetailsDto;
 import com.km.rmbank.dto.GoodsDto;
@@ -69,11 +73,9 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Query;
 import retrofit2.http.Url;
 //import rx.Observable;
 
@@ -82,7 +84,6 @@ import retrofit2.http.Url;
  */
 
 public interface ApiService {
-
 
 
     /**
@@ -108,8 +109,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/user/register")
     Observable<Response<String>> userRegister(@Field("mobilePhone") String mobilePhone,
-                                            @Field("loginPwd") String password,
-                                            @Field("smsCode") String smsCode);
+                                              @Field("loginPwd") String password,
+                                              @Field("smsCode") String smsCode);
 
     /**
      * 获取手机验证码
@@ -132,8 +133,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/user/forgetLoginPwd")
     Observable<Response<String>> forgetLoginPwd(@Field("mobilePhone") String mobilePhone,
-                                              @Field("pwd") String password,
-                                              @Field("smsCode") String smsCode);
+                                                @Field("pwd") String password,
+                                                @Field("smsCode") String smsCode);
 
 
     /**
@@ -154,30 +155,41 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/update/info")
     Observable<Response<String>> updateUserInfo(@Field("token") String token,
-                                              @Field("nickName") String nickName,
-                                              @Field("portraitUrl") String portraitUrl,
-                                              @Field("birthday") String birthday);
+                                                @Field("nickName") String nickName,
+                                                @Field("portraitUrl") String portraitUrl,
+                                                @Field("birthday") String birthday);
 
     /**
      * 生成个人名片
      *
      * @param token
      * @param name
-     * @param mobilePhone
      * @param position
      * @param personalizedSignature
      * @param detailedAddress
+     * @param allowStutas
+     * @param company
+     * @param emailAddress
+     * @param identityList
+     * @param portraitUrl
      * @return
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/userCard/update/info")
-    Observable<Response<String>> createUserCard(@Field("token") String token,
-                                              @Field("portraitUrl") String portraitUrl,
-                                              @Field("name") String name,
-                                              @Field("mobilePhone") String mobilePhone,
-                                              @Field("position") String position,
-                                              @Field("personalizedSignature") String personalizedSignature,
-                                              @Field("detailedAddress") String detailedAddress);
+    Observable<Response<String>> saveUserInfo(@Field("token") String token,
+                                                @Field("portraitUrl") String portraitUrl,
+                                                @Field("name") String name,
+                                                @Field("company") String company,
+                                                @Field("position") String position,
+                                                @Field("industryId") String industryId,
+                                                @Field("cardPhone") String cardPhone,
+                                                @Field("allowStutas") String allowStutas,
+                                                @Field("detailedAddress") String detailedAddress,
+                                                @Field("emailAddress") String emailAddress,
+                                                @Field("personalizedSignature") String personalizedSignature,
+                                                @Field("identityList") String identityList,
+                                              @Field("demandList") String demandList,
+                                              @Field("provideList") String provideList);
 
     /**
      * 生成个人名片
@@ -190,8 +202,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/userCard/update/info/send")
     Observable<Response<String>> createUserCardOnLogin(@Field("name") String name,
-                                                     @Field("mobilePhone") String mobilePhone,
-                                                     @Field("position") String position);
+                                                       @Field("mobilePhone") String mobilePhone,
+                                                       @Field("position") String position);
 
     /**
      * 获取个人名片
@@ -202,6 +214,16 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/auth/userCard/info/send")
     Observable<Response<UserCardDto>> getUserCard(@Field("token") String token);
 
+//    /**
+//     * 获取行业数据
+//     *
+//     * @param token
+//     * @return
+//     */
+//    @FormUrlEncoded
+//    @POST(ApiConstant.API_MODEL + "/auth/list/industry")
+//    Observable<Response<List<IndustryDto>>> getIndustryList(@Field("token") String token);
+
     /**
      * 获取行业数据
      *
@@ -209,7 +231,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiConstant.API_MODEL + "/auth/list/industry")
+    @POST(ApiConstant.API_MODEL + "/industries/list")
     Observable<Response<List<IndustryDto>>> getIndustryList(@Field("token") String token);
 
 
@@ -222,7 +244,7 @@ public interface ApiService {
     @Multipart
     @POST(ApiConstant.API_MODEL + "/file/up")
     Observable<Response<String>> imageUpload(@Part("optionType") RequestBody optionType,
-                                           @Part MultipartBody.Part file);
+                                             @Part MultipartBody.Part file);
 
     /**
      * 查询账户余额
@@ -243,7 +265,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/account/user/stream/list")
     Observable<Response<List<UserAccountDetailDto>>> getUserAccountDetail(@Field("token") String token,
-                                                                        @Field("pageNo") int pageNo);
+                                                                          @Field("pageNo") int pageNo);
 
 
     /**
@@ -255,10 +277,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/withdraw/add/account")
     Observable<Response<String>> createWithDrawAccount(@Field("token") String token,
-                                                     @Field("name") String name,
-                                                     @Field("withdrawPhone") String withdrawPhone,
-                                                     @Field("typeName") String typeName,
-                                                     @Field("withdrawNumber") String withdrawNumber);
+                                                       @Field("name") String name,
+                                                       @Field("withdrawPhone") String withdrawPhone,
+                                                       @Field("typeName") String typeName,
+                                                       @Field("withdrawNumber") String withdrawNumber);
 
 
     /**
@@ -272,8 +294,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/withdraw/delete/account")
     Observable<Response<String>> deleteWithDrawAccount(@Field("token") String token,
-                                                     @Field("id") String id,
-                                                     @Field("delete") int delete);
+                                                       @Field("id") String id,
+                                                       @Field("delete") int delete);
 
     /**
      * 编辑提现账户
@@ -284,11 +306,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/withdraw/update/account")
     Observable<Response<String>> updateWithDrawAccount(@Field("token") String token,
-                                                     @Field("id") String id,
-                                                     @Field("name") String name,
-                                                     @Field("withdrawPhone") String withdrawPhone,
-                                                     @Field("typeName") String typeName,
-                                                     @Field("withdrawNumber") String withdrawNumber);
+                                                       @Field("id") String id,
+                                                       @Field("name") String name,
+                                                       @Field("withdrawPhone") String withdrawPhone,
+                                                       @Field("typeName") String typeName,
+                                                       @Field("withdrawNumber") String withdrawNumber);
 
     /**
      * 获取提现账户列表
@@ -309,8 +331,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/withdraw")
     Observable<Response<String>> submitWithDraw(@Field("token") String token,
-                                              @Field("accountId") String accountId,
-                                              @Field("userAmount") String userAmount);
+                                                @Field("accountId") String accountId,
+                                                @Field("userAmount") String userAmount);
 
 
     /**
@@ -322,7 +344,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/product/normal/list")
     Observable<Response<List<GoodsDto>>> getGoodsListOfShopping(@Field("pageNo") int pageNo,
-                                                              @Field("isInIndexActivity") String isInIndexActivity);
+                                                                @Field("isInIndexActivity") String isInIndexActivity);
 
     /**
      * 获取商品列表  商城
@@ -333,9 +355,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/product/normal/list")
     Observable<Response<List<GoodsDto>>> getGoodsListOfShoppingNew(@Field("pageNo") int pageNo,
-                                                                 @Field("isInIndexActivity") String isInIndexActivity,
-                                                                 @Field("orderBy") int orderBy,
-                                                                 @Field("roleId") String roleId);
+                                                                   @Field("isInIndexActivity") String isInIndexActivity,
+                                                                   @Field("orderBy") int orderBy,
+                                                                   @Field("roleId") String roleId);
 
     /**
      * 获取商品列表  搜索
@@ -346,7 +368,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/product/normal/search")
     Observable<Response<List<GoodsDto>>> getGoodsListOfSearch(@Field("pageNo") int pageNo,
-                                                            @Field("name") String name);
+                                                              @Field("name") String name);
 
     /**
      * 商家列表的商品列表
@@ -357,7 +379,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/product/normal/shop/list")
     Observable<Response<List<GoodsDto>>> getGoodsListOfShop(@Field("token") String token,
-                                                          @Field("pageNo") int pageNo);
+                                                            @Field("pageNo") int pageNo);
 
 
     /**
@@ -369,7 +391,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/product/normal/productDetail")
     Observable<Response<GoodsDetailsDto>> getGoodsDetails(@Field("token") String token,
-                                                        @Field("productNo") String productNo);
+                                                          @Field("productNo") String productNo);
 
     /**
      * 关注商品
@@ -380,8 +402,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/keep/product")
     Observable<Response<String>> followGoods(@Field("token") String token,
-                                           @Field("productNo") String productNo,
-                                           @Field("clubId") String clubId);
+                                             @Field("productNo") String productNo,
+                                             @Field("clubId") String clubId);
 
     /**
      * 发布商品
@@ -400,15 +422,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/product/normal/add")
     Observable<Response<String>> createNewGoods(@Field("token") String token,
-                                              @Field("name") String productName,
-                                              @Field("subtitle") String subtitle,
-                                              @Field("price") String price,
-                                              @Field("productBanner") String productBanner,
-                                              @Field("freightInMaxCount") String freightInMaxCount,
-                                              @Field("freightInEveryAdd") String freightInEveryAdd,
-                                              @Field("productDetail") String productDetail,
-                                              @Field("bannerUrl") String bannerUrl,
-                                              @Field("isInIndexActivity") String isInIndexActivity);
+                                                @Field("name") String productName,
+                                                @Field("subtitle") String subtitle,
+                                                @Field("price") String price,
+                                                @Field("productBanner") String productBanner,
+                                                @Field("freightInMaxCount") String freightInMaxCount,
+                                                @Field("freightInEveryAdd") String freightInEveryAdd,
+                                                @Field("productDetail") String productDetail,
+                                                @Field("bannerUrl") String bannerUrl,
+                                                @Field("isInIndexActivity") String isInIndexActivity);
 
     /**
      * 商品修改
@@ -429,16 +451,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/product/normal/edit")
     Observable<Response<String>> updateGoods(@Field("token") String token,
-                                           @Field("productNo") String productNo,
-                                           @Field("name") String productName,
-                                           @Field("subtitle") String subtitle,
-                                           @Field("price") String price,
-                                           @Field("productBanner") String productBanner,
-                                           @Field("freightInMaxCount") String freightInMaxCount,
-                                           @Field("freightInEveryAdd") String freightInEveryAdd,
-                                           @Field("productDetail") String productDetail,
-                                           @Field("bannerUrl") String bannerUrl,
-                                           @Field("isInIndexActivity") String isInIndexActivity);
+                                             @Field("productNo") String productNo,
+                                             @Field("name") String productName,
+                                             @Field("subtitle") String subtitle,
+                                             @Field("price") String price,
+                                             @Field("productBanner") String productBanner,
+                                             @Field("freightInMaxCount") String freightInMaxCount,
+                                             @Field("freightInEveryAdd") String freightInEveryAdd,
+                                             @Field("productDetail") String productDetail,
+                                             @Field("bannerUrl") String bannerUrl,
+                                             @Field("isInIndexActivity") String isInIndexActivity);
 
     /**
      * 商品 管理  修改商品前 获取商品信息
@@ -449,7 +471,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/product/normal/editView")
     Observable<Response<GoodsDetailsDto>> getGoodsInfo(@Field("token") String token,
-                                                     @Field("productNo") String productNo);
+                                                       @Field("productNo") String productNo);
 
     /**
      * 商品 管理  下架
@@ -460,7 +482,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/product/normal/soldOut")
     Observable<Response<String>> goodsSoldOut(@Field("token") String token,
-                                            @Field("productNo") String productNo);
+                                              @Field("productNo") String productNo);
 
 
     ///auth/order/buy/shop/list
@@ -474,7 +496,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/order/buy/shop/list")
     Observable<Response<List<OrderDto>>> getSellGoodsList(@Field("token") String token,
-                                                        @Field("pageNo") int pageNo);
+                                                          @Field("pageNo") int pageNo);
 
     /**
      * 获取会员对应类型的金额
@@ -496,8 +518,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/order/recharge/create")
     Observable<Response<PayOrderDto>> createPayOrder(@Field("token") String token,
-                                                   @Field("amount") String amount,
-                                                   @Field("memberType") String memberType);
+                                                     @Field("amount") String amount,
+                                                     @Field("memberType") String memberType);
 
 
     /**
@@ -509,7 +531,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/alipay/get/params")
     Observable<Response<String>> getAlipayParams(@Field("token") String token,
-                                               @Field("payNumber") String payNumber);
+                                                 @Field("payNumber") String payNumber);
 
     /**
      * 获取微信订单信息参数
@@ -520,7 +542,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/wx/pay/create/pre/payment/order")
     Observable<Response<WeiCharParamsDto>> getWeiChatParams(@Field("token") String token,
-                                                          @Field("payNumber") String payNumber);
+                                                            @Field("payNumber") String payNumber);
 
     /**
      * 新增收货地址
@@ -534,9 +556,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/receive/address/add")
     Observable<Response<String>> newReceiverAddress(@Field("token") String token,
-                                                  @Field("receivePerson") String receivePerson,
-                                                  @Field("receivePersonPhone") String receivePersonPhone,
-                                                  @Field("receiveAddress") String receiveAddress);
+                                                    @Field("receivePerson") String receivePerson,
+                                                    @Field("receivePersonPhone") String receivePersonPhone,
+                                                    @Field("receiveAddress") String receiveAddress);
 
     /**
      * 编辑收货地址
@@ -550,10 +572,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/receive/address/update")
     Observable<Response<String>> updateReceiverAddress(@Field("token") String token,
-                                                     @Field("id") String id,
-                                                     @Field("receivePerson") String receivePerson,
-                                                     @Field("receivePersonPhone") String receivePersonPhone,
-                                                     @Field("receiveAddress") String receiveAddress);
+                                                       @Field("id") String id,
+                                                       @Field("receivePerson") String receivePerson,
+                                                       @Field("receivePersonPhone") String receivePersonPhone,
+                                                       @Field("receiveAddress") String receiveAddress);
 
     /**
      * 获取收货地址列表
@@ -574,7 +596,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/receive/address/update/default")
     Observable<Response<String>> setDefaultReceiverAddress(@Field("token") String token,
-                                                         @Field("id") String id);
+                                                           @Field("id") String id);
 
     /**
      * 删除收货地址
@@ -585,7 +607,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/receive/address/delete")
     Observable<Response<String>> deleteReceiverAddress(@Field("token") String token,
-                                                     @Field("id") String id);
+                                                       @Field("id") String id);
 
     /**
      * 获取默认收货地址
@@ -607,8 +629,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/shop/car/add")
     Observable<Response<String>> addShoppingCart(@Field("token") String token,
-                                               @Field("productNo") String productNo,
-                                               @Field("count") String count);
+                                                 @Field("productNo") String productNo,
+                                                 @Field("count") String count);
 
     /**
      * 获取购物车列表
@@ -629,7 +651,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/shop/car/delete")
     Observable<Response<String>> deleteShoppingCartGoods(@Field("token") String token,
-                                                       @Field("productNos") String productNos);
+                                                         @Field("productNos") String productNos);
 
     /**
      * 购物车 去结算 创建订单
@@ -640,7 +662,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/go/shopList")
     Observable<Response<List<ShoppingCartDto>>> createOrder(@Field("token") String token,
-                                                          @Field("productNos") String productNos);
+                                                            @Field("productNos") String productNos);
 
     /**
      * 更新购物车商品的数量
@@ -653,8 +675,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/shop/car/update/count")
     Observable<Response<String>> updateCountOnShopCartForGoods(@Field("token") String token,
-                                                             @Field("productNo") String productNo,
-                                                             @Field("optionType") String optionType);
+                                                               @Field("productNo") String productNo,
+                                                               @Field("optionType") String optionType);
 
 
     /**
@@ -666,11 +688,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/order/buy/create")
     Observable<Response<PayOrderDto>> submitOrder(@Field("token") String token,
-                                                @Field("productNos") String productNos,
-                                                @Field("productCounts") String productCounts,
-                                                @Field("receiveAddressId") String receiveAddressId,
-                                                @Field("freight") String freight,
-                                                @Field("exchange") String exchange);
+                                                  @Field("productNos") String productNos,
+                                                  @Field("productCounts") String productCounts,
+                                                  @Field("receiveAddressId") String receiveAddressId,
+                                                  @Field("freight") String freight,
+                                                  @Field("exchange") String exchange);
 
     /**
      * 获取订单列表
@@ -681,8 +703,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/order/buy/list")
     Observable<Response<List<OrderDto>>> getOrderList(@Field("token") String token,
-                                                    @Field("status") String status,
-                                                    @Field("pageNo") int pageNo);
+                                                      @Field("status") String status,
+                                                      @Field("pageNo") int pageNo);
 
     /**
      * 获取商品类型
@@ -723,7 +745,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/keep/product/list")
     Observable<Response<List<GoodsDto>>> getAttentionGoodsList(@Field("token") String token,
-                                                             @Field("pageNo") int pageNo);
+                                                               @Field("pageNo") int pageNo);
 
     /**
      * 获取活动列表
@@ -795,7 +817,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/notice/list")
     Observable<Response<List<MessageDto>>> getMessage(@Field("token") String token,
-                                                    @Field("pageNo") int pageNo);
+                                                      @Field("pageNo") int pageNo);
 
     /**
      * 余额支付
@@ -806,7 +828,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/balance/pay")
     Observable<Response<String>> payBalance(@Field("token") String token,
-                                          @Field("payNumber") String payNumber);
+                                            @Field("payNumber") String payNumber);
 
     /**
      * 我的订单  去支付
@@ -817,7 +839,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/buy/order/not/pay/go/to/pay")
     Observable<Response<PayOrderDto>> toPayOnMyOrder(@Field("token") String token,
-                                                   @Field("orderNo") String orderNo);
+                                                     @Field("orderNo") String orderNo);
 
     /**
      * 商家 发货
@@ -831,9 +853,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/order/buy/delivery")
     Observable<Response<String>> sendGoods(@Field("token") String token,
-                                         @Field("orderNo") String orderNo,
-                                         @Field("expressCompany") String expressCompany,
-                                         @Field("courierNumber") String courierNumber);
+                                           @Field("orderNo") String orderNo,
+                                           @Field("expressCompany") String expressCompany,
+                                           @Field("courierNumber") String courierNumber);
 
     /**
      * 获取订单详情
@@ -845,7 +867,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/order/buy/detail")
     Observable<Response<OrderDto>> getOrderDetails(@Field("token") String token,
-                                                 @Field("orderNo") String orderNo);
+                                                   @Field("orderNo") String orderNo);
 
     /**
      * 确认收货
@@ -857,7 +879,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/order/buy/receipt")
     Observable<Response<String>> confirmReceiverGoods(@Field("token") String token,
-                                                    @Field("orderNo") String orderNo);
+                                                      @Field("orderNo") String orderNo);
 
     /**
      * 发表评论
@@ -869,8 +891,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/comment/buy/order")
     Observable<Response<String>> evaluateGoods(@Field("token") String token,
-                                             @Field("orderNo") String orderNo,
-                                             @Field("content") String content);
+                                               @Field("orderNo") String orderNo,
+                                               @Field("content") String content);
 
     /**
      * 获取评论列表
@@ -882,8 +904,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/list/commet/by/productNo")
     Observable<Response<List<EvaluateDto>>> getEvaluateList(@Field("token") String token,
-                                                          @Field("productNo") String productNo,
-                                                          @Field("pageNo") int pageNo);
+                                                            @Field("productNo") String productNo,
+                                                            @Field("pageNo") int pageNo);
 
     /**
      * 获取我的积分
@@ -905,7 +927,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/integralDetail")
     Observable<Response<List<IntegralDetailsDto>>> getIntegralDetailsList(@Field("token") String token,
-                                                                        @Field("pageNo") int pageNo);
+                                                                          @Field("pageNo") int pageNo);
 
     /**
      * 扫一扫 二维码
@@ -917,7 +939,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST()
     Observable<Response<UserCardDto>> getUserInfoOnQRCode(@Url String url,
-                                                        @Field("token") String token);
+                                                          @Field("token") String token);
 
     /**
      * 申请成为好友
@@ -929,10 +951,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/add/friend")
     Observable<Response<String>> applyBecomeFriend(@Field("token") String token,
-                                                 @Field("friendMobilePhone") String friendPhone);
+                                                   @Field("friendMobilePhone") String friendPhone);
 
     /**
      * 获取我的人脉列表
+     *
      * @param token
      * @return
      */
@@ -969,11 +992,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/userCard/info/send")
     Observable<Response<UserInfoDto>> getUserCardById(@Field("token") String token,
-                                                    @Field("id") String id);
+                                                      @Field("id") String id);
 
 
     /**
      * 检测新版本
+     *
      * @param version
      * @return
      */
@@ -983,6 +1007,7 @@ public interface ApiService {
 
     /**
      * 支付回调验证
+     *
      * @param token
      * @param payNumber
      * @return
@@ -990,10 +1015,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/show/pay/result")
     Observable<Response<String>> checkPayResult(@Field("token") String token,
-                                              @Field("payNumber") String payNumber);
+                                                @Field("payNumber") String payNumber);
 
     /**
      * 获取首页banner
+     *
      * @param str
      * @return
      */
@@ -1003,6 +1029,7 @@ public interface ApiService {
 
     /**
      * 获取咨询页banner
+     *
      * @param str
      * @return
      */
@@ -1013,6 +1040,7 @@ public interface ApiService {
 
     /**
      * 获取新版首页 商品分类  一级
+     *
      * @param str
      * @return
      */
@@ -1022,6 +1050,7 @@ public interface ApiService {
 
     /**
      * 更新用户位置信息
+     *
      * @param token
      * @param longitude
      * @param latitude
@@ -1030,11 +1059,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/GPS")
     Observable<Response<String>> updateUserLocation(@Field("token") String token,
-                                                  @Field("longitude") String longitude,
-                                                  @Field("latitude") String latitude);
+                                                    @Field("longitude") String longitude,
+                                                    @Field("latitude") String latitude);
 
     /**
      * 获取附近合伙人信息
+     *
      * @param token
      * @param pageNo
      * @return
@@ -1042,10 +1072,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/list/near/partner")
     Observable<Response<List<NearbyVipDto>>> getNearbyVip(@Field("token") String token,
-                                                        @Field("pageNo") int pageNo);
+                                                          @Field("pageNo") int pageNo);
 
     /**
      * 更新 是否允许其他人查看 名片的状态
+     *
      * @param token
      * @param allowStutas
      * @return
@@ -1053,10 +1084,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/update/allowStutas")
     Observable<Response<String>> updateAllowUserCard(@Field("token") String token,
-                                                   @Field("allowStutas") String allowStutas);
+                                                     @Field("allowStutas") String allowStutas);
 
     /**
      * 获取俱乐部 的基本数据 logo  名称
+     *
      * @param type
      * @return
      */
@@ -1067,6 +1099,7 @@ public interface ApiService {
 
     /**
      * 创建我的俱乐部
+     *
      * @param token
      * @param clubName
      * @param clubLogo
@@ -1078,14 +1111,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/club/addImageDetail")
     Observable<Response<String>> createMyClub(@Field("token") String token,
-                                            @Field("clubName") String clubName,
-                                            @Field("clubLogo") String clubLogo,
-                                            @Field("content") String content,
-                                            @Field("backgroundImg") String backgroundImg,
-                                            @Field("clubDetailList") String clubDetailList);
+                                              @Field("clubName") String clubName,
+                                              @Field("clubLogo") String clubLogo,
+                                              @Field("content") String content,
+                                              @Field("backgroundImg") String backgroundImg,
+                                              @Field("clubDetailList") String clubDetailList);
 
     /**
      * 编辑我的俱乐部
+     *
      * @param token
      * @param clubName
      * @param clubLogo
@@ -1097,25 +1131,27 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/club/editImageDetail")
     Observable<Response<String>> editMyClub(@Field("token") String token,
-                                          @Field("clubName") String clubName,
-                                          @Field("clubLogo") String clubLogo,
-                                          @Field("content") String content,
-                                          @Field("backgroundImg") String backgroundImg,
-                                          @Field("clubDetailList") String clubDetailList,
-                                          @Field("id") String id);
+                                            @Field("clubName") String clubName,
+                                            @Field("clubLogo") String clubLogo,
+                                            @Field("content") String content,
+                                            @Field("backgroundImg") String backgroundImg,
+                                            @Field("clubDetailList") String clubDetailList,
+                                            @Field("id") String id);
 
     /**
      * 获取我的俱乐部基本信息
+     *
      * @param token
      * @return
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auto/club/detail")
-    Observable<Response<ClubDto>> getMyClubInfoBasic(@Field("token") String token,@Field("clubId") String clubId);
+    Observable<Response<ClubDto>> getMyClubInfoBasic(@Field("token") String token, @Field("clubId") String clubId);
 
 
     /**
      * 获取我的俱乐部图文介绍信息
+     *
      * @param clubId
      * @return
      */
@@ -1125,6 +1161,7 @@ public interface ApiService {
 
     /**
      * 俱乐部 发布活动
+     *
      * @param token
      * @param clubId
      * @param activityPictureUrl
@@ -1138,17 +1175,18 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/club/addOrEditClubActivity")
     Observable<Response<String>> releaseActionRecent(@Field("token") String token,
-                                                   @Field("clubId") String clubId,
-                                                   @Field("activityPictureUrl") String activityPictureUrl,
-                                                   @Field("title") String title,
-                                                   @Field("address") String address,
-                                                   @Field("flow") String flow,
-                                                   @Field("holdDate") String holdDate,
-                                                   @Field("appGuestList") String guestList,
-                                                   @Field("id") String actionId);
+                                                     @Field("clubId") String clubId,
+                                                     @Field("activityPictureUrl") String activityPictureUrl,
+                                                     @Field("title") String title,
+                                                     @Field("address") String address,
+                                                     @Field("flow") String flow,
+                                                     @Field("holdDate") String holdDate,
+                                                     @Field("appGuestList") String guestList,
+                                                     @Field("id") String actionId);
 
     /**
      * 获取俱乐部 近期活动列表
+     *
      * @param clubId
      * @param pageNo
      * @return
@@ -1156,30 +1194,33 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/club/activityList")
     Observable<Response<List<ActionDto>>> getActionRecentList(@Field("clubId") String clubId,
-                                                            @Field("pageNo") int pageNo);
+                                                              @Field("pageNo") int pageNo);
 
     /**
      * 获取为举办 活动详情信息
+     *
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/club/activityDetail/send")
     Observable<Response<ActionDto>> getActionRecentInfo(@Field("token") String token,
-                                                      @Field("id") String id);
+                                                        @Field("id") String id);
 
     /**
      * 获取活动 的参加人员
+     *
      * @param actionId
      * @return
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/club/activity/registration/listpage")
     Observable<Response<List<ActionMemberDto>>> getActionMemberList(@Field("activityId") String actionId,
-                                                                  @Field("pageNo") int pageNo);
+                                                                    @Field("pageNo") int pageNo);
 
     /**
      * 俱乐部发布 往期活动
+     *
      * @param clubId
      * @param avatarUrl
      * @param title
@@ -1189,13 +1230,14 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/information/add")
     Observable<Response<String>> releaseActionPast(@Field("clubId") String clubId,
-                                                 @Field("avatarUrl") String avatarUrl,
-                                                 @Field("title") String title,
-                                                 @Field("dynamicList") String dynamicList,
-                                                 @Field("id") String id);
+                                                   @Field("avatarUrl") String avatarUrl,
+                                                   @Field("title") String title,
+                                                   @Field("dynamicList") String dynamicList,
+                                                   @Field("id") String id);
 
     /**
      * 获取往期资讯 列表
+     *
      * @param clubId
      * @param pageNo
      * @return
@@ -1203,10 +1245,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/club/information/list")
     Observable<Response<List<ActionPastDto>>> getActionPastList(@Field("clubId") String clubId,
-                                                              @Field("pageNo") int pageNo);
+                                                                @Field("pageNo") int pageNo);
 
     /**
      * 获取往期资讯  详情
+     *
      * @param id
      * @return
      */
@@ -1217,6 +1260,7 @@ public interface ApiService {
 
     /**
      * 获取首页  约吗  列表  所有的未举办活动列表
+     *
      * @param pageNo
      * @return
      */
@@ -1227,6 +1271,7 @@ public interface ApiService {
 
     /**
      * 获取已报名的活动列表
+     *
      * @param token
      * @param pageNo
      * @return
@@ -1234,10 +1279,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/apply/activity/list")
     Observable<Response<List<AppointDto>>> getActionAppliedList(@Field("token") String token,
-                                                               @Field("pageNo") int pageNo);
+                                                                @Field("pageNo") int pageNo);
 
     /**
      * 报名
+     *
      * @param token
      * @param activityId
      * @param registrationName
@@ -1247,12 +1293,13 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/app/activityRegistration")
     Observable<Response<String>> applyAction(@Field("token") String token,
-                                           @Field("activityId") String activityId,
-                                           @Field("registrationName") String registrationName,
-                                           @Field("registrationPhone") String registrationPhone);
+                                             @Field("activityId") String activityId,
+                                             @Field("registrationName") String registrationName,
+                                             @Field("registrationPhone") String registrationPhone);
 
     /**
      * 获取客服信息
+     *
      * @param token
      * @return
      */
@@ -1262,6 +1309,7 @@ public interface ApiService {
 
     /**
      * 获取 近期活动 报名人数
+     *
      * @param activityId
      * @return
      */
@@ -1271,6 +1319,7 @@ public interface ApiService {
 
     /**
      * 发布捡漏
+     *
      * @param token
      * @param ruleTitle
      * @param ruleContent
@@ -1280,12 +1329,13 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/add/rule")
     Observable<Response<String>> releaseForum(@Field("token") String token,
-                                            @Field("ruleTitle") String ruleTitle,
-                                            @Field("ruleContent") String ruleContent,
-                                            @Field("rulePictureUrl") String rulePictureUrl);
+                                              @Field("ruleTitle") String ruleTitle,
+                                              @Field("ruleContent") String ruleContent,
+                                              @Field("rulePictureUrl") String rulePictureUrl);
 
     /**
      * 获取 捡漏列表
+     *
      * @param pageNo
      * @return
      */
@@ -1296,6 +1346,7 @@ public interface ApiService {
 
     /**
      * 捡漏 帖子点赞
+     *
      * @param token
      * @param id
      * @return
@@ -1303,10 +1354,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/rule/praise")
     Observable<Response<String>> praiseForum(@Field("token") String token,
-                                         @Field("id") String id);
+                                             @Field("id") String id);
 
     /**
      * 给 捡漏 帖子 发表评论
+     *
      * @param token
      * @param id
      * @param commentContent
@@ -1315,11 +1367,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/add/rule/comment")
     Observable<Response<String>> addForumComment(@Field("token") String token,
-                                               @Field("id") String id,
-                                               @Field("ruleCommentContent") String commentContent);
+                                                 @Field("id") String id,
+                                                 @Field("ruleCommentContent") String commentContent);
 
     /**
      * 获取更多的  捡漏帖子 评价
+     *
      * @param id
      * @return
      */
@@ -1329,6 +1382,7 @@ public interface ApiService {
 
     /**
      * 获取 我的捡漏 信息  评论数  获赞数  发帖数
+     *
      * @param token
      * @return
      */
@@ -1338,6 +1392,7 @@ public interface ApiService {
 
     /**
      * 获取 我的捡漏专区  具体的  帖子列表
+     *
      * @param token
      * @param type
      * @param pageNo
@@ -1346,11 +1401,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/my/rule/details")
     Observable<Response<List<CircleFriendsDto>>> getMyForumList(@Field("token") String token,
-                                                      @Field("type") String type,
-                                                      @Field("pageNo") int pageNo);
+                                                                @Field("type") String type,
+                                                                @Field("pageNo") int pageNo);
 
     /**
      * 上传app crash 的情况到服务器
+     *
      * @param appVersion
      * @param osVersion
      * @param vendor
@@ -1362,14 +1418,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/appquestion/save")
     Observable<Response<String>> uploadAppCrashQuestion(@Field("appVersion") String appVersion,
-                                                      @Field("osVersion") String osVersion,
-                                                      @Field("vendor") String vendor,
-                                                      @Field("model") String model,
-                                                      @Field("cpuabi") String cpuabi,
-                                                      @Field("question") String question);
+                                                        @Field("osVersion") String osVersion,
+                                                        @Field("vendor") String vendor,
+                                                        @Field("model") String model,
+                                                        @Field("cpuabi") String cpuabi,
+                                                        @Field("question") String question);
 
     /**
      * 分享 近期活动  增加活跃值
+     *
      * @param token
      * @param activityId
      * @return
@@ -1377,10 +1434,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/user/add/active/value")
     Observable<Response<String>> addActiveValue(@Field("token") String token,
-                                              @Field("activityId") String activityId);
+                                                @Field("activityId") String activityId);
 
     /**
      * 获取 个人的 活跃值
+     *
      * @param token
      * @return
      */
@@ -1390,6 +1448,7 @@ public interface ApiService {
 
     /**
      * 获取 个人的 活跃值  明细
+     *
      * @param token
      * @param pageNo
      * @return
@@ -1397,11 +1456,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/list/activeValue")
     Observable<Response<List<ActiveValueDetailDto>>> getActiveValueDetail(@Field("token") String token,
-                                                                        @Field("pageNo") int pageNo);
+                                                                          @Field("pageNo") int pageNo);
 
 
     /**
      * 获取 兑换商品 列表
+     *
      * @param orderBy
      * @param pageNo
      * @return
@@ -1409,11 +1469,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/product/active/value/list")
     Observable<Response<List<ActiveGoodsDto>>> getConvertActiveGoodsList(@Field("pageNo") int pageNo,
-                                                                       @Field("orderBy") int orderBy);
+                                                                         @Field("orderBy") int orderBy);
 
 
     /**
      * 获取 兑换商品 详情
+     *
      * @param productNo
      * @return
      */
@@ -1423,6 +1484,7 @@ public interface ApiService {
 
     /**
      * 兑换商品
+     *
      * @param token
      * @param productNo
      * @param productCount
@@ -1432,12 +1494,13 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/active/value/buy/create")
     Observable<Response<String>> convertActiveGoods(@Field("token") String token,
-                                                  @Field("productNo") String productNo,
-                                                  @Field("productCount") String productCount,
-                                                  @Field("receiveAddressId") String receiveAddressId);
+                                                    @Field("productNo") String productNo,
+                                                    @Field("productCount") String productCount,
+                                                    @Field("receiveAddressId") String receiveAddressId);
 
     /**
      * 获取 兑换商品 清单 列表
+     *
      * @param token
      * @param pageNo
      * @return
@@ -1445,10 +1508,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/buy/product/active/value/list")
     Observable<Response<List<ActiveGoodsOrderListDto>>> getActiveGoodsOrderList(@Field("token") String token,
-                                                                              @Field("pageNo") int pageNo);
+                                                                                @Field("pageNo") int pageNo);
 
     /**
      * 获取兑换商品的 订单详情
+     *
      * @param token
      * @param orderNo
      * @return
@@ -1456,10 +1520,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/active/value/buy/product/details")
     Observable<Response<ActiveGoodsOrderDetailDto>> getActiveGoodsOrderDetail(@Field("token") String token,
-                                                                            @Field("orderNo") String orderNo);
+                                                                              @Field("orderNo") String orderNo);
 
     /**
      * 获取大咖信息列表
+     *
      * @param pageNo
      * @return
      */
@@ -1469,6 +1534,7 @@ public interface ApiService {
 
     /**
      * 获取大咖的banner列表
+     *
      * @param banner
      * @return
      */
@@ -1478,6 +1544,7 @@ public interface ApiService {
 
     /**
      * 获取大咖信息
+     *
      * @param id
      * @return
      */
@@ -1487,6 +1554,7 @@ public interface ApiService {
 
     /**
      * 获取大咖的相关作品列表
+     *
      * @param id
      * @param pageNo
      * @return
@@ -1494,10 +1562,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/list/maca/works")
     Observable<Response<List<MasterWorkDto>>> getMasterWorkList(@Field("id") String id,
-                                                              @Field("pageNo") int pageNo);
+                                                                @Field("pageNo") int pageNo);
 
     /**
      * 创建预约大咖 支付订单
+     *
      * @param token
      * @param macaId
      * @param macaWorksId
@@ -1507,12 +1576,13 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/maca/appointment/create")
     Observable<Response<PayOrderDto>> createOrderMaster(@Field("token") String token,
-                                                      @Field("macaId") String macaId,
-                                                      @Field("macaWorksId") String macaWorksId,
-                                                      @Field("money") String money);
+                                                        @Field("macaId") String macaId,
+                                                        @Field("macaWorksId") String macaWorksId,
+                                                        @Field("money") String money);
 
     /**
      * 获取预约大咖的列表
+     *
      * @param token
      * @param pageNo
      * @return
@@ -1520,10 +1590,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/list/maca/appointment")
     Observable<Response<List<MasterOrderDto>>> getMasterSubscribeOrderList(@Field("token") String token,
-                                                                         @Field("pageNo") int pageNo);
+                                                                           @Field("pageNo") int pageNo);
 
     /**
      * 获取助教 的所属的活动列表
+     *
      * @param token
      * @return
      */
@@ -1533,16 +1604,18 @@ public interface ApiService {
 
     /**
      * 获取助教 嘉宾签到列表
+     *
      * @param id
      * @return
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/activity/registrationList")
     Observable<Response<List<SignInDto>>> getSignInLists(@Field("token") String token,
-                                                       @Field("id") String id);
+                                                         @Field("id") String id);
 
     /**
      * 获取俱乐部列表
+     *
      * @param pageNo
      * @param isRecommend
      * @return
@@ -1551,10 +1624,11 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/club/list")
     Observable<Response<List<ClubDto>>> getClubList(@Field("token") String token,
                                                     @Field("pageNo") int pageNo,
-                                              @Field("isRecommend") String isRecommend);
+                                                    @Field("isRecommend") String isRecommend);
 
     /**
      * 获取俱乐部详情
+     *
      * @param token
      * @param clubId
      * @return
@@ -1567,6 +1641,7 @@ public interface ApiService {
 
     /**
      * 获取会员列表
+     *
      * @param string
      * @return
      */
@@ -1576,6 +1651,7 @@ public interface ApiService {
 
     /**
      * 获取首页banner轮播图
+     *
      * @param banner
      * @return
      */
@@ -1585,6 +1661,7 @@ public interface ApiService {
 
     /**
      * 获取推荐人物  首页
+     *
      * @param token
      * @param pageNo
      * @return
@@ -1596,6 +1673,7 @@ public interface ApiService {
 
     /**
      * 获取推荐人物  首页 点赞
+     *
      * @param personId
      * @param token
      * @return
@@ -1603,11 +1681,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/personLike")
     Observable<Response<String>> pariseRecommendPerson(@Field("token") String token,
-                                                                        @Field("personId") String personId);
+                                                       @Field("personId") String personId);
 
 
     /**
      * 根据日期获取俱乐部 活动列表
+     *
      * @param clubId
      * @param startDate
      * @return
@@ -1615,10 +1694,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/club/activityList")
     Observable<Response<List<CalendarActionsDto>>> getClubActionsByMonth(@Field("clubId") String clubId,
-                                                         @Field("startDate") String startDate);
+                                                                         @Field("startDate") String startDate);
 
     /**
      * 获取个人券的 列表
+     *
      * @param token
      * @param pageNo
      * @return
@@ -1630,6 +1710,7 @@ public interface ApiService {
 
     /**
      * 获取地图上  所有 基地会所 数据
+     *
      * @param def
      * @return
      */
@@ -1640,7 +1721,8 @@ public interface ApiService {
 
     /**
      * 获取地图上  所有 基地会所 数据
-     * @param type  2:基地 3：会所
+     *
+     * @param type 2:基地 3：会所
      * @return
      */
     @FormUrlEncoded
@@ -1649,6 +1731,7 @@ public interface ApiService {
 
     /**
      * 获取基地的特色服务列表
+     *
      * @param clubId
      * @return
      */
@@ -1658,6 +1741,7 @@ public interface ApiService {
 
     /**
      * 获取平台基地活动的特色服务列表
+     *
      * @param clubId
      * @return
      */
@@ -1668,6 +1752,7 @@ public interface ApiService {
 
     /**
      * 获取基地的 特色服务详情
+     *
      * @param id
      * @return
      */
@@ -1677,6 +1762,7 @@ public interface ApiService {
 
     /**
      * 报名基地活动
+     *
      * @param token
      * @param clubCommodityId
      * @param personNum
@@ -1686,15 +1772,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/ticketOrder/create")
     Observable<Response<PayOrderDto>> applyScenicAction(@Field("token") String token,
-                                                   @Field("clubCommodityId") String clubCommodityId,
-                                                   @Field("personNum") String personNum,
-                                                   @Field("startDate") String startDate,
-                                                   @Field("day") String day,
+                                                        @Field("clubCommodityId") String clubCommodityId,
+                                                        @Field("personNum") String personNum,
+                                                        @Field("startDate") String startDate,
+                                                        @Field("day") String day,
                                                         @Field("price") String price,
                                                         @Field("ticketNos") String ticketNos);
 
     /**
      * 报名驿站活动
+     *
      * @param token
      * @param clubId
      * @param personNum
@@ -1710,6 +1797,7 @@ public interface ApiService {
 
     /**
      * 获取基地活动 的可使用的优惠券列表
+     *
      * @param token
      * @param clubCommodityId
      * @return
@@ -1722,6 +1810,7 @@ public interface ApiService {
 
     /**
      * 获取平台基地活动 的可使用的优惠券列表
+     *
      * @param token
      * @param clubCommodityId
      * @return
@@ -1729,13 +1818,14 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/club/ticket")
     Observable<Response<List<TicketDto>>> getPlatformTicketListOfScenic(@Field("token") String token,
-                                                                @Field("clubCommodityId") String clubCommodityId,
-                                                                @Field("id") String id,
-                                                                @Field("clubId") String clubId,
+                                                                        @Field("clubCommodityId") String clubCommodityId,
+                                                                        @Field("id") String id,
+                                                                        @Field("clubId") String clubId,
                                                                         @Field("activityId") String activityId);
 
     /**
      * 获取券的使用记录
+     *
      * @param token
      * @param ticketNo
      * @return
@@ -1749,7 +1839,6 @@ public interface ApiService {
     /**------------------我的人脉---------------------*/
 
     /**
-     *
      * @param datas
      * @return
      */
@@ -1761,6 +1850,7 @@ public interface ApiService {
 
     /**
      * 实名认证 上传身份证信息
+     *
      * @param token
      * @param idCard
      * @param realName
@@ -1788,6 +1878,7 @@ public interface ApiService {
 
     /**
      * 获取通讯录 支付订单
+     *
      * @param token
      * @param phone
      * @return
@@ -1795,10 +1886,11 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/userAdressBook/order/create")
     Observable<Response<PayOrderDto>> getContactsPayOrder(@Field("token") String token,
-                                                            @Field("phones") String phone);
+                                                          @Field("phones") String phone);
 
     /**
      * 获取转换人脉支付订单
+     *
      * @param token
      * @param datas
      * @return
@@ -1810,10 +1902,80 @@ public interface ApiService {
 
     /**
      * 支付结果回调
+     *
      * @param payNumber
      * @return
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/alipay/notify/test")
     Observable<Response<String>> payResultResponse(@Field("payNumber") String payNumber);
+
+
+    /**
+     * 获取可提现的银行列表
+     *
+     * @param params
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/bank")
+    Observable<Response<List<BankDto>>> getBankList(@Field("params") String params);
+
+    /**
+     * 保存银行卡信息
+     *
+     * @param token
+     * @param name
+     * @param withdrawPhone
+     * @param bankId
+     * @param withdrawNumber
+     * @param smsCode
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/user/withdraw/add/account/send")
+    Observable<Response<String>> saveBankCard(@Field("token") String token,
+                                              @Field("name") String name,
+                                              @Field("withdrawPhone") String withdrawPhone,
+                                              @Field("bankId") String bankId,
+                                              @Field("withdrawNumber") String withdrawNumber,
+                                              @Field("smsCode") String smsCode);
+
+    /**
+     * 球票明细
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/ballWrit/stream")
+    Observable<Response<List<EarthTaskDetailsDto>>> getEarthTaskDetailList(@Field("token") String token);
+
+    /**
+     * 获取球票任务列表
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/ballWrit/list")
+    Observable<Response<List<EarthTaskDto>>> getEarthTaskList(@Field("token") String token);
+
+    /**
+     * 球票签到
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/ballWrit/signIn")
+    Observable<Response<TaskSignInDto>> taskSignIn(@Field("token") String token);
+
+    /**
+     * 分享 赚球票
+     * @param token
+     * @param shareType
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/ballWrit/share")
+    Observable<Response<String>> taskShare(@Field("token") String token,
+                                           @Field("shareType") int shareType);
 }

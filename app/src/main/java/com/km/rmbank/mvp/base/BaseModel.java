@@ -40,7 +40,7 @@ public abstract class BaseModel implements MvpModel {
             public void subscribe(ObservableEmitter<T> e) throws Exception {
                 if (response.isSuccess()) {
                     if (!e.isDisposed()) {
-                        e.onNext(response.result);
+                        e.onNext(response.result == null ? (T) "" : response.result);
                     }
                 } else {
                     if (!e.isDisposed()) {

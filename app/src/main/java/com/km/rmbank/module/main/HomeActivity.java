@@ -2,20 +2,13 @@ package com.km.rmbank.module.main;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
-import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -33,18 +26,15 @@ import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.action.PromotionActivity;
 import com.km.rmbank.module.main.fragment.HomeAppointActionFragment;
-import com.km.rmbank.module.main.fragment.HomePersonalCenterFragment;
-import com.km.rmbank.module.main.fragment.HomeRecommendFragment;
-import com.km.rmbank.module.main.fragment.HomeMeFragment;
-import com.km.rmbank.module.main.fragment.HomeShopFragment;
 import com.km.rmbank.module.main.fragment.HomeNewFragment;
+import com.km.rmbank.module.main.fragment.PersonalCenterFragment;
 import com.km.rmbank.mvp.model.HomeModel;
 import com.km.rmbank.mvp.presenter.HomePresenter;
 import com.km.rmbank.mvp.view.IHomeView;
 import com.km.rmbank.service.ContractService;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 
@@ -240,8 +230,8 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 //        fragmentList.add(HomeRecommendFragment.newInstance(null));
         fragmentList.add(HomeAppointActionFragment.newInstance(null));
 //        fragmentList.add(HomeShopFragment.newInstance(null));
-        fragmentList.add(HomePersonalCenterFragment.newInstance(null));
-//        fragmentList.add(HomeMeFragment.newInstance(null));
+//        fragmentList.add(HomePersonalCenterFragment.newInstance(null));
+        fragmentList.add(PersonalCenterFragment.newInstance(null));
 
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {

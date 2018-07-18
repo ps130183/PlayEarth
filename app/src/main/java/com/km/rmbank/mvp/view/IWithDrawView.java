@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface IWithDrawView extends MvpView {
     void showBalance(UserBalanceDto userBalanceDto);
-    void withdrawSuccess();
+    void withdrawSuccess(String money);
 
     void creatOrUpdateSuccess();
     void showWithDrawList(List<WithDrawAccountDto> withDrawAccountDtos);

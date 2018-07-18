@@ -83,8 +83,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation rootProject.ext.dependencies["androidTestImplementation-runner"]
     androidTestImplementation rootProject.ext.dependencies["androidTestImplementation-espresso-core"]
@@ -110,7 +110,7 @@ dependencies {
     //    implementation rootProject.ext.dependencies["logger"]
     implementation rootProject.ext.dependencies["photoView"]
     implementation rootProject.ext.dependencies["nineoldandroids"]
-    implementation rootProject.ext.dependencies["toprightmenu"]
+//    implementation rootProject.ext.dependencies["toprightmenu"]
     implementation rootProject.ext.dependencies["DialogUtil"]
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
@@ -119,17 +119,18 @@ dependencies {
     implementation rootProject.ext.dependencies["permissiongen"]
     implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["RTextView"]
-    implementation rootProject.ext.dependencies["lottie"]
+    implementation rootProject.ext.dependencies["swipelayout"]
     implementation rootProject.ext.dependencies["flowLayout"]
     implementation rootProject.ext.dependencies["jiaozivideoplayer"]
     implementation rootProject.ext.dependencies["CustomPopwindow"]
     implementation rootProject.ext.dependencies["calendarview"]
-    implementation rootProject.ext.dependencies["roundedimageview"]
+//    implementation rootProject.ext.dependencies["roundedimageview"]
     implementation rootProject.ext.dependencies["jpush"]
     implementation rootProject.ext.dependencies["jcore"]
     implementation rootProject.ext.dependencies["marqueelibrary"]
     implementation rootProject.ext.dependencies["jpinyin"]
     implementation rootProject.ext.dependencies["greendao"]
+    implementation rootProject.ext.dependencies["android-database-sqlcipher"]
     implementation rootProject.ext.dependencies["magic-viewpager"]
     //    implementation rootProject.ext.dependencies["VerificationCodeInput"]
     implementation project(':banner')

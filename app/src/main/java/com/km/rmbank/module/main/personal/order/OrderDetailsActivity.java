@@ -1,7 +1,6 @@
 package com.km.rmbank.module.main.personal.order;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,7 +19,7 @@ import com.km.rmbank.mvp.model.OrderDetailsModel;
 import com.km.rmbank.mvp.presenter.OrderDetailsPresenter;
 import com.km.rmbank.mvp.view.IOrderDetailsView;
 import com.km.rmbank.titleBar.SimpleTitleBar;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.ps.glidelib.GlideUtils;
 
 import org.greenrobot.eventbus.Subscribe;

@@ -3,43 +3,63 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
-    <TextView
-        android:id="@+id/tv_explain"
+    <LinearLayout
+        android:id="@+id/left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="用户13699231246购买海参大礼包＊1"
-        android:textColor="@color/textMainColor"
-        android:textSize="@dimen/textSizeContent"
-        android:layout_marginTop="@dimen/viewSpace16"
-        android:layout_marginBottom="@dimen/viewSpace16"
-        android:layout_toLeftOf="@+id/tv_time"
-        android:maxLines="2"
-        android:layout_centerVertical="true"
-        />
-
-    <TextView
-        android:id="@+id/tv_money"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@+id/right"
+        android:layout_centerVertical="true">
+        <TextView
+            android:id="@+id/tv_explain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="提现：招商银行"
+            android:textColor="@color/text_color_block24"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:layout_marginBottom="13dp"
+            />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2017.02.03"
+            android:textSize="13sp"
+            android:textColor="@color/text_color_blocka"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+100"
-        android:textSize="@dimen/textSizeHuge"
-        android:textColor="@color/color_text_account"
+        android:orientation="vertical"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/viewSpace4"
-        android:layout_marginRight="@dimen/viewSpace16"
-        />
+        android:layout_centerVertical="true">
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-100"
+            android:textSize="14sp"
+            android:textColor="@color/account_text_color_red"
+            android:layout_marginBottom="13dp"
+            android:layout_gravity="right"
+            />
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2017.02.03"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/viewSpace16"
-        android:layout_marginTop="@dimen/viewSpace4"
-        android:layout_marginBottom="@dimen/viewSpace4"
-        android:layout_alignParentBottom="true"
-        />
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提现中"
+            android:textSize="13sp"
+            android:textColor="@color/text_color_blocka"
+            android:layout_gravity="right"
+            />
+    </LinearLayout>
+
 </RelativeLayout>

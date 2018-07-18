@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.view;
 
+import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.mvp.base.MvpView;
 
 /**
@@ -8,7 +9,7 @@ import com.km.rmbank.mvp.base.MvpView;
 
 public interface IUserInfoView extends MvpView {
 
-    void saveUserInfoSuccess();
+    void saveUserInfoSuccess(UserInfoDto userInfoDto);
 
     void createUserCardSuccess(String token);
 }

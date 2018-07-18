@@ -118,9 +118,9 @@ public class ClubFragment extends BaseFragment<IClubView, ClubPresenter> impleme
      */
     private void setBannerInfo(final Banner banner) {
 
-        bannerUrls.add(R.mipmap.icon_banner_1);
-        bannerUrls.add(R.mipmap.icon_banner_2);
-        bannerUrls.add(R.mipmap.icon_banner_3);
+//        bannerUrls.add(R.mipmap.icon_banner_1);
+//        bannerUrls.add(R.mipmap.icon_banner_2);
+//        bannerUrls.add(R.mipmap.icon_banner_3);
 
         banner.setImages(bannerUrls)
                 .isAutoPlay(true)

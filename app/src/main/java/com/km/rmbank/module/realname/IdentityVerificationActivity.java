@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,14 +26,9 @@ import com.blankj.utilcode.util.LogUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.entity.IDCardEntity;
-import com.km.rmbank.module.main.HomeActivity;
-import com.km.rmbank.mvp.model.UserInfoModel;
-import com.km.rmbank.mvp.presenter.UserInfoPresenter;
-import com.km.rmbank.mvp.view.IUserInfoView;
 import com.km.rmbank.oldrecycler.AppUtils;
-import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.DialogUtils;
 import com.km.rmbank.utils.StringUtils;
+import com.km.rmbank.utils.dialog.WindowCenterDialog;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.yancy.gallerypick.utils.ScreenUtils;
@@ -58,8 +52,8 @@ public class IdentityVerificationActivity extends BaseActivity {
     private static final String ID_CARD_FRONT_PATH = AppUtils.getImagePath("idCardFront.jpg");
     private static final String ID_CARD_BACK_PATH = AppUtils.getImagePath("idCardBack.jpg");
 
-    private DialogUtils.IdCardScanHintDialog frontDialog;
-    private DialogUtils.IdCardScanHintDialog backDialog;
+    private WindowCenterDialog frontDialog;
+    private WindowCenterDialog backDialog;
 
     private IDCardEntity mIDCardEntity;
 
@@ -190,7 +184,7 @@ public class IdentityVerificationActivity extends BaseActivity {
     @OnClick(R.id.ivIdCardFront)
     public void cameraIdCardFront(View view) {
         if (frontDialog == null) {
-            frontDialog = new DialogUtils.IdCardScanHintDialog(mInstance, R.drawable.eg_idcard_front, new View.OnClickListener() {
+            frontDialog = new WindowCenterDialog(mInstance, R.drawable.eg_idcard_front, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     scanIdCardFront();
@@ -208,7 +202,7 @@ public class IdentityVerificationActivity extends BaseActivity {
     @OnClick(R.id.ivIdCardBack)
     public void cameraIdCardBack(View view) {
         if (backDialog == null) {
-            backDialog = new DialogUtils.IdCardScanHintDialog(mInstance, R.drawable.eg_idcard_back, new View.OnClickListener() {
+            backDialog = new WindowCenterDialog(mInstance, R.drawable.eg_idcard_back, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     scanIdCardBack();

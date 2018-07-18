@@ -5,12 +5,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
@@ -19,15 +21,23 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.UserInfoDto;
+import com.km.rmbank.mvp.model.UserCardModel;
+import com.km.rmbank.mvp.presenter.UserCardPresenter;
+import com.km.rmbank.mvp.view.UserCardView;
 import com.km.rmbank.oldrecycler.AppUtils;
+import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.QRCodeUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.km.rmbank.utils.ViewUtils;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yancy.gallerypick.utils.ScreenUtils;
@@ -36,9 +46,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class UserCardActivity extends BaseActivity {
+public class UserCardActivity extends BaseActivity<UserCardView,UserCardPresenter> implements UserCardView {
     private List<String> shareBottoms;
-    private DialogUtils.CustomBottomDialog mShareDialog;
+    private WindowBottomDialog mShareDialog;
 
 
     @Override
@@ -51,9 +61,15 @@ public class UserCardActivity extends BaseActivity {
     }
 
     @Override
+    protected UserCardPresenter createPresenter() {
+        return new UserCardPresenter(new UserCardModel());
+    }
+
+    @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         UserInfoDto userInfoDto = getIntent().getParcelableExtra("userCard");
-        if (userInfoDto == null){//是自己的名片
+        boolean isModify = getIntent().getBooleanExtra("isModify",false);
+        if (userInfoDto == null || isModify){//是自己的名片
             SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
             simpleTitleBar.setRightMenuRes(R.menu.toolbar_user_card_more);
             simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -73,6 +89,12 @@ public class UserCardActivity extends BaseActivity {
     public void onFinally(@Nullable Bundle savedInstanceState) {
         initUserCard();
         initShareDialog();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     @Override
@@ -100,6 +122,9 @@ public class UserCardActivity extends BaseActivity {
         int portraitWidth = userCardWidth - ConvertUtils.dp2px(25) * 2;
         userPortrait.getLayoutParams().width = portraitWidth;
         userPortrait.getLayoutParams().height = portraitWidth;
+
+        ImageView userPortrait2 = mViewManager.findView(R.id.userPortrait2);
+        userPortrait2.getLayoutParams().height = windowWidth;
     }
 
     private void loadUserInfo(){
@@ -107,45 +132,47 @@ public class UserCardActivity extends BaseActivity {
         TextView userName = mViewManager.findView(R.id.userName);
         TextView userCompany = mViewManager.findView(R.id.userCompany);
         TextView userPosition = mViewManager.findView(R.id.userPosition);
-//        TextView userIntroduce = mViewManager.findView(R.id.userIntroduce);
-//        ImageView qrCode = mViewManager.findView(R.id.userQRCode);
-//
+
         UserInfoDto userInfoDto = getIntent().getParcelableExtra("userCard");//= Constant.userInfo;
         if (userInfoDto == null && Constant.userInfo != null){
             userInfoDto = Constant.userInfo;
         }
         GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
         userName.setText(userInfoDto.getName());
-//        userIntroduce.setText(userInfoDto.getPersonalizedSignature());
-//
-//        Bitmap userQrcode = QRCodeUtils.createQRCode(mInstance,userInfoDto.getShareUrl());
-//        qrCode.setImageBitmap(userQrcode);
-//
-//        mViewManager.setText(R.id.userPhone,userInfoDto.getMobilePhone());
+        userCompany.setText(userInfoDto.getCompany());
+        userPosition.setText(userInfoDto.getPosition());
+
+//        RelativeLayout shareUserCard = mViewManager.findView(R.id.shareUserCard);
+//        shareUserCard.setVisibility(View.VISIBLE);
+        ImageView userPortrait2 = mViewManager.findView(R.id.userPortrait2);
+        GlideUtils.loadImage(mInstance,userInfoDto.getPortraitUrl(),userPortrait2);
+        mViewManager.setText(R.id.userName2,userInfoDto.getName());
+        mViewManager.setText(R.id.userCompany2,userInfoDto.getCompany());
+        mViewManager.setText(R.id.userPosition2,userInfoDto.getPosition());
+        ImageView qrcode = mViewManager.findView(R.id.qrcode);
+        qrcode.setImageBitmap(QRCodeUtils.createQRCode(mInstance,userInfoDto.getShareUrl()));
+
     }
 
-
-//    private void loadUserQRCode() {
-//        ImageView userQRCode = mViewManager.findView(R.id.userQRCode);
-//        Bitmap qrcode = QRCodeUtils.createQRCode(this, "http://www.baidu,com");
-//        userQRCode.setImageBitmap(qrcode);
-//    }
-
     private void initShareDialog() {
-        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance, "取消", "编辑名片", "分享微信好友", "分享朋友圈", "保存图片");
-        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mShareDialog = new WindowBottomDialog(mInstance, "取消", "编辑名片", "分享微信好友", "分享朋友圈", "保存图片");
+        mShareDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mShareDialog.dimiss();
                 switch (i) {
                     case 0://编辑名片
 //                        startActivity(CreateNewUserCardActivity.class);
-                        startActivity(UserCardModifyActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("fromPage",0);
+                        startActivity(UserCardModifyActivity.class,bundle);
                         break;
                     case 1://分享微信好友
+                        getPresenter().taskShare();
                         shareUserCard(SHARE_MEDIA.WEIXIN);
                         break;
                     case 2://分享朋友圈
+                        getPresenter().taskShare();
                         shareUserCard(SHARE_MEDIA.WEIXIN_CIRCLE);
                         break;
                     case 3://保存图片
@@ -160,15 +187,21 @@ public class UserCardActivity extends BaseActivity {
         });
     }
 
+    private void shareUser(){
+
+    }
+
     /**
      * 分享名片
      * @param media
      */
     private void shareUserCard(SHARE_MEDIA media){
-        CardView userCard = mViewManager.findView(R.id.userCard);
+        LinearLayout userCard = mViewManager.findView(R.id.shareUserCard);
         String fileName = "card_" + Constant.userInfo.getMobilePhone();
         String filePath = AppUtils.getImagePath(fileName + ".png");
+//        userCard.setVisibility(View.VISIBLE);
         Bitmap imageBitmap = ViewUtils.saveBitmap(userCard, fileName);
+//        userCard.setVisibility(View.GONE);
 
         if (media == null){//保存图片
             File file = new File(filePath);
@@ -183,7 +216,7 @@ public class UserCardActivity extends BaseActivity {
             mInstance.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + filePath)));
 
             showToast("已保存到相册");
-        } else {//分享到微信或朋友圈
+        } else if (media == SHARE_MEDIA.WEIXIN_CIRCLE || media == SHARE_MEDIA.WEIXIN){//分享到微信或朋友圈
             UmengShareUtils.openShareForImage(mInstance, imageBitmap, media, new UMShareListener() {
                 @Override
                 public void onStart(SHARE_MEDIA share_media) {
@@ -207,6 +240,33 @@ public class UserCardActivity extends BaseActivity {
                 }
             });
         }
+//        else {//ApiConstant.API_BASE_URL + ApiConstant.API_MODEL +
+//            String webUrl = "http://www.wanzhuandiqiu.com/member/share/UserCode?mobilePhone=" + Constant.userInfo.getMobilePhone();
+//            UmengShareUtils.shareWeChatMin(mInstance, webUrl, imageBitmap,
+//                    Constant.userInfo.getName() + "的名片",
+//                    "token=" + Constant.userLoginInfo.getToken(), "pages/index/index?token=" + Constant.userLoginInfo.getToken(), new UMShareListener() {
+//                        @Override
+//                        public void onStart(SHARE_MEDIA share_media) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onResult(SHARE_MEDIA share_media) {
+//                            showToast("分享成功");
+//                        }
+//
+//                        @Override
+//                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+//                            LogUtils.e(throwable.toString());
+//                            showToast("分享失败");
+//                        }
+//
+//                        @Override
+//                        public void onCancel(SHARE_MEDIA share_media) {
+//                            showToast("取消分享");
+//                        }
+//                    });
+//        }
     }
 
 

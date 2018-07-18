@@ -1,66 +1,38 @@
 package com.km.rmbank.module.main.appoint;
 
-import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.http.SslError;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestOptions;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.ActionPastDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ShareDto;
-import com.km.rmbank.entity.ImageTextIntroduceEntity;
-import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.mvp.model.ActionPastDetailModel;
 import com.km.rmbank.mvp.presenter.ActionPastDetailPresenter;
 import com.km.rmbank.mvp.view.IActionPastDetailView;
-import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
-import com.km.rmbank.utils.DateUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.km.rmbank.utils.WebViewUtils;
-import com.ps.commonadapter.adapter.CommonViewHolder;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
-import com.ps.glidelib.GlideImageView;
-import com.ps.glidelib.GlideUtils;
-import com.ps.glidelib.progress.CircleProgressView;
-import com.ps.glidelib.progress.OnGlideImageViewListener;
-import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.OnClick;
-import cn.jzvd.JZVideoPlayer;
-import cn.jzvd.JZVideoPlayerStandard;
 
 public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView,ActionPastDetailPresenter> implements IActionPastDetailView {
 
@@ -78,8 +50,7 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
     @BindView(R.id.progressBar)
     public ProgressBar mProgressBar;
 
-    private DialogUtils
-    .CustomBottomDialog mShareDialog;
+    private WindowBottomDialog mShareDialog;
 
     @Override
     public int getContentViewRes() {
@@ -182,16 +153,18 @@ public class ActionPastDetailActivity extends BaseActivity<IActionPastDetailView
      * 分享提示框
      */
     private void initShareDialog(){
-        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
-        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mShareDialog = new WindowBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
+        mShareDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mShareDialog.dimiss();
                 switch (i){
                     case 0:
+                        getPresenter().taskShare();
                         UmengShareUtils.openShare(mInstance,mShareDto, SHARE_MEDIA.WEIXIN);
                         break;
                     case 1:
+                        getPresenter().taskShare();
                         UmengShareUtils.openShare(mInstance,mShareDto, SHARE_MEDIA.WEIXIN_CIRCLE);
                         break;
                 }

@@ -29,13 +29,11 @@
                 android:id="@+id/userInfo"
                 android:layout_width="match_parent"
                 android:layout_height="300dp">
-                <com.makeramen.roundedimageview.RoundedImageView
+                <com.ps.glidelib.GlideImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/background_user_card"
                     android:scaleType="fitXY"
-                    app:riv_corner_radius_top_left="10dp"
-                    app:riv_corner_radius_top_right="10dp"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"

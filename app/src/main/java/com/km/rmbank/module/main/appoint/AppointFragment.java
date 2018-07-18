@@ -166,7 +166,8 @@ public class AppointFragment extends BaseFragment<AppointView, AppointPresenter>
                         Bundle bundle = new Bundle();
                         bundle.putString("scenicId",data.getClubId());
                         bundle.putString("activityId",data.getId());
-                        startActivity(ScenicActivity.class,bundle);
+//                        startActivity(ScenicActivity.class,bundle);
+                        startActivity(ActionOutdoorActivity.class,bundle);
                     }  else {
                         Bundle bundle = new Bundle();
                         bundle.putString("actionId",data.getId());

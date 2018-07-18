@@ -57,6 +57,7 @@
                 />
 
             <com.ruffian.library.RTextView
+                android:id="@+id/rtPartTimeJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="兼任"
@@ -71,6 +72,7 @@
                 />
 
             <View
+                android:id="@+id/linePartTimeJob"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/divideLineHeight"
                 android:background="@color/divide_color"/>
@@ -127,11 +129,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/userPhone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="13567876289"
                         android:textSize="15sp"
                         android:textColor="@color/text_color_blocka"
+                        android:layout_marginRight="15dp"
                         />
 
                 </LinearLayout>
@@ -154,12 +158,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/userIndustry"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="15dp"
                         android:text="互联网产品|平台"
-                        android:textSize="15sp"
                         android:textColor="@color/text_color_blocka"
-                        />
+                        android:textSize="15sp" />
 
                 </LinearLayout>
                 <View
@@ -180,11 +185,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/userEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2341213213@qq.com"
                         android:textSize="15sp"
                         android:textColor="@color/text_color_blocka"
+                        android:layout_marginRight="15dp"
                         />
 
                 </LinearLayout>
@@ -206,11 +213,13 @@
                         />
 
                     <TextView
+                        android:id="@+id/userAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="北京市左安门内大街左安溪园甲2-9玩转地球商旅学苑"
                         android:textSize="15sp"
                         android:textColor="@color/text_color_blocka"
+                        android:layout_marginRight="15dp"
                         />
 
                 </LinearLayout>
@@ -233,22 +242,111 @@
                         />
 
                     <TextView
+                        android:id="@+id/userIntroduce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="我就是我 不一样的烟火"
                         android:textSize="15sp"
                         android:textColor="@color/text_color_blocka"
+                        android:layout_marginRight="15dp"
                         />
 
                 </LinearLayout>
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/supplyAndDemand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/viewSpace16">
+                <com.ruffian.library.RTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="供应与需求"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_block1"
+                    android:padding="@dimen/viewSpace16"
+                    app:background_normal="@color/white"
+                    app:icon_height="20dp"
+                    app:icon_width="20dp"
+                    app:icon_src_normal="@mipmap/icon_triangle_blue_right"
+
+                    />
+                <include layout="@layout/_default_divide_line"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="25dp"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="25dp"
+                        android:paddingBottom="25dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="供应"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_color_block24"
+                            android:layout_marginRight="20dp"/>
+
+                        <com.ps.mrcyclerview.MRecyclerView
+                            android:id="@+id/supplyRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dividerWidth="5"
+                            app:dividerColor="@color/white">
+
+                        </com.ps.mrcyclerview.MRecyclerView>
+
+                    </LinearLayout>
+
+                    <include layout="@layout/_default_divide_line"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="25dp"
+                        android:paddingBottom="25dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="需求"
+                            android:textSize="15sp"
+                            android:textColor="@color/text_color_block24"
+                            android:layout_marginRight="20dp"/>
+
+                        <com.ps.mrcyclerview.MRecyclerView
+                            android:id="@+id/demandRecycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dividerWidth="5"
+                            app:dividerColor="@color/white">
+
+                        </com.ps.mrcyclerview.MRecyclerView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
     <com.ruffian.library.RTextView
-        android:id="@+id/myIntroduce"
+        android:id="@+id/myAutobiography"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我的\n自传"
@@ -264,6 +362,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
+        android:onClick="openMyAutobiography"
         />
 </RelativeLayout>
 

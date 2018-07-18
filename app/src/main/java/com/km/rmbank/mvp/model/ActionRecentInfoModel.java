@@ -63,4 +63,14 @@ public class ActionRecentInfoModel extends BaseModel {
         return getService().getClubInfo(Constant.userLoginInfo.getToken(),clubId)
                 .compose(this.<ClubDto>applySchedulers());
     }
+
+    /**
+     * 分享赚球票
+     * @param shareType
+     * @return
+     */
+    public Observable<String> taskShare(int shareType){
+        return getService().taskShare(Constant.userLoginInfo.getToken(),shareType)
+                .compose(this.<String>applySchedulers());
+    }
 }

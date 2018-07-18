@@ -100,12 +100,13 @@
 
                 </com.ps.mrcyclerview.MRecyclerView>
 
-                <android.support.v7.widget.RecyclerView
+                <com.ps.mrcyclerview.MRecyclerView
                     android:id="@+id/recommendRecycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:lmType="linear">
 
-                </android.support.v7.widget.RecyclerView>
+                </com.ps.mrcyclerview.MRecyclerView>
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>

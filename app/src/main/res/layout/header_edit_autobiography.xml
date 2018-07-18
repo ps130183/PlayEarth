@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="480dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.ruffian.library.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点击添加封面"
+            app:icon_width="40dp"
+            app:icon_height="40dp"
+            app:icon_direction="top"
+            app:icon_src_normal="@mipmap/icon_no_picture"
+            android:layout_centerInParent="true"
+            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="#66000000">
+        <com.ruffian.library.RTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的自传"
+            android:textColor="@color/white"
+            android:textSize="23sp"
+            app:icon_height="24dp"
+            app:icon_width="24dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:icon_src_normal="@mipmap/icon_edit_title"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

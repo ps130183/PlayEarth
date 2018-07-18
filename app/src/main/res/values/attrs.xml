@@ -18,4 +18,14 @@
         <attr name="box_bg_normal" format="reference"/>
         <attr name="inputType" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="StepView">
+        <attr name="step_dot_radius" format="dimension"/>
+        <attr name="step_space" format="dimension"/>
+        <attr name="step_text_size" format="dimension"/>
+        <attr name="step_text_color" format="color"/>
+        <attr name="step_intro_text_size" format="dimension"/>
+        <attr name="step_check_color" format="color"/>
+        <attr name="step_not_check_color" format="color"/>
+    </declare-styleable>
 </resources>

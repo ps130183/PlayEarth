@@ -13,6 +13,8 @@ public class ModelEntity implements ItemDelegate {
     private String modelImageUrl;
     private boolean isSingle;
 
+    private int itemLayoutRes;
+
     public ModelEntity(int modelRes, String modelName) {
         this.modelRes = modelRes;
         this.modelName = modelName;
@@ -62,8 +64,13 @@ public class ModelEntity implements ItemDelegate {
         this.modelName = modelName;
     }
 
+    public void setItemLayoutRes(int itemLayoutRes) {
+        this.itemLayoutRes = itemLayoutRes;
+    }
+
     @Override
     public int getItemViewRes() {
-        return R.layout.item_home_new_module;
+//        return R.layout.item_home_new_module;
+        return itemLayoutRes;
     }
 }

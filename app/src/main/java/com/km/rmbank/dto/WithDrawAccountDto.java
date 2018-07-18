@@ -4,14 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.km.rmbank.R;
 import com.km.rmbank.base.BaseEntity;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
 
 
 /**
  * Created by kamangkeji on 17/3/19.
  */
 
-public class WithDrawAccountDto extends BaseEntity implements Parcelable {
+public class WithDrawAccountDto extends BaseEntity implements ItemDelegate,Parcelable {
 
     private String id;
     private String name;
@@ -19,7 +21,17 @@ public class WithDrawAccountDto extends BaseEntity implements Parcelable {
     private String typeName;
     private String withdrawNumber;
 
+    private String bankId;
+    private String bankName;
+    private String bankLogo;
+
+    private String smsCode;
+
     private int delete;
+
+    private boolean checked;
+
+    private int layoutRes = R.layout.item_select_bank_card;
 
     public String getName() {
         return name;
@@ -69,6 +81,50 @@ public class WithDrawAccountDto extends BaseEntity implements Parcelable {
         this.id = id;
     }
 
+    public String getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getBankLogo() {
+        return bankLogo;
+    }
+
+    public void setBankLogo(String bankLogo) {
+        this.bankLogo = bankLogo;
+    }
+
+    public String getSmsCode() {
+        return smsCode;
+    }
+
+    public void setSmsCode(String smsCode) {
+        this.smsCode = smsCode;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public void setLayoutRes(int layoutRes) {
+        this.layoutRes = layoutRes;
+    }
+
     public WithDrawAccountDto() {
     }
 
@@ -79,6 +135,11 @@ public class WithDrawAccountDto extends BaseEntity implements Parcelable {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return layoutRes;
     }
 
     @Override
@@ -93,7 +154,12 @@ public class WithDrawAccountDto extends BaseEntity implements Parcelable {
         dest.writeString(this.withdrawPhone);
         dest.writeString(this.typeName);
         dest.writeString(this.withdrawNumber);
+        dest.writeString(this.bankId);
+        dest.writeString(this.bankName);
+        dest.writeString(this.bankLogo);
+        dest.writeString(this.smsCode);
         dest.writeInt(this.delete);
+        dest.writeByte(this.checked ? (byte) 1 : (byte) 0);
     }
 
     protected WithDrawAccountDto(Parcel in) {
@@ -102,7 +168,12 @@ public class WithDrawAccountDto extends BaseEntity implements Parcelable {
         this.withdrawPhone = in.readString();
         this.typeName = in.readString();
         this.withdrawNumber = in.readString();
+        this.bankId = in.readString();
+        this.bankName = in.readString();
+        this.bankLogo = in.readString();
+        this.smsCode = in.readString();
         this.delete = in.readInt();
+        this.checked = in.readByte() != 0;
     }
 
     public static final Creator<WithDrawAccountDto> CREATOR = new Creator<WithDrawAccountDto>() {

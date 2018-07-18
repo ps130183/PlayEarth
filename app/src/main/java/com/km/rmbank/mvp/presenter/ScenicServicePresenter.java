@@ -49,4 +49,14 @@ public class ScenicServicePresenter extends BasePresenter<IScenicServiceView,Sce
                     }
                 }));
     }
+
+    public void taskShare(){
+        getMvpModel().taskShare()
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+
+                    }
+                });
+    }
 }

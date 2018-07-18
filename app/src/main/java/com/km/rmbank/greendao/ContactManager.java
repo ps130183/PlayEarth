@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
@@ -247,6 +248,9 @@ public class ContactManager {
                 String name = contactsCursor.getString(2);
                 //获取联系人的号码
                 String phoneNumber = contactsCursor.getString(1);
+                if (TextUtils.isEmpty(phoneNumber)){
+                    continue;
+                }
                 //号码处理
                 String replace = phoneNumber.replace(" ", "").replace("-", "").replace("+", "");
                 //判断号码是否符合手机号

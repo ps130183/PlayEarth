@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 22
         versionName "2.2.0-native"
 
@@ -35,6 +35,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    implementation rootProject.ext.dependencies["appcompat-v7"]
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
 }

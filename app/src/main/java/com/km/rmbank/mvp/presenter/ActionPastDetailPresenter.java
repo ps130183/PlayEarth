@@ -39,4 +39,14 @@ public class ActionPastDetailPresenter extends BasePresenter<IActionPastDetailVi
                     }
                 }));
     }
+
+    public void taskShare(){
+        getMvpModel().taskShare()
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+
+                    }
+                });
+    }
 }

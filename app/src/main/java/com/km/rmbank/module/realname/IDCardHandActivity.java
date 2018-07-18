@@ -1,9 +1,7 @@
 package com.km.rmbank.module.realname;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +16,7 @@ import com.km.rmbank.mvp.model.CertifyIDCardModel;
 import com.km.rmbank.mvp.presenter.CertifyIDCardPresenter;
 import com.km.rmbank.mvp.view.CertifyIDCardView;
 import com.km.rmbank.oldrecycler.AppUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowCenterDialog;
 import com.km.rmbank.utils.imageselector.ImageUtils;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
@@ -38,7 +36,7 @@ public class IDCardHandActivity extends BaseActivity<CertifyIDCardView,CertifyID
 
     private String[] idCardImagePaths = {ID_CARD_FRONT_PATH,ID_CARD_BACK_PATH,""};
 
-    private DialogUtils.IdCardScanHintDialog mDialog;
+    private WindowCenterDialog mDialog;
     private String[] locationPermission = {Manifest.permission.CAMERA};
 
     @BindView(R.id.btn_submit)
@@ -90,7 +88,7 @@ public class IDCardHandActivity extends BaseActivity<CertifyIDCardView,CertifyID
     @OnClick(R.id.ivIdCardHand)
     public void idCardHandHint(View view){
         if (mDialog == null){
-            mDialog = new DialogUtils.IdCardScanHintDialog(mInstance, R.drawable.eg_idcard_hand, new View.OnClickListener() {
+            mDialog = new WindowCenterDialog(mInstance, R.drawable.eg_idcard_hand, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

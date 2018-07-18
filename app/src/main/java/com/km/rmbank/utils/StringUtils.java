@@ -27,4 +27,17 @@ public class StringUtils {
         return spannableStringBuilder;
     }
 
+    /**
+     * 隐藏手机号的中间四位
+     * @param phone
+     * @return
+     */
+    public static String hidePhone(String phone){
+        String result = "";
+        if (phone.length() == 11){
+            result = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+        }
+        return result;
+    }
+
 }

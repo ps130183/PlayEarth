@@ -25,7 +25,7 @@ import com.km.rmbank.mvp.view.ICircleFriendsView;
 import com.km.rmbank.oldrecycler.BaseAdapter;
 import com.km.rmbank.oldrecycler.RVUtils;
 import com.km.rmbank.titleBar.SimpleTitleBar;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.imageselector.ImageUtils;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;

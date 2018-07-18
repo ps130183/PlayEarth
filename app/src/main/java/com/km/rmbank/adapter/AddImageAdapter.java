@@ -8,7 +8,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.customview.CircleProgressView;
 import com.km.rmbank.entity.ImageEntity;
 import com.km.rmbank.oldrecycler.BaseAdapter;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.ps.glidelib.GlideUtils;
 
 import butterknife.BindView;

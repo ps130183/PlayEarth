@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.account.bank.MyBankCardDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/viewSpace16">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp">
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/bankIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/icon_icbc"
+                android:layout_centerVertical="true"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_toLeftOf="@+id/checkbox"
+                android:layout_toRightOf="@+id/bankIcon"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/bankName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="中国工商银行"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_color_block24"
+                    />
+
+                <TextView
+                    android:id="@+id/bankTailNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="尾号2369"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_color_block69"
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/viewSpace16">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="持卡人姓名："
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block24"/>
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*房"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block24"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divideLineHeight"
+            android:background="@color/divide_color"
+            android:layout_marginLeft="@dimen/viewSpace16"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/viewSpace16">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="银行预留手机号："
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block24"/>
+            <TextView
+                android:id="@+id/bankPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="132****2345"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block24"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除此银行卡"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/textSizeBig"
+        android:background="@drawable/shape_bg_white_border_corner_5"
+        android:layout_margin="@dimen/viewSpace32"
+        android:onClick="deleteBankCard"
+        />
+
+</LinearLayout>

@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.account.withdraw.AddBankCardOneFragment">
+
+    <include layout="@layout/_default_divide_line"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/viewSpace16">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block24"/>
+
+            <EditText
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="请输入姓名"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block5"
+                android:layout_marginLeft="25dp"
+                android:lines="1"
+                />
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="卡号"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block5"/>
+
+            <EditText
+                android:id="@+id/bankCardNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:hint="请输入银行卡号"
+                android:textSize="@dimen/textSizeContent"
+                android:textColor="@color/text_color_block24"
+                android:layout_marginLeft="25dp"
+                android:lines="1"
+                android:inputType="number"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/_default_divide_line"/>
+
+    <Button
+        android:id="@+id/nextStep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeBig"
+        android:background="@drawable/selector_btn_bg_default"
+        android:layout_margin="@dimen/viewSpace16"
+        />
+
+</LinearLayout>

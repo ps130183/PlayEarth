@@ -32,7 +32,8 @@ import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.km.rmbank.utils.WebViewUtils;
@@ -53,7 +54,7 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
     private boolean isMyClub;
 
     private ShareDto shareDto;
-    private DialogUtils.CustomBottomDialog mShareDialog;
+    private WindowBottomDialog mShareDialog;
 
     @Override
     public int getContentViewRes() {
@@ -231,16 +232,18 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
      * 初始化分享弹出框
      */
     private void initShareDialog(){
-        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
-        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mShareDialog = new WindowBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
+        mShareDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mShareDialog.dimiss();
                 switch (i){
                     case 0://分享到微信好友
+                        getPresenter().taskShare();
                         UmengShareUtils.openShare(mInstance,shareDto,SHARE_MEDIA.WEIXIN);
                         break;
                     case 1://分享朋友圈
+                        getPresenter().taskShare();
                         UmengShareUtils.openShare(mInstance,shareDto,SHARE_MEDIA.WEIXIN_CIRCLE);
                         break;
                 }

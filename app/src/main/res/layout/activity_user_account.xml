@@ -5,95 +5,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context="com.km.rmbank.module.main.personal.account.UserAccountActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/viewSpace16">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="账户余额(元)"
+                android:textSize="@dimen/textSizeContent"
+                android:textStyle="bold"
+                android:textColor="#5d5c61"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_color_block24"
+                />
+        </LinearLayout>
+    </FrameLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divide_color"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@color/color_blue3"
-        android:paddingBottom="@dimen/viewSpace16">
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:onClick="allBankCards"
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/tv_balance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+        <ImageView
+            android:id="@+id/ivBank"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_bank_card"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/viewSpace32"
+            android:layout_marginLeft="@dimen/viewSpace16"
+            android:layout_marginRight="@dimen/viewSpace16"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="元"
-            android:textColor="@color/white"
+            android:text="银行卡"
             android:textSize="@dimen/textSizeBig"
-            android:textStyle="bold"
-            android:layout_toRightOf="@id/tv_balance"
-            android:layout_alignBottom="@id/tv_balance"
-            android:layout_marginLeft="@dimen/viewSpace4"
-            />
+            android:textColor="@color/text_color_block1"
+            android:layout_toRightOf="@+id/ivBank"
+            android:layout_centerVertical="true"/>
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="账户余额"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSizeBig"
-            android:textStyle="bold"
-            android:layout_alignLeft="@id/tv_balance"
-            android:layout_alignParentBottom="true"
-            />
-
-        <TextView
-            android:id="@+id/tv_integral"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="提现"
-            android:textStyle="bold"
-            android:textSize="@dimen/textSizeBig"
-            android:layout_alignParentBottom="true"
+            android:src="@mipmap/icon_arrow_right_block"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/viewSpace32"
-            />
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/white"
-            android:layout_marginTop="@dimen/viewSpace16"
-            android:paddingLeft="@dimen/viewSpace32">>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/viewSpace8"
-                android:paddingBottom="@dimen/viewSpace8">
-                <TextView
-                    android:id="@+id/tv_account_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="账户明细"
-                    android:textSize="@dimen/textSizeHuge"
-                    />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divideLineHeight"
-                android:background="@color/divideLineColor"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </android.support.v7.widget.RecyclerView>
-        </LinearLayout>
+    <Button
+        android:id="@+id/tv_integral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提现"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:background="@drawable/selector_btn_bg_default"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
 
 </LinearLayout>

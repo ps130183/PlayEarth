@@ -207,9 +207,6 @@
         <activity
             android:name=".module.main.personal.account.UserAccountActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".module.main.personal.account.withdraw.CreateWithDrawAccountActivity" />
-        <activity android:name=".module.main.personal.account.withdraw.WithDrawActivity" />
-        <activity android:name=".module.main.personal.account.withdraw.WithDrawListActivity" />
         <activity android:name=".module.main.personal.AttentionGoodsActivity" />
         <activity android:name=".module.main.personal.circlefriends.MyForumInfosActivity" />
         <activity android:name=".module.main.personal.circlefriends.ReleaseForumActivity" />
@@ -263,9 +260,31 @@
 
         <activity android:name=".module.main.personal.contacts.TransformContactsActivity" />
         <activity android:name=".module.main.personal.contacts.PayTransformContactActivity" />
-        <activity android:name=".module.main.card.UserNewCardDetailsActivity" />
-        <activity android:name=".module.main.card.UserCardActivity" />
-        <activity android:name=".module.main.card.UserCardModifyActivity"></activity>
+        <activity
+            android:name=".module.main.card.UserNewCardDetailsActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".module.main.card.UserCardActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".module.main.card.UserCardModifyActivity" />
+        <activity android:name=".module.main.card.auto.MyAutobiographyActivity" />
+        <activity android:name=".module.main.appoint.ActionOutdoorActivity" />
+        <activity android:name=".module.main.card.auto.CreateMyAutobiographyActivity" />
+        <activity android:name=".module.main.card.auto.EditAutoTextActivity" />
+        <activity
+            android:name=".module.main.personal.account.withdraw.WithdrawDepositActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".module.main.personal.account.withdraw.AddBankCardActivity" />
+        <activity android:name=".module.main.personal.account.UserAccountDetailsActivity" />
+        <activity android:name=".module.main.personal.account.withdraw.WithdrawHintActivity" />
+        <activity
+            android:name=".module.main.personal.account.bank.MyBankCardListActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".module.main.personal.account.bank.MyBankCardDetailsActivity" />
+        <activity android:name=".module.main.card.SelectIndustryActivity" />
+        <activity android:name=".module.main.personal.task.PlayEarthTaskActivity" />
+        <activity android:name=".module.main.personal.task.EarthTaskDetailsActivity" />
+        <activity android:name=".module.main.personal.setting.ServiceActivity"></activity>
     </application>
 
 </manifest>

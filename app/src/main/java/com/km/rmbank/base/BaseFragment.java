@@ -15,15 +15,14 @@ import android.widget.Toast;
 import com.andview.refreshview.XRefreshView;
 import com.km.rmbank.R;
 import com.km.rmbank.module.login.LoginActivity;
-import com.km.rmbank.module.main.fragment.HomeMeFragment;
 import com.km.rmbank.module.main.fragment.HomeNewFragment;
-import com.km.rmbank.module.main.fragment.HomePersonalCenterFragment;
+import com.km.rmbank.module.main.fragment.PersonalCenterFragment;
 import com.km.rmbank.mvp.base.MvpPresenter;
 import com.km.rmbank.mvp.base.MvpView;
 import com.km.rmbank.mvp.base.PresenterDelegateImpl;
 import com.km.rmbank.mvp.base.ProxyPresenter;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.DialogLoading;
+import com.km.rmbank.utils.dialog.DialogLoading;
 import com.km.rmbank.utils.EventBusUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -167,7 +166,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
         if (mXRefreshView != null && mXRefreshView.mPullRefreshing){
             mXRefreshView.stopRefresh(false);
         }
-        if (this.getClass() == HomeNewFragment.class || this.getClass() == HomePersonalCenterFragment.class){
+        if (this.getClass() == HomeNewFragment.class || this.getClass() == PersonalCenterFragment.class){
             return;
         }
         showToast(message);
@@ -176,7 +175,7 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
     @Override
     public void userIsNotLogin() {
         Constant.userLoginInfo.clear();
-        if (this.getClass() != HomeNewFragment.class && this.getClass() != HomePersonalCenterFragment.class){
+        if (this.getClass() != HomeNewFragment.class && this.getClass() != PersonalCenterFragment.class){
             startActivity(LoginActivity.class);
         }
 

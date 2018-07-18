@@ -1,54 +1,29 @@
 package com.km.rmbank.module.main.personal.contacts;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.PhoneUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.customview.LetterSideBar;
-import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.PayOrderContactDto;
-import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.greendao.bean.Contact;
-import com.km.rmbank.module.main.payment.PaymentActivity;
 import com.km.rmbank.mvp.model.ContactsModel;
 import com.km.rmbank.mvp.presenter.ContractsPresenter;
 import com.km.rmbank.mvp.view.ContractsView;
-import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.ContractUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
 import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
 import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 public class ContactsActivity extends BaseActivity<ContractsView, ContractsPresenter> implements ContractsView {
 

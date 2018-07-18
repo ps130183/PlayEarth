@@ -8,8 +8,7 @@ import android.widget.TextView;
 import com.km.rmbank.R;
 import com.km.rmbank.dto.ReceiverAddressDto;
 import com.km.rmbank.oldrecycler.BaseAdapter;
-import com.km.rmbank.oldrecycler.BaseSwipeRvAdapter;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.ruffian.library.RTextView;
 
 import butterknife.BindView;

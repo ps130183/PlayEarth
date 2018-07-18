@@ -1,7 +1,6 @@
 package com.km.rmbank.module.main.personal.contacts;
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -21,11 +20,10 @@ import com.km.rmbank.event.RefreshMyTeamDataEvent;
 import com.km.rmbank.event.WXPayResult;
 import com.km.rmbank.greendao.ContactManager;
 import com.km.rmbank.greendao.bean.Contact;
-import com.km.rmbank.module.main.payment.PaymentActivity;
 import com.km.rmbank.mvp.model.PaymentModel;
 import com.km.rmbank.mvp.presenter.PaymentPresenter;
 import com.km.rmbank.mvp.view.IPaymentView;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.wxpay.WxUtil;
 import com.ps.commonadapter.adapter.CommonViewHolder;
@@ -34,14 +32,12 @@ import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
@@ -51,7 +47,7 @@ import io.reactivex.schedulers.Schedulers;
 public class PayTransformContactActivity extends BaseActivity<IPaymentView, PaymentPresenter> implements IPaymentView {
 
     private List<ContactDto> checkedContacts;
-    private DialogUtils.CustomBottomDialog mPayTypeDialog;
+    private WindowBottomDialog mPayTypeDialog;
     private PayOrderContactDto payOrderContactDto;
 
     @Override
@@ -109,8 +105,8 @@ public class PayTransformContactActivity extends BaseActivity<IPaymentView, Paym
      * 初始化支付方式 弹出框
      */
     private void initPayTypeDialog(){
-        mPayTypeDialog = new DialogUtils.CustomBottomDialog(mInstance,"取消","微信支付","支付宝支付");
-        mPayTypeDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mPayTypeDialog = new WindowBottomDialog(mInstance,"取消","微信支付","支付宝支付");
+        mPayTypeDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mPayTypeDialog.dimiss();

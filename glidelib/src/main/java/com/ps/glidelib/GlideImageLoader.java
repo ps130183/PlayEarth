@@ -163,7 +163,7 @@ public class GlideImageLoader {
     }
 
     public void loadLocalImage(String localPath, int placeholderResId) {
-        load(FILE + localPath, requestOptions(placeholderResId));
+        load(FILE + localPath, FitHeightRquestOptions(placeholderResId,R.drawable.load_image_fail));
     }
 
     public void loadCircleImage(String url, int placeholderResId) {

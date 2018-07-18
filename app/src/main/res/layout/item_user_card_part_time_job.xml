@@ -8,6 +8,7 @@
     android:paddingBottom="25dp">
 
     <TextView
+        android:id="@+id/userCompany"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="玩转地球科技有限公司"
@@ -17,6 +18,7 @@
         />
 
     <TextView
+        android:id="@+id/userPosition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="玩转地球科技有限公司"

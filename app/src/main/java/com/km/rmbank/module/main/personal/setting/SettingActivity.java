@@ -1,7 +1,6 @@
 package com.km.rmbank.module.main.personal.setting;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
@@ -17,9 +16,8 @@ import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DataCleacManager;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.km.rmbank.utils.EventBusUtils;
-import com.rey.material.widget.Switch;
 
 import butterknife.BindView;
 import butterknife.OnClick;

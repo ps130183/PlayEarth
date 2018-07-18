@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.task.PlayEarthTaskActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="球票数量："
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:textColor="#5d5c61"
+                />
+
+            <TextView
+                android:id="@+id/totalNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="55dp"/>
+
+        </RelativeLayout>
+        <include layout="@layout/_default_divide_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <com.ruffian.library.RTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  礼品兑换"
+                    app:icon_height="20dp"
+                    app:icon_width="20dp"
+                    app:icon_src_normal="@mipmap/icon_gift_bag"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="@dimen/divideLineHeight"
+                android:layout_height="match_parent"
+                android:background="@color/divide_color"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="openEarthTaskDetails">
+
+                <com.ruffian.library.RTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  球票明细"
+                    app:icon_height="20dp"
+                    app:icon_width="20dp"
+                    app:icon_src_normal="@mipmap/icon_details"
+                    android:layout_centerInParent="true"
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingLeft="15dp">
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_btn_shadow_blue_circular_bead"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="日常任务"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_block24"
+                />
+
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <com.ps.mrcyclerview.MRecyclerView
+            android:id="@+id/everyDayTaskRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerWidth="0">
+
+        </com.ps.mrcyclerview.MRecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp">
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="20dp"
+                android:background="@drawable/shape_btn_shadow_blue_circular_bead"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="一次性任务"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_block24"
+                />
+
+        </LinearLayout>
+        <include layout="@layout/_default_divide_line"/>
+
+        <com.ps.mrcyclerview.MRecyclerView
+            android:id="@+id/oneTaskRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dividerWidth="0">
+
+        </com.ps.mrcyclerview.MRecyclerView>
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>

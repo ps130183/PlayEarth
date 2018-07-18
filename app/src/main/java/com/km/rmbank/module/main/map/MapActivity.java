@@ -16,7 +16,7 @@ import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.event.MapLocationEvent;
 import com.km.rmbank.event.RoutePlanDrivingResultEvent;
 import com.km.rmbank.module.main.scenic.ScenicActivity;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.km.rmbank.utils.map.BaiduMapView;
 import com.km.rmbank.utils.map.MapFactory;
 

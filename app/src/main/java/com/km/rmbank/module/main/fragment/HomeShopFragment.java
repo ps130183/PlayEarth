@@ -40,8 +40,6 @@ import com.km.rmbank.oldrecycler.RVUtils;
 import com.km.rmbank.utils.SwipeRefreshUtils;
 import com.km.rmbank.utils.animator.ShowViewAnimator;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.zaaach.toprightmenu.MenuItem;
-import com.zaaach.toprightmenu.TopRightMenu;
 
 import java.util.ArrayList;
 import java.util.List;

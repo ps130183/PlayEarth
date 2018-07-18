@@ -3,6 +3,9 @@ package com.km.rmbank.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +13,11 @@ import java.util.List;
  * Created by kamangkeji on 17/3/23.
  */
 
-public class IndustryDto implements Parcelable {
+public class IndustryDto implements ItemDelegate,Parcelable {
 
-    private int id;
+    private String id;
     private String industryName;
-    private int parentId;
+    private String parentId;
 
     private boolean isShow;
 
@@ -26,11 +29,11 @@ public class IndustryDto implements Parcelable {
         this.industryName = name;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,11 +45,11 @@ public class IndustryDto implements Parcelable {
         this.industryName = name;
     }
 
-    public int getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
@@ -87,29 +90,35 @@ public class IndustryDto implements Parcelable {
 
 
     @Override
+    public int getItemViewRes() {
+        return R.layout.item_industry;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
+        dest.writeString(this.id);
         dest.writeString(this.industryName);
-        dest.writeInt(this.parentId);
+        dest.writeString(this.parentId);
+        dest.writeByte(this.isShow ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
-        dest.writeList(this.industryList);
+        dest.writeTypedList(this.industryList);
     }
 
     protected IndustryDto(Parcel in) {
-        this.id = in.readInt();
+        this.id = in.readString();
         this.industryName = in.readString();
-        this.parentId = in.readInt();
+        this.parentId = in.readString();
+        this.isShow = in.readByte() != 0;
         this.isChecked = in.readByte() != 0;
-        this.industryList = new ArrayList<IndustryDto>();
-        in.readList(this.industryList, IndustryDto.class.getClassLoader());
+        this.industryList = in.createTypedArrayList(IndustryDto.CREATOR);
     }
 
-    public static final Parcelable.Creator<IndustryDto> CREATOR = new Parcelable.Creator<IndustryDto>() {
+    public static final Creator<IndustryDto> CREATOR = new Creator<IndustryDto>() {
         @Override
         public IndustryDto createFromParcel(Parcel source) {
             return new IndustryDto(source);

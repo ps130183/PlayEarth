@@ -7,7 +7,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -24,9 +23,9 @@ import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
-import com.km.rmbank.entity.HomeRecommendEntity;
 import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.ApplyActionEvent;
+import com.km.rmbank.module.main.appoint.ActionOutdoorActivity;
 import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
 import com.km.rmbank.module.main.appoint.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.fragment.home.AllClubActivity;
@@ -45,9 +44,6 @@ import com.km.rmbank.mvp.view.IHomeView;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.RefreshUtils;
-import com.ps.commonadapter.adapter.CommonViewHolder;
-import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.mrcyclerview.BViewHolder;
@@ -58,9 +54,6 @@ import com.ruffian.library.RTextView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.DefaultImageLoader;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,12 +76,11 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
     private int[] moduleImages = {R.mipmap.icon_home_module_club, R.mipmap.icon_home_module_information,
             R.mipmap.icon_home_module_friend_circle, R.mipmap.icon_home_module_huisuo, R.mipmap.icon_home_module_jidi};
     @BindView(R.id.moduleRecycler)
-    MRecyclerView moduleRecycler;
+    MRecyclerView<ModelEntity> moduleRecycler;
 
     //首页推荐
     @BindView(R.id.recommendRecycler)
-    RecyclerView recommendRecycler;
-    private List<HomeRecommendDto> recommendDtoList;
+    MRecyclerView<HomeRecommendDto> recommendRecycler;
     //跑马灯
     @BindView(R.id.simpleMarqueeView)
     SimpleMarqueeView<String> simpleMarqueeView;
@@ -207,14 +199,15 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
      * 初始化模块
      */
     private void initModuleRecycler() {
-        List<Object> modelEntities = new ArrayList<>();
+        List<ModelEntity> modelEntities = new ArrayList<>();
         for (String moduleName : moduleNames) {
-            modelEntities.add(new ModelEntity("", moduleName));
+            ModelEntity entity = new ModelEntity("",moduleName);
+            entity.setItemLayoutRes(R.layout.item_home_new_module);
+            modelEntities.add(entity);
         }
-        moduleRecycler.addContentLayout(R.layout.item_home_new_module, new ItemViewConvert() {
+        moduleRecycler.addContentLayout(R.layout.item_home_new_module, new ItemViewConvert<ModelEntity>() {
             @Override
-            public void convert(@NonNull BViewHolder holder, Object o, int position) {
-                ModelEntity mData = (ModelEntity) o;
+            public void convert(@NonNull BViewHolder holder, ModelEntity mData, int position, @NonNull List<Object> payloads) {
                 holder.setText(R.id.moduleName, mData.getModelName());
                 GlideImageView moduleImage = holder.findView(R.id.moduleImage);
                 if (TextUtils.isEmpty(mData.getModelImageUrl())) {
@@ -222,10 +215,9 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                 } else {
                     GlideUtils.loadImageOnPregress(moduleImage, mData.getModelImageUrl(), null);
                 }
-
             }
         }).create();
-        moduleRecycler.update(modelEntities);
+        moduleRecycler.loadDataOfNextPage(modelEntities);
 
         moduleRecycler.addClickItemListener(new OnClickItemListener() {
             @Override
@@ -284,115 +276,115 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
      * 首页推荐内容
      */
     private void initRecommend() {
-        recommendDtoList = new ArrayList<>();
-        RecyclerAdapterHelper<HomeRecommendEntity> mHelper = new RecyclerAdapterHelper<>(recommendRecycler);
-        mHelper.addLinearLayoutManager()
-                .addCommonAdapter(R.layout.item_home_recommend, recommendDtoList, new RecyclerAdapterHelper.CommonConvert<HomeRecommendDto>() {
+        recommendRecycler.addContentLayout(R.layout.item_home_recommend, new ItemViewConvert<HomeRecommendDto>() {
+            @Override
+            public void convert(@NonNull BViewHolder holder, final HomeRecommendDto mData, int position, @NonNull List<Object> payloads) {
+                holder.setText(R.id.recommendTitle, mData.getLevelName());
+                GlideImageView guanggaoWei = holder.findView(R.id.guanggaowei);
+                GlideUtils.loadImageOnPregress(guanggaoWei, mData.getAdvertImage(), null);
+                guanggaoWei.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void convert(CommonViewHolder holder, final HomeRecommendDto mData, int position) {
-                        holder.setText(R.id.recommendTitle, mData.getLevelName());
-                        GlideImageView guanggaoWei = holder.findView(R.id.guanggaowei);
-                        GlideUtils.loadImageOnPregress(guanggaoWei, mData.getAdvertImage(), null);
-                        guanggaoWei.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if ("1".equals(mData.getUrlType())){//199体验官
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("advertUrl",mData.getAdvertUrl());
-                                    startActivity(ExperienceOfficerActivity.class,bundle);
-                                }
-                            }
-                        });
-                        //更多
-                        RTextView recommendMore = holder.findView(R.id.recommendMore);
-                        recommendMore.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String type = mData.getType();
-                                Bundle bundle = new Bundle();
-                                bundle.putString("type",type);
-                                switch (type){
-                                    case "0100":
-                                    case "0101":
-                                    case "0102":
-                                    case "0103":
-                                    case "0104":
-                                        startActivity(MoreActionActivity.class,bundle);
-                                        break;
-
-                                    case "0201":
-                                        startActivity(AllClubActivity.class);
-                                        break;
-                                }
-                            }
-                        });
-
-                        int contentLayoutRes = 0;
-                        final String recommendType = mData.getType().substring(0,2);
-                        switch (recommendType) {
-                            case "01":
-                                contentLayoutRes = R.layout.item_home_recommend_action;
-                                break;
-                            case "02":
-                                contentLayoutRes = R.layout.item_home_recommend_club;
-                                break;
+                    public void onClick(View v) {
+                        if ("1".equals(mData.getUrlType())){//199体验官
+                            Bundle bundle = new Bundle();
+                            bundle.putString("advertUrl",mData.getAdvertUrl());
+                            startActivity(ExperienceOfficerActivity.class,bundle);
                         }
-                        if (contentLayoutRes == 0){
-                            return;
-                        }
-                        //具体推荐的内容
-                        final List<HomeRecommendDto.DetailListBean> contentList = mData.getDetailList();
-
-                        RecyclerView contentRecycler = holder.findView(R.id.contentRecycler);
-                        RecyclerAdapterHelper<String> contentHelper = new RecyclerAdapterHelper<>(contentRecycler);
-                        contentHelper.addLinearLayoutManager()
-                                .addCommonAdapter(contentLayoutRes, contentList, new RecyclerAdapterHelper.CommonConvert<HomeRecommendDto.DetailListBean>() {
-                                    @Override
-                                    public void convert(CommonViewHolder holder, HomeRecommendDto.DetailListBean mData, int position) {
-                                        holder.addRippleEffectOnClick();
-                                        View line = holder.findView(R.id.line);
-                                        if (position == contentList.size() - 1) {
-                                            line.setVisibility(View.GONE);
-                                        } else {
-                                            line.setVisibility(View.VISIBLE);
-                                        }
-
-                                        switch (recommendType) {
-                                            case "01"://活动
-                                                loadRecommendActionData(holder, mData,recommendType);
-                                                break;
-                                            case "02"://机构
-                                                loadRecommendScenicData(holder, mData);
-                                                break;
-                                        }
-                                    }
-                                }).create();
-
-                        contentHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<HomeRecommendDto.DetailListBean>() {
-                            @Override
-                            public void onItemClick(CommonViewHolder holder, HomeRecommendDto.DetailListBean data, int position) {
-                                Bundle bundle = new Bundle();
-                                switch (recommendType) {
-                                    case "01"://活动
-                                        bundle.putString("actionId", data.getRelevanceId());
-                                        startActivity(ActionRecentInfoActivity.class, bundle);
-                                        break;
-                                    case "02"://机构
-                                        if (data.getType().equals("1")) {//俱乐部
-                                            getPresenter().getClubInfo(data.getRelevanceId());
-                                        }
-                                        break;
-                                }
-                            }
-
-                            @Override
-                            public boolean onItemLongClick(CommonViewHolder holder, HomeRecommendDto.DetailListBean data, int position) {
-                                return false;
-                            }
-
-                        });
                     }
+                });
+                //更多
+                RTextView recommendMore = holder.findView(R.id.recommendMore);
+                recommendMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String type = mData.getType();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("type",type);
+                        switch (type){
+                            case "0100":
+                            case "0101":
+                            case "0102":
+                            case "0103":
+                            case "0104":
+                                startActivity(MoreActionActivity.class,bundle);
+                                break;
+
+                            case "0201":
+                                startActivity(AllClubActivity.class);
+                                break;
+                        }
+                    }
+                });
+
+                int contentLayoutRes = 0;
+                final String recommendType = mData.getType().substring(0,2);
+                switch (recommendType) {
+                    case "01":
+                        contentLayoutRes = R.layout.item_home_recommend_action;
+                        break;
+                    case "02":
+                        contentLayoutRes = R.layout.item_home_recommend_club;
+                        break;
+                }
+                if (contentLayoutRes == 0){
+                    return;
+                }
+                //具体推荐的内容
+                final List<HomeRecommendDto.DetailListBean> contentList = mData.getDetailList();
+
+                MRecyclerView<HomeRecommendDto.DetailListBean> contentRecycler = holder.findView(R.id.contentRecycler);
+                contentRecycler.addContentLayout(contentLayoutRes, new ItemViewConvert<HomeRecommendDto.DetailListBean>() {
+                    @Override
+                    public void convert(@NonNull BViewHolder holder, HomeRecommendDto.DetailListBean mData, int position, @NonNull List<Object> payloads) {
+                        holder.addRippleEffectOnClick();
+                        View line = holder.findView(R.id.line);
+                        if (position == contentList.size() - 1) {
+                            line.setVisibility(View.GONE);
+                        } else {
+                            line.setVisibility(View.VISIBLE);
+                        }
+
+                        switch (recommendType) {
+                            case "01"://活动
+                                loadRecommendActionData(holder, mData,recommendType);
+                                break;
+                            case "02"://机构
+                                loadRecommendScenicData(holder, mData);
+                                break;
+                        }
+                    }
+
                 }).create();
+                contentRecycler.loadDataOfNextPage(contentList);
+
+                contentRecycler.addClickItemListener(new OnClickItemListener() {
+                    @Override
+                    public void clickItem(Object mData, int position) {
+                        HomeRecommendDto.DetailListBean data = (HomeRecommendDto.DetailListBean) mData;
+                        Bundle bundle = new Bundle();
+                        switch (recommendType) {
+                            case "01"://活动
+                                if (!"3".equals(data.getType())){
+                                    bundle.putString("actionId", data.getRelevanceId());
+                                    startActivity(ActionRecentInfoActivity.class, bundle);
+                                } else {//基地活动
+                                    bundle.putString("activityId",data.getActivityId());
+                                    bundle.putString("scenicId",data.getClubId());
+                                    startActivity(ActionOutdoorActivity.class,bundle);
+                                }
+
+                                break;
+                            case "02"://机构
+                                if (data.getType().equals("1")) {//俱乐部
+                                    getPresenter().getClubInfo(data.getRelevanceId());
+                                }
+                                break;
+                        }
+                    }
+                });
+            }
+
+        }).create();
     }
 
     @Override
@@ -405,9 +397,27 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
 
     @Override
     public void showHomeRecommend(List<HomeRecommendDto> recommendDtos) {
-        recommendDtoList.clear();
-        recommendDtoList.addAll(recommendDtos);
-        recommendRecycler.getAdapter().notifyDataSetChanged();
+        recommendRecycler.clear();
+        for (HomeRecommendDto recommendDto : recommendDtos){
+            int contentLayoutRes = 0;
+            final String recommendType = recommendDto.getType().substring(0,2);
+            switch (recommendType) {
+                case "01":
+                    contentLayoutRes = R.layout.item_home_recommend_action;
+                    break;
+                case "02":
+                    contentLayoutRes = R.layout.item_home_recommend_club;
+                    break;
+            }
+
+            for (HomeRecommendDto.DetailListBean listBean : recommendDto.getDetailList()){
+                listBean.setLayoutRes(contentLayoutRes);
+            }
+        }
+        recommendRecycler.loadDataOfNextPage(recommendDtos);
+//        recommendDtoList.clear();
+//        recommendDtoList.addAll(recommendDtos);
+//        recommendRecycler.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -428,31 +438,31 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
         initBanner(bannerDtoList);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void applySuccess(ApplyActionEvent event){
-        for (int i = 0; i < recommendDtoList.size(); i++){
-            HomeRecommendDto recommendDto = recommendDtoList.get(i);
-            if (event.getType().equals(recommendDto.getType())){
-                List<HomeRecommendDto.DetailListBean> detailListBeans = recommendDto.getDetailList();
-                for (int j = 0; j < detailListBeans.size(); j++){
-                    HomeRecommendDto.DetailListBean detailListBean = detailListBeans.get(j);
-                    if (event.getActionId().equals(detailListBean.getRelevanceId())){
-                        int count = Integer.parseInt(detailListBean.getApplyCount());
-                        detailListBean.setApplyCount((count + 1) + "");
-                        recommendRecycler.getAdapter().notifyItemChanged(i);
-                        return;
-                    }
-                }
-            }
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void applySuccess(ApplyActionEvent event){
+//        for (int i = 0; i < recommendDtoList.size(); i++){
+//            HomeRecommendDto recommendDto = recommendDtoList.get(i);
+//            if (event.getType().equals(recommendDto.getType())){
+//                List<HomeRecommendDto.DetailListBean> detailListBeans = recommendDto.getDetailList();
+//                for (int j = 0; j < detailListBeans.size(); j++){
+//                    HomeRecommendDto.DetailListBean detailListBean = detailListBeans.get(j);
+//                    if (event.getActionId().equals(detailListBean.getRelevanceId())){
+//                        int count = Integer.parseInt(detailListBean.getApplyCount());
+//                        detailListBean.setApplyCount((count + 1) + "");
+//                        recommendRecycler.getAdapter().notifyItemChanged(i);
+//                        return;
+//                    }
+//                }
+//            }
+//        }
+//    }
     /**
      * 加载推荐的活动数据
      *
      * @param holder
      * @param mData
      */
-    private void loadRecommendActionData(CommonViewHolder holder, final HomeRecommendDto.DetailListBean mData, final String type) {
+    private void loadRecommendActionData(BViewHolder holder, final HomeRecommendDto.DetailListBean mData, final String type) {
         GlideImageView contentImage = holder.findView(R.id.contentImage);
         GlideUtils.loadImageOnPregress(contentImage, mData.getThumbnail(), null);
 
@@ -491,7 +501,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
      * @param holder
      * @param mData
      */
-    private void loadRecommendScenicData(CommonViewHolder holder, HomeRecommendDto.DetailListBean mData) {
+    private void loadRecommendScenicData(BViewHolder holder, HomeRecommendDto.DetailListBean mData) {
         GlideImageView imageView = holder.findView(R.id.imageView);
         GlideUtils.loadImageOnPregress(imageView, mData.getThumbnail(), null);
 

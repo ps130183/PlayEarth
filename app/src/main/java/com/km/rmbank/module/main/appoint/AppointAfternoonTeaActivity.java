@@ -1,7 +1,6 @@
 package com.km.rmbank.module.main.appoint;
 
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.adapter.ActionRecentGuestAdapter;
 import com.km.rmbank.base.BaseActivity;
@@ -27,15 +25,12 @@ import com.km.rmbank.oldrecycler.RVUtils;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
-import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-
-import org.w3c.dom.Text;
 
 import java.util.Date;
 
@@ -45,7 +40,7 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
 
     private String actionId;
     private ShareDto shareDto;
-    private DialogUtils.CustomBottomDialog mShareDialog;
+    private WindowBottomDialog mShareDialog;
     private String appointType="";
 
     private ActionDto mActionDto;
@@ -148,8 +143,8 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
 
 
     private void initShareDialog(){
-        mShareDialog = new DialogUtils.CustomBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
-        mShareDialog.setOnClickShareDialog(new DialogUtils.CustomBottomDialog.OnClickShareDialog() {
+        mShareDialog = new WindowBottomDialog(mInstance,"取消","分享微信好友","分享朋友圈");
+        mShareDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override
             public void clickShareDialog(String itemName, int i) {
                 mShareDialog.dimiss();

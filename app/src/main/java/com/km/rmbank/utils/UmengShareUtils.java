@@ -16,6 +16,7 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMMin;
 import com.umeng.socialize.media.UMWeb;
 import com.yancy.gallerypick.utils.ScreenUtils;
 
@@ -25,7 +26,7 @@ import com.yancy.gallerypick.utils.ScreenUtils;
 
 public class UmengShareUtils {
 
-    public static void initUmengShare(Context context){
+    public static void initUmengShare(Context context) {
         UMShareAPI mShareAPI = UMShareAPI.get(context);
 //        mShareAPI.isInstall((Activity) context, SHARE_MEDIA.WEIXIN);//获取客户端安装信息
         PlatformConfig.setWeixin("wx637ea06a1c6d1fff", "1b2n3v4fx5v56vj8f3hd5t7g5f6hj8fh");
@@ -77,11 +78,12 @@ public class UmengShareUtils {
 
     /**
      * 开启分享
+     *
      * @param activity
      * @param listener
      */
-    public static void openShare(Activity activity, ShareDto shareDto, UMShareListener listener){
-        if (shareDto == null){
+    public static void openShare(Activity activity, ShareDto shareDto, UMShareListener listener) {
+        if (shareDto == null) {
             ToastUtils.showShort("暂未获取到分享内容");
             return;
         }
@@ -91,7 +93,7 @@ public class UmengShareUtils {
         web.setDescription(shareDto.getContent());
 
         new ShareAction(activity).withText(shareDto.getContent())
-                .setDisplayList(SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
 
                 .withText(shareDto.getContent())
                 .withMedia(web)
@@ -100,12 +102,13 @@ public class UmengShareUtils {
 
     /**
      * 开启分享
+     *
      * @param activity
-     * @param shareDto  分享的数据
+     * @param shareDto   分享的数据
      * @param shareMedia 分享的类型  比如：微信、朋友圈等
      */
-    public static void openShare(Activity activity, ShareDto shareDto, SHARE_MEDIA shareMedia){
-        if (shareDto == null){
+    public static void openShare(Activity activity, ShareDto shareDto, SHARE_MEDIA shareMedia) {
+        if (shareDto == null) {
             ToastUtils.showShort("暂未获取到分享内容");
             return;
         }
@@ -144,10 +147,11 @@ public class UmengShareUtils {
 
     /**
      * 分享图片
+     *
      * @param activity
      * @param listener
      */
-    public static void openShareForImage(Activity activity, Bitmap imageBitmap, SHARE_MEDIA shareMedia, UMShareListener listener){
+    public static void openShareForImage(Activity activity, Bitmap imageBitmap, SHARE_MEDIA shareMedia, UMShareListener listener) {
         UMImage image = new UMImage(activity, imageBitmap);
 
         new ShareAction(activity)
@@ -155,5 +159,37 @@ public class UmengShareUtils {
                 .withMedia(image)
                 .setCallback(listener)
                 .share();
+    }
+
+    /**
+     * 分享微信小程序
+     * @param activity
+     * @param webUrl
+     * @param imagelocal
+     * @param title
+     * @param description
+     * @param pageUrl
+     * @param shareListener
+     */
+    public static void shareWeChatMin(Activity activity, String webUrl,
+                                      Bitmap imagelocal, String title, String description,
+                                      String pageUrl, UMShareListener shareListener) {
+        UMImage umImage = new UMImage(activity, imagelocal);
+        //兼容低版本的网页链接
+        UMMin umMin = new UMMin(webUrl);
+        // 小程序消息封面图片
+        umMin.setThumb(umImage);
+        // 小程序消息title
+        umMin.setTitle(title);
+        // 小程序消息描述
+        umMin.setDescription(description);
+        //小程序页面路径
+        umMin.setPath(pageUrl);
+        // 小程序原始id,在微信平台查询
+        umMin.setUserName("gh_c1c50667585f");
+        new ShareAction(activity)
+                .withMedia(umMin)
+                .setPlatform(SHARE_MEDIA.WEIXIN)
+                .setCallback(shareListener).share();
     }
 }

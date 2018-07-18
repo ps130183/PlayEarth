@@ -2,12 +2,22 @@ package com.km.rmbank.dto;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+
+import com.km.rmbank.entity.DemandEntity;
+import com.km.rmbank.entity.OtherIdentityEntity;
+import com.km.rmbank.entity.SupplyEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by PengSong on 18/1/18.
  */
 
 public class UserInfoDto implements Cloneable, Parcelable {
+
+
     /**
      * total : 0
      * birthday : 1989-12-01
@@ -55,19 +65,46 @@ public class UserInfoDto implements Cloneable, Parcelable {
 
     private String keepCount;
     private String mobilePhone;
+    private String cardPhone;
     private double balance;
     private String detailedAddress;
     private String name;
     private String shareUrl;
     private String position;
     private String personalizedSignature;
+    private String company;
+    private String emailAddress;
+    private List<OtherIdentityEntity> identityList;
+    private List<DemandEntity> demandList;
+    private List<SupplyEntity> provideList;
 
+    private String industryId;//行业Id
+    private String industryName;//行业名称
     private String ticketCount;
+
+    private int ballWritTotal;//球票总数
 
     private String cardId;
 
     private int status;//实名认证  0：未验证，1：验证中，2：通过，3：失败
     private int type;//2:商家
+
+
+    public int getBallWritTotal() {
+        return ballWritTotal;
+    }
+
+    public void setBallWritTotal(int ballWritTotal) {
+        this.ballWritTotal = ballWritTotal;
+    }
+
+    public String getCardPhone() {
+        return cardPhone;
+    }
+
+    public void setCardPhone(String cardPhone) {
+        this.cardPhone = cardPhone;
+    }
 
     public String getTotal() {
         return total;
@@ -298,6 +335,72 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.cardId = cardId;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+
+    public String getIndustryName() {
+        return industryName;
+    }
+
+    public void setIndustryName(String industryName) {
+        this.industryName = industryName;
+    }
+
+    public List<OtherIdentityEntity> getIdentityList() {
+        if (identityList == null){
+            identityList = new ArrayList<>();
+        }
+        return identityList;
+    }
+
+    public void setIdentityList(List<OtherIdentityEntity> identityList) {
+        this.identityList = identityList;
+    }
+
+    public List<DemandEntity> getDemandList() {
+        if (demandList == null){
+            demandList = new ArrayList<>();
+        }
+        return demandList;
+    }
+
+    public void setDemandList(List<DemandEntity> demandList) {
+        this.demandList = demandList;
+    }
+
+    public List<SupplyEntity> getProvideList() {
+        if (provideList == null){
+            provideList = new ArrayList<>();
+        }
+        return provideList;
+    }
+
+    public void setProvideList(List<SupplyEntity> provideList) {
+        this.provideList = provideList;
+    }
+
+    public String getIndustryId() {
+        return industryId;
+    }
+
+    public void setIndustryId(String industryId) {
+        this.industryId = industryId;
+    }
+
     @Override
     public String toString() {
         return "UserInfoDto{" +
@@ -319,13 +422,22 @@ public class UserInfoDto implements Cloneable, Parcelable {
                 ", clubId='" + clubId + '\'' +
                 ", keepCount='" + keepCount + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
+                ", cardPhone='" + cardPhone + '\'' +
                 ", balance=" + balance +
                 ", detailedAddress='" + detailedAddress + '\'' +
                 ", name='" + name + '\'' +
                 ", shareUrl='" + shareUrl + '\'' +
                 ", position='" + position + '\'' +
                 ", personalizedSignature='" + personalizedSignature + '\'' +
+                ", company='" + company + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", identityList=" + identityList +
+                ", demandList=" + demandList +
+                ", provideList=" + provideList +
+                ", industryId='" + industryId + '\'' +
+                ", industryName='" + industryName + '\'' +
                 ", ticketCount='" + ticketCount + '\'' +
+                ", ballWritTotal='" + ballWritTotal + '\'' +
                 ", cardId='" + cardId + '\'' +
                 ", status=" + status +
                 ", type=" + type +
@@ -333,6 +445,17 @@ public class UserInfoDto implements Cloneable, Parcelable {
     }
 
     public UserInfoDto() {
+    }
+
+    /**
+     * 有数据为空
+     * @return
+     */
+    public boolean isEmpty(){
+        if (TextUtils.isEmpty(portraitUrl) || TextUtils.isEmpty(name)){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -360,13 +483,22 @@ public class UserInfoDto implements Cloneable, Parcelable {
         dest.writeString(this.clubId);
         dest.writeString(this.keepCount);
         dest.writeString(this.mobilePhone);
+        dest.writeString(this.cardPhone);
         dest.writeDouble(this.balance);
         dest.writeString(this.detailedAddress);
         dest.writeString(this.name);
         dest.writeString(this.shareUrl);
         dest.writeString(this.position);
         dest.writeString(this.personalizedSignature);
+        dest.writeString(this.company);
+        dest.writeString(this.emailAddress);
+        dest.writeTypedList(this.identityList);
+        dest.writeTypedList(this.demandList);
+        dest.writeTypedList(this.provideList);
+        dest.writeString(this.industryId);
+        dest.writeString(this.industryName);
         dest.writeString(this.ticketCount);
+        dest.writeInt(this.ballWritTotal);
         dest.writeString(this.cardId);
         dest.writeInt(this.status);
         dest.writeInt(this.type);
@@ -391,13 +523,22 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.clubId = in.readString();
         this.keepCount = in.readString();
         this.mobilePhone = in.readString();
+        this.cardPhone = in.readString();
         this.balance = in.readDouble();
         this.detailedAddress = in.readString();
         this.name = in.readString();
         this.shareUrl = in.readString();
         this.position = in.readString();
         this.personalizedSignature = in.readString();
+        this.company = in.readString();
+        this.emailAddress = in.readString();
+        this.identityList = in.createTypedArrayList(OtherIdentityEntity.CREATOR);
+        this.demandList = in.createTypedArrayList(DemandEntity.CREATOR);
+        this.provideList = in.createTypedArrayList(SupplyEntity.CREATOR);
+        this.industryId = in.readString();
+        this.industryName = in.readString();
         this.ticketCount = in.readString();
+        this.ballWritTotal = in.readInt();
         this.cardId = in.readString();
         this.status = in.readInt();
         this.type = in.readInt();

@@ -10,7 +10,6 @@
         android:id="@+id/modelImage"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@mipmap/icon_order_wait_payment"
         />
 
     <TextView

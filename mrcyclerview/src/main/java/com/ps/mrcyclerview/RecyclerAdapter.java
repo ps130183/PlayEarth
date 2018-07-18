@@ -32,7 +32,7 @@ import java.util.Map;
  * Created by PengSong on 18/6/1.
  */
 
-public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
+public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> implements IAdapter<D> {
 
     private static final String TAG = "RecyclerAdapter";
     private Context mContext;
@@ -41,7 +41,7 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
     //主要Item对应的数据操作
     private Map<Integer,ItemViewConvert> mItemConverts;
     //主数据集合
-    private List<D> mDatas;
+    private ArrayList<D> mDatas;
 
     //Header Views
     private SparseArray<HeaderDelegate> mHeaderDelegates;
@@ -85,6 +85,25 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BViewHolder holder, int position) {
+        bindView(holder,position,null);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull BViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads == null){
+            super.onBindViewHolder(holder, position, payloads);
+        } else {//刷新
+            bindView(holder,position,payloads);
+        }
+    }
+
+    /**
+     * 绘制列表数据
+     * @param holder
+     * @param position
+     * @param payloads
+     */
+    private void bindView(@NonNull BViewHolder holder, int position, @NonNull List<Object> payloads){
         int headerCount = 0;
         if (mHeaderConvert != null && mHeaderConvert.size() > 0){
             headerCount = mHeaderConvert.size();
@@ -92,7 +111,7 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
         //header Item
         if (position < headerCount && mHeaderConvert.containsKey(mHeaderDelegates.get(position).getItemViewRes())){
             mHeaderConvert.get(mHeaderDelegates.get(position).getItemViewRes())
-                    .convert(holder,null,position);
+                    .convert(holder,null,position,payloads);
             return;
         }
 
@@ -100,7 +119,7 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
         int itemPosition = position - headerCount;
         if (itemPosition < mDatas.size() && mItemConverts.size() > 0){
             ItemDelegate delegate = (ItemDelegate) mDatas.get(itemPosition);
-            mItemConverts.get(delegate.getItemViewRes()).convert(holder,delegate,itemPosition);
+            mItemConverts.get(delegate.getItemViewRes()).convert(holder,delegate,itemPosition,payloads);
 
             //单击事件
             addClickListener(holder.getConvertView(),itemPosition,delegate);
@@ -123,7 +142,7 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
         if (position >= headerCount + mDatas.size() + moreCount && mFooterConvert != null && mFooterConvert.size() > 0){
             int footerItemPosition =  position - headerCount - mDatas.size() - moreCount;
             mFooterConvert.get(mFooterDelegates.get(footerItemPosition).getItemViewRes())
-                    .convert(holder,null,footerItemPosition);
+                    .convert(holder,null,footerItemPosition,payloads);
             return;
         }
     }
@@ -222,7 +241,7 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
      * @param position
      * @param mData
      */
-    private void addClickListener(View contentView, final int position, final Object mData){
+    private void addClickListener(View contentView, final int position, final ItemDelegate mData){
         if (onClickItemListener != null){
             contentView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -326,7 +345,7 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
      * 更新数据
      * @param datas
      */
-    public void update(List<D> datas){
+    public void loadDataOfNextPage(List<D> datas){
         mDatas.addAll(datas);
         mDataSizeArray.append(mDataSizeArray.size(),datas.size());
         removeMoreDelegate();
@@ -334,7 +353,12 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
             //已加载完所有数据
             addMoreFinishDelegate();
         }
-        notifyItemRangeInserted(mDatas.size(),datas.size());
+        if (mDataSizeArray.size() > 1){
+            notifyItemRangeInserted(mDatas.size(),datas.size());
+        } else {
+            notifyDataSetChanged();
+        }
+
     }
 
     /**
@@ -346,14 +370,24 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void update(D data,int position,Object payloads){
+        mDatas.set(position,data);
+        if (mHeaderDelegates != null && mHeaderDelegates.size() > 0){
+            position += mHeaderConvert.size();
+        }
+        notifyItemChanged(position,payloads);
+    }
+
     /**
      * 删除数据
      * @param position
      */
     public void delete(int position){
-        if (position < getDataSize()){
+        if (position >= 0 && position < getDataSize()){
+            int headerCount = mHeaderDelegates == null ? 0 : mHeaderDelegates.size();
             mDatas.remove(position);
-            notifyItemRemoved(position);
+            notifyItemRemoved(position + headerCount);
+            notifyItemRangeChanged(position + headerCount,mDatas.size() - position);
         }
     }
 
@@ -363,9 +397,11 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
      */
     public void delete(D data){
         if (mDatas.contains(data)){
+            int headerCount = mHeaderDelegates == null ? 0 : mHeaderDelegates.size();
             int position = mDatas.indexOf(data);
             mDatas.remove(data);
-            notifyItemRemoved(position);
+            notifyItemRemoved(position + headerCount);
+            notifyItemRangeChanged(position + headerCount,mDatas.size() - position);
         }
     }
 
@@ -445,6 +481,11 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
         }
     }
 
+    @Override
+    public MoreDelegate getMoreDelegate() {
+        return moreDelegate;
+    }
+
     /**
      * 移除 加载更多
      */
@@ -494,6 +535,11 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> {
         if (mDataSizeArray != null){
             mDataSizeArray.clear();
         }
+    }
+
+    @Override
+    public SparseArray<Integer> getDataSizeArray() {
+        return mDataSizeArray;
     }
 
     /**

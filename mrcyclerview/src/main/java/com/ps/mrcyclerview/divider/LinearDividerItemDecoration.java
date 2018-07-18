@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.ps.mrcyclerview.IAdapter;
 import com.ps.mrcyclerview.RecyclerAdapter;
+import com.ps.mrcyclerview.SRecyclerAdapter;
 
 /**
  * Created by PengSong on 18/6/9.
@@ -15,7 +17,8 @@ import com.ps.mrcyclerview.RecyclerAdapter;
 public class LinearDividerItemDecoration extends Y_DividerItemDecoration {
 
     private int dividerWidth;
-    private @ColorInt int dividerColor;
+    private @ColorInt
+    int dividerColor;
     private int orientation = LinearLayoutManager.VERTICAL;
     private RecyclerView mRecyclerView;
 
@@ -36,8 +39,8 @@ public class LinearDividerItemDecoration extends Y_DividerItemDecoration {
     @Override
     public Y_Divider getDivider(int itemPosition) {
         Y_Divider divider = null;
-        RecyclerAdapter adapter = (RecyclerAdapter) mRecyclerView.getAdapter();
-        if (adapter.isContentView(itemPosition)){
+        IAdapter adapter = (IAdapter) mRecyclerView.getAdapter();
+        if (adapter.isContentView(itemPosition)) {
             if (orientation == LinearLayoutManager.VERTICAL) {
                 divider = new Y_DividerBuilder()
                         .setBottomSideLine(dividerWidth != 0, dividerColor, dividerWidth, 0, 0)

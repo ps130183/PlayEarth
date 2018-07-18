@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.main.personal.setting.ServiceActivity">
+
+    <ImageView
+        android:id="@+id/top"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/icon_service1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="45dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/top"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/icon_email"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公司邮箱：wanzhuandiqiu@163.com"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_block24"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/icon_service"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13699231246"
+                android:textSize="16sp"
+                android:textColor="#0e48a0"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/icon_jishu"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13699231246"
+                android:textSize="16sp"
+                android:textColor="#0e48a0"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+
+        <include layout="@layout/_default_divide_line"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line_service"
+            android:layout_gravity="center_vertical"
+            android:layout_toLeftOf="@+id/center"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="有事没事找客服"
+            android:textColor="#b4b4b4"
+            android:textSize="16sp"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line_service2"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@+id/center"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

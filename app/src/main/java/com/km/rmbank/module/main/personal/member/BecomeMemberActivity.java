@@ -24,7 +24,7 @@ import com.km.rmbank.mvp.model.MemberModel;
 import com.km.rmbank.mvp.presenter.MemberPresenter;
 import com.km.rmbank.mvp.view.IMemberView;
 import com.km.rmbank.utils.Constant;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 import com.zhy.magicviewpager.transformer.ScaleInTransformer;
 
 import java.util.ArrayList;

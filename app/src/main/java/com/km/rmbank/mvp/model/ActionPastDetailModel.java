@@ -33,4 +33,13 @@ public class ActionPastDetailModel extends BaseModel {
                 .compose(this.<ClubDto>applySchedulers());
     }
 
+    /**
+     * 分享赚球票
+     * @return
+     */
+    public Observable<String> taskShare(){
+        return getService().taskShare(Constant.userLoginInfo.getToken(),2)
+                .compose(this.<String>applySchedulers());
+    }
+
 }

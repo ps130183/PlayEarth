@@ -16,7 +16,7 @@ import com.km.rmbank.mvp.presenter.ReleaseGoodsPresenter;
 import com.km.rmbank.mvp.view.IReleaseGoodsView;
 import com.km.rmbank.oldrecycler.BaseAdapter;
 import com.km.rmbank.oldrecycler.RVUtils;
-import com.km.rmbank.utils.DialogUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 
 import java.util.List;
 

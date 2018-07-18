@@ -9,7 +9,7 @@ import java.util.List;
  * Created by kamangkeji on 17/4/12.
  */
 
-public class HomeRecommendDto {
+public class HomeRecommendDto implements ItemDelegate {
 
     /**
      * advertImage : http://192.168.10.131:8080/wzdq/Aiyg/aiygImage/2018/03/06da586f052647448a91c1a65e265aff.jpg
@@ -104,7 +104,12 @@ public class HomeRecommendDto {
         this.urlType = urlType;
     }
 
-    public static class DetailListBean {
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_home_recommend;
+    }
+
+    public static class DetailListBean implements ItemDelegate{
         /**
          * content :
          * fans : 0
@@ -118,6 +123,8 @@ public class HomeRecommendDto {
          * type : 2
          */
 
+        private String activityId;
+        private String clubId;
         private String content;
         private String fans;
         private String id;
@@ -136,6 +143,7 @@ public class HomeRecommendDto {
         private String applyCount;
         private long startDate;
 
+        private int layoutRes;
 
         public String getContent() {
             return content;
@@ -233,5 +241,29 @@ public class HomeRecommendDto {
             this.startDate = startDate;
         }
 
+        public void setLayoutRes(int layoutRes) {
+            this.layoutRes = layoutRes;
+        }
+
+        public String getActivityId() {
+            return activityId;
+        }
+
+        public void setActivityId(String activityId) {
+            this.activityId = activityId;
+        }
+
+        public String getClubId() {
+            return clubId;
+        }
+
+        public void setClubId(String clubId) {
+            this.clubId = clubId;
+        }
+
+        @Override
+        public int getItemViewRes() {
+            return layoutRes;
+        }
     }
 }

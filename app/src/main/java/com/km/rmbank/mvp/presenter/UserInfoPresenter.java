@@ -29,9 +29,9 @@ public class UserInfoPresenter extends BasePresenter<IUserInfoView, UserInfoMode
         super(mModel);
     }
 
-    public void saveUserInfo(final String imagePath, final String introduce) {
+    public void saveUserInfo(final UserInfoDto userInfoDto) {
         getMvpView().showLoading();
-        Observable.just(imagePath.indexOf("http"))
+        Observable.just(userInfoDto.getPortraitUrl().indexOf("http"))
                 .subscribeOn(Schedulers.io())
                 .map(new Function<Integer, Boolean>() {
                     @Override
@@ -44,7 +44,7 @@ public class UserInfoPresenter extends BasePresenter<IUserInfoView, UserInfoMode
                     @Override
                     public ObservableSource<String> apply(Boolean aBoolean) throws Exception {
                         LogUtils.d(!aBoolean ? "不上传图片" : "上传图片");
-                        return aBoolean ? getMvpModel().uploadUserPortrait("3", imagePath) : Observable.just("");
+                        return aBoolean ? getMvpModel().uploadUserPortrait("3", userInfoDto.getPortraitUrl()) : Observable.just("");
                     }
                 })
                 //保存用户信息
@@ -52,29 +52,17 @@ public class UserInfoPresenter extends BasePresenter<IUserInfoView, UserInfoMode
                     @Override
                     public ObservableSource<String> apply(String s) throws Exception {
                         LogUtils.d("图片的内容---->" + s);
-                        UserInfoDto userInfoDto = (UserInfoDto) Constant.userInfo.clone();
-                        userInfoDto.setPersonalizedSignature(introduce);
                         if (!TextUtils.isEmpty(s)){
                             userInfoDto.setPortraitUrl(s);
                         }
-                        return getMvpModel().createUserCart(userInfoDto);
+                        return getMvpModel().saveUserInfo(userInfoDto);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(newSubscriber(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
-                        getMvpView().saveUserInfoSuccess();
-                    }
-                }));
-    }
-
-    public void createUserCard(String name, String position, String phone) {
-        getMvpModel().createUserCard(name, position, phone)
-                .subscribe(newSubscriber(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        getMvpView().createUserCardSuccess(s);
+                        getMvpView().saveUserInfoSuccess(userInfoDto);
                     }
                 }));
     }

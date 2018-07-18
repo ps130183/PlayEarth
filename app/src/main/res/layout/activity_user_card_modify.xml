@@ -48,10 +48,14 @@
 
 
             <com.ps.glidelib.GlideImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/userPortrait"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/icon_add_portrait" />
+                app:siv_radius="5dp"
+                app:siv_border_width="1dp"
+                android:src="@mipmap/icon_add_portrait"
+                android:onClick="selectUserPortrait"/>
 
         </LinearLayout>
 
@@ -87,56 +91,11 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/etUserName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
                 android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
-                android:textSize="15sp"
-                android:maxLines="1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp">
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="公司"
-                    android:textColor="@color/text_color_block1"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="top"
-                    android:text="*"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
-                android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
-                android:textSize="15sp" />
+                style="@style/EditUserInfoModify"/>
 
         </LinearLayout>
 
@@ -160,27 +119,157 @@
                     android:textColor="@color/text_color_block1"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="top"
-                    android:text="*"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:gravity="top"-->
+                    <!--android:text="*"-->
+                    <!--android:textColor="@color/red"-->
+                    <!--android:textSize="16sp" />-->
             </LinearLayout>
 
             <EditText
+                android:id="@+id/etUserPosition"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
                 android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
-                android:textSize="15sp" />
+                style="@style/EditUserInfoModify"/>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="公司"
+                    android:textColor="@color/text_color_block1"
+                    android:textSize="16sp" />
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:gravity="top"-->
+                    <!--android:text="*"-->
+                    <!--android:textColor="@color/red"-->
+                    <!--android:textSize="16sp" />-->
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etUserCompay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="请输入"
+                style="@style/EditUserInfoModify"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
+
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="所属行业"
+                    android:textColor="@color/text_color_block1"
+                    android:textSize="16sp" />
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:gravity="top"-->
+                    <!--android:text="*"-->
+                    <!--android:textColor="@color/red"-->
+                    <!--android:textSize="16sp" />-->
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/etUserIndustry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:lines="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+                    android:hint="请输入"
+                    android:textColor="@color/text_color_block24"
+                    android:textSize="15sp"
+                    android:onClick="selectIndustry"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/icon_arrow_right_block2"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/viewSpace16"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="兼职信息"
+                android:textColor="@color/text_color_block1"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"/>
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/icon_add"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/viewSpace16"
+                android:onClick="addOtherIdentity"
+                />
+
+        </RelativeLayout>
+        <com.ps.mrcyclerview.MRecyclerView
+            android:id="@+id/otherIdentityRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:dividerWidth="0">
+
+        </com.ps.mrcyclerview.MRecyclerView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -201,24 +290,27 @@
                     android:textColor="@color/text_color_block1"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="top"
-                    android:text="*"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:gravity="top"-->
+                    <!--android:text="*"-->
+                    <!--android:textColor="@color/red"-->
+                    <!--android:textSize="16sp" />-->
             </LinearLayout>
 
             <EditText
+                android:id="@+id/etUserPhone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLines="1"
+                android:lines="1"
                 android:layout_gravity="center_vertical"
                 android:background="@color/white"
                 android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColor="@color/text_color_block24"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -230,6 +322,7 @@
             android:background="@color/divide_color" />
 
         <RadioGroup
+            android:id="@+id/rgPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
@@ -239,59 +332,21 @@
             android:paddingTop="18dp">
 
             <RadioButton
+                android:id="@+id/rbPhoneClose"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:button="@drawable/check_personal_contacts"
                 android:text="隐私保护，不让任何人查看手机号码" />
 
             <RadioButton
+                android:id="@+id/rbPhoneOpen"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:button="@drawable/check_personal_contacts"
                 android:text="安全公开，手机号码对所有人可见" />
         </RadioGroup>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
-            android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp">
 
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="行业"
-                    android:textColor="@color/text_color_block1"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="top"
-                    android:text="*"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
-                android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
-                android:textSize="15sp" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -313,25 +368,22 @@
                     android:textColor="@color/text_color_block1"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="top"
-                    android:text="*"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:gravity="top"-->
+                    <!--android:text="*"-->
+                    <!--android:textColor="@color/red"-->
+                    <!--android:textSize="16sp" />-->
             </LinearLayout>
 
             <EditText
+                android:id="@+id/etUserAddress"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
                 android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
-                android:textSize="15sp" />
+                style="@style/EditUserInfoModify"/>
 
         </LinearLayout>
 
@@ -357,21 +409,18 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/etUserEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
                 android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
-                android:textSize="15sp" />
+                style="@style/EditUserInfoModify"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingLeft="15dp">
@@ -390,16 +439,14 @@
             </LinearLayout>
 
             <EditText
+                android:id="@+id/etUserIntroduce"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical"
-                android:background="@color/white"
                 android:hint="请输入"
-                android:textColor="@color/text_color_blocka"
-                android:textSize="15sp" />
+                style="@style/EditUserInfoModify"/>
 
         </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -412,7 +459,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="其他身份"
+                android:text="供应"
                 android:textColor="@color/text_color_block1"
                 android:textSize="16sp"
                 android:layout_centerVertical="true"/>
@@ -425,14 +472,54 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/viewSpace16"
-                android:onClick="addOtherIdentity"
+                android:onClick="addSupply"
                 />
 
         </RelativeLayout>
         <com.ps.mrcyclerview.MRecyclerView
-            android:id="@+id/otherIdentityRecycler"
+            android:id="@+id/supplyRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:dividerWidth="0">
+
+        </com.ps.mrcyclerview.MRecyclerView>
+
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="需求"
+                android:textColor="@color/text_color_block1"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"/>
+
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/icon_add"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/viewSpace16"
+                android:onClick="addDemand"
+                />
+
+        </RelativeLayout>
+        <com.ps.mrcyclerview.MRecyclerView
+            android:id="@+id/demandRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             app:dividerWidth="0">
 
         </com.ps.mrcyclerview.MRecyclerView>

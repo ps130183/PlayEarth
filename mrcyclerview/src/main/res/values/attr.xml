@@ -17,5 +17,9 @@
         <attr name="spanCount" format="integer"/>
         <attr name="dividerWidth" format="integer"/>
         <attr name="dividerColor" format="color"/>
+        <attr name="adapterType" format="enum">
+            <enum name="def" value="0"/>
+            <enum name="swipe" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

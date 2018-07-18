@@ -47,4 +47,13 @@ public class ScenicServiceModel extends BaseModel {
         return getService().freeTea(Constant.userLoginInfo.getToken(),clubId,personNum,startDate)
                 .compose(this.<PayOrderDto>applySchedulers());
     }
+
+    /**
+     * 分享赚球票
+     * @return
+     */
+    public Observable<String> taskShare(){
+        return getService().taskShare(Constant.userLoginInfo.getToken(),2)
+                .compose(this.<String>applySchedulers());
+    }
 }

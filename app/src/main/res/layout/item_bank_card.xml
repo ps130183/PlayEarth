@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/viewSpace16"
+    android:layout_marginLeft="@dimen/viewSpace16"
+    android:layout_marginRight="@dimen/viewSpace16"
+    android:background="@drawable/shape_bg_white_border_corner_5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/viewSpace16">
+
+        <com.ps.glidelib.GlideImageView
+            android:id="@+id/bankIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_icbc"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/viewSpace16"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bankName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="招商银行"
+                android:textColor="@color/text_color_block24"
+                android:textSize="@dimen/textSizeBig"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="储蓄卡"
+                android:textColor="@color/text_color_blocka"
+                android:textSize="@dimen/textSizeContent"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/bankCardNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="**** **** **** 3256"
+        android:gravity="right|center_vertical"
+        android:textSize="22sp"
+        android:textColor="@color/text_color_block24"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingBottom="@dimen/viewSpace16"
+        />
+
+</LinearLayout>

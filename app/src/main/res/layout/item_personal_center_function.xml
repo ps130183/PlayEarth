@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlContent"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/white"
+    android:paddingLeft="15dp">
+
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/functionImage"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/icon_personal_center_f1" />
+
+    <TextView
+        android:id="@+id/functionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/functionImage"
+        android:text="人脉"
+        android:textColor="@color/text_color_block24"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_arrow_right_block"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight0.5"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divide_color" />
+</RelativeLayout>

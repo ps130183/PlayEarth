@@ -32,6 +32,7 @@ import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.SystemBarHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
+import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 
 import java.util.ArrayList;
@@ -105,8 +106,11 @@ public class ClubActivity extends BaseActivity<IClubView,ClubPresenter> implemen
         }
         title = mClubDto.getClubName();
         mViewManager.setText(R.id.clubIntroduce,mClubDto.getContent());
-        GlideUtils.loadImage(mInstance,mClubDto.getClubLogo(),mViewManager.getImageView(R.id.clubLogo));
-        GlideUtils.loadImage(mInstance,mClubDto.getBackgroundImg(),mViewManager.getImageView(R.id.iv_background));
+        GlideImageView clubLogo = (GlideImageView) mViewManager.getImageView(R.id.clubLogo);
+        GlideUtils.loadImageOnPregress(clubLogo,mClubDto.getClubLogo(),null);
+
+        GlideImageView ivBackground = (GlideImageView) mViewManager.getImageView(R.id.iv_background);
+        GlideUtils.loadImageOnPregress(ivBackground,mClubDto.getBackgroundImg(),null);
 
         mViewManager.setText(R.id.attentionNum,mClubDto.getKeepCount() + "");
         mViewManager.setText(R.id.memberNum,TextUtils.isEmpty(mClubDto.getFans()) ? "0" : mClubDto.getFans());

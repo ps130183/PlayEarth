@@ -1,0 +1,129 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.account.withdraw.AddBankCardOneFragment">
+
+    <include layout="@layout/_default_divide_line" />
+
+    <RelativeLayout
+        android:id="@+id/selectBank"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/viewSpace16">
+
+        <TextView
+            android:id="@+id/bankTitle"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="所属银行"
+            android:textColor="@color/text_color_block24"
+            android:textSize="@dimen/textSizeContent" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/arrowRight"
+            android:layout_toRightOf="@+id/bankTitle">
+
+            <TextView
+                android:id="@+id/unCheckedBank"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                android:hint="请选择银行"
+                android:lines="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_color_block5"
+                android:textSize="@dimen/textSizeContent" />
+
+            <LinearLayout
+                android:id="@+id/checkedBank"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/viewSpace16"
+                android:visibility="gone">
+                <com.ps.glidelib.GlideImageView
+                    android:id="@+id/bankIcon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/icon_icbc" />
+
+                <TextView
+                    android:id="@+id/bankName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="中国工商银行"
+                    android:textColor="@color/text_color_block24"
+                    android:layout_marginLeft="@dimen/viewSpace8"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <ImageView
+            android:id="@+id/arrowRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_arrow_right_block" />
+    </RelativeLayout>
+
+    <include layout="@layout/_default_divide_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <include layout="@layout/_default_divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/viewSpace16"
+        >
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:textColor="@color/text_color_block5"
+            android:textSize="@dimen/textSizeContent" />
+
+        <EditText
+            android:id="@+id/bankPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:background="@color/white"
+            android:hint="请输入预留手机号"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLength="11"
+            android:textColor="@color/text_color_block24"
+            android:textSize="@dimen/textSizeContent" />
+    </LinearLayout>
+
+    <include layout="@layout/_default_divide_line" />
+
+    <Button
+        android:id="@+id/nextStep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/viewSpace16"
+        android:background="@drawable/selector_btn_bg_default"
+        android:text="下一步"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSizeBig" />
+
+</LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="选择所属银行"
+            android:textColor="@color/text_color_block24"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/viewSpace16"
+            android:src="@mipmap/icon_close3" />
+    </RelativeLayout>
+
+    <include layout="@layout/_default_divide_line" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.ps.mrcyclerview.MRecyclerView
+            android:id="@+id/bankRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.ps.mrcyclerview.MRecyclerView>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
+

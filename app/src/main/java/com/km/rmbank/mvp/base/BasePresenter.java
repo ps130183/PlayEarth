@@ -13,6 +13,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import retrofit2.HttpException;
 
 /**
@@ -90,15 +91,24 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
      * @return
      */
     protected <T> Observer<T> newSubscriber(final Consumer<? super T> onNext) {
-        return new Observer<T>() {
-
+        DisposableObserver<T> observer = new DisposableObserver<T>() {
             @Override
-            public void onComplete() {
-                mView.hideLoading();
+            public void onNext(T t) {
+                if (!isViewAttached()){
+                    return;
+                }
+                try {
+                    onNext.accept(t);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onError(Throwable e) {
+                if (!isViewAttached()){
+                    return;
+                }
                 if (e instanceof BaseModel.APIException) { //后台报的错误
                     BaseModel.APIException exception = (BaseModel.APIException) e;
                     mView.showError(exception.getMessage());
@@ -126,25 +136,20 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
                     e.printStackTrace();
                 }
 //                e.printStackTrace();
-                mView.hideLoading();
+                    mView.hideLoading();
+
             }
 
             @Override
-            public void onSubscribe(Disposable d) {
-                mCompositeDisposable.add(d);
-            }
-
-            @Override
-            public void onNext(T t) {
-//                mView.hideLoading();
-                try {
-                    onNext.accept(t);
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void onComplete() {
+                if (isViewAttached()){
+                    mView.hideLoading();
                 }
             }
-
         };
+
+        mCompositeDisposable.add(observer);
+        return observer;
     }
 
     public void clearSubscription() {
