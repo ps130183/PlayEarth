@@ -1,10 +1,13 @@
 package com.km.rmbank.dto;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by kamangkeji on 17/4/13.
  */
 
-public class MessageDto {
+public class MessageDto implements ItemDelegate {
 
     /**
      * content : 打算的萨达撒
@@ -17,6 +20,7 @@ public class MessageDto {
      * userId : 3
      */
 
+    private String title;
     private String content;
     private int contentType;
     private String createDate;
@@ -31,6 +35,14 @@ public class MessageDto {
      */
 
     private String header;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getContent() {
         return content;
@@ -102,5 +114,10 @@ public class MessageDto {
 
     public void setHeader(String header) {
         this.header = header;
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_rv_home_message;
     }
 }

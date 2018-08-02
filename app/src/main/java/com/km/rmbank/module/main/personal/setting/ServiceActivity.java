@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
@@ -28,12 +30,28 @@ public class ServiceActivity extends BaseActivity {
 
     }
 
-    private void callService(String phone){
-        DialogUtils.showDefaultAlertDialog("是否拨打客服电话：" + Constant.SERVICE_PHONE + "?", new DialogUtils.ClickListener() {
+    public void callService(View view) {
+        TextView telService = mViewManager.findView(R.id.tel_service);
+        final String phone = telService.getText().toString();
+        DialogUtils.showDefaultAlertDialog("是否拨打客服电话：" + phone + "?", new DialogUtils.ClickListener() {
             @Override
             public void clickConfirm() {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + Constant.SERVICE_PHONE);
+                Uri data = Uri.parse("tel:" + phone);
+                intent.setData(data);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void callTechnology(View view) {
+        TextView telService = mViewManager.findView(R.id.tel_technology);
+        final String phone = telService.getText().toString();
+        DialogUtils.showDefaultAlertDialog("是否拨打技术电话：" + phone + "?", new DialogUtils.ClickListener() {
+            @Override
+            public void clickConfirm() {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + phone);
                 intent.setData(data);
                 startActivity(intent);
             }

@@ -77,6 +77,11 @@ public class GlideImageView extends ShapeImageView {
         return this;
     }
 
+    public GlideImageView loadImageFitWidth(String url, int placeholderResId) {
+        getImageLoader().loadImageFitWidth(url, placeholderResId);
+        return this;
+    }
+
     public GlideImageView loadLocalImage(@DrawableRes int resId, int placeholderResId) {
         getImageLoader().loadLocalImage(resId, placeholderResId);
         return this;

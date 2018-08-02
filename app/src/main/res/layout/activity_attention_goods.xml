@@ -4,13 +4,13 @@
     android:id="@+id/activity_attention_goods"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.km.rmbank.module.main.personal.AttentionGoodsActivity">
+    tools:context="com.km.rmbank.module.main.personal.MyAttentionActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <com.ps.mrcyclerview.MRecyclerView
+        android:id="@+id/attentionRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.ps.mrcyclerview.MRecyclerView>
 
 </RelativeLayout>

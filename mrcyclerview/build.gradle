@@ -31,4 +31,5 @@ dependencies {
 
     implementation rootProject.ext.dependencies["recyclerview-v7"]
     implementation rootProject.ext.dependencies["swipelayout"]
+    implementation rootProject.ext.dependencies["xrefreshview"]
 }

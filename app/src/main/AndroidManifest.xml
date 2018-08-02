@@ -207,7 +207,7 @@
         <activity
             android:name=".module.main.personal.account.UserAccountActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".module.main.personal.AttentionGoodsActivity" />
+        <activity android:name=".module.main.personal.MyAttentionActivity" />
         <activity android:name=".module.main.personal.circlefriends.MyForumInfosActivity" />
         <activity android:name=".module.main.personal.circlefriends.ReleaseForumActivity" />
         <activity android:name=".module.main.personal.integral.MyIntegralActivity" />
@@ -284,7 +284,11 @@
         <activity android:name=".module.main.card.SelectIndustryActivity" />
         <activity android:name=".module.main.personal.task.PlayEarthTaskActivity" />
         <activity android:name=".module.main.personal.task.EarthTaskDetailsActivity" />
-        <activity android:name=".module.main.personal.setting.ServiceActivity"></activity>
+        <activity android:name=".module.main.personal.setting.ServiceActivity" />
+        <activity android:name=".module.main.personal.profession.ProfessionIntroduceActivity" />
+        <activity android:name=".module.main.personal.profession.ProfessionIdentificationActivity" />
+        <activity android:name=".module.main.personal.profession.ProfessionFinishedActivity"/>
+        <activity android:name=".module.main.personal.crowd.CrowdFundingActivity"/>
     </application>
 
 </manifest>

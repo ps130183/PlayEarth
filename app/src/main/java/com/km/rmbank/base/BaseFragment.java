@@ -125,6 +125,9 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
      * @param message
      */
     protected void showToast(String message) {
+        if (getActivity() == null){
+            return;
+        }
         if (mToast == null) {
             mToast = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
         } else {

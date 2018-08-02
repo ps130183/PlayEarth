@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.profession.ProfessionIdentificationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15sp"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请上传名片、工牌或企业营业执照"
+            android:textSize="15sp"
+            android:textColor="@color/text_color_block24"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp">
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/uploadImage"
+                android:layout_width="215dp"
+                android:layout_height="108dp"
+                android:src="@drawable/profession_upload1"
+                android:onClick="selectImage"/>
+            <ImageView
+                android:id="@+id/openCamera"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/icon_profession_upload"
+                android:layout_centerInParent="true"
+                android:onClick="selectImage"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profession_hint"
+            android:textColor="@color/text_color_block24"
+            android:textSize="14sp"
+            android:lineSpacingMultiplier="1.3"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提交"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/selector_btn_bg_default"
+        android:layout_marginLeft="@dimen/viewSpace16"
+        android:layout_marginRight="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace64"
+        android:enabled="false"
+        android:onClick="submit"
+        />
+    
+</LinearLayout>

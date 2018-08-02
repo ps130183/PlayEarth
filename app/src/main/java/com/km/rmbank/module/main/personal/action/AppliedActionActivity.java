@@ -2,17 +2,29 @@ package com.km.rmbank.module.main.personal.action;
 
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
 import com.km.rmbank.R;
+import com.km.rmbank.adapter.ViewPagerTabAdapter;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.AppointDto;
+import com.km.rmbank.dto.GoodsDetailsDto;
+import com.km.rmbank.entity.TabEntity;
+import com.km.rmbank.module.main.shop.GoodsDetailsFragment;
+import com.km.rmbank.module.main.shop.GoodsEvaluateFragment;
+import com.km.rmbank.module.main.shop.GoodsInfoFragment;
 import com.km.rmbank.mvp.model.AppointModel;
 import com.km.rmbank.mvp.presenter.AppointPresenter;
 import com.km.rmbank.mvp.view.AppointView;
+import com.km.rmbank.titleBar.AppliedActionTitleBar;
+import com.km.rmbank.titleBar.GoodsToolBar;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.DateUtils;
 import com.ps.commonadapter.adapter.CommonViewHolder;
@@ -29,12 +41,17 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class AppliedActionActivity extends BaseActivity<AppointView, AppointPresenter> implements AppointView {
+public class AppliedActionActivity extends BaseActivity {
 
-    @BindView(R.id.actionRecycler)
-    RecyclerView actionRecycler;
+    private String[] mTitle = {"已报名", "已结束"};
+    @BindView(R.id.s_tab_layout)
+    SlidingTabLayout mTabLayout;
 
-    private List<AppointDto> appointList;
+    @BindView(R.id.viewPager)
+    ViewPager mViewPager;
+
+
+
 
     @Override
     public int getContentViewRes() {
@@ -43,80 +60,41 @@ public class AppliedActionActivity extends BaseActivity<AppointView, AppointPres
 
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
-        SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setTitleContent("已报名活动");
+        AppliedActionTitleBar actionTitleBar = (AppliedActionTitleBar) titleBar;
+        actionTitleBar.setOnClickBackListener(new GoodsToolBar.OnClickBackListener() {
+            @Override
+            public void clickBack() {
+                finish();
+            }
+        });
     }
 
     @Override
-    protected AppointPresenter createPresenter() {
-        return new AppointPresenter(new AppointModel());
+    public BaseTitleBar getBaseTitleBar() {
+        return new AppliedActionTitleBar();
     }
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
-        initRecycler();
+        initViewPager();
     }
 
-    private void initRecycler() {
-        appointList = new ArrayList<>();
 
-        RecyclerAdapterHelper<AppointDto> mHelper = new RecyclerAdapterHelper<>(actionRecycler);
-        mHelper.addLinearLayoutManager()
-                .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
-                .addCommonAdapter(R.layout.item_appoint, appointList, new RecyclerAdapterHelper.CommonConvert<AppointDto>() {
-                    @Override
-                    public void convert(CommonViewHolder holder, AppointDto mData, int position) {
-                        holder.addRippleEffectOnClick();
-                        GlideImageView imageView = (GlideImageView) holder.getImageView(R.id.actionImae);
-                        CircleProgressView progressView = holder.findView(R.id.progressView);
-                        GlideUtils.loadImageOnPregress(imageView, mData.getActivityPictureUrl(), progressView);
-                        holder.setText(R.id.actionTitle, mData.getTitle());
-                        holder.setText(R.id.actionTime, "举办时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()), DateUtils.YMDHM));
+    /**
+     * 加载已报名 和 已结束 两个fragment
+     */
+    private void initViewPager() {
 
-                        holder.getTextView(R.id.memberNum).setVisibility(View.GONE);
-                        holder.getTextView(R.id.hint).setVisibility(View.GONE);
-//                        holder.getTextView(R.id.baoming).setVisibility(View.GONE);
-                        holder.setText(R.id.actionAddress, "地址：" + mData.getAddress());
-                        holder.setText(R.id.free, mData.getStatus());
-
-                    }
-                }).addLoadMoreWrapper(new LoadMoreWrapper.OnLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequest(LoadMoreWrapper wrapper, int nextPage) {
-                getPresenter().getAppointAppliedList(nextPage, wrapper);
-            }
-        }).create();
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<AppointDto>() {
-            @Override
-            public void onItemClick(CommonViewHolder holder, AppointDto data, int position) {
-                Bundle bundle = new Bundle();
-//                bundle.putString("actionId", data.getId());
-                bundle.putParcelable("action",data);
-                startActivity(AppliedActionInfoActivity.class, bundle);
-            }
-
-            @Override
-            public boolean onItemLongClick(CommonViewHolder holder, AppointDto data, int position) {
-                return false;
-            }
-
-        });
-        getPresenter().getAppointAppliedList(1, null);
-    }
-
-    @Override
-    public void showAppointList(LoadMoreWrapper wrapper, List<AppointDto> appointDtos) {
-        if (wrapper == null) {
-            appointList.clear();
-        } else {
-            wrapper.setLoadMoreFinish(appointDtos.size());
+        List<CustomTabEntity> mTitleList = new ArrayList<>();
+        for (String title : mTitle) {
+            mTitleList.add(new TabEntity(title,0,0));
         }
-        appointList.addAll(appointDtos);
-        actionRecycler.getAdapter().notifyDataSetChanged();
-    }
 
-    @Override
-    public void applyActionSuccess(String actionId) {
-
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(ActionAppliedFragment.newInstance(null));//商品信息
+        fragments.add(ActionFinishedFragment.newInstance(null));//商品详情
+        ViewPagerTabAdapter adapter = new ViewPagerTabAdapter(this.getSupportFragmentManager(), fragments, mTitleList);
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setViewPager(mViewPager);
     }
 }

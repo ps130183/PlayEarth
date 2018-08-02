@@ -91,6 +91,21 @@ public class GlideUtils {
         });
     }
 
+    public static void loadImageFitWidth(GlideImageView imageView,String imagePath, final CircleProgressView progressView){
+        imageView.loadImageFitWidth(imagePath,R.color.placeholder_color).listener(new OnGlideImageViewListener() {
+            @Override
+            public void onProgress(int percent, boolean isDone, GlideException exception) {
+                if (progressView != null){
+                    if (exception != null && !TextUtils.isEmpty(exception.getMessage())) {
+//                        Toast.makeText(tagImageView.getContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    progressView.setProgress(percent);
+                    progressView.setVisibility(isDone ? View.GONE : View.VISIBLE);
+                }
+            }
+        });
+    }
+
     public static void loadImage(Context context, int imageRes, ImageView imageView){
         GlideApp.with(context)
                 .load(imageRes)

@@ -50,7 +50,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
     private int activeValueAll;
     private int isNotEditCard;
     private String service;
-    private String roleId;
+    private String roleId; //5:众筹合伙人
     private String clubId;
     /**
      * keepCount : 5

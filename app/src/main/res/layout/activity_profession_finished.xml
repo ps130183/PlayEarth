@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.profession.ProfessionFinishedActivity">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/icon_time"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已成功提交认证"
+        android:textSize="@dimen/textSizeHuge"
+        android:textColor="@color/text_color_block1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/viewSpace16"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统审核大概需要1-3个工作日，审核通过后将会以消息或短信通知到您，请您耐心等待！"
+        android:padding="@dimen/viewSpace32"
+        android:textColor="@color/text_color_block5"
+        android:textSize="@dimen/textSizeContent"
+        android:lineSpacingMultiplier="1.3"
+        android:gravity="center"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/selector_btn_bg_default"
+        android:layout_marginLeft="@dimen/viewSpace16"
+        android:layout_marginRight="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace32"
+        android:onClick="confirm"
+        />
+
+</LinearLayout>

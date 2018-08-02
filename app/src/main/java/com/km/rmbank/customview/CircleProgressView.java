@@ -1,10 +1,12 @@
 package com.km.rmbank.customview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -37,8 +39,22 @@ public class CircleProgressView extends View {
 
     private String mTxtHint2;
 
+    private int backgroundColor;
+    private int finishedColor;
+    private int unfinishColor;
+
+
     public CircleProgressView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
+    }
+
+
+    public CircleProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressView);
+        backgroundColor = typedArray.getColor(R.styleable.CircleProgressView_backgroundColor,this.getResources().getColor(R.color.transparency_gray_50));
+        finishedColor = typedArray.getColor(R.styleable.CircleProgressView_finishedColor,0xff999999);
+        unfinishColor = typedArray.getColor(R.styleable.CircleProgressView_unfinishColor,0xffe9e9e9);
 
         mContext = context;
         mRectF = new RectF();
@@ -61,7 +77,7 @@ public class CircleProgressView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setColor(Color.rgb(0xe9, 0xe9, 0xe9));
 //        canvas.drawColor(Color.TRANSPARENT);
-        canvas.drawColor(this.getResources().getColor(R.color.transparency_gray_50));
+        canvas.drawColor(backgroundColor);
         mPaint.setStrokeWidth(mCircleLineStrokeWidth);
         mPaint.setStyle(Paint.Style.STROKE);
         // 位置
@@ -72,7 +88,7 @@ public class CircleProgressView extends View {
 
         // 绘制圆圈，进度条背景
         canvas.drawArc(mRectF, -90, 360, false, mPaint);
-        mPaint.setColor(Color.rgb(0xf8, 0x60, 0x30));
+        mPaint.setColor(unfinishColor);
         canvas.drawArc(mRectF, -90, ((float) mProgress / mMaxProgress) * 360, false, mPaint);
 
         // 绘制进度文案显示
@@ -89,7 +105,7 @@ public class CircleProgressView extends View {
             text = mTxtHint1;
             textHeight = height / 8;
             mPaint.setTextSize(textHeight);
-            mPaint.setColor(Color.rgb(0x99, 0x99, 0x99));
+            mPaint.setColor(finishedColor);
             textWidth = (int) mPaint.measureText(text, 0, text.length());
             mPaint.setStyle(Paint.Style.FILL);
             canvas.drawText(text, width / 2 - textWidth / 2, height / 4 + textHeight / 2, mPaint);

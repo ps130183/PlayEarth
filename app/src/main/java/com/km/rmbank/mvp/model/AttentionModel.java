@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.model;
 
+import com.km.rmbank.dto.AttentionDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.GoodsDto;
 import com.km.rmbank.mvp.base.BaseModel;
@@ -20,9 +21,20 @@ public class AttentionModel extends BaseModel {
      * @param pageNo
      * @return
      */
-    public Observable<List<GoodsDto>> getAttentionGoodsList(int pageNo){
+    public Observable<List<AttentionDto>> getAttentionGoodsList(int pageNo){
         return getService()
                 .getAttentionGoodsList(Constant.userLoginInfo.getToken(),pageNo)
+                .compose(this.<List<AttentionDto>>applySchedulers());
+    }
+
+    /**
+     * 获取关注商品列表
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<GoodsDto>> getAttentionGoodsList1(int pageNo){
+        return getService()
+                .getAttentionGoodsList1(Constant.userLoginInfo.getToken(),pageNo)
                 .compose(this.<List<GoodsDto>>applySchedulers());
     }
 

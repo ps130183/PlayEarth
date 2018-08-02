@@ -32,8 +32,8 @@ public class AppointPresenter extends BasePresenter<AppointView,AppointModel> {
                 }));
     }
 
-    public void getAppointAppliedList(int pageNo, final LoadMoreWrapper wrapper){
-        getMvpModel().getAppointAppliedLists(pageNo)
+    public void getAppointAppliedList(String timeType,int pageNo, final LoadMoreWrapper wrapper){
+        getMvpModel().getAppointAppliedLists(timeType,pageNo)
                 .subscribe(newSubscriber(new Consumer<List<AppointDto>>() {
                     @Override
                     public void accept(List<AppointDto> actionDtos) throws Exception {

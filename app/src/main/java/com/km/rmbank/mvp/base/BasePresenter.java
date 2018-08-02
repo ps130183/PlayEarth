@@ -136,7 +136,9 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
                     e.printStackTrace();
                 }
 //                e.printStackTrace();
+                if (isViewAttached()){
                     mView.hideLoading();
+                }
 
             }
 

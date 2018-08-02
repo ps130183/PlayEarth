@@ -11,6 +11,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.adapter.MyAttentionAdapter;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
+import com.km.rmbank.dto.AttentionDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.GoodsDto;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
@@ -89,7 +90,12 @@ public class AttentionGoodsActivity extends BaseActivity<IAttentionView,Attentio
     }
 
     @Override
-    public void getAttentionGoodsSuccess(List<GoodsDto> goodsDtos, int pageNo) {
+    public void getAttentionGoodsSuccess(List<AttentionDto> goodsDtos, int pageNo) {
+
+    }
+
+    @Override
+    public void getAttentionGoodsSuccess1(List<GoodsDto> goodsDtos, int pageNo) {
         adapter.addData(goodsDtos,pageNo);
     }
 

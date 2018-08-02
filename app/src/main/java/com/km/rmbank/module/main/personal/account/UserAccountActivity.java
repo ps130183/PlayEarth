@@ -59,6 +59,7 @@ public class UserAccountActivity extends BaseActivity<IUserAccountView,UserAccou
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
+        initAccountDetail();
     }
 
     @Override
@@ -83,6 +84,20 @@ public class UserAccountActivity extends BaseActivity<IUserAccountView,UserAccou
     public void withDraw(View view) {
 //        startActivity(WithDrawListActivity.class);
         startActivity(WithdrawDepositActivity.class);
+    }
+
+    public void initAccountDetail() {
+//        RVUtils.setLinearLayoutManage(mRecyclerView, LinearLayoutManager.VERTICAL);
+//        RVUtils.addDivideItemForRv(mRecyclerView, RVUtils.DIVIDER_COLOR_ACCOUNT_DETAILS, 2);
+//        final UserAccountDetailAdapter adapter = new UserAccountDetailAdapter(this);
+//        mRecyclerView.setAdapter(adapter);
+//        adapter.addLoadMore(mRecyclerView, new BaseAdapter.MoreDataListener() {
+//            @Override
+//            public void loadMoreData() {
+//                getPresenter().loadAccountDetail(adapter.getNextPage());
+//            }
+//        });
+
     }
 
     @Override

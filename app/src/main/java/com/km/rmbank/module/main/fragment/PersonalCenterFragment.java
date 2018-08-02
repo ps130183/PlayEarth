@@ -20,7 +20,7 @@ import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.main.card.UserCardActivity;
 import com.km.rmbank.module.main.message.MessageActivity;
-import com.km.rmbank.module.main.personal.AttentionGoodsActivity;
+import com.km.rmbank.module.main.personal.MyAttentionActivity;
 import com.km.rmbank.module.main.personal.account.UserAccountActivity;
 import com.km.rmbank.module.main.personal.action.AppliedActionActivity;
 import com.km.rmbank.module.main.personal.contacts.MyTeamActivity;
@@ -35,7 +35,6 @@ import com.km.rmbank.mvp.presenter.UserPresenter;
 import com.km.rmbank.mvp.view.IUserView;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.ViewUtils;
-import com.km.rmbank.utils.dialog.DialogUtils;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.mrcyclerview.BViewHolder;
@@ -183,7 +182,7 @@ public class PersonalCenterFragment extends BaseFragment<IUserView,UserPresenter
                         startActivity(AppliedActionActivity.class);
                         break;
                     case 3://关注
-                        startActivity(AttentionGoodsActivity.class);
+                        startActivity(MyAttentionActivity.class);
                         break;
                     case 4://消息
                         startActivity(MessageActivity.class);

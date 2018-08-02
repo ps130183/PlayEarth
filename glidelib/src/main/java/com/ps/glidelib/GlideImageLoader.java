@@ -23,6 +23,7 @@ import com.ps.glidelib.progress.OnProgressListener;
 import com.ps.glidelib.progress.ProgressManager;
 import com.ps.glidelib.transformation.GlideCircleTransformation;
 import com.ps.glidelib.transformation.GlideImageViewFitHeight;
+import com.ps.glidelib.transformation.GlideImageViewFitWidth;
 
 import java.lang.ref.WeakReference;
 
@@ -150,12 +151,23 @@ public class GlideImageLoader {
                 .diskCacheStrategy(DiskCacheStrategy.NONE); // 不缓存到SDCard中;
     }
 
+    public RequestOptions FitWidthRquestOptions(int placeholderResId, int errorResId){
+        return requestOptions(placeholderResId,errorResId)
+                .transform(new GlideImageViewFitWidth(getImageView()))
+//                .centerCrop();
+                .skipMemoryCache(true) // 跳过内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.NONE); // 不缓存到SDCard中;
+    }
+
     public void loadImage(String url, int placeholderResId) {
         load(url, requestOptions(placeholderResId));
     }
 
     public void loadImageFitHeight(String url, int placeholderResId) {
         load(url, FitHeightRquestOptions(placeholderResId,R.drawable.load_image_fail));
+    }
+    public void loadImageFitWidth(String url, int placeholderResId) {
+        load(url, FitWidthRquestOptions(placeholderResId,R.drawable.load_image_fail));
     }
 
     public void loadLocalImage(@DrawableRes int resId, int placeholderResId) {

@@ -28,4 +28,10 @@
         <attr name="step_check_color" format="color"/>
         <attr name="step_not_check_color" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="CircleProgressView">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="finishedColor" format="color"/>
+        <attr name="unfinishColor" format="color"/>
+    </declare-styleable>
 </resources>

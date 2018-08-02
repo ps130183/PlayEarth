@@ -21,5 +21,15 @@
             <enum name="def" value="0"/>
             <enum name="swipe" value="1"/>
         </attr>
+        <attr name="refresh" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="Gif1View">
+        <attr name="gif" format="reference" />
+        <attr name="paused" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTheme">
+        <attr name="gifViewStyle" format="reference" />
     </declare-styleable>
 </resources>

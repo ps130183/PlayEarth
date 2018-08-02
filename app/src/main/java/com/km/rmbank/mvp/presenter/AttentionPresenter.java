@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.presenter;
 
+import com.km.rmbank.dto.AttentionDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.GoodsDto;
 import com.km.rmbank.mvp.base.BasePresenter;
@@ -24,10 +25,21 @@ public class AttentionPresenter extends BasePresenter<IAttentionView,AttentionMo
     public void getAttentionGoods(final int pageNo) {
         getMvpView().showLoading();
         getMvpModel().getAttentionGoodsList(pageNo)
+                .subscribe(newSubscriber(new Consumer<List<AttentionDto>>() {
+                    @Override
+                    public void accept(@NonNull List<AttentionDto> goodsDtos) throws Exception {
+                        getMvpView().getAttentionGoodsSuccess(goodsDtos,pageNo);
+                    }
+                }));
+    }
+
+    public void getAttentionGoods1(final int pageNo) {
+        getMvpView().showLoading();
+        getMvpModel().getAttentionGoodsList1(pageNo)
                 .subscribe(newSubscriber(new Consumer<List<GoodsDto>>() {
                     @Override
                     public void accept(@NonNull List<GoodsDto> goodsDtos) throws Exception {
-                        getMvpView().getAttentionGoodsSuccess(goodsDtos,pageNo);
+                        getMvpView().getAttentionGoodsSuccess1(goodsDtos,pageNo);
                     }
                 }));
     }

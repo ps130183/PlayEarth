@@ -3,11 +3,14 @@ package com.km.rmbank.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by PengSong on 18/1/17.
  */
 
-public class AppointDto implements Parcelable {
+public class AppointDto implements Parcelable,ItemDelegate {
 
     /**
      * activityPictureUrl : http://47.93.184.121:8080/wzdq/Aiyg/aiygImage/2018/01/394afd846a1e4be48308e8f6c2ea06e8.png
@@ -46,6 +49,24 @@ public class AppointDto implements Parcelable {
     private String newType;
     private String videoUrl;
 
+    private String isDynamic;
+    private String activityId;
+
+    public String getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(String activityId) {
+        this.activityId = activityId;
+    }
+
+    public String getIsDynamic() {
+        return isDynamic;
+    }
+
+    public void setIsDynamic(String isDynamic) {
+        this.isDynamic = isDynamic;
+    }
 
     public String getActivityPictureUrl() {
         return activityPictureUrl;
@@ -151,6 +172,14 @@ public class AppointDto implements Parcelable {
         this.videoUrl = videoUrl;
     }
 
+    public AppointDto() {
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_appoint;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -171,9 +200,7 @@ public class AppointDto implements Parcelable {
         dest.writeString(this.clubId);
         dest.writeString(this.newType);
         dest.writeString(this.videoUrl);
-    }
-
-    public AppointDto() {
+        dest.writeString(this.isDynamic);
     }
 
     protected AppointDto(Parcel in) {
@@ -190,9 +217,10 @@ public class AppointDto implements Parcelable {
         this.clubId = in.readString();
         this.newType = in.readString();
         this.videoUrl = in.readString();
+        this.isDynamic = in.readString();
     }
 
-    public static final Parcelable.Creator<AppointDto> CREATOR = new Parcelable.Creator<AppointDto>() {
+    public static final Creator<AppointDto> CREATOR = new Creator<AppointDto>() {
         @Override
         public AppointDto createFromParcel(Parcel source) {
             return new AppointDto(source);

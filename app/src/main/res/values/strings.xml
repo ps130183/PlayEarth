@@ -41,6 +41,20 @@
 2. 分享好友，成功购买1人享受返现红包不低于30元，次数不限，红包返现\n
 </string>
 
+    <string name="profession_introduce">
+        尊敬的会员：\n
+        \t\t\t\t您好！\n
+        \t\t\t\t现在认证您的公司职业信息，即可查看所有玩家的动态、供应、需求及活动等信息，还能让更多优质玩家来了解您、结识您，扩充自己的人脉库！\n
+        \t\t\t\t快来认证吧!\n
+    </string>
+
+    <string name="profession_hint">
+        拍摄要求：\n
+        \t\t1.文字应清晰可见；\n
+        \t\t2.确保公司/职位、姓名信息区域拍摄清晰；\n
+        \t\t3.企业名称必须与您填写的名称一致。\n
+    </string>
+
     <string name="certifyIDCardHint">为保障您的会员权益，需要您先实名认证，去认证 ></string>
     <string name="memberHint">长期绑定用户，需要您成为玩家合伙人，去成为合伙人 ></string>
 </resources>

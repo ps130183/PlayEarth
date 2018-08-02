@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.andview.refreshview.XRefreshView;
 import com.ps.mrcyclerview.click.OnClickItemListener;
 import com.ps.mrcyclerview.click.OnLoadMoreErrorListener;
 import com.ps.mrcyclerview.click.OnLongClickItemListener;
@@ -23,6 +24,8 @@ import com.ps.mrcyclerview.delegate.MoreFinishDelegate;
 import com.ps.mrcyclerview.divider.GridDividerItemDecotation;
 import com.ps.mrcyclerview.divider.LinearDividerItemDecoration;
 import com.ps.mrcyclerview.divider.StaggeredGridDividerItemDecoration;
+import com.ps.mrcyclerview.refresh.CustomGifHeader;
+import com.ps.mrcyclerview.utils.RefreshUtils;
 
 import java.util.List;
 
@@ -68,6 +71,11 @@ public class MRecyclerView<D> extends FrameLayout {
 
     private int adapterType;
 
+    //下拉刷新
+    private XRefreshView mXRefreshView = null;
+    private boolean isRefresh;
+    private RefreshUtils.OnRefreshListener refreshListener;
+
 
     public MRecyclerView(Context context) {
         this(context,null);
@@ -93,6 +101,7 @@ public class MRecyclerView<D> extends FrameLayout {
         dividerColor = ta.getColor(R.styleable.MRecyclerView_dividerColor,0xffefeff4);
 
         adapterType = ta.getInt(R.styleable.MRecyclerView_adapterType,ADAPTER_DEFAULT);
+        isRefresh = ta.getBoolean(R.styleable.MRecyclerView_refresh,false);
         initRecycler();
     }
 
@@ -106,7 +115,17 @@ public class MRecyclerView<D> extends FrameLayout {
         mRecyclerView = new RecyclerView(this.getContext());
         FrameLayout.LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
         mRecyclerView.setLayoutParams(lp);
-        this.addView(mRecyclerView);
+        if (isRefresh){
+            mXRefreshView = new XRefreshView(this.getContext());
+            LayoutParams lp1 = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+            mXRefreshView.setLayoutParams(lp1);
+            this.addView(mXRefreshView);
+
+            mXRefreshView.addView(mRecyclerView);
+        } else {
+            this.addView(mRecyclerView);
+        }
+
 
         if (lmType == LM_LINEAR){
             addLinearLayoutManager(orientation == ORIENTATION_VERTICAL ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
@@ -150,6 +169,75 @@ public class MRecyclerView<D> extends FrameLayout {
         return this;
     }
 
+    public void addRefreshListener(final RefreshUtils.OnRefreshListener listener) {
+        this.refreshListener = listener;
+        if (isRefresh && refreshListener != null) {
+            initXRefreshView(mXRefreshView, listener);
+        }
+    }
+
+
+    private XRefreshView initXRefreshView(XRefreshView xRefreshView){
+        if (xRefreshView != null){
+            xRefreshView.setPullLoadEnable(false);
+            xRefreshView.setPullRefreshEnable(false);
+            xRefreshView.setAutoLoadMore(false);
+            xRefreshView.setPinnedTime(1000);
+            xRefreshView.setMoveForHorizontal(true);
+        }
+        return xRefreshView;
+    }
+
+    public void initXRefreshView(XRefreshView xRefreshView, final RefreshUtils.OnRefreshListener refreshListener){
+        if (xRefreshView == null){
+            throw new IllegalArgumentException("XRefreshView不能为null,请先设置XRefreshView");
+        }
+        initXRefreshView(xRefreshView);
+        xRefreshView.setPullRefreshEnable(true);//设置可以下拉刷新
+        xRefreshView.setCustomHeaderView(new CustomGifHeader(xRefreshView.getContext()));//样式
+        xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener(){
+            @Override
+            public void onRefresh(boolean isPullDown) {
+                clear();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (refreshListener != null){
+                            refreshListener.refresh();
+                        }
+                    }
+                },2000);
+            }
+        });
+    }
+
+    public interface OnRefreshListener{
+        void refresh();
+    }
+
+
+
+    public XRefreshView getmXRefreshView() {
+        return mXRefreshView;
+    }
+
+    /**
+     * 开启刷新
+     */
+    public void startRefresh(){
+        if (isRefresh){
+            getmXRefreshView().startRefresh();
+        }
+    }
+
+    /**
+     * 停止刷新
+     */
+    public void stopRefresh(){
+        if (isRefresh && getmXRefreshView().mPullRefreshing){
+            getmXRefreshView().stopRefresh();
+        }
+    }
 
     /**
      * 网格布局

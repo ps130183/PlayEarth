@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/banner_crowd_funding" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/viewSpace16"
+        android:paddingRight="@dimen/viewSpace16"
+        android:paddingTop="24dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/icon_person" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/viewSpace4"
+            android:layout_marginRight="@dimen/viewSpace4"
+            android:text="玩小球"
+            android:textColor="@color/text_color_block24"
+            android:textSize="@dimen/textSizeContent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_crowd_funding_faqiren"
+            android:paddingBottom="@dimen/viewSpace2"
+            android:paddingLeft="@dimen/viewSpace4"
+            android:paddingRight="@dimen/viewSpace4"
+            android:paddingTop="@dimen/viewSpace2"
+            android:text="发起人"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textSizeSmall" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sumAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/text_color_blue"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="目标金额(元)"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/divideLineHeight"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:background="#45c9ff" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sumPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#f7a94f"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已筹金额(元)"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="@dimen/divideLineHeight"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="24dp"
+            android:background="#45c9ff" />
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.ps.glidelib.progress.CircleProgressView
+                android:id="@+id/progress"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:progress="75" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/viewSpace16">
+
+        <ImageView
+            android:id="@+id/icon_left"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/icon_crowd_funding_details" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/viewSpace8"
+            android:text="众筹详情"
+            android:textColor="@color/text_color_block24"
+            android:textSize="16sp"
+            android:layout_toRightOf="@+id/icon_left"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="助力人数："
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="@color/text_color_block24"
+            android:layout_toLeftOf="@+id/person_number"
+            />
+        <TextView
+            android:id="@+id/person_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="112"
+            android:textSize="@dimen/textSizeBig"
+            android:textColor="#f7a94f"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/viewSpace16"
+        android:background="@color/background_color">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="助力人"
+            android:gravity="center"
+            android:textColor="@color/text_color_block87"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="金额"
+            android:gravity="center"
+            android:textColor="@color/text_color_block87"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="时间"
+            android:gravity="center"
+            android:textColor="@color/text_color_block87"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>

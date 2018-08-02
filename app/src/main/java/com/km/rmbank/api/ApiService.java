@@ -11,6 +11,7 @@ import com.km.rmbank.dto.ActiveValueDetailDto;
 import com.km.rmbank.dto.ActiveValueDto;
 import com.km.rmbank.dto.AppVersionDto;
 import com.km.rmbank.dto.AppointDto;
+import com.km.rmbank.dto.AttentionDto;
 import com.km.rmbank.dto.BankDto;
 import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.CalendarActionsDto;
@@ -19,8 +20,8 @@ import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.EarthTaskDetailsDto;
 import com.km.rmbank.dto.EarthTaskDto;
+import com.km.rmbank.dto.MyCrowdFundingInfoDto;
 import com.km.rmbank.dto.TaskSignInDto;
-import com.km.rmbank.entity.EarthTaskEntity;
 import com.km.rmbank.dto.EvaluateDto;
 import com.km.rmbank.dto.ForumInfoDto;
 import com.km.rmbank.dto.GoodsDetailsDto;
@@ -744,8 +745,19 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/keep/product/list")
-    Observable<Response<List<GoodsDto>>> getAttentionGoodsList(@Field("token") String token,
+    Observable<Response<List<GoodsDto>>> getAttentionGoodsList1(@Field("token") String token,
                                                                @Field("pageNo") int pageNo);
+
+    /**
+     * 关注商品列表
+     *
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/keep/product/list")
+    Observable<Response<List<AttentionDto>>> getAttentionGoodsList(@Field("token") String token,
+                                                                   @Field("pageNo") int pageNo);
 
     /**
      * 获取活动列表
@@ -1279,7 +1291,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/apply/activity/list")
     Observable<Response<List<AppointDto>>> getActionAppliedList(@Field("token") String token,
-                                                                @Field("pageNo") int pageNo);
+                                                                @Field("pageNo") int pageNo,
+                                                                @Field("timeType") String timeType);
 
     /**
      * 报名
@@ -1978,4 +1991,24 @@ public interface ApiService {
     @POST(ApiConstant.API_MODEL + "/auth/ballWrit/share")
     Observable<Response<String>> taskShare(@Field("token") String token,
                                            @Field("shareType") int shareType);
+
+    /**
+     * 提交职位认证
+     * @param token
+     * @param positionUrl
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/insert/position")
+    Observable<Response<String>> submitProfessionIdentification(@Field("token") String token,
+                                                                @Field("positionUrl") String positionUrl);
+
+    /**
+     * 我的众筹信息
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/getAllPayList")
+    Observable<Response<MyCrowdFundingInfoDto>> getMyCrowdFundingInfo(@Field("token") String token);
 }
