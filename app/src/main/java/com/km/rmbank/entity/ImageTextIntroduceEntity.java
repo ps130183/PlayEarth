@@ -1,10 +1,13 @@
 package com.km.rmbank.entity;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by PengSong on 18/1/26.
  */
 
-public class ImageTextIntroduceEntity {
+public class ImageTextIntroduceEntity implements ItemDelegate {
     private String content;
     private int imageRes;
     private String imageUrl;
@@ -41,5 +44,10 @@ public class ImageTextIntroduceEntity {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_image_text_introduce;
     }
 }

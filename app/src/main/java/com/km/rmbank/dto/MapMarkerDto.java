@@ -3,11 +3,14 @@ package com.km.rmbank.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by PengSong on 18/2/7.
  */
 
-public class MapMarkerDto implements Parcelable {
+public class MapMarkerDto implements Parcelable,ItemDelegate {
     private String clubName;
     private String id;
 
@@ -227,4 +230,9 @@ public class MapMarkerDto implements Parcelable {
             return new MapMarkerDto[size];
         }
     };
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_scenic_list;
+    }
 }

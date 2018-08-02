@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.km.rmbank.module.main.personal.ticket.TicketListActivity">
 
-    <android.support.v7.widget.RecyclerView
+    <com.ps.mrcyclerview.MRecyclerView
         android:id="@+id/ticketRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:refresh="true">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.ps.mrcyclerview.MRecyclerView>
 
 </FrameLayout>

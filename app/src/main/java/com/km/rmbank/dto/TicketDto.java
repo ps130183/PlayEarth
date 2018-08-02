@@ -3,11 +3,14 @@ package com.km.rmbank.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by PengSong on 18/2/10.
  */
 
-public class TicketDto implements Parcelable {
+public class TicketDto implements Parcelable,ItemDelegate {
 
     /**
      * createDate : 1517996574000
@@ -127,23 +130,6 @@ public class TicketDto implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "TicketDto{" +
-                "createDate=" + createDate +
-                ", name='" + name + '\'' +
-                ", num='" + num + '\'' +
-                ", status='" + status + '\'' +
-                ", ticketId='" + ticketId + '\'' +
-                ", ticketLogo='" + ticketLogo + '\'' +
-                ", ticketNo='" + ticketNo + '\'' +
-                ", type='" + type + '\'' +
-                ", userId='" + userId + '\'' +
-                ", validateTime=" + validateTime +
-                ", isChecked=" + isChecked +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -188,4 +174,9 @@ public class TicketDto implements Parcelable {
             return new TicketDto[size];
         }
     };
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_ticket;
+    }
 }

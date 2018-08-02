@@ -3,6 +3,9 @@ package com.km.rmbank.greendao.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
@@ -16,7 +19,7 @@ import org.greenrobot.greendao.annotation.Transient;
  */
 
 @Entity
-public class Contact implements Parcelable {
+public class Contact implements Parcelable,ItemDelegate {
 
     @Index
     @Id(autoincrement = true)
@@ -191,4 +194,9 @@ public class Contact implements Parcelable {
             return new Contact[size];
         }
     };
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_personal_contacts;
+    }
 }

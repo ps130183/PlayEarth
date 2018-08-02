@@ -2,20 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/divide_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.km.rmbank.module.main.appoint.AppointFragment">
 
-    <com.andview.refreshview.XRefreshView
-        android:id="@+id/xRefreshView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
+        <com.ps.mrcyclerview.MRecyclerView
             android:id="@+id/appointRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:refresh="true">
 
-        </android.support.v7.widget.RecyclerView>
-
-    </com.andview.refreshview.XRefreshView>
+        </com.ps.mrcyclerview.MRecyclerView>
 
 </FrameLayout>

@@ -1,7 +1,8 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +19,11 @@
 
         </cn.jzvd.JZVideoPlayerStandard>
 
-        <android.support.v7.widget.RecyclerView
+        <com.ps.mrcyclerview.MRecyclerView
             android:id="@+id/clubIntroduceRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:dividerWidth="0"/>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

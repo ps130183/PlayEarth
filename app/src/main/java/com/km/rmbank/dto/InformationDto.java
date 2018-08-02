@@ -3,11 +3,14 @@ package com.km.rmbank.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by kamangkeji on 17/4/20.
  */
 
-public class InformationDto implements Parcelable {
+public class InformationDto implements Parcelable,ItemDelegate {
     private String avatarUrl;
     private String id;
     private String title;
@@ -162,4 +165,9 @@ public class InformationDto implements Parcelable {
             return new InformationDto[size];
         }
     };
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_information;
+    }
 }

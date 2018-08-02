@@ -5,7 +5,9 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.google.gson.annotations.SerializedName;
+import com.km.rmbank.R;
 import com.km.rmbank.base.BaseEntity;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
  * Created by kamangkeji on 17/7/1.
  */
 
-public class ClubDto extends BaseEntity implements Parcelable {
+public class ClubDto extends BaseEntity implements ItemDelegate,Parcelable {
 
     /**
      * clubLogo : http://47.93.184.121/img/guest/201707/chanwu.jpg
@@ -305,6 +307,11 @@ public class ClubDto extends BaseEntity implements Parcelable {
 //            return isEmpty;
 //        }
         return false;
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_club;
     }
 
     public static class ClubDetailBean extends BaseEntity implements Parcelable {

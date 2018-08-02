@@ -2,23 +2,22 @@ package com.km.rmbank.module.main.scenic;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.entity.ImageTextIntroduceEntity;
-import com.ps.commonadapter.adapter.CommonViewHolder;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.glidelib.progress.CircleProgressView;
+import com.ps.mrcyclerview.BViewHolder;
+import com.ps.mrcyclerview.ItemViewConvert;
+import com.ps.mrcyclerview.MRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ import cn.jzvd.JZVideoPlayerStandard;
 public class ScenicIntroduceFragment extends BaseFragment {
 
     @BindView(R.id.introduceRecycler)
-    RecyclerView introduceRecycler;
+    MRecyclerView<ImageTextIntroduceEntity> introduceRecycler;
 
     @BindView(R.id.jzv_player)
     JZVideoPlayerStandard jzvPlayer;
@@ -69,18 +68,18 @@ public class ScenicIntroduceFragment extends BaseFragment {
             ImageTextIntroduceEntity entity = new ImageTextIntroduceEntity(detailBean.getClubContent(),detailBean.getClubImage());
             imageTextIntroduceEntities.add(entity);
         }
-        RecyclerAdapterHelper<ImageTextIntroduceEntity> mHelper = new RecyclerAdapterHelper<>(introduceRecycler);
-        mHelper.addLinearLayoutManager()
-                .addCommonAdapter(R.layout.item_image_text_introduce, imageTextIntroduceEntities, new RecyclerAdapterHelper.CommonConvert<ImageTextIntroduceEntity>() {
+
+        introduceRecycler.addContentLayout(R.layout.item_image_text_introduce, new ItemViewConvert<ImageTextIntroduceEntity>() {
             @Override
-            public void convert(CommonViewHolder holder, ImageTextIntroduceEntity mData, int position) {
+            public void convert(@NonNull BViewHolder holder, ImageTextIntroduceEntity mData, int position, @NonNull List<Object> payloads) {
                 holder.setText(R.id.content,mData.getContent());
                 GlideImageView imageView = holder.findView(R.id.image);
                 CircleProgressView progressView = holder.findView(R.id.progressView);
-//                GlideUtils.loadImage(getContext(),mData.getImageUrl(),imageView);
                 GlideUtils.loadImageOnPregress(imageView,mData.getImageUrl(),progressView);
             }
         }).create();
+
+        introduceRecycler.loadDataOfNextPage(imageTextIntroduceEntities);
     }
 
 }

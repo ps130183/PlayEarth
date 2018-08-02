@@ -22,7 +22,6 @@ import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.base.ItemViewDelegate;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
-import com.ps.glidelib.progress.CircleProgressView;
 
 import java.util.ArrayList;
 import java.util.List;

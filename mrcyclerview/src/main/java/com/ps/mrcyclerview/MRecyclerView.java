@@ -424,9 +424,16 @@ public class MRecyclerView<D> extends FrameLayout {
         }
     }
 
+    /**
+     * 当列表滑动  监听
+     * @param onScrollListener
+     */
+    public void addOnScrollListener(RecyclerView.OnScrollListener onScrollListener){
+        mRecyclerView.addOnScrollListener(onScrollListener);
+    }
     public void addLoadMoreListener(LoadMoreListener loadMoreListener){
         mLoadMoreListener = loadMoreListener;
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);

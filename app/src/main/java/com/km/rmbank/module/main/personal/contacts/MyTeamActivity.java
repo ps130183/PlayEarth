@@ -74,7 +74,6 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
             teamDtoList = new ArrayList<>();
         }
         RVUtils.setLinearLayoutManage(mRecyclerView, LinearLayoutManager.VERTICAL);
-//        RVUtils.addDivideItemForRv(mRecyclerView,RVUtils.DIVIDER_COLOR_DEFAULT,1);
         mTeamAdapter = new TeamAdapter(teamDtoList);
         mRecyclerView.setAdapter(mTeamAdapter);
         mTeamAdapter.setOnClickSubListener(new TeamSubItem.OnClickSubListener() {

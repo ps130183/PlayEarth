@@ -49,7 +49,7 @@ public class MyAttentionActivity extends BaseActivity<IAttentionView,AttentionPr
 
     @Override
     public int getContentViewRes() {
-        return R.layout.activity_attention_goods;
+        return R.layout.activity_my_attention;
     }
 
     @Override

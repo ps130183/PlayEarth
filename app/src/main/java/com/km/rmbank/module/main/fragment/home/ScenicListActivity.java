@@ -1,6 +1,7 @@
 package com.km.rmbank.module.main.fragment.home;
 
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,11 @@ import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.glidelib.progress.CircleProgressView;
+import com.ps.mrcyclerview.BViewHolder;
+import com.ps.mrcyclerview.ItemViewConvert;
+import com.ps.mrcyclerview.MRecyclerView;
+import com.ps.mrcyclerview.click.OnClickItemListener;
+import com.ps.mrcyclerview.utils.RefreshUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +45,10 @@ import butterknife.BindView;
 public class ScenicListActivity extends BaseActivity<ScenicListView,ScenicListPresenter> implements ScenicListView {
 
     @BindView(R.id.scenicRecycler)
-    RecyclerView scenicRecycler;
+    MRecyclerView<MapMarkerDto> scenicRecycler;
 
     private int scenicType = 0;
 
-    private List<MapMarkerDto> mapMarkerDtoList;
     @Override
     public int getContentViewRes() {
         return R.layout.activity_scenic_list;
@@ -61,19 +66,6 @@ public class ScenicListActivity extends BaseActivity<ScenicListView,ScenicListPr
     }
 
     @Override
-    protected void onCreateTitleBar(BaseTitleBar titleBar) {
-//        SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-//        simpleTitleBar.setRightMenuRes(R.menu.toolbar_map);
-//        simpleTitleBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                getPresenter().getMapMarkers();
-//                return true;
-//            }
-//        });
-    }
-
-    @Override
     protected ScenicListPresenter createPresenter() {
         return new ScenicListPresenter(new ScenicListModel());
     }
@@ -87,37 +79,35 @@ public class ScenicListActivity extends BaseActivity<ScenicListView,ScenicListPr
      * 初始化列表
      */
     private void initRecycler(){
-        mapMarkerDtoList = new ArrayList<>();
-        RecyclerAdapterHelper<String> mHelper = new RecyclerAdapterHelper<>(scenicRecycler);
-        mHelper.addLinearLayoutManager()
-                .addDividerItemDecoration(DividerItemDecoration.VERTICAL)
-                .addCommonAdapter(R.layout.item_scenic_list, mapMarkerDtoList, new RecyclerAdapterHelper.CommonConvert<MapMarkerDto>() {
-                    @Override
-                    public void convert(CommonViewHolder holder, MapMarkerDto mData, int position) {
-                        holder.addRippleEffectOnClick();
-                        GlideImageView informationImage = holder.findView(R.id.informationImage);
-                        CircleProgressView progressView = holder.findView(R.id.progressView);
-                        GlideUtils.loadImageOnPregress(informationImage,mData.getClubLogo(),progressView);
-
-                        TextView scenicName = holder.findView(R.id.scenicName);
-                        scenicName.setText(mData.getClubName());
-
-                        holder.setText(R.id.clubIntroduce,"地址：" + mData.getAddress());
-
-                        holder.setText(R.id.personNum,mData.getApplyCount()+"");
-
-                    }
-                }).addRefreshView(mXRefreshView)
-                .addRefreshListener(new RecyclerAdapterHelper.OnRefreshListener() {
-                    @Override
-                    public void refresh() {
-                        getPresenter().getScenicLisit(scenicType);
-                    }
-                }).create();
-
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<MapMarkerDto>() {
+        scenicRecycler.addContentLayout(R.layout.item_scenic_list, new ItemViewConvert<MapMarkerDto>() {
             @Override
-            public void onItemClick(CommonViewHolder holder, MapMarkerDto data, int position) {
+            public void convert(@NonNull BViewHolder holder, MapMarkerDto mData, int position, @NonNull List<Object> payloads) {
+                holder.addRippleEffectOnClick();
+                GlideImageView informationImage = holder.findView(R.id.informationImage);
+                CircleProgressView progressView = holder.findView(R.id.progressView);
+                GlideUtils.loadImageOnPregress(informationImage,mData.getClubLogo(),progressView);
+
+                TextView scenicName = holder.findView(R.id.scenicName);
+                scenicName.setText(mData.getClubName());
+
+                holder.setText(R.id.clubIntroduce,"地址：" + mData.getAddress());
+
+                holder.setText(R.id.personNum,mData.getApplyCount()+"");
+            }
+
+        }).create();
+
+        scenicRecycler.addRefreshListener(new RefreshUtils.OnRefreshListener() {
+            @Override
+            public void refresh() {
+                getPresenter().getScenicLisit(scenicType);
+            }
+        });
+
+        scenicRecycler.addClickItemListener(new OnClickItemListener() {
+            @Override
+            public void clickItem(Object mData, int position) {
+                MapMarkerDto data = (MapMarkerDto) mData;
                 Bundle bundle = new Bundle();
                 if (scenicType == 2){//基地
 
@@ -129,22 +119,15 @@ public class ScenicListActivity extends BaseActivity<ScenicListView,ScenicListPr
                 bundle.putString("scenicId",data.getId());
                 startActivity(ScenicActivity.class,bundle);
             }
-
-            @Override
-            public boolean onItemLongClick(CommonViewHolder holder, MapMarkerDto data, int position) {
-                return false;
-            }
-
         });
 
-        showLoading();
+        scenicRecycler.startRefresh();
     }
 
     @Override
     public void showScenicList(List<MapMarkerDto> mapMarkerDtos) {
-        mapMarkerDtoList.clear();
-        mapMarkerDtoList.addAll(mapMarkerDtos);
-        scenicRecycler.getAdapter().notifyDataSetChanged();
+        scenicRecycler.stopRefresh();
+        scenicRecycler.loadDataOfNextPage(mapMarkerDtos);
     }
 
     @Override

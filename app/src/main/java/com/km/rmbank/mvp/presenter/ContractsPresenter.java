@@ -38,7 +38,7 @@ public class ContractsPresenter extends BasePresenter<ContractsView,ContactsMode
     }
 
     public void getContracts(final LoadMoreWrapper wrapper, final int pageNo){
-        ContactManager.getInstance().getContactByOffset(pageNo)
+        ContactManager.getInstance().getAllContact()
                 .subscribe(new Consumer<List<Contact>>() {
                     @Override
                     public void accept(List<Contact> contacts) throws Exception {

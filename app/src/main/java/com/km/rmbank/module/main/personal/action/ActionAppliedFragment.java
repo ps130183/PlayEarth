@@ -14,7 +14,6 @@ import com.km.rmbank.mvp.model.AppointModel;
 import com.km.rmbank.mvp.presenter.AppointPresenter;
 import com.km.rmbank.mvp.view.AppointView;
 import com.km.rmbank.utils.DateUtils;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
@@ -25,7 +24,6 @@ import com.ps.mrcyclerview.LoadMoreListener;
 import com.ps.mrcyclerview.MRecyclerView;
 import com.ps.mrcyclerview.click.OnClickItemListener;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

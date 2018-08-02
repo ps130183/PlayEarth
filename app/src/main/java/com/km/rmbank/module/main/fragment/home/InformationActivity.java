@@ -1,5 +1,6 @@
 package com.km.rmbank.module.main.fragment.home;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -19,6 +20,12 @@ import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.glidelib.progress.CircleProgressView;
+import com.ps.mrcyclerview.BViewHolder;
+import com.ps.mrcyclerview.ItemViewConvert;
+import com.ps.mrcyclerview.LoadMoreListener;
+import com.ps.mrcyclerview.MRecyclerView;
+import com.ps.mrcyclerview.click.OnClickItemListener;
+import com.ps.mrcyclerview.utils.RefreshUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +38,7 @@ import butterknife.BindView;
 public class InformationActivity extends BaseActivity<InformationView,InformationPresenter> implements InformationView {
 
     @BindView(R.id.informationRecycler)
-    RecyclerView informationRecycler;
-    private List<InformationDto> informationDtoList;
+    MRecyclerView<InformationDto> informationRecycler;
 
     @Override
     public int getContentViewRes() {
@@ -56,13 +62,10 @@ public class InformationActivity extends BaseActivity<InformationView,Informatio
     }
 
     private void initRecycler(){
-        informationDtoList = new ArrayList<>();
-        RecyclerAdapterHelper<String> mHelper = new RecyclerAdapterHelper<>(informationRecycler);
-        mHelper.addLinearLayoutManager()
-                .addDividerItemDecoration(DividerItemDecoration.VERTICAL)
-                .addCommonAdapter(R.layout.item_information, informationDtoList, new RecyclerAdapterHelper.CommonConvert<InformationDto>() {
+
+        informationRecycler.addContentLayout(R.layout.item_information, new ItemViewConvert<InformationDto>() {
             @Override
-            public void convert(CommonViewHolder holder, InformationDto mData, int position) {
+            public void convert(@NonNull BViewHolder holder, InformationDto mData, int position, @NonNull List<Object> payloads) {
                 GlideImageView informationImage = holder.findView(R.id.informationImage);
                 CircleProgressView progressView = holder.findView(R.id.progressView);
                 GlideUtils.loadImageOnPregress(informationImage,mData.getAvatarUrl(),progressView);
@@ -70,47 +73,40 @@ public class InformationActivity extends BaseActivity<InformationView,Informatio
                 holder.setText(R.id.actionName,mData.getTitle());
                 holder.setText(R.id.actionContent,mData.getSubtitle());
                 holder.setText(R.id.personNum,mData.getViewCount());
+            }
 
-            }
-        }).addRefreshView(mXRefreshView)
-                .addRefreshListener(new RecyclerAdapterHelper.OnRefreshListener() {
-                    @Override
-                    public void refresh() {
-                        getPresenter().getInfomationList(1,null);
-                    }
-                }).addLoadMoreWrapper(new LoadMoreWrapper.OnLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequest(LoadMoreWrapper wrapper, int nextPage) {
-                getPresenter().getInfomationList(nextPage,wrapper);
-            }
         }).create();
 
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<InformationDto>() {
+        informationRecycler.addRefreshListener(new RefreshUtils.OnRefreshListener() {
             @Override
-            public void onItemClick(CommonViewHolder holder, InformationDto data, int position) {
+            public void refresh() {
+                getPresenter().getInfomationList(1,null);
+            }
+        });
+
+        informationRecycler.addLoadMoreListener(new LoadMoreListener() {
+            @Override
+            public void loadMore(int nextPage) {
+                getPresenter().getInfomationList(nextPage,null);
+            }
+        });
+
+        informationRecycler.addClickItemListener(new OnClickItemListener() {
+            @Override
+            public void clickItem(Object mData, int position) {
+                InformationDto data = (InformationDto) mData;
                 Bundle bundle = new Bundle();
                 bundle.putString("actionPastId",data.getId());
                 startActivity(ActionPastDetailActivity.class,bundle);
             }
-
-            @Override
-            public boolean onItemLongClick(CommonViewHolder holder, InformationDto data, int position) {
-                return false;
-            }
         });
-
-        showLoading();
+        informationRecycler.startRefresh();
     }
 
 
     @Override
     public void showInformation(int pageNo, List<InformationDto> informationDtos, LoadMoreWrapper wrapper) {
-        if (wrapper == null){
-            informationDtoList.clear();
-        } else {
-            wrapper.setLoadMoreFinish(informationDtos.size());
-        }
-        informationDtoList.addAll(informationDtos);
-        informationRecycler.getAdapter().notifyDataSetChanged();
+        informationRecycler.stopRefresh();
+        informationRecycler.loadDataOfNextPage(informationDtos);
     }
 }

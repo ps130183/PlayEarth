@@ -16,7 +16,6 @@ import com.km.rmbank.mvp.presenter.GoodsEvaluatePresenter;
 import com.km.rmbank.mvp.view.IGoodsEvaluateView;
 import com.km.rmbank.oldrecycler.BaseAdapter;
 import com.km.rmbank.oldrecycler.RVUtils;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 
 import java.util.List;
 

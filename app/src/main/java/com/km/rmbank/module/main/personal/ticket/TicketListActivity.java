@@ -1,12 +1,10 @@
 package com.km.rmbank.module.main.personal.ticket;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
@@ -19,15 +17,16 @@ import com.km.rmbank.mvp.view.ITicketListView;
 import com.km.rmbank.mvp.view.TicketListPresenter;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.DateUtils;
-import com.ps.commonadapter.adapter.CommonViewHolder;
-import com.ps.commonadapter.adapter.MultiItemTypeAdapter;
-import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.commonadapter.adapter.wrapper.LoadMoreWrapper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
-import com.ps.glidelib.progress.CircleProgressView;
+import com.ps.mrcyclerview.BViewHolder;
+import com.ps.mrcyclerview.ItemViewConvert;
+import com.ps.mrcyclerview.LoadMoreListener;
+import com.ps.mrcyclerview.MRecyclerView;
+import com.ps.mrcyclerview.click.OnClickItemListener;
+import com.ps.mrcyclerview.utils.RefreshUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,8 +34,8 @@ import butterknife.BindView;
 public class TicketListActivity extends BaseActivity<ITicketListView,TicketListPresenter> implements ITicketListView {
 
     @BindView(R.id.ticketRecycler)
-    RecyclerView ticketRecycler;
-    private List<TicketDto> ticketDtoList;
+    MRecyclerView<TicketDto> ticketRecycler;
+//    private List<TicketDto> ticketDtoList;
 
     private int[] ticketbgs = {R.color.ticket_bg1,
             R.color.ticket_bg2,
@@ -81,14 +80,10 @@ public class TicketListActivity extends BaseActivity<ITicketListView,TicketListP
 
     private void initRecycler(){
 
-        ticketDtoList = new ArrayList<>();
 
-        RecyclerAdapterHelper<TicketDto> mHelper = new RecyclerAdapterHelper<>(ticketRecycler);
-        mHelper.addLinearLayoutManager()
-                .addCommonAdapter(R.layout.item_ticket, ticketDtoList, new RecyclerAdapterHelper.CommonConvert<TicketDto>() {
+        ticketRecycler.addContentLayout(R.layout.item_ticket, new ItemViewConvert<TicketDto>() {
             @Override
-            public void convert(CommonViewHolder holder, TicketDto mData, int position) {
-
+            public void convert(@NonNull BViewHolder holder, TicketDto mData, int position, @NonNull List<Object> payloads) {
                 //券logo
                 GlideImageView imageView = holder.findView(R.id.ticketLogo);
                 RelativeLayout bottomBg = holder.findView(R.id.bottomBackground);
@@ -136,39 +131,37 @@ public class TicketListActivity extends BaseActivity<ITicketListView,TicketListP
                 String useDate = DateUtils.getInstance().getDateToYMD(mData.getValidateTime());
                 holder.setText(R.id.useDate,useDate + "截止");
             }
-        }).addEmptyWrapper(0)
-                .addLoadMoreWrapper(new LoadMoreWrapper.OnLoadMoreListener() {
-                    @Override
-                    public void onLoadMoreRequest(LoadMoreWrapper wrapper, int nextPage) {
-                        getPresenter().getAllTicketList(wrapper,nextPage);
-                    }
-                }).create();
 
-        mHelper.getBasicAdapter().setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener<TicketDto>() {
+        }).create();
+        ticketRecycler.addLoadMoreListener(new LoadMoreListener() {
             @Override
-            public void onItemClick(CommonViewHolder holder, TicketDto data, int position) {
+            public void loadMore(int nextPage) {
+                getPresenter().getAllTicketList(null,nextPage);
+            }
+        });
+        ticketRecycler.addRefreshListener(new RefreshUtils.OnRefreshListener() {
+            @Override
+            public void refresh() {
+                getPresenter().getAllTicketList(null,1);
+            }
+        });
+
+        ticketRecycler.addClickItemListener(new OnClickItemListener() {
+            @Override
+            public void clickItem(Object mData, int position) {
+                TicketDto data = (TicketDto) mData;
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("ticketDto",data);
                 startActivity(TicketSignActivity.class,bundle);
             }
-
-            @Override
-            public boolean onItemLongClick(CommonViewHolder holder, TicketDto data, int position) {
-                return false;
-            }
-
         });
-
-        getPresenter().getAllTicketList(null,1);
+        ticketRecycler.startRefresh();
     }
 
     @Override
     public void showTicketList(LoadMoreWrapper wrapper, List<TicketDto> ticketDtos) {
-        if (wrapper != null){
-            wrapper.setLoadMoreFinish(ticketDtos.size());
-        }
-        ticketDtoList.addAll(ticketDtos);
-        ticketRecycler.getAdapter().notifyDataSetChanged();
+        ticketRecycler.stopRefresh();
+        ticketRecycler.loadDataOfNextPage(ticketDtos);
     }
 
     @Override
