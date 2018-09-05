@@ -44,7 +44,7 @@ public class SearchCompanyActivity extends BaseActivity<ISearchCompanyView, Sear
         boolean isSearchCompany = getIntent().getBooleanExtra("isSearchCompany",true);
         if (isSearchCompany){
             SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-            simpleTitleBar.setRightMenuContent("我要找");
+            simpleTitleBar.setRightMenuContent("我能提供");
             simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

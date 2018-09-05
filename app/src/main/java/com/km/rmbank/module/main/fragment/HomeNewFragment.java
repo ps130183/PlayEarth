@@ -39,6 +39,7 @@ import com.km.rmbank.event.ApplyActionEvent;
 import com.km.rmbank.module.main.appoint.ActionOutdoorActivity;
 import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
 import com.km.rmbank.module.main.appoint.ActionRecentInfoActivity;
+import com.km.rmbank.module.main.appoint.AppointAfternoonTeaActivity;
 import com.km.rmbank.module.main.card.UserCardActivity;
 import com.km.rmbank.module.main.fragment.home.AllClubActivity;
 import com.km.rmbank.module.main.experience.ExperienceOfficerActivity;
@@ -90,7 +91,7 @@ import butterknife.OnClick;
  */
 public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> implements IHomeView {
 
-//    @BindView(R.id.toolBar)
+    //    @BindView(R.id.toolBar)
 //    Toolbar mToolbar;
     @BindView(R.id.banner)
     Banner mBanner;
@@ -233,7 +234,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                             bundle.putString("titleName", bannerDto.getTitle());
                             bundle.putString("imageUrl", bannerDto.getImageUrl());
 //                            String webUrl = ApiConstant.API_BASE_URL + ApiConstant.API_MODEL + "/accounts/banner/index.html";
-                            bundle.putString("webUrl",bannerDto.getLinkUrl());
+                            bundle.putString("webUrl", bannerDto.getLinkUrl());
                             startActivity(WebBrowserActivity.class, bundle);
                         } else if ("3".equals(bannerDto.getType())) {
                             bundle.putString("actionId", bannerDto.getId());
@@ -325,13 +326,14 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
 
     /**
      * 199广告
+     *
      * @param view
      */
     @OnClick(R.id.openAction199)
-    public void openAction199(View view){
+    public void openAction199(View view) {
         Bundle bundle = new Bundle();
-        bundle.putString("advertUrl",ApiConstant.API_BASE_URL+ApiConstant.API_MODEL + "/accounts/advertUrl");
-        startActivity(ExperienceOfficerActivity.class,bundle);
+        bundle.putString("advertUrl", ApiConstant.API_BASE_URL + ApiConstant.API_MODEL + "/accounts/advertUrl");
+        startActivity(ExperienceOfficerActivity.class, bundle);
     }
 
     /**
@@ -395,8 +397,8 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                 //具体推荐的内容
                 final List<HomeRecommendDto.DetailListBean> contentList = mData.getDetailList();
                 FrameLayout flContent = holder.findView(R.id.content);
-                if (!recommendType.equals("03")){
-                    MRecyclerView<HomeRecommendDto.DetailListBean> contentRecycler = (MRecyclerView<HomeRecommendDto.DetailListBean>) LayoutInflater.from(getActivity()).inflate(R.layout._default_recycler,null,false);
+                if (!recommendType.equals("03")) {
+                    MRecyclerView<HomeRecommendDto.DetailListBean> contentRecycler = (MRecyclerView<HomeRecommendDto.DetailListBean>) LayoutInflater.from(getActivity()).inflate(R.layout._default_recycler, null, false);
                     if ("02".equals(recommendType)) {
                         contentRecycler.setLmType(MRecyclerView.LM_GRID)
                                 .setSpanCount(3)
@@ -444,13 +446,21 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                                 Bundle bundle = new Bundle();
                                 switch (recommendType) {
                                     case "01"://活动
-                                        if (!"3".equals(data.getType())) {
-                                            bundle.putString("actionId", data.getRelevanceId());
-                                            startActivity(ActionRecentInfoActivity.class, bundle);
-                                        } else {//基地活动
-                                            bundle.putString("activityId", data.getActivityId());
-                                            bundle.putString("scenicId", data.getClubId());
-                                            startActivity(ActionOutdoorActivity.class, bundle);
+                                        if ("0".equals(data.getIsDynamic())) {
+                                            if ("1".equals(data.getType()) || "2".equals(data.getType())) {//下午茶  结缘晚宴
+                                                bundle.putString("actionId", data.getActivityId());
+                                                startActivity(AppointAfternoonTeaActivity.class, bundle);
+                                            } else if ("4".equals(data.getType())) {//路演大会
+                                                bundle.putString("actionId", data.getRelevanceId());
+                                                startActivity(ActionRecentInfoActivity.class, bundle);
+                                            } else {//基地活动 3
+                                                bundle.putString("activityId", data.getActivityId());
+                                                bundle.putString("scenicId", data.getClubId());
+                                                startActivity(ActionOutdoorActivity.class, bundle);
+                                            }
+                                        } else {
+                                            bundle.putString("activityId",data.getId());
+                                            startActivity(ActionPastDetailActivity.class,bundle);
                                         }
 
                                         break;
@@ -462,8 +472,8 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                                     case "03"://会员
                                         break;
                                     case "04":
-                                        bundle.putString("id",data.getRelevanceId());
-                                        startActivity(HomeRecommendCompanyDetailsActivity.class,bundle);
+                                        bundle.putString("id", data.getRelevanceId());
+                                        startActivity(HomeRecommendCompanyDetailsActivity.class, bundle);
                                         break;
                                 }
                             }
@@ -471,7 +481,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                     }
                     flContent.addView(contentRecycler);
                 } else {
-                    View view = LayoutInflater.from(getActivity()).inflate(R.layout.header_home_recommend_member,null,false);
+                    View view = LayoutInflater.from(getActivity()).inflate(R.layout.header_home_recommend_member, null, false);
                     flContent.addView(view);
 
                     Banner banner = view.findViewById(R.id.banner);
@@ -481,7 +491,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                             .setDelayTime(3000)
                             .setOffscreenPageLimit(3)
                             .setPagerMargin(20)
-                            .setPageTransformer(false,new ScaleInTransformer(0.8f))
+                            .setPageTransformer(false, new ScaleInTransformer(0.8f))
                             .setOnBannerListener(new OnBannerListener() {
                                 @Override
                                 public void OnBannerClick(int position) {
@@ -493,8 +503,8 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                                 @Override
                                 public void displayImage(Context context, Object path, FrameLayout imageView) {
                                     HomeRecommendDto.DetailListBean bean = (HomeRecommendDto.DetailListBean) path;
-                                    View itemView = LayoutInflater.from(context).inflate(R.layout.item_home_recommend_member,null,false);
-                                    loadRecommendMemeber(itemView,bean);
+                                    View itemView = LayoutInflater.from(context).inflate(R.layout.item_home_recommend_member, null, false);
+                                    loadRecommendMemeber(itemView, bean);
                                     imageView.addView(itemView);
                                 }
                             }).start();

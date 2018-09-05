@@ -105,6 +105,12 @@ public class BookVenueApplyRecordActivity extends BaseActivity<BookVenueApplyVie
                 if (System.currentTimeMillis() - bookVenueApplyDto.getEndDate() >= 0 ){
                     bundle.putBoolean("isFinished",true);
                 }
+
+                if ("2".equals(bookVenueApplyDto.getPlaceType()) && "0".equals(bookVenueApplyDto.getPayStatus())){//晚宴场地需支付完再发布
+                    startActivity(PayWanYanVenueActivity.class,bundle);
+                    return;
+                }
+
                 startActivity(BookVenueDetailsActivity.class,bundle);
             }
         });

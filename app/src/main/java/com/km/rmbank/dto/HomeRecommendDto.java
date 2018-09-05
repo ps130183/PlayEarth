@@ -1,5 +1,8 @@
 package com.km.rmbank.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.km.rmbank.R;
 import com.ps.mrcyclerview.delegate.ItemDelegate;
 
@@ -109,7 +112,7 @@ public class HomeRecommendDto implements ItemDelegate {
         return R.layout.item_home_recommend;
     }
 
-    public static class DetailListBean implements ItemDelegate{
+    public static class DetailListBean implements ItemDelegate, Parcelable {
         /**
          * content :
          * fans : 0
@@ -145,6 +148,7 @@ public class HomeRecommendDto implements ItemDelegate {
         private long startDate;
 
         private int layoutRes;
+        private String isDynamic; //0是活动 1是资讯
 
 
         @Override
@@ -166,7 +170,16 @@ public class HomeRecommendDto implements ItemDelegate {
                     ", applyCount='" + applyCount + '\'' +
                     ", startDate=" + startDate +
                     ", layoutRes=" + layoutRes +
+                    ", isDynamic='" + isDynamic + '\'' +
                     '}';
+        }
+
+        public String getIsDynamic() {
+            return isDynamic;
+        }
+
+        public void setIsDynamic(String isDynamic) {
+            this.isDynamic = isDynamic;
         }
 
         public String getClassifyName() {
@@ -297,6 +310,67 @@ public class HomeRecommendDto implements ItemDelegate {
         public int getItemViewRes() {
             return layoutRes;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.activityId);
+            dest.writeString(this.clubId);
+            dest.writeString(this.content);
+            dest.writeString(this.fans);
+            dest.writeString(this.id);
+            dest.writeString(this.keepCount);
+            dest.writeString(this.recommendId);
+            dest.writeString(this.relevanceId);
+            dest.writeInt(this.sort);
+            dest.writeString(this.thumbnail);
+            dest.writeString(this.title);
+            dest.writeString(this.type);
+            dest.writeString(this.classifyName);
+            dest.writeString(this.applyCount);
+            dest.writeLong(this.startDate);
+            dest.writeInt(this.layoutRes);
+            dest.writeString(this.isDynamic);
+        }
+
+        public DetailListBean() {
+        }
+
+        protected DetailListBean(Parcel in) {
+            this.activityId = in.readString();
+            this.clubId = in.readString();
+            this.content = in.readString();
+            this.fans = in.readString();
+            this.id = in.readString();
+            this.keepCount = in.readString();
+            this.recommendId = in.readString();
+            this.relevanceId = in.readString();
+            this.sort = in.readInt();
+            this.thumbnail = in.readString();
+            this.title = in.readString();
+            this.type = in.readString();
+            this.classifyName = in.readString();
+            this.applyCount = in.readString();
+            this.startDate = in.readLong();
+            this.layoutRes = in.readInt();
+            this.isDynamic = in.readString();
+        }
+
+        public static final Parcelable.Creator<DetailListBean> CREATOR = new Parcelable.Creator<DetailListBean>() {
+            @Override
+            public DetailListBean createFromParcel(Parcel source) {
+                return new DetailListBean(source);
+            }
+
+            @Override
+            public DetailListBean[] newArray(int size) {
+                return new DetailListBean[size];
+            }
+        };
     }
 
     @Override
