@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -216,7 +217,7 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
 
         loadPersonInfo(actionDto);
 
-        mTitle.setText(actionDto.getPlaceName());
+        mTitle.setText(TextUtils.isEmpty(actionDto.getPlaceName()) ? actionDto.getTitle() : actionDto.getPlaceName());
 
 
         Button applyAction = mViewManager.findView(R.id.applyAction);
