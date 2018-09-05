@@ -9,8 +9,8 @@
     android:padding="9dp">
 
     <android.support.v7.widget.CardView
-        android:layout_width="113dp"
-        android:layout_height="73dp">
+        android:layout_width="120dp"
+        android:layout_height="90dp">
 
         <com.ps.glidelib.GlideImageView
             android:id="@+id/actionImae"
@@ -21,7 +21,7 @@
     </android.support.v7.widget.CardView>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/viewSpace8"
@@ -35,85 +35,37 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textSize="13sp"
-            android:textColor="@color/text_color_block3"
+            android:textSize="15sp"
+            android:textColor="@color/text_color_block1"
             android:text="融资中国(第七次路演大会)资本的青睐盛典" />
-
-        <TextView
-            android:id="@+id/actionTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_color_block8"
-            android:textSize="10sp"
-            android:text="1月25日 17：00 开始"
-            android:layout_marginTop="4dp"/>
-
-        <TextView
-            android:id="@+id/actionAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_marginTop="2dp"
-            android:textColor="@color/text_color_block8"
-            android:textSize="10sp"
-            android:text="北京西站" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:id="@+id/actionTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_block6"
+                android:textSize="14sp"
+                android:text="时间：1月25日 17：00 开始"
+                android:layout_marginTop="4dp"/>
 
             <TextView
-                android:id="@+id/free"
-                android:layout_width="wrap_content"
+                android:id="@+id/actionAddress"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="免费"
-                android:textColor="#3285ff"
-                android:textSize="10sp"
-                />
-
-            <View
-                android:layout_width="14dp"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/memberNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5"
-                android:textColor="#3285ff"
-                android:textSize="10sp"
-                android:layout_marginRight="2dp"
-                />
-            <TextView
-                android:id="@+id/hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人已报名"
-                android:textColor="#888888"
-                android:textSize="10sp"
-                />
-
-            <!--<com.ruffian.library.RTextView-->
-                <!--android:id="@+id/baoming"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/baoming"-->
-                <!--android:textColor="#3285ff"-->
-                <!--android:textSize="10sp"-->
-                <!--android:gravity="right|center"-->
-                <!--app:icon_src_normal="@mipmap/icon_home_arrow_right_baoming"-->
-                <!--app:icon_height="10dp"-->
-                <!--app:icon_width="10dp"-->
-                <!--app:icon_direction="right"-->
-                <!--/>-->
-
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/text_color_block6"
+                android:textSize="14sp"
+                android:text="地址：北京西站" />
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

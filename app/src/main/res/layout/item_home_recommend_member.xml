@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/flContent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:clipChildren="false">
+
+        <LinearLayout
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:padding="@dimen/viewSpace16"
+            android:background="@drawable/shape_bg_white_border_corner_5">
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/userPortrait"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/icon_default_protrait"
+                app:siv_shape_type="circle" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_block24"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="玩转地球商旅学苑玩转"
+                android:textSize="11sp"
+                android:textColor="@color/text_color_block8"
+                android:lines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+</FrameLayout>

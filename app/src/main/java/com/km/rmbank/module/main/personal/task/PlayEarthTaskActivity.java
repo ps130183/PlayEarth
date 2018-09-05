@@ -312,4 +312,12 @@ public class PlayEarthTaskActivity extends BaseActivity<EarthTaskView,EarthTaskP
         entity.setSubContent(earthTaskDto.getDescribe());
         oRecycler.update(entity,position,null);
     }
+
+    /**
+     * 礼品兑换
+     * @param view
+     */
+    public void giftExchange(View view) {
+        showToast("即将开放！");
+    }
 }

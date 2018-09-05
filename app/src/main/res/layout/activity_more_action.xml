@@ -7,4 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.km.rmbank.module.main.fragment.home.MoreActionActivity">
 
+    <com.ps.mrcyclerview.MRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:refresh="true">
+
+    </com.ps.mrcyclerview.MRecyclerView>
+
 </FrameLayout>

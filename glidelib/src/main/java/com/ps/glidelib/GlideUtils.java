@@ -170,6 +170,15 @@ public class GlideUtils {
      * @param imagePath
      */
     public static void loadLocalImage(GlideImageView imageView,String imagePath){
-        imageView.loadLocalImage(imagePath,R.color.placeholder_color);
+        loadLocalImage(imageView,imagePath,true);
+    }
+
+    /**
+     * 加载本地图片
+     * @param imageView
+     * @param imagePath
+     */
+    public static void loadLocalImage(GlideImageView imageView,String imagePath,boolean isFitHeight){
+        imageView.loadLocalImage(imagePath,R.color.placeholder_color,isFitHeight);
     }
 }

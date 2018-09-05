@@ -73,7 +73,7 @@
                 />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical"
@@ -102,6 +102,22 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="5dp"
                         />
+
+                    <TextView
+                        android:id="@+id/realName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="未认证"
+                        android:textSize="12sp"
+                        android:textColor="#f91413"
+                        android:background="@drawable/shape_bg_white_border_corner_2"
+                        android:paddingLeft="@dimen/viewSpace4"
+                        android:paddingRight="@dimen/viewSpace4"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/viewSpace4"
+                        android:layout_toRightOf="@+id/vip"
+                        />
+
                 </RelativeLayout>
 
                 <TextView

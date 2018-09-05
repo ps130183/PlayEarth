@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.presenter;
 
+import com.km.rmbank.dto.AdvertisDto;
 import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
@@ -81,6 +82,27 @@ public class HomePresenter extends BasePresenter<IHomeView,HomeModel> {
                     @Override
                     public void accept(List<BannerDto> bannerDtos) throws Exception {
                         getMvpView().showHomeBanner(bannerDtos);
+                    }
+                }));
+    }
+
+    public void getHomeAdvert(){
+        getMvpModel().getAdvertis()
+                .subscribe(newSubscriber(new Consumer<AdvertisDto>() {
+                    @Override
+                    public void accept(AdvertisDto advertisDto) throws Exception {
+                        getMvpView().showHomeAdvert(advertisDto);
+                    }
+                }));
+    }
+
+    public void getUserCardById(String userId){
+//        getMvpView().showLoading();
+        getMvpModel().getUserCardById(userId)
+                .subscribe(newSubscriber(new Consumer<UserInfoDto>() {
+                    @Override
+                    public void accept(UserInfoDto userCardDto) throws Exception {
+                        getMvpView().showUserCard(userCardDto);
                     }
                 }));
     }

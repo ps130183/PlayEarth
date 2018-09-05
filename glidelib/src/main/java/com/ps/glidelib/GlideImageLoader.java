@@ -174,8 +174,13 @@ public class GlideImageLoader {
         load(resId, requestOptions(placeholderResId));
     }
 
-    public void loadLocalImage(String localPath, int placeholderResId) {
-        load(FILE + localPath, FitHeightRquestOptions(placeholderResId,R.drawable.load_image_fail));
+    public void loadLocalImage(String localPath, int placeholderResId,boolean isFitHeight) {
+        if (isFitHeight){
+            load(FILE + localPath, FitHeightRquestOptions(placeholderResId,R.drawable.load_image_fail));
+        } else {
+            load(FILE + localPath, requestOptions(placeholderResId,R.drawable.load_image_fail));
+        }
+
     }
 
     public void loadCircleImage(String url, int placeholderResId) {

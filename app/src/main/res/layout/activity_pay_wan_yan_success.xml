@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.main.payment.PayContractsOrderSuccessActivity">
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/icon_success"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="120dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="支付成功"
+        android:textSize="@dimen/textSizeHuge"
+        android:textColor="@color/text_color_block1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/viewSpace16"
+        />
+
+    <TextView
+        android:id="@+id/hintContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="你已成功支付唐人汇结缘晚宴活动费用！
+点击右上角去发布按钮发布活动，
+或者返回去分享活动吧！"
+        android:padding="@dimen/viewSpace32"
+        android:textColor="@color/text_color_blockB3"
+        android:textSize="15sp"
+        android:lineSpacingMultiplier="1.3"
+        android:gravity="center"
+        />
+
+</LinearLayout>

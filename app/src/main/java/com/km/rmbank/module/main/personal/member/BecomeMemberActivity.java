@@ -199,11 +199,11 @@ public class BecomeMemberActivity extends BaseActivity<IMemberView,MemberPresent
     public void confirmToPay(View view) {
         String content = btnConfirm.getText().toString();
         if ("联系客服".equals(content)){
-            DialogUtils.showDefaultAlertDialog("是否拨打客服电话："+ Constant.SERVICE_PHONE +"?", new DialogUtils.ClickListener() {
+            DialogUtils.showDefaultAlertDialog("是否拨打客服电话："+ Constant.SERVICE_KEFU_PHONE +"?", new DialogUtils.ClickListener() {
                 @Override
                 public void clickConfirm() {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
-                    Uri data = Uri.parse("tel:" + Constant.SERVICE_PHONE);
+                    Uri data = Uri.parse("tel:" + Constant.SERVICE_KEFU_PHONE);
                     intent.setData(data);
                     startActivity(intent);
                 }

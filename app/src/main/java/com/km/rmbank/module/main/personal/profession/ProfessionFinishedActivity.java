@@ -34,7 +34,7 @@ public class ProfessionFinishedActivity extends BaseActivity {
      */
     public void confirm(View view) {
         Bundle bundle = new Bundle();
-        bundle.putInt("position",2);
+        bundle.putInt("position",4);
         startActivity(HomeActivity.class,bundle);
         EventBusUtils.post(new RefreshPersonalInfoEvent());
     }

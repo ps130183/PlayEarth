@@ -13,11 +13,14 @@ import com.km.rmbank.dto.UserBalanceDto;
 import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.main.personal.account.bank.MyBankCardListActivity;
 import com.km.rmbank.module.main.personal.account.withdraw.WithdrawDepositActivity;
+import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.mvp.model.UserAccountModel;
 import com.km.rmbank.mvp.presenter.UserAccountPresenter;
 import com.km.rmbank.mvp.view.IUserAccountView;
 import com.km.rmbank.titleBar.SimpleTitleBar;
+import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.EventBusUtils;
+import com.km.rmbank.utils.dialog.DialogUtils;
 
 import java.util.List;
 
@@ -83,6 +86,15 @@ public class UserAccountActivity extends BaseActivity<IUserAccountView,UserAccou
     @OnClick(R.id.tv_integral)
     public void withDraw(View view) {
 //        startActivity(WithDrawListActivity.class);
+        if (Constant.userInfo.getStatus() != 2){
+            DialogUtils.showDefaultAlertDialog("提现需实名认证，是否去实名认证？", new DialogUtils.ClickListener() {
+                @Override
+                public void clickConfirm() {
+                    startActivity(CertifyRulesActivity.class);
+                }
+            });
+            return;
+        }
         startActivity(WithdrawDepositActivity.class);
     }
 

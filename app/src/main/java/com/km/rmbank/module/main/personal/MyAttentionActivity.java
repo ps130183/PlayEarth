@@ -97,6 +97,9 @@ public class MyAttentionActivity extends BaseActivity<IAttentionView,AttentionPr
     @Override
     public void getAttentionGoodsSuccess(List<AttentionDto> goodsDtos, int pageNo) {
         MRecyclerView<AttentionDto> mRecyclerView = mViewManager.findView(R.id.attentionRecycler);
+        if (pageNo == 1){
+            mRecyclerView.clear();
+        }
         mRecyclerView.loadDataOfNextPage(goodsDtos);
     }
 

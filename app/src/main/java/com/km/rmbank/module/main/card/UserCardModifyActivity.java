@@ -138,6 +138,19 @@ public class UserCardModifyActivity extends BaseActivity<IUserInfoView,UserInfoP
         demandRecycler.loadDataOfNextPage(Constant.userInfo.getDemandList());
 
 
+        TextView tvUserName = mViewManager.findView(R.id.tvUserName);
+        TextView realName = mViewManager.findView(R.id.realName);
+        if (Constant.userInfo.getStatus() == 2){//实名认证  名字不可修改
+            etUserName.setVisibility(View.GONE);
+            tvUserName.setVisibility(View.VISIBLE);
+            realName.setVisibility(View.VISIBLE);
+            tvUserName.setText(Constant.userInfo.getName());
+        } else {//未实名
+            etUserName.setVisibility(View.VISIBLE);
+            tvUserName.setVisibility(View.GONE);
+            realName.setVisibility(View.GONE);
+        }
+
         //电话的隐私 与 公开
         rgPhone = mViewManager.findView(R.id.rgPhone);
         rbPhoneClose = mViewManager.findView(R.id.rbPhoneClose);
@@ -147,9 +160,9 @@ public class UserCardModifyActivity extends BaseActivity<IUserInfoView,UserInfoP
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.rbPhoneClose){
-                    allowStatus = "0";
-                } else {
                     allowStatus = "1";
+                } else {
+                    allowStatus = "0";
                 }
             }
         });
@@ -379,7 +392,7 @@ public class UserCardModifyActivity extends BaseActivity<IUserInfoView,UserInfoP
         userInfoDto.setCompany(etUserCompany.getText().toString());
         userInfoDto.setPosition(etUserPosition.getText().toString());
         userInfoDto.setCardPhone(etUserPhone.getText().toString());
-        userInfoDto.setAllowStutas(TextUtils.isEmpty(allowStatus) ? "0" : allowStatus);
+        userInfoDto.setAllowStutas(TextUtils.isEmpty(allowStatus) ? "1" : allowStatus);
         userInfoDto.setIndustryId(industryDto == null ? Constant.userInfo.getIndustryId() : industryDto.getId());
         userInfoDto.setIndustryName(industryDto == null ? Constant.userInfo.getIndustryName() : industryDto.getName());
         userInfoDto.setDetailedAddress(etUserAddress.getText().toString());

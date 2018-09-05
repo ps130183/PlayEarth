@@ -8,9 +8,13 @@ import android.os.Bundle;
 import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.km.rmbank.dto.JPushDto;
+import com.km.rmbank.module.main.appoint.ActionOutdoorActivity;
 import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
 import com.km.rmbank.module.main.appoint.ActionRecentInfoActivity;
+import com.km.rmbank.module.main.appoint.AppointAfternoonTeaActivity;
 import com.km.rmbank.module.main.message.MessageActivity;
+import com.km.rmbank.module.main.personal.account.UserAccountDetailsActivity;
+import com.km.rmbank.module.main.personal.book.BookVenueManageActivity;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -61,35 +65,46 @@ public class JPushReceiver extends BroadcastReceiver {
         LogUtils.d(mJpushDto.toString());
         Intent intent;
         switch (mJpushDto.getType()){
-            case 1:
+            case 1://下午茶、晚宴
+                intent = new Intent(context, AppointAfternoonTeaActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("actionId",mJpushDto.getId());
+                context.startActivity(intent);
+                break;
+            case 2://路演活动
                 intent = new Intent(context, ActionRecentInfoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("actionId",mJpushDto.getId());
                 context.startActivity(intent);
                 break;
-            case 2:
+            case 3://账户明细
+                intent = new Intent(context, UserAccountDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("actionPastId",mJpushDto.getId());
+                context.startActivity(intent);
+                break;
+
+            case 4://户外基地
+                intent = new Intent(context, ActionOutdoorActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("activityId",mJpushDto.getId());
+                intent.putExtra("scenicId",mJpushDto.getId());
+                context.startActivity(intent);
+                break;
+
+            case 5://资讯
                 intent = new Intent(context, ActionPastDetailActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("actionPastId",mJpushDto.getId());
                 context.startActivity(intent);
                 break;
-            case 3:
-                intent = new Intent(context, MessageActivity.class);
+            case 6://场地审核
+                intent = new Intent(context, BookVenueManageActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("actionPastId",mJpushDto.getId());
+//                intent.putExtra("actionPastId",mJpushDto.getId());
                 context.startActivity(intent);
                 break;
         }
-//        if (TYPE_THIS.equals(myValue)) {
-//            Intent mIntent = new Intent(context, ThisActivity.class);
-//            mIntent.putExtras(bundle);
-//            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            context.startActivity(mIntent);
-//        } else if (TYPE_ANOTHER.equals(myValue)){
-//            Intent mIntent = new Intent(context, AnotherActivity.class);
-//            mIntent.putExtras(bundle);
-//            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            context.startActivity(mIntent);
-//        }
+
     }
 }

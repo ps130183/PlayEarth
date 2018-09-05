@@ -36,10 +36,11 @@ public class UserInfoDto implements Cloneable, Parcelable {
      * roleId : 4
      */
 
+    private String id;
     private String total;
     private String birthday;
     private int registerDate;
-    private String allowStutas;
+    private String allowStutas;//0不隐藏  1隐藏
     private int isTeach;
     private String roleName;
     private String updateDate;
@@ -50,7 +51,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
     private int activeValueAll;
     private int isNotEditCard;
     private String service;
-    private String roleId; //5:众筹合伙人
+    private String roleId; //5:众筹合伙人  4普通会员  1俱乐部合伙人  2玩家合伙人
     private String clubId;
     /**
      * keepCount : 5
@@ -88,7 +89,23 @@ public class UserInfoDto implements Cloneable, Parcelable {
 
     private int status;//实名认证  0：未验证，1：验证中，2：通过，3：失败
     private int type;//2:商家
+    private int positionStatus;//职位认证  0：未认证  1：认证中  2：已认证
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getPositionStatus() {
+        return positionStatus;
+    }
+
+    public void setPositionStatus(int positionStatus) {
+        this.positionStatus = positionStatus;
+    }
 
     public int getBallWritTotal() {
         return ballWritTotal;
@@ -437,10 +454,11 @@ public class UserInfoDto implements Cloneable, Parcelable {
                 ", industryId='" + industryId + '\'' +
                 ", industryName='" + industryName + '\'' +
                 ", ticketCount='" + ticketCount + '\'' +
-                ", ballWritTotal='" + ballWritTotal + '\'' +
+                ", ballWritTotal=" + ballWritTotal +
                 ", cardId='" + cardId + '\'' +
                 ", status=" + status +
                 ", type=" + type +
+                ", positionStatus=" + positionStatus +
                 '}';
     }
 
@@ -465,6 +483,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.total);
         dest.writeString(this.birthday);
         dest.writeInt(this.registerDate);
@@ -502,9 +521,11 @@ public class UserInfoDto implements Cloneable, Parcelable {
         dest.writeString(this.cardId);
         dest.writeInt(this.status);
         dest.writeInt(this.type);
+        dest.writeInt(this.positionStatus);
     }
 
     protected UserInfoDto(Parcel in) {
+        this.id = in.readString();
         this.total = in.readString();
         this.birthday = in.readString();
         this.registerDate = in.readInt();
@@ -542,6 +563,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.cardId = in.readString();
         this.status = in.readInt();
         this.type = in.readInt();
+        this.positionStatus = in.readInt();
     }
 
     public static final Creator<UserInfoDto> CREATOR = new Creator<UserInfoDto>() {

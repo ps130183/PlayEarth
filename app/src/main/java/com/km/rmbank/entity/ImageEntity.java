@@ -1,11 +1,15 @@
 package com.km.rmbank.entity;
 
+import com.km.rmbank.R;
+import com.ps.mrcyclerview.delegate.ItemDelegate;
+
 /**
  * Created by kamangkeji on 17/3/29.
  */
 
-public class ImageEntity {
+public class ImageEntity implements ItemDelegate {
     private String imagePath;
+    private String imageUrl;
     private int progress;
     public ImageEntity(String imagePath) {
         this.imagePath = imagePath;
@@ -25,5 +29,10 @@ public class ImageEntity {
 
     public void setProgress(int progress) {
         this.progress = progress;
+    }
+
+    @Override
+    public int getItemViewRes() {
+        return R.layout.item_select_image;
     }
 }

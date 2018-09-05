@@ -9,6 +9,7 @@ import com.km.rmbank.dto.ActiveGoodsOrderDetailDto;
 import com.km.rmbank.dto.ActiveGoodsOrderListDto;
 import com.km.rmbank.dto.ActiveValueDetailDto;
 import com.km.rmbank.dto.ActiveValueDto;
+import com.km.rmbank.dto.AdvertisDto;
 import com.km.rmbank.dto.AppVersionDto;
 import com.km.rmbank.dto.AppointDto;
 import com.km.rmbank.dto.AttentionDto;
@@ -21,6 +22,7 @@ import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.EarthTaskDetailsDto;
 import com.km.rmbank.dto.EarthTaskDto;
 import com.km.rmbank.dto.MyCrowdFundingInfoDto;
+import com.km.rmbank.dto.ReleaseActionDetailsDto;
 import com.km.rmbank.dto.TaskSignInDto;
 import com.km.rmbank.dto.EvaluateDto;
 import com.km.rmbank.dto.ForumInfoDto;
@@ -64,6 +66,8 @@ import com.km.rmbank.dto.UserLoginDto;
 import com.km.rmbank.dto.WeiCharParamsDto;
 import com.km.rmbank.dto.WithDrawAccountDto;
 import com.km.rmbank.dto.OrderDto;
+import com.km.rmbank.entity.BookVenueApplyDto;
+import com.km.rmbank.entity.BookVenueSitEntity;
 import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.retrofit.Response;
 
@@ -807,7 +811,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST(ApiConstant.API_MODEL + "/headRecommend/list")
+    @POST(ApiConstant.API_MODEL + "/headRecommend/list/send")
     Observable<Response<List<HomeRecommendDto>>> getHomeRecommend(@Field("pageNo") int pageNo);
 
     /**
@@ -1006,6 +1010,15 @@ public interface ApiService {
     Observable<Response<UserInfoDto>> getUserCardById(@Field("token") String token,
                                                       @Field("id") String id);
 
+    /**
+     * 通过用户的id查看名片信息
+     *
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/user/userCard/info/send")
+    Observable<Response<UserInfoDto>> getOtherUserCardById(@Field("id") String id);
 
     /**
      * 检测新版本
@@ -2011,4 +2024,139 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/auth/getAllPayList")
     Observable<Response<MyCrowdFundingInfoDto>> getMyCrowdFundingInfo(@Field("token") String token);
+
+    /**
+     * 购买会员成功 以后提交收货信息
+     * @param payNumber
+     * @param address
+     * @param receiveName
+     * @param receivePhone
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/sava/address")
+    Observable<Response<String>> saveAddress(@Field("payNumber") String payNumber,
+                                             @Field("address") String address,
+                                             @Field("receiveName") String receiveName,
+                                             @Field("receivePhone") String receivePhone);
+
+    /**
+     * 获取可预订场地的列表
+     * @param type
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/place/list")
+    Observable<Response<List<BookVenueSitEntity>>> getBookVenueSitList(@Field("type") int type);
+
+    /**
+     * 提交预定的场地
+     * @param token
+     * @param placeId
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/placeReservation")
+    Observable<Response<String>> submitBookVenue(@Field("token") String token,
+                                                 @Field("placeId") String placeId,
+                                                 @Field("startTime") String startDate,
+                                                 @Field("endTime") String endDate);
+
+    /**
+     * 获取场地预定的列表
+     * @param token
+     * @param status
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/placeReservation/list")
+    Observable<Response<List<BookVenueApplyDto>>> getBookVenueApplyList(@Field("token") String token,
+                                                                        @Field("status") String status);
+
+    /**
+     * 取消场地的预约申请
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/cancelPlaceReservation")
+    Observable<Response<String>> cancelBookVenueApply(@Field("token") String token,
+                                                 @Field("id") String id);
+
+    /**
+     * 发布活动
+     * @param title
+     * @param startTime
+     * @param endTime
+     * @param placeReservationId
+     * @param imageContent
+     * @param textContent
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/activity/add")
+    Observable<Response<String>> releaseAction(@Field("token") String token,
+                                               @Field("title") String title,
+                                               @Field("startTime") String startTime,
+                                               @Field("endTime") String endTime,
+                                               @Field("placeReservationId") String placeReservationId,
+                                               @Field("content") String imageContent,
+                                               @Field("flow") String textContent);
+
+    /**
+     * 获取发布的活动详细信息
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/place/activity")
+    Observable<Response<ReleaseActionDetailsDto>> getReleaseActionDetails(@Field("token") String token,
+                                                                          @Field("id") String id);
+
+    /**
+     * 获取首页  约吗  根据场地获取活动列表
+     *
+     * @param pageNo
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/place/activity/list")
+    Observable<Response<List<AppointDto>>> getActionListByPlace(@Field("pageNo") int pageNo,
+                                                               @Field("placeId") String placeId,
+                                                                @Field("clubId") String clubId);
+
+    /**
+     * 获取晚宴场地的 支付di
+     * @param token
+     * @param placeReservationId
+     * @param amount
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/order/placeReservation/create")
+    Observable<Response<PayOrderDto>> getWanYanVenueOrder(@Field("token") String token,
+                                                          @Field("placeReservationId") String placeReservationId,
+                                                          @Field("amount") String amount);
+
+    /**
+     *  获取约么的 基地 列表
+     * @param type
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/club/baseList")
+    Observable<Response<List<MapMarkerDto>>> getBaseList(@Field("type") int type,
+                                                         @Field("isRecommend") int isRecommend);
+
+    /**
+     * 获取首页广告
+     * @param str
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/get/advert")
+    Observable<Response<AdvertisDto>> getHomeAdvertis(@Field("str") String str);
 }

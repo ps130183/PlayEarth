@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-
 import com.km.rmbank.base.BaseEntity;
 
 import java.util.List;
@@ -35,6 +34,7 @@ public class ActionDto extends BaseEntity implements Parcelable {
     private String id;
     private String holdDate;
     private long startDate;
+    private long endDate;
     private String title;
     private String address;
     private String flow;
@@ -57,7 +57,27 @@ public class ActionDto extends BaseEntity implements Parcelable {
 
     private String status;
 
+    private List<ActionMemberDto> actionMemberDtos;
+
     private int isDynamic;
+    /**
+     * endDate : 1535112300000
+     * guestList : []
+     * isDynamic : 0
+     * isRecommend : 1
+     * keepStatus : 0
+     * music :
+     * newType : 1
+     * placeReservationId : 15
+     * reason : <div style="width: 100%;font-size: 14px;line-height: 20px;">			<p style="text-align: center;margin-bottom: 28px;">拒绝原因</p>			<span style="display: block;">尊敬的用户你好：</span>			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你申请的2018年08月24日 04:05-2018年08月24日 20:05唐人汇天天英雄会场地没有审核通过。</span>			<span style="display: block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未通过理由：审核就是不通过。</span>			<br />			<span style="text-align:right;width: 100%;display: block;">感谢你的理解</span>			<span style="text-align:right;width: 100%;display: block;">2018年08月21日 14:47</span>		</div>
+     * saleMemberType :
+     * seatNum : 22
+     * teachingUserId :
+     * type : 1
+     */
+
+    private int seatNum;
+    private String placeName;
 
 
     public String getActivityPictureUrl() {
@@ -79,6 +99,7 @@ public class ActionDto extends BaseEntity implements Parcelable {
                 ", id='" + id + '\'' +
                 ", holdDate='" + holdDate + '\'' +
                 ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", title='" + title + '\'' +
                 ", address='" + address + '\'' +
                 ", flow='" + flow + '\'' +
@@ -95,8 +116,36 @@ public class ActionDto extends BaseEntity implements Parcelable {
                 ", code='" + code + '\'' +
                 ", applyCount=" + applyCount +
                 ", status='" + status + '\'' +
+                ", actionMemberDtos=" + actionMemberDtos +
                 ", isDynamic=" + isDynamic +
+                ", seatNum=" + seatNum +
+                ", placeName='" + placeName + '\'' +
                 '}';
+    }
+
+
+    public long getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(long endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
+    }
+
+    public List<ActionMemberDto> getActionMemberDtos() {
+        return actionMemberDtos;
+    }
+
+    public void setActionMemberDtos(List<ActionMemberDto> actionMemberDtos) {
+        this.actionMemberDtos = actionMemberDtos;
     }
 
     public int getIsDynamic() {
@@ -313,6 +362,14 @@ public class ActionDto extends BaseEntity implements Parcelable {
         return false;
     }
 
+    public int getSeatNum() {
+        return seatNum;
+    }
+
+    public void setSeatNum(int seatNum) {
+        this.seatNum = seatNum;
+    }
+
     public static class ActionGuestBean extends BaseEntity implements Parcelable {
         private String title;
         private String avatarUrl;
@@ -333,12 +390,24 @@ public class ActionDto extends BaseEntity implements Parcelable {
                     '}';
         }
 
+
         public String getAvatarUrl() {
             return avatarUrl;
         }
 
         public void setAvatarUrl(String avatarUrl) {
             this.avatarUrl = avatarUrl;
+        }
+
+        public ActionGuestBean() {
+        }
+
+        @Override
+        public boolean isEmpty() {
+            if (TextUtils.isEmpty(title) || TextUtils.isEmpty(avatarUrl)){
+                return true;
+            }
+            return false;
         }
 
         @Override
@@ -350,9 +419,6 @@ public class ActionDto extends BaseEntity implements Parcelable {
         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(this.title);
             dest.writeString(this.avatarUrl);
-        }
-
-        public ActionGuestBean() {
         }
 
         protected ActionGuestBean(Parcel in) {
@@ -371,14 +437,6 @@ public class ActionDto extends BaseEntity implements Parcelable {
                 return new ActionGuestBean[size];
             }
         };
-
-        @Override
-        public boolean isEmpty() {
-            if (TextUtils.isEmpty(title) || TextUtils.isEmpty(avatarUrl)){
-                return true;
-            }
-            return false;
-        }
     }
 
     @Override
@@ -396,6 +454,7 @@ public class ActionDto extends BaseEntity implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.holdDate);
         dest.writeLong(this.startDate);
+        dest.writeLong(this.endDate);
         dest.writeString(this.title);
         dest.writeString(this.address);
         dest.writeString(this.flow);
@@ -412,7 +471,10 @@ public class ActionDto extends BaseEntity implements Parcelable {
         dest.writeString(this.code);
         dest.writeInt(this.applyCount);
         dest.writeString(this.status);
+        dest.writeTypedList(this.actionMemberDtos);
         dest.writeInt(this.isDynamic);
+        dest.writeInt(this.seatNum);
+        dest.writeString(this.placeName);
     }
 
     protected ActionDto(Parcel in) {
@@ -424,6 +486,7 @@ public class ActionDto extends BaseEntity implements Parcelable {
         this.id = in.readString();
         this.holdDate = in.readString();
         this.startDate = in.readLong();
+        this.endDate = in.readLong();
         this.title = in.readString();
         this.address = in.readString();
         this.flow = in.readString();
@@ -440,7 +503,10 @@ public class ActionDto extends BaseEntity implements Parcelable {
         this.code = in.readString();
         this.applyCount = in.readInt();
         this.status = in.readString();
+        this.actionMemberDtos = in.createTypedArrayList(ActionMemberDto.CREATOR);
         this.isDynamic = in.readInt();
+        this.seatNum = in.readInt();
+        this.placeName = in.readString();
     }
 
     public static final Creator<ActionDto> CREATOR = new Creator<ActionDto>() {

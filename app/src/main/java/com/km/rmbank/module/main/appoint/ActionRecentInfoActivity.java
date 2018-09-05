@@ -20,6 +20,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.ActionDto;
+import com.km.rmbank.dto.ActionMemberDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ShareDto;
 import com.km.rmbank.event.ApplyActionEvent;
@@ -38,6 +39,8 @@ import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.UmengShareUtils;
 import com.km.rmbank.utils.WebViewUtils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.List;
 
 import butterknife.BindView;
 

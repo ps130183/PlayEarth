@@ -51,10 +51,10 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
 
     @BindView(R.id.commonTabLayout)
     CommonTabLayout tabLayout;
-    private String[] ctaTitles = {"基地介绍", "预定服务"};
+    private String[] ctaTitles = {"基地介绍"};
 
-    @BindView(R.id.moreImage)
-    ImageView moreImage;
+//    @BindView(R.id.moreImage)
+//    ImageView moreImage;
 
     @BindView(R.id.banner)
     Banner mBanner;
@@ -180,8 +180,8 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
         ArrayList<CustomTabEntity> ctaDatas = new ArrayList<>();
         if (scenicDto.getClubDto().getClubType().equals("3")){
             ctaTitles[0] = "驿站介绍";
-            ctaTitles[1] = "免费喝茶";
-            moreImage.setVisibility(View.GONE);
+//            ctaTitles[1] = "免费喝茶";
+//            moreImage.setVisibility(View.GONE);
         }
         for (int i = 0; i < ctaTitles.length; i++) {
             ctaDatas.add(new TabEntity(ctaTitles[i], 0, 0));
@@ -195,20 +195,20 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
         Bundle fragment2 = getIntent().getExtras();
 
 
-        if (TextUtils.isEmpty(activityId)){
-            if ("3".equals(scenicDto.getClubDto().getClubType())){//会所
-                fragment2.putParcelable("clubDto",scenicDto.getClubDto());
-                fragmentList.add(ScenicSpecialServiceContentFragment.newInstance(fragment2));
-            } else if ("2".equals(scenicDto.getClubDto().getClubType())){//基地
-                fragment2.putParcelableArrayList("scenicServiceList", (ArrayList<? extends Parcelable>) scenicDto.getScenicServiceDtos());
-                fragmentList.add(ScenicSpecialServiceFragment.newInstance(fragment2));
-            }
-        } else { //平台基地活动
-            fragment2.putParcelable("scenicService",scenicDto.getScenicServiceDtos().get(0));
-            fragment2.putParcelable("clubDto",scenicDto.getClubDto());
-            fragment2.putBoolean("isPlatformActivity",true);
-            fragmentList.add(ScenicSpecialServiceContentFragment.newInstance(fragment2));
-        }
+//        if (TextUtils.isEmpty(activityId)){
+//            if ("3".equals(scenicDto.getClubDto().getClubType())){//会所
+//                fragment2.putParcelable("clubDto",scenicDto.getClubDto());
+//                fragmentList.add(ScenicSpecialServiceContentFragment.newInstance(fragment2));
+//            } else if ("2".equals(scenicDto.getClubDto().getClubType())){//基地
+//                fragment2.putParcelableArrayList("scenicServiceList", (ArrayList<? extends Parcelable>) scenicDto.getScenicServiceDtos());
+//                fragmentList.add(ScenicSpecialServiceFragment.newInstance(fragment2));
+//            }
+//        } else { //平台基地活动
+//            fragment2.putParcelable("scenicService",scenicDto.getScenicServiceDtos().get(0));
+//            fragment2.putParcelable("clubDto",scenicDto.getClubDto());
+//            fragment2.putBoolean("isPlatformActivity",true);
+//            fragmentList.add(ScenicSpecialServiceContentFragment.newInstance(fragment2));
+//        }
 
 
 
@@ -247,37 +247,37 @@ public class ScenicActivity extends BaseActivity<IScenicView,ScenicPresenter> im
                 .commit();
     }
 
-    /**
-     * 赚赏金
-     * @param view
-     */
-    @OnClick(R.id.moreImage)
-    public void more(View view){
-        openMakeMoney();
-    }
+//    /**
+//     * 赚赏金
+//     * @param view
+//     */
+//    @OnClick(R.id.moreImage)
+//    public void more(View view){
+//        openMakeMoney();
+//    }
 
-    private void openMakeMoney(){
-        if (makeMoneyPop == null){
-            View view = LayoutInflater.from(mInstance).inflate(R.layout.popup_window_scenic_right,null,false);
-            LinearLayout makeMoney = view.findViewById(R.id.makeMoney);
-            makeMoney.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            makeMoneyPop = new CustomPopWindow.PopupWindowBuilder(mInstance)
-                    .setView(view)
-                    .size(ConvertUtils.dp2px(110),ConvertUtils.dp2px(70))
-                    .setFocusable(true)
-                    .create();
-            makeMoneyPop.showAsDropDown(moreImage);
-        } else {
-            makeMoneyPop.showAsDropDown(moreImage);
-        }
-
-
-    }
+//    private void openMakeMoney(){
+//        if (makeMoneyPop == null){
+//            View view = LayoutInflater.from(mInstance).inflate(R.layout.popup_window_scenic_right,null,false);
+//            LinearLayout makeMoney = view.findViewById(R.id.makeMoney);
+//            makeMoney.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+//            makeMoneyPop = new CustomPopWindow.PopupWindowBuilder(mInstance)
+//                    .setView(view)
+//                    .size(ConvertUtils.dp2px(110),ConvertUtils.dp2px(70))
+//                    .setFocusable(true)
+//                    .create();
+//            makeMoneyPop.showAsDropDown(moreImage);
+//        } else {
+//            makeMoneyPop.showAsDropDown(moreImage);
+//        }
+//
+//
+//    }
 
     @Override
     public void showScenicInfo(ScenicDto scenicDto) {

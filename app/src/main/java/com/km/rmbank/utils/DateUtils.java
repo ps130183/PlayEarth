@@ -20,6 +20,7 @@ public class DateUtils {
     public static final String YMD = "yyyy-MM-dd";
     public static final String YMD_DOT = "yyyy.MM.dd";
     public static final String YMDHM = "yyyy-MM-dd HH:mm";
+    public static final String YMDHM2 = "yyyy年MM月dd日 HH:mm";
     public static final String YMDHMS = "yyyy-MM-dd HH:mm:ss";
 
     private Calendar calendar;

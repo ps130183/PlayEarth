@@ -1,34 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/white">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="玩转地球"
-            android:textColor="@color/text_color_block1"
-            android:layout_gravity="center"
-            android:textSize="@dimen/textSizeHuge"
-            />
-
-    </android.support.v7.widget.Toolbar>
     <com.andview.refreshview.XRefreshView
         android:id="@+id/xRefreshView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.km.rmbank.module.main.HomeNewActivity">
+        android:layout_height="match_parent">
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -45,26 +28,57 @@
 
                 </com.youth.banner.Banner>
 
+
+
+                <com.ps.mrcyclerview.MRecyclerView
+                    android:id="@+id/moduleRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="88dp"
+                    app:lmType="grid"
+                    app:spanCount="4"
+                    app:dividerWidth="0">
+
+                </com.ps.mrcyclerview.MRecyclerView>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="34dp"
+                    android:layout_height="40dp"
                     android:orientation="horizontal"
-                    android:background="@color/white"
+                    android:background="#fafafa"
                     android:gravity="center_vertical"
-                    android:paddingLeft="14dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@mipmap/icon_home_new_message"/>
+                    android:paddingLeft="22dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="消息："
-                        android:layout_marginLeft="9dp"
+                        android:text="小球"
                         android:textSize="12sp"
-                        android:textColor="@color/text_color_block5"
+                        android:textColor="@color/text_color_block3"
+                        android:textStyle="bold"
+                        android:layout_marginRight="3dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="快报"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        android:paddingLeft="@dimen/viewSpace4"
+                        android:paddingRight="@dimen/viewSpace4"
+                        android:paddingTop="@dimen/viewSpace2"
+                        android:paddingBottom="@dimen/viewSpace2"
+                        android:background="@drawable/shape_bg_blue_corner_3"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_color_block3"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="3dp"
                         />
                     <com.gongwen.marqueen.SimpleMarqueeView
                         android:id="@+id/simpleMarqueeView"
@@ -90,15 +104,16 @@
                     android:background="@color/divide_color"/>
 
 
-                <com.ps.mrcyclerview.MRecyclerView
-                    android:id="@+id/moduleRecycler"
+                <ImageView
+                    android:id="@+id/openAction199"
                     android:layout_width="match_parent"
-                    android:layout_height="88dp"
-                    app:lmType="grid"
-                    app:spanCount="5"
-                    app:dividerWidth="0">
+                    android:layout_height="80dp"
+                    android:src="@drawable/action_199"/>
 
-                </com.ps.mrcyclerview.MRecyclerView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/divide_color"/>
 
                 <com.ps.mrcyclerview.MRecyclerView
                     android:id="@+id/recommendRecycler"
@@ -112,5 +127,24 @@
         </android.support.v4.widget.NestedScrollView>
 
     </com.andview.refreshview.XRefreshView>
-</LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#ffffff">
+
+        <ImageView
+            android:id="@+id/message"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_home_me_message"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/viewSpace16"
+            android:layout_gravity="right"
+            />
+
+    </android.support.v7.widget.Toolbar>
+</RelativeLayout>
 

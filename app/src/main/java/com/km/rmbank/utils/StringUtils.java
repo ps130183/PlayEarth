@@ -3,6 +3,7 @@ package com.km.rmbank.utils;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 
 /**
@@ -34,6 +35,9 @@ public class StringUtils {
      */
     public static String hidePhone(String phone){
         String result = "";
+        if (TextUtils.isEmpty(phone)){
+            return result;
+        }
         if (phone.length() == 11){
             result = phone.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
         }

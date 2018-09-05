@@ -147,6 +147,8 @@ public class RecyclerAdapter<D> extends RecyclerView.Adapter<BViewHolder> implem
         }
     }
 
+
+
     @Override
     public int getItemCount() {
         int count = mDatas.size();

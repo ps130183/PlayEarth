@@ -24,7 +24,7 @@ import butterknife.BindView;
  */
 public class HomeAppointActionFragment extends BaseFragment {
 
-    private String[] actionTypeNames = {"全部","路演大会","平台活动","下午茶","结缘晚宴"};
+    private String[] actionTypeNames = {"全部","下午茶","路演大会","结缘晚宴","户外基地"};
 
     @BindView(R.id.actionTypes)
     SlidingTabLayout actionTypesTab;

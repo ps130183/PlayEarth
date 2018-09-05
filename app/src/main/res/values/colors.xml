@@ -55,6 +55,7 @@
     <color name="text_color_block32">#323232</color>
     <color name="text_color_block8">#888888</color>
     <color name="text_color_block87">#878787</color>
+    <color name="text_color_blockB3">#B3B3B3</color>
 
     <color name="text_color_blue">#2d5ce2</color>
     <color name="text_color_red">#f91413</color>
@@ -71,10 +72,20 @@
     <color name="colorCollapsedFloatBackground">#e4e4e4</color>
 
     <color name="background_color">#f2f3f7</color>
+    <color name="background_red">#E54025</color>
 
     <color name="ticket_bg1">#fffafa</color>
     <color name="ticket_bg2">#f3fbfe</color>
     <color name="ticket_bg3">#fef9f0</color>
     <color name="ticket_bg4">#fef3fe</color>
     <color name="ticket_bg5">#effbfb</color>
+
+
+
+    <color name="venue_apply">#E9B05F</color>
+    <color name="venue_passed">#74D4C7</color>
+    <color name="venue_not_passed">#EF6C51</color>
+    <color name="venue_cancel">#BEBEC6</color>
+
+
 </resources>

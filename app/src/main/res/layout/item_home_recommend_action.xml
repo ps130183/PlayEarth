@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="109dp"
+    android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:paddingLeft="14dp">
 
     <com.ps.glidelib.GlideImageView
         android:id="@+id/contentImage"
-        android:layout_width="103dp"
-        android:layout_height="64dp"
+        android:layout_width="110dp"
+        android:layout_height="80dp"
         android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         app:siv_radius="4dp"
@@ -26,7 +26,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="80dp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/contentImage"
         android:layout_marginLeft="14dp"
@@ -40,8 +40,8 @@
             android:layout_weight="1"
             android:text="玩转地球海上资本之旅"
             android:gravity="center_vertical"
-            android:textColor="@color/text_color_block3"
-            android:textSize="14sp"
+            android:textColor="@color/text_color_block1"
+            android:textSize="15sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
@@ -51,9 +51,9 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="举办时间：2018-04-07"
-            android:gravity="center_vertical"
-            android:textColor="#888888"
-            android:textSize="12sp"
+            android:gravity="top"
+            android:textColor="@color/text_color_blocka"
+            android:textSize="13sp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
@@ -62,19 +62,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="免费"
-                android:textColor="#3285ff"
-                android:textSize="12sp"
-                />
-
-            <View
-                android:layout_width="14dp"
-                android:layout_height="match_parent"/>
+            android:gravity="bottom">
 
             <TextView
                 android:id="@+id/appliedPersonNum"
@@ -92,21 +80,6 @@
                 android:textColor="#888888"
                 android:textSize="12sp"
                 />
-
-            <!--<com.ruffian.library.RTextView-->
-                <!--android:id="@+id/rt_apply_action"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/baoming"-->
-                <!--android:textColor="#3285ff"-->
-                <!--android:textSize="12sp"-->
-                <!--android:gravity="right|center"-->
-                <!--app:icon_src_normal="@mipmap/icon_home_arrow_right_baoming"-->
-                <!--app:icon_height="10dp"-->
-                <!--app:icon_width="10dp"-->
-                <!--app:icon_direction="right"-->
-                <!--/>-->
-
         </LinearLayout>
 
 

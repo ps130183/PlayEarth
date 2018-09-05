@@ -8,7 +8,9 @@ import com.km.rmbank.mvp.view.IActionJoinMemberView;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 
 /**

@@ -5,13 +5,13 @@
     android:layout_height="match_parent">
 
     <com.youth.banner.view.BannerViewPager
-        android:id="@id/bannerViewPager"
+        android:id="@+id/bannerViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:background="#ffffff"
         android:clipToPadding="false"/>
 

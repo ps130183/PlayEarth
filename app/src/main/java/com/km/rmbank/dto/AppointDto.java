@@ -49,7 +49,7 @@ public class AppointDto implements Parcelable,ItemDelegate {
     private String newType;
     private String videoUrl;
 
-    private String isDynamic;
+    private String isDynamic; //0是活动 1是资讯
     private String activityId;
 
     public String getActivityId() {

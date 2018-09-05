@@ -135,6 +135,7 @@ public class HomeRecommendDto implements ItemDelegate {
         private String thumbnail;
         private String title;
         private String type;
+        private String classifyName;
         /**
          * applyCount : 1
          * startDate : 1521264600000
@@ -144,6 +145,37 @@ public class HomeRecommendDto implements ItemDelegate {
         private long startDate;
 
         private int layoutRes;
+
+
+        @Override
+        public String toString() {
+            return "DetailListBean{" +
+                    "activityId='" + activityId + '\'' +
+                    ", clubId='" + clubId + '\'' +
+                    ", content='" + content + '\'' +
+                    ", fans='" + fans + '\'' +
+                    ", id='" + id + '\'' +
+                    ", keepCount='" + keepCount + '\'' +
+                    ", recommendId='" + recommendId + '\'' +
+                    ", relevanceId='" + relevanceId + '\'' +
+                    ", sort=" + sort +
+                    ", thumbnail='" + thumbnail + '\'' +
+                    ", title='" + title + '\'' +
+                    ", type='" + type + '\'' +
+                    ", classifyName='" + classifyName + '\'' +
+                    ", applyCount='" + applyCount + '\'' +
+                    ", startDate=" + startDate +
+                    ", layoutRes=" + layoutRes +
+                    '}';
+        }
+
+        public String getClassifyName() {
+            return classifyName;
+        }
+
+        public void setClassifyName(String classifyName) {
+            this.classifyName = classifyName;
+        }
 
         public String getContent() {
             return content;
@@ -265,5 +297,20 @@ public class HomeRecommendDto implements ItemDelegate {
         public int getItemViewRes() {
             return layoutRes;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "HomeRecommendDto{" +
+                "advertImage='" + advertImage + '\'' +
+                ", advertUrl='" + advertUrl + '\'' +
+                ", urlType='" + urlType + '\'' +
+                ", id='" + id + '\'' +
+                ", levelName='" + levelName + '\'' +
+                ", sort=" + sort +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", detailList=" + detailList +
+                '}';
     }
 }

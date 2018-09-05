@@ -35,15 +35,15 @@ import java.util.List;
 
 public class MRecyclerView<D> extends FrameLayout {
 
-    private static final String TAG = "MRecyclerView";
-    private static final int LM_LINEAR = 0;
-    private static final int LM_GRID = 1;
-    private static final int LM_STAGGERED_GRID = 2;
-    private static final int ORIENTATION_VERTICAL = 0;
-    private static final int ORIENTATION_HORIZONTAL = 1;
+    public static final String TAG = "MRecyclerView";
+    public static final int LM_LINEAR = 0;
+    public static final int LM_GRID = 1;
+    public static final int LM_STAGGERED_GRID = 2;
+    public static final int ORIENTATION_VERTICAL = 0;
+    public static final int ORIENTATION_HORIZONTAL = 1;
 
-    private static final int ADAPTER_DEFAULT = 0;
-    private static final int ADAPTER_SWIPE = 1;
+    public static final int ADAPTER_DEFAULT = 0;
+    public static final int ADAPTER_SWIPE = 1;
 
     private RecyclerView mRecyclerView;
     private IAdapter<D> mAdapter;
@@ -106,6 +106,7 @@ public class MRecyclerView<D> extends FrameLayout {
     }
 
 
+
     private void initRecycler(){
         if (emptyRes > 0){
             mEmptyView = LayoutInflater.from(this.getContext()).inflate(emptyRes,this,false);
@@ -113,6 +114,7 @@ public class MRecyclerView<D> extends FrameLayout {
         }
 
         mRecyclerView = new RecyclerView(this.getContext());
+
         FrameLayout.LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
         mRecyclerView.setLayoutParams(lp);
         if (isRefresh){
@@ -125,8 +127,10 @@ public class MRecyclerView<D> extends FrameLayout {
         } else {
             this.addView(mRecyclerView);
         }
+        refreshRecycler();
+    }
 
-
+    public MRecyclerView<D> refreshRecycler(){
         if (lmType == LM_LINEAR){
             addLinearLayoutManager(orientation == ORIENTATION_VERTICAL ? LinearLayoutManager.VERTICAL : LinearLayoutManager.HORIZONTAL);
             mRecyclerView.addItemDecoration(new LinearDividerItemDecoration(mRecyclerView,dividerWidth,dividerColor));
@@ -152,6 +156,7 @@ public class MRecyclerView<D> extends FrameLayout {
         mAdapter.setMoreLayoutRes(loadMoreRes);
         mAdapter.setMoreFinishLayoutRes(loadMoreFinishRes);
         mAdapter.setMoreErrorLayoutRes(loadMoreErrorRes);
+        return this;
     }
 
     /**
@@ -198,7 +203,6 @@ public class MRecyclerView<D> extends FrameLayout {
         xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener(){
             @Override
             public void onRefresh(boolean isPullDown) {
-                clear();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -360,6 +364,35 @@ public class MRecyclerView<D> extends FrameLayout {
     }
 
     /**
+     * 获取对应位置的View
+     * @param position
+     * @return
+     */
+    public View getItemView(int position){
+        View view = null;
+        int firstItem = 0;
+        int endItem = 0;
+        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager){
+            LinearLayoutManager llm = (LinearLayoutManager) layoutManager;
+            firstItem = llm.findFirstCompletelyVisibleItemPosition();
+            endItem = llm.findLastCompletelyVisibleItemPosition();
+            if (position <= endItem && position >= firstItem){
+                view = llm.findViewByPosition(position);
+            }
+        } else if (layoutManager instanceof GridLayoutManager){
+            GridLayoutManager glm = (GridLayoutManager) layoutManager;
+            firstItem = glm.findFirstCompletelyVisibleItemPosition();
+            endItem = glm.findLastCompletelyVisibleItemPosition();
+            if (position <= endItem && position >= firstItem){
+                view = glm.findViewByPosition(position);
+            }
+        }
+        return view;
+    }
+
+
+    /**
      * 插入一条数据
      * @param data
      */
@@ -422,6 +455,61 @@ public class MRecyclerView<D> extends FrameLayout {
         if (mEmptyView != null){
             mEmptyView.setVisibility(VISIBLE);
         }
+    }
+
+    public MRecyclerView<D> addLoadMoreRes(@LayoutRes int loadMoreRes){
+        this.loadMoreRes = loadMoreRes;
+        return this;
+    }
+
+    public MRecyclerView<D> addLoadMoreFinishRes(@LayoutRes int loadMoreFinishRes){
+        this.loadMoreFinishRes = loadMoreFinishRes;
+        return this;
+    }
+
+    public MRecyclerView<D> addLoadMoreErrorRes(@LayoutRes int loadMoreErrorRes){
+        this.loadMoreErrorRes = loadMoreErrorRes;
+        return this;
+    }
+
+    public MRecyclerView<D> addEmptyRes(@LayoutRes int emptyRes){
+        this.emptyRes = emptyRes;
+        return this;
+    }
+
+    public MRecyclerView<D> setLmType(int lmType) {
+        this.lmType = lmType;
+        return this;
+    }
+
+    public MRecyclerView<D> setOrientation(int orientation) {
+        this.orientation = orientation;
+        return this;
+    }
+
+    public MRecyclerView<D> setSpanCount(int spanCount) {
+        this.spanCount = spanCount;
+        return this;
+    }
+
+    public MRecyclerView<D> setDividerWidth(int dividerWidth) {
+        this.dividerWidth = dividerWidth;
+        return this;
+    }
+
+    public MRecyclerView<D> setDividerColor(int dividerColor) {
+        this.dividerColor = dividerColor;
+        return this;
+    }
+
+    public MRecyclerView<D> setAdapterType(int adapterType) {
+        this.adapterType = adapterType;
+        return this;
+    }
+
+    public MRecyclerView<D> setRefresh(boolean refresh) {
+        isRefresh = refresh;
+        return this;
     }
 
     /**

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/viewSpace16"
+    android:paddingBottom="@dimen/viewSpace16"
+    android:paddingRight="@dimen/viewSpace16"
+    android:background="@color/white">
+
+    
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/imageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:siv_shape_type="circle"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/default_protrait"
+        android:layout_marginLeft="@dimen/viewSpace16"
+        android:layout_marginRight="@dimen/viewSpace16"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="玩小球|UI设计"
+            android:textSize="14sp"
+            android:textColor="@color/text_color_block1"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/userPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1232131321321"
+            android:textSize="13sp"
+            android:textColor="@color/text_color_block8"
+            android:layout_marginBottom="5dp"
+            android:maxLength="11"
+            />
+
+        <TextView
+            android:id="@+id/userCompany"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="玩小球|UI设计"
+            android:textSize="13sp"
+            android:textColor="@color/text_color_block8"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

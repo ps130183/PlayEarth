@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
 import com.km.rmbank.dto.AppointDto;
+import com.km.rmbank.entity.BookVenueSitEntity;
 import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
 import com.km.rmbank.mvp.model.AppointModel;
 import com.km.rmbank.mvp.presenter.AppointPresenter;
@@ -75,17 +76,17 @@ public class ActionFinishedFragment extends BaseFragment<AppointView, AppointPre
                 TextView actionTime = holder.findView(R.id.actionTime);
                 actionTime.setText(Html.fromHtml(time));
 
-                holder.getTextView(R.id.memberNum).setVisibility(View.GONE);
-                holder.getTextView(R.id.hint).setVisibility(View.GONE);
+//                holder.getTextView(R.id.memberNum).setVisibility(View.GONE);
+//                holder.getTextView(R.id.hint).setVisibility(View.GONE);
 //                        holder.getTextView(R.id.baoming).setVisibility(View.GONE);
                 holder.setText(R.id.actionAddress, "地址：" + mData.getAddress());
-                holder.setText(R.id.free, mData.getStatus());
+//                holder.setText(R.id.free, mData.getStatus());
             }
         }).create();
         actionRecycler.addLoadMoreListener(new LoadMoreListener() {
             @Override
             public void loadMore(int nextPage) {
-                getPresenter().getAppointAppliedList("1",nextPage,null);
+                getPresenter().getAppointAppliedList("1",nextPage);
             }
         });
 
@@ -107,16 +108,21 @@ public class ActionFinishedFragment extends BaseFragment<AppointView, AppointPre
 
             }
         });
-        getPresenter().getAppointAppliedList("1",1, null);
+        getPresenter().getAppointAppliedList("1",1);
     }
 
     @Override
-    public void showAppointList(LoadMoreWrapper wrapper, List<AppointDto> appointDtos) {
+    public void showAppointList(int pageNo, List<AppointDto> appointDtos) {
         actionRecycler.loadDataOfNextPage(appointDtos);
     }
 
     @Override
     public void applyActionSuccess(String actionId) {
+
+    }
+
+    @Override
+    public void showVenueSitList(List<BookVenueSitEntity> bookVenueSitEntities) {
 
     }
 

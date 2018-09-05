@@ -58,6 +58,12 @@ public abstract class BasePresenter<V extends MvpView,M extends MvpModel> implem
         return mView;
     }
 
+    protected void showLoading(){
+        if (isViewAttached()){
+            mView.showLoading();
+        }
+    }
+
     /**
      * 获取当前model
      * @return

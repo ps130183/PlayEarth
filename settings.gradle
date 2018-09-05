@@ -1,1 +1,1 @@
-include ':app', ':commonadapter', ':glidelib', ':banner', ':FlycoTabLayout_Lib', ':libqrcode', ':gallerypick', ':ucrop', ':guideShowLib', ':photoedit', ':identify', ':expandablerecycleradapter', ':mrcyclerview'
+include ':app', ':commonadapter', ':glidelib', ':banner', ':FlycoTabLayout_Lib', ':libqrcode', ':gallerypick', ':ucrop', ':guideShowLib', ':photoedit', ':identify', ':expandablerecycleradapter', ':mrcyclerview', ':carrousellayout', ':pickerview', ':guide'

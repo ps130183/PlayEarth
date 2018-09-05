@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.personal.book.BookVenueRefuseActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="尊敬的用户你好：
+
+
+
+你申请的2018年6月21日10:30-2018年6月22日15:30 唐人
+
+汇场地没有审核通过。
+
+未通过理由：会议内容未通过玩转地球商务部内容组的要
+
+求，请您修改会议流程与内容后重新提交申请。
+
+
+
+                                                    感谢你的理解。
+
+                                             2018年5月26日15:32"
+        />
+
+</FrameLayout>

@@ -79,7 +79,7 @@ public class EarthTaskEntity implements ItemDelegate {
      * @return
      */
     public boolean isFinished(){
-        return curTimes == maxTimes;
+        return curTimes >= maxTimes;
     }
 
     @Override

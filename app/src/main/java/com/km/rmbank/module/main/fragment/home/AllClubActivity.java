@@ -51,7 +51,7 @@ public class AllClubActivity extends BaseActivity<IClubView, ClubPresenter> impl
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setTitleContent("推荐俱乐部");
+        simpleTitleBar.setTitleContent("俱乐部");
     }
 
     @Override

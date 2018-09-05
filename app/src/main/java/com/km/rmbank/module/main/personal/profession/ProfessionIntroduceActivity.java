@@ -4,10 +4,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
+import com.km.rmbank.utils.Constant;
 import com.yancy.gallerypick.utils.ScreenUtils;
 
 public class ProfessionIntroduceActivity extends BaseActivity {
@@ -27,6 +29,12 @@ public class ProfessionIntroduceActivity extends BaseActivity {
     public void onFinally(@Nullable Bundle savedInstanceState) {
         ImageView imageView = mViewManager.findView(R.id.imageView);
         imageView.getLayoutParams().height = ScreenUtils.getScreenWidth(mInstance) * 300 / 750 ;
+
+        Button identification = mViewManager.findView(R.id.identification);
+        if (Constant.userInfo.getPositionStatus() == 2){
+            identification.setText("已认证");
+            identification.setEnabled(false);
+        }
     }
 
     /**

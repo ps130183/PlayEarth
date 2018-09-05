@@ -73,7 +73,7 @@
                 android:id="@+id/tel_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="13699231246"
+                android:text="18401438716"
                 android:textSize="16sp"
                 android:textColor="#0e48a0"
                 android:layout_gravity="center_vertical"

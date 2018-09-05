@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.model;
 
+import com.km.rmbank.dto.AdvertisDto;
 import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
@@ -70,5 +71,24 @@ public class HomeModel extends BaseModel {
     public Observable<List<BannerDto>> getHomeBannerList(){
         return getService().getBannerList("")
                 .compose(this.<List<BannerDto>>applySchedulers());
+    }
+
+    /**
+     * 获取首页的广告
+     * @return
+     */
+    public Observable<AdvertisDto> getAdvertis(){
+        return getService().getHomeAdvertis("")
+                .compose(this.<AdvertisDto>applySchedulers());
+    }
+
+    /**
+     * 通过用户的ID 获取 名片信息
+     * @param userId
+     * @return
+     */
+    public Observable<UserInfoDto> getUserCardById(String userId){
+        return getService().getOtherUserCardById(userId)
+                .compose(this.<UserInfoDto>applySchedulers());
     }
 }

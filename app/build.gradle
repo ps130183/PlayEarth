@@ -83,8 +83,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation rootProject.ext.dependencies["androidTestImplementation-runner"]
     androidTestImplementation rootProject.ext.dependencies["androidTestImplementation-espresso-core"]
@@ -130,6 +130,7 @@ dependencies {
     implementation rootProject.ext.dependencies["marqueelibrary"]
     implementation rootProject.ext.dependencies["jpinyin"]
     implementation rootProject.ext.dependencies["greendao"]
+//    implementation rootProject.ext.dependencies["guider"]
     implementation rootProject.ext.dependencies["android-database-sqlcipher"]
     implementation rootProject.ext.dependencies["magic-viewpager"]
     //    implementation rootProject.ext.dependencies["VerificationCodeInput"]
@@ -159,6 +160,9 @@ dependencies {
     implementation project(':identify')
     implementation project(':expandablerecycleradapter')
     implementation project(':mrcyclerview')
+    implementation project(':carrousellayout')
+    implementation project(':pickerview')
+    implementation project(':guide')
 }
 
 //数据库的配置信息

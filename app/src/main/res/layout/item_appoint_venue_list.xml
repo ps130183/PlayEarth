@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_marginTop="@dimen/viewSpace16"
+    android:layout_marginLeft="@dimen/viewSpace16"
+    android:layout_marginRight="@dimen/viewSpace16">
+
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/banner_afternoon_tea"
+        />
+    
+    <TextView
+        android:id="@+id/venue_name"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="唐人汇"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="#73000000"
+        />
+
+</RelativeLayout>

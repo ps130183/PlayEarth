@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_above="@+id/view_line_bottom">
+        android:layout_above="@+id/view_line_bottom"
+        android:visibility="visible">
 
         <FrameLayout
             android:id="@+id/main_page"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/tab_layout"
-            android:layout_marginBottom="0.5dp">
+            android:layout_marginBottom="49dp">
 
         </FrameLayout>
 
@@ -31,22 +31,37 @@
             <!--android:layout_marginBottom="49dp"-->
             <!--android:layout_alignParentBottom="true"/>-->
 
-        <com.flyco.tablayout.CommonTabLayout
-            android:id="@+id/tab_layout"
+        <RelativeLayout
+            android:id="@+id/bottom"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="#ffffff"
-            android:layout_alignParentBottom="true"
-            app:tl_iconHeight="25dp"
-            app:tl_iconWidth="25dp"
-            app:tl_iconMargin="0dp"
-            app:tl_indicator_color="#2C97DE"
-            app:tl_indicator_height="0dp"
-            app:tl_textSelectColor="@color/text_color_block1"
-            app:tl_textUnselectColor="@color/text_color_block8"
-            app:tl_textsize="13sp"
-            app:tl_underline_color="#DDDDDD"
-            app:tl_underline_height="1dp" />
+            android:layout_height="70dp"
+            android:background="#00ffffff"
+            android:layout_alignParentBottom="true">
+            <com.flyco.tablayout.CommonTabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:tl_iconHeight="25dp"
+                app:tl_iconWidth="25dp"
+                app:tl_iconMargin="0dp"
+                app:tl_indicator_color="#2C97DE"
+                app:tl_indicator_height="0dp"
+                app:tl_textSelectColor="@color/text_color_block1"
+                app:tl_textUnselectColor="@color/text_color_block8"
+                app:tl_textsize="13sp"
+                app:tl_underline_color="#DDDDDD"
+                app:tl_underline_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ffffff"/>
+
+            <ImageView
+                android:id="@+id/iv_middle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/icon_home_book_venue"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <View

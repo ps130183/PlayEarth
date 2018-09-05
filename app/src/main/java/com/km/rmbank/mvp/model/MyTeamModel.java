@@ -33,7 +33,7 @@ public class MyTeamModel extends BaseModel {
      * @return
      */
     public Observable<UserInfoDto> getUserCardById(String userId){
-        return getService().getUserCardById(Constant.userLoginInfo.getToken(),userId)
+        return getService().getOtherUserCardById(userId)
                 .compose(this.<UserInfoDto>applySchedulers());
     }
 

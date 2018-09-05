@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_white_border_corner_5"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/viewSpace16"
+    android:paddingLeft="@dimen/viewSpace16"
+    android:paddingRight="@dimen/viewSpace16"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp">
+
+        <ImageView
+            android:id="@+id/initiator"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/viewSpace8"
+            android:src="@drawable/icon_action_initiator"
+            android:layout_toRightOf="@+id/portrait"
+            android:visibility="gone"/>
+
+        <FrameLayout
+            android:id="@+id/portrait"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/viewSpace16">
+
+            <TextView
+                android:id="@+id/item"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:background="@drawable/shape_bg_appoint_afternoon_tea_apply"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/userPortrait"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:visibility="gone"
+                app:siv_shape_type="circle" />
+        </FrameLayout>
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="姓名"
+        android:textColor="@color/text_color_block24"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/userPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="156****2345"
+        android:textColor="@color/text_color_blockaa"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/userPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLength="7"
+        android:maxLines="1"
+        android:text="11111"
+        android:textColor="@color/text_color_blockaa"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/userCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLength="7"
+        android:maxLines="1"
+        android:text="11111"
+        android:textColor="@color/text_color_blockaa"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+</LinearLayout>
+

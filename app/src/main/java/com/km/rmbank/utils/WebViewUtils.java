@@ -2,8 +2,10 @@ package com.km.rmbank.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * Created by PengSong on 18/6/1.

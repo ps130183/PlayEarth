@@ -126,7 +126,7 @@ public class DialogUtils {
             public void onSecond() {
                 clickListener.clickConfirm();
             }
-        }).setBtnColor(R.color.colorAccent,R.color.colorAccent,R.color.colorAccent)
+        }).setBtnColor(R.color.text_color_block3,R.color.colorAccent,R.color.colorAccent)
                 .setBtnText(cancel,confirm).show();
     }
 

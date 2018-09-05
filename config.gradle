@@ -4,8 +4,8 @@ ext {
             buildToolsVersion: "27.0.3",
             minSdkVersion    : 16,
             targetSdkVersion : 27,
-            versionCode      : 31,
-            versionName      : "4.5.1"
+            versionCode      : 36,
+            versionName      : "6.0.0"
     ]
 
     dependencies = [
@@ -114,6 +114,9 @@ ext {
             //数据库管理工具
             "greendao" : "org.greenrobot:greendao:3.2.2",
             "android-database-sqlcipher" : "net.zetetic:android-database-sqlcipher:3.5.2",
+
+            //功能引导
+            "guider" : "com.github.huburt-Hu:NewbieGuide:v2.4.0",
 
             //激光推送
             "jpush" : "cn.jiguang.sdk:jpush:3.1.1",  // 此处以JPush 3.1.1 版本为例。

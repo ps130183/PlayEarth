@@ -21,6 +21,7 @@ import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.MyTeamDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.event.RefreshMyTeamDataEvent;
+import com.km.rmbank.module.main.card.UserCardActivity;
 import com.km.rmbank.module.main.card.UserNewCardActivity;
 import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.mvp.model.MyTeamModel;
@@ -102,7 +103,7 @@ public class MyTeamActivity extends BaseActivity<IMyTeamView,MyTeamPresenter> im
     public void showUserCard(UserInfoDto cardDto) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("userCard",cardDto);
-        startActivity(UserNewCardActivity.class,bundle);
+        startActivity(UserCardActivity.class,bundle);
     }
 
     @Override

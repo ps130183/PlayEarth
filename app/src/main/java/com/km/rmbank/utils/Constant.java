@@ -22,7 +22,8 @@ public class Constant {
     public static boolean isAllowUserCard = true;
 
     //客服电话
-    public final static String SERVICE_PHONE = "13699231246";
+    public final static String SERVICE_JISHU_PHONE = "13699231246";
+    public final static String SERVICE_KEFU_PHONE = "18401438716";
 
     //获取名片 接口
     public static final String QRCODE_URL = ApiConstant.API_BASE_URL +  "/user/saoUserCard/info/send?mobilePhone=";

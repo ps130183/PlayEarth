@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.payment.PayMemberSuccessActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/viewSpace16"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="欢迎加入玩转地球！请填写你的收货信息，玩转地球会第一时间将赠品送到你的手中"
+            android:textSize="16sp"
+            android:textColor="@color/text_color_block1"
+            android:layout_marginBottom="@dimen/viewSpace16"
+            />
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请填写收件人姓名"
+            android:textSize="14sp"
+            android:background="@color/white"
+            android:paddingTop="@dimen/viewSpace16"
+            android:paddingBottom="@dimen/viewSpace16"
+            android:maxLines="1"
+            />
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请填写收件人手机号"
+            android:textSize="14sp"
+            android:background="@color/white"
+            android:paddingTop="@dimen/viewSpace16"
+            android:paddingBottom="@dimen/viewSpace16"
+            android:maxLines="1"
+            android:inputType="phone"
+            android:maxLength="11"
+            />
+
+        <include layout="@layout/_default_divide_line"/>
+
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请填写收货地址"
+            android:textSize="14sp"
+            android:background="@color/white"
+            android:paddingTop="@dimen/viewSpace16"
+            android:paddingBottom="@dimen/viewSpace16"
+            android:lines="4"
+            android:gravity="top"
+            />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:background="@drawable/selector_btn_bg_default"
+        android:layout_marginLeft="@dimen/viewSpace16"
+        android:layout_marginRight="@dimen/viewSpace16"
+        android:layout_marginTop="@dimen/viewSpace32"
+        android:onClick="submitAddressInfo"
+        />
+
+
+</LinearLayout>

@@ -1,9 +1,12 @@
 package com.km.rmbank.mvp.model;
 
 import com.km.rmbank.dto.ActionDto;
+import com.km.rmbank.dto.ActionMemberDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.mvp.base.BaseModel;
 import com.km.rmbank.utils.Constant;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -72,5 +75,15 @@ public class ActionRecentInfoModel extends BaseModel {
     public Observable<String> taskShare(int shareType){
         return getService().taskShare(Constant.userLoginInfo.getToken(),shareType)
                 .compose(this.<String>applySchedulers());
+    }
+
+    /**
+     * 获取俱乐部 活动 的参加人员 列表
+     * @param actionId
+     * @return
+     */
+    public Observable<List<ActionMemberDto>> getActionMemberList(String actionId, int pageNo){
+        return getService().getActionMemberList(actionId,pageNo)
+                .compose(this.<List<ActionMemberDto>>applySchedulers());
     }
 }

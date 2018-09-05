@@ -1,12 +1,18 @@
 package com.km.rmbank.mvp.presenter;
 
 import com.km.rmbank.dto.ActionDto;
+import com.km.rmbank.dto.ActionMemberDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.mvp.base.BasePresenter;
 import com.km.rmbank.mvp.model.ActionRecentInfoModel;
 import com.km.rmbank.mvp.view.IActionRecentInfoView;
 
+import java.util.List;
+
+import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -19,14 +25,22 @@ public class ActionRecentInfoPresenter extends BasePresenter<IActionRecentInfoVi
         super(mModel);
     }
 
-    public void getActionRecentInfo(String actionId) {
-        getMvpModel().getActionRecentInfo(actionId)
-                .subscribe(newSubscriber(new Consumer<ActionDto>() {
-                    @Override
-                    public void accept(@NonNull ActionDto actionDto) throws Exception {
-                        getMvpView().showActionRecentInfo(actionDto);
-                    }
-                }));
+    public void getActionRecentInfo(final String actionId) {
+        Observable observable1 = getMvpModel().getActionRecentInfo(actionId);
+        Observable observable2 = getMvpModel().getActionMemberList(actionId,1);
+        Observable.zip(observable1, observable2, new BiFunction<ActionDto,List<ActionMemberDto>,ActionDto>() {
+            @Override
+            public ActionDto apply(ActionDto actionDto, List<ActionMemberDto> actionMemberDtos) throws Exception {
+                actionDto.setActionMemberDtos(actionMemberDtos);
+                return actionDto;
+            }
+        }).subscribe(newSubscriber(new Consumer<ActionDto>() {
+            @Override
+            public void accept(ActionDto actionDto) throws Exception {
+                getMvpView().showActionRecentInfo(actionDto);
+            }
+        }));
+
     }
 
     public void applyAction(final String activityId, String name, String phone) {
@@ -79,4 +93,5 @@ public class ActionRecentInfoPresenter extends BasePresenter<IActionRecentInfoVi
                     }
                 });
     }
+
 }

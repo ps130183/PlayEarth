@@ -56,13 +56,7 @@ public class WithdrawDepositActivity extends BaseActivity<IWithDrawView,WithDraw
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
         simpleTitleBar.setTitleContent("提现");
-        simpleTitleBar.setRightMenuContent("提现说明");
-        simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("提现说明");
-            }
-        });
+
     }
 
     @Override

@@ -19,6 +19,7 @@ import com.km.rmbank.entity.SupplyEntity;
 import com.km.rmbank.module.main.card.auto.MyAutobiographyActivity;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
+import com.km.rmbank.utils.StringUtils;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.mrcyclerview.BViewHolder;
@@ -48,15 +49,18 @@ public class UserNewCardDetailsActivity extends BaseActivity {
     @Override
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
         SimpleTitleBar simpleTitleBar = (SimpleTitleBar) titleBar;
-        simpleTitleBar.setRightMenuContent("编辑");
-        simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("fromPage",1);
-                startActivity(UserCardModifyActivity.class,bundle);
-            }
-        });
+        UserInfoDto userInfoDto = getIntent().getParcelableExtra("userCard");
+        if (userInfoDto == null){
+            simpleTitleBar.setRightMenuContent("编辑");
+            simpleTitleBar.setRightMenuClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("fromPage",1);
+                    startActivity(UserCardModifyActivity.class,bundle);
+                }
+            });
+        }
     }
 
     @Override
@@ -126,7 +130,7 @@ public class UserNewCardDetailsActivity extends BaseActivity {
 
 
         //名片信息
-        mViewManager.setText(R.id.userPhone,userInfoDto.getCardPhone());
+        mViewManager.setText(R.id.userPhone,"0".equals(userInfoDto.getAllowStutas()) ? userInfoDto.getCardPhone() : StringUtils.hidePhone(userInfoDto.getCardPhone()));
         mViewManager.setText(R.id.userEmail,userInfoDto.getEmailAddress());
         mViewManager.setText(R.id.userAddress,userInfoDto.getDetailedAddress());
         mViewManager.setText(R.id.userIntroduce,userInfoDto.getPersonalizedSignature());

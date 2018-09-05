@@ -27,7 +27,8 @@ public class ServiceActivity extends BaseActivity {
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
-
+        mViewManager.setText(R.id.tel_service,Constant.SERVICE_KEFU_PHONE);
+        mViewManager.setText(R.id.tel_technology,Constant.SERVICE_JISHU_PHONE);
     }
 
     public void callService(View view) {

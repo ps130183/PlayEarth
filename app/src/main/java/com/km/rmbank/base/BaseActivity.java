@@ -217,7 +217,6 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
     protected void onCreateTitleBar(BaseTitleBar titleBar) {
     }
 
-    ;
 
     /**
      * activity的默认加载结束 ，正式 加载页面的具体内容

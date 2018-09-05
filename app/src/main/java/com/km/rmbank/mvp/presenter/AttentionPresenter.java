@@ -23,7 +23,7 @@ public class AttentionPresenter extends BasePresenter<IAttentionView,AttentionMo
     }
 
     public void getAttentionGoods(final int pageNo) {
-        getMvpView().showLoading();
+        showLoading();
         getMvpModel().getAttentionGoodsList(pageNo)
                 .subscribe(newSubscriber(new Consumer<List<AttentionDto>>() {
                     @Override
@@ -34,7 +34,7 @@ public class AttentionPresenter extends BasePresenter<IAttentionView,AttentionMo
     }
 
     public void getAttentionGoods1(final int pageNo) {
-        getMvpView().showLoading();
+        showLoading();
         getMvpModel().getAttentionGoodsList1(pageNo)
                 .subscribe(newSubscriber(new Consumer<List<GoodsDto>>() {
                     @Override

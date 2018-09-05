@@ -25,10 +25,13 @@ import com.km.rmbank.dto.ScenicServiceDto;
 import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.dto.UserBalanceDto;
 import com.km.rmbank.dto.WeiCharParamsDto;
+import com.km.rmbank.entity.BookVenueApplyDto;
 import com.km.rmbank.entity.PayTypeEntity;
 import com.km.rmbank.event.PaySuccessEvent;
+import com.km.rmbank.event.PayWanYanVenueEvent;
 import com.km.rmbank.event.WXPayResult;
 import com.km.rmbank.module.main.HomeActivity;
+import com.km.rmbank.module.main.personal.book.BookVenueManageActivity;
 import com.km.rmbank.mvp.model.PaymentModel;
 import com.km.rmbank.mvp.presenter.PaymentPresenter;
 import com.km.rmbank.mvp.view.IPaymentView;
@@ -67,7 +70,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
 
     private PayOrderDto mPayOrderDto;
 
-    private int payType = 0;//默认0：商品，1：会员支付,2:基地活动报名
+    private int payType = 0;//默认0：商品，1：会员支付,2:基地活动报名,3:通讯录绑定，4预约晚宴场地
 
     private List<PayTypeEntity> payTypeEntities;
 
@@ -119,7 +122,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
             String content = "可邀请人脉数  <font color='#3285ff'>" + number + "</font>  个";
             peopleNumber.setText(Html.fromHtml(content));
             createPayOrderSuccess(mPayOrderDto);
-        } else { //商品支付
+        } else { //商品支付   4预约晚宴场地
             createPayOrderSuccess(mPayOrderDto);
         }
 
@@ -534,27 +537,35 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
         if (isCheck) {
             getPresenter().checkPayResult(mPayOrderDto.getPayNumber());
         } else {
-            if (payType != 0) {//会员充值
+            if (payType == 1) {//会员充值
+                Bundle bundle = new Bundle();
+                bundle.putString("payNumber",mPayOrderDto.getPayNumber());
+                startActivity(PayMemberSuccessActivity.class,bundle);
+            } else if (payType == 2){ //基地活动报名等
                 Bundle bundle = new Bundle();
                 String hint1;
                 String hint2;
-                if (payType == 2) {
-                    if (totalPrice == 0) {
-                        hint1 = "报名成功";
-                        hint2 = "请到“我的-活动”中查看";
-                    } else {
-                        hint1 = "支付成功";
-                        hint2 = "请到“我的-活动”中查看";
-                    }
-                    bundle.putString("hint1", hint1);
-                    bundle.putString("hint2", hint2);
-                } else if (payType == 3) {
-                    Bundle bundle1 = getIntent().getExtras();
-                    startActivity(PayContractsOrderSuccessActivity.class, bundle1);
-                    return;
+                if (totalPrice == 0) {
+                    hint1 = "报名成功";
+                    hint2 = "请到“我的-活动”中查看";
+                } else {
+                    hint1 = "支付成功";
+                    hint2 = "请到“我的-活动”中查看";
                 }
+                bundle.putString("hint1", hint1);
+                bundle.putString("hint2", hint2);
                 startActivity(PaySuccessActivity.class, bundle);
                 finish();
+            } else if (payType == 3) { //通讯录绑定支付
+                Bundle bundle1 = getIntent().getExtras();
+                startActivity(PayContractsOrderSuccessActivity.class, bundle1);
+                return;
+            } else if (payType == 4){//晚宴场地预定  缴费 结果
+                BookVenueApplyDto mBookVenueApplyDto = getIntent().getParcelableExtra("VenueApplyDto");
+                startActivity(BookVenueManageActivity.class);
+                EventBusUtils.post(new PayWanYanVenueEvent(mBookVenueApplyDto));
+                finish();
+                return;
             } else {
                 startActivity(HomeActivity.class);
                 EventBusUtils.post(new PaySuccessEvent(payType));

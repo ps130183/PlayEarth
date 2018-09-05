@@ -363,6 +363,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:onClick="openMyAutobiography"
+        android:visibility="gone"
         />
 </RelativeLayout>
 

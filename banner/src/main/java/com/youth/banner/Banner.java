@@ -209,6 +209,13 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         return this;
     }
 
+    public Banner setPagerPadding(int l,int t,int r,int b){
+        if (viewPager != null){
+            viewPager.setPadding(l,t,r,b);
+        }
+        return this;
+    }
+
     /**
      * Set a {@link PageTransformer} that will be called for each attached page whenever
      * the scroll position is changed. This allows the application to apply custom property
@@ -510,6 +517,11 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         public int getCount() {
             return imageViews.size();
         }
+
+//        @Override
+//        public float getPageWidth(int position) {
+//            return 0.5f;
+//        }
 
         @Override
         public boolean isViewFromObject(View view, Object object) {

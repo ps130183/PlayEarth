@@ -287,8 +287,30 @@
         <activity android:name=".module.main.personal.setting.ServiceActivity" />
         <activity android:name=".module.main.personal.profession.ProfessionIntroduceActivity" />
         <activity android:name=".module.main.personal.profession.ProfessionIdentificationActivity" />
-        <activity android:name=".module.main.personal.profession.ProfessionFinishedActivity"/>
-        <activity android:name=".module.main.personal.crowd.CrowdFundingActivity"/>
+        <activity android:name=".module.main.personal.profession.ProfessionFinishedActivity" />
+        <activity android:name=".module.main.personal.crowd.CrowdFundingActivity" />
+        <activity android:name=".module.main.payment.PayMemberSuccessActivity" />
+        <activity android:name=".module.main.book.BookVenueTypeActivity" />
+        <activity android:name=".module.main.book.SelectVenueSitActivity" />
+        <activity android:name=".module.main.book.SelectVenueTimeActivity" />
+        <activity android:name=".module.main.book.BookVenueSitDetailActivity" />
+        <activity
+            android:name=".module.main.personal.book.BookVenueManageActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".module.main.personal.book.BookVenueApplyRecordActivity" />
+        <activity android:name=".module.main.personal.book.BookVenueRefuseActivity" />
+        <activity android:name=".module.main.fragment.home.HomeRecommendMemberActivity" />
+        <activity android:name=".module.main.personal.book.BookVenueDetailsActivity" />
+        <activity android:name=".module.main.personal.book.ReleaseActionActivity" />
+        <activity android:name=".module.main.personal.book.ReleaseActionDetailsActivity" />
+        <activity android:name=".module.main.personal.book.ActionApplyStatisticsActivity" />
+        <activity android:name=".module.main.appoint.AppointActionListActivity" />
+        <activity android:name=".module.main.personal.book.PayWanYanVenueActivity" />
+        <activity android:name=".module.main.payment.PayWanYanSuccessActivity" />
+        <activity android:name=".module.main.advert.AdvertisingActivity" />
+        <activity android:name=".module.main.fragment.home.SearchCompanyActivity" />
+        <activity android:name=".module.main.fragment.home.HomeRecommendCompanyDetailsActivity" />
+        <activity android:name=".module.webview.WebBrowserActivity"></activity>
     </application>
 
 </manifest>

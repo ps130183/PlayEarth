@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:padding="@dimen/viewSpace16"
+    android:background="@color/white">
+
+    <com.ps.glidelib.GlideImageView
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_launcher"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="11dp">
+
+        <TextView
+            android:id="@+id/companyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="华都快易（香港）有限公司"
+            android:textSize="15sp"
+            android:textColor="@color/text_color_block1"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/companyMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="负责人：杨群英"
+            android:textSize="13sp"
+            android:textColor="@color/text_color_blocka"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/companyName"/>
+
+        
+        <com.zhy.view.flowlayout.FlowLayout
+            android:id="@+id/flowLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+        </com.zhy.view.flowlayout.FlowLayout>
+    </RelativeLayout>
+
+</LinearLayout>
