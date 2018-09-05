@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ScreenUtils;
@@ -130,11 +131,16 @@ public class UserNewCardDetailsActivity extends BaseActivity {
 
 
         //名片信息
-        mViewManager.setText(R.id.userPhone,"0".equals(userInfoDto.getAllowStutas()) ? userInfoDto.getCardPhone() : StringUtils.hidePhone(userInfoDto.getCardPhone()));
-        mViewManager.setText(R.id.userEmail,userInfoDto.getEmailAddress());
-        mViewManager.setText(R.id.userAddress,userInfoDto.getDetailedAddress());
-        mViewManager.setText(R.id.userIntroduce,userInfoDto.getPersonalizedSignature());
-        mViewManager.setText(R.id.userIndustry,userInfoDto.getIndustryName());
+        if (TextUtils.isEmpty(userInfoDto.getCardPhone())){
+            mViewManager.setText(R.id.userPhone,"暂未编辑");
+        } else {
+            mViewManager.setText(R.id.userPhone,"0".equals(userInfoDto.getAllowStutas()) ? userInfoDto.getCardPhone() : StringUtils.hidePhone(userInfoDto.getCardPhone()));
+        }
+
+        mViewManager.setText(R.id.userEmail,TextUtils.isEmpty(userInfoDto.getEmailAddress()) ? "暂未编辑" : userInfoDto.getEmailAddress());
+        mViewManager.setText(R.id.userAddress,TextUtils.isEmpty(userInfoDto.getDetailedAddress()) ? "暂未编辑" :userInfoDto.getDetailedAddress());
+        mViewManager.setText(R.id.userIntroduce,TextUtils.isEmpty(userInfoDto.getPersonalizedSignature()) ? "暂未编辑" :userInfoDto.getPersonalizedSignature());
+        mViewManager.setText(R.id.userIndustry,TextUtils.isEmpty(userInfoDto.getIndustryName()) ? "暂未编辑" :userInfoDto.getIndustryName());
 
         //供应和需求
         if (userInfoDto.getProvideList().isEmpty() && userInfoDto.getDemandList().isEmpty()){

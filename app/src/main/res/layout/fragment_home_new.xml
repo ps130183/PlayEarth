@@ -110,11 +110,6 @@
                     android:layout_height="80dp"
                     android:src="@drawable/action_199"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@color/divide_color"/>
-
                 <com.ps.mrcyclerview.MRecyclerView
                     android:id="@+id/recommendRecycler"
                     android:layout_width="match_parent"

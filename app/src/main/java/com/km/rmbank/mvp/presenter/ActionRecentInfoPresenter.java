@@ -40,7 +40,6 @@ public class ActionRecentInfoPresenter extends BasePresenter<IActionRecentInfoVi
                 getMvpView().showActionRecentInfo(actionDto);
             }
         }));
-
     }
 
     public void applyAction(final String activityId, String name, String phone) {

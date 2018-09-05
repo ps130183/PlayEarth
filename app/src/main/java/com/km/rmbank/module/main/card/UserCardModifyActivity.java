@@ -166,7 +166,7 @@ public class UserCardModifyActivity extends BaseActivity<IUserInfoView,UserInfoP
                 }
             }
         });
-        if (TextUtils.isEmpty(allowStatus) || "0".equals(allowStatus)){
+        if (TextUtils.isEmpty(allowStatus) || "1".equals(allowStatus)){
             rbPhoneClose.setChecked(true);
         } else {
             rbPhoneOpen.setChecked(true);

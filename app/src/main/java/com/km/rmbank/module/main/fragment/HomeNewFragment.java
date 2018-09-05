@@ -143,6 +143,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
             }
         });
         initToolbar();
+        initAction199();
         initModuleRecycler();
         initMarqueeView();
         initRecommend();
@@ -172,6 +173,13 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
             }
         });
         showLoading();
+    }
+
+    private void initAction199(){
+        ImageView actionImage = mViewManager.findView(R.id.openAction199);
+        int width = com.blankj.utilcode.util.ScreenUtils.getScreenWidth();
+        int heith = width / 75 * 14;
+        actionImage.getLayoutParams().height = heith;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
