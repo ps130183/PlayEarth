@@ -33,6 +33,11 @@ public class ProfessionFinishedActivity extends BaseActivity {
      * @param view
      */
     public void confirm(View view) {
+        boolean isUserInfo = getIntent().getBooleanExtra("isUserInfo",false);
+        if (isUserInfo){
+            finish();
+            return;
+        }
         Bundle bundle = new Bundle();
         bundle.putInt("position",4);
         startActivity(HomeActivity.class,bundle);

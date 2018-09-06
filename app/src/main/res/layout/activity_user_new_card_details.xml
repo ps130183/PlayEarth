@@ -19,17 +19,52 @@
                 android:layout_width="match_parent"
                 android:layout_height="260dp" />
 
-            <TextView
-                android:id="@+id/userName"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="玩小球"
-                android:textSize="25sp"
-                android:textColor="@color/text_color_block1"
-                android:background="@color/white"
-                android:paddingLeft="25dp"
-                android:paddingTop="35dp"
-                />
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="玩小球"
+                    android:textSize="25sp"
+                    android:textColor="@color/text_color_block1"
+                    android:paddingLeft="25dp"
+                    android:paddingTop="35dp"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/ll_real_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/userName"
+                    android:layout_alignBottom="@+id/userName"
+                    android:background="@drawable/shape_real_name_1"
+                    android:paddingLeft="@dimen/viewSpace4"
+                    android:paddingRight="@dimen/viewSpace4"
+                    android:paddingTop="@dimen/viewSpace2"
+                    android:paddingBottom="@dimen/viewSpace2"
+                    android:layout_marginLeft="@dimen/viewSpace8"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:id="@+id/iv_real_name"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@mipmap/icon_real_name_1" />
+
+                    <TextView
+                        android:id="@+id/tv_real_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已实名"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_color_blue2"/>
+                </LinearLayout>
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/userCompany"
@@ -43,18 +78,23 @@
                 android:paddingTop="35dp"
                 />
 
-            <TextView
-                android:id="@+id/userPosition"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="UI设计"
-                android:textSize="16sp"
-                android:textColor="@color/text_color_block1"
                 android:background="@color/white"
-                android:paddingLeft="25dp"
                 android:paddingTop="23dp"
-                android:paddingBottom="35dp"
-                />
+                android:paddingBottom="35dp">
+
+                <TextView
+                    android:id="@+id/userPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UI设计"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_block1"
+                    android:paddingLeft="25dp" />
+
+            </RelativeLayout>
 
             <com.ruffian.library.RTextView
                 android:id="@+id/rtPartTimeJob"

@@ -38,6 +38,8 @@ public class BookVenueApplyDto implements ItemDelegate, Parcelable {
     private String placePrice;
 
     private int itemViewRes;
+
+    private String webUrl;
     /**
      * reason : &lt;p&gt;
      你好，本次审核不通过，下次再来吧，行，就这样吧！ 发空间和速度快福建省地方还款计划&lt;/p&gt;
@@ -50,6 +52,14 @@ public class BookVenueApplyDto implements ItemDelegate, Parcelable {
      */
 
     private String reason;
+
+    public String getWebUrl() {
+        return webUrl;
+    }
+
+    public void setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
+    }
 
     public void setItemViewRes(int itemViewRes) {
         this.itemViewRes = itemViewRes;
@@ -207,6 +217,7 @@ public class BookVenueApplyDto implements ItemDelegate, Parcelable {
         dest.writeString(this.payStatus);
         dest.writeString(this.placePrice);
         dest.writeInt(this.itemViewRes);
+        dest.writeString(this.webUrl);
         dest.writeString(this.reason);
     }
 
@@ -224,6 +235,7 @@ public class BookVenueApplyDto implements ItemDelegate, Parcelable {
         this.payStatus = in.readString();
         this.placePrice = in.readString();
         this.itemViewRes = in.readInt();
+        this.webUrl = in.readString();
         this.reason = in.readString();
     }
 

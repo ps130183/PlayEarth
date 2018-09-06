@@ -602,21 +602,21 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
             startActivity(LoginActivity.class);
             return;
         }
-        if ("4".equals(Constant.userInfo.getRoleId())){
-            DialogUtils.showDefaultAlertDialog("预约场地需成为玩家合伙人，是否成为玩家合伙人？", new DialogUtils.ClickListener() {
+        if ("4".equals(Constant.userInfo.getRoleId()) || "5".equals(Constant.userInfo.getRoleId())){
+            DialogUtils.showDefaultAlertDialog("预约场地需要成为会员或俱乐部创始人才可以申请哦", new DialogUtils.ClickListener() {
                 @Override
                 public void clickConfirm() {
-                    startActivity(BecomeMemberActivity.class);
+//                    startActivity(BecomeMemberActivity.class);
                 }
             });
             return;
         }
 
         if (Constant.userInfo.getStatus() != 2){
-            DialogUtils.showDefaultAlertDialog("预约场地需实名认证，是否去实名认证？", new DialogUtils.ClickListener() {
+            DialogUtils.showDefaultAlertDialog("预约场地需实名认证哦", new DialogUtils.ClickListener() {
                 @Override
                 public void clickConfirm() {
-                    startActivity(CertifyRulesActivity.class);
+//                    startActivity(CertifyRulesActivity.class);
                 }
             });
             return;

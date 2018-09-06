@@ -67,7 +67,7 @@ public class PersonalCenterFragment extends BaseFragment<IUserView, UserPresente
     private GlideImageView userPortrait;
     private TextView userName;
     private TextView realName;
-    private TextView positionReal;
+//    private TextView positionReal;
     private ImageView realNameStatus;
     private TextView userPosition;
     private TextView userCompany;
@@ -116,7 +116,7 @@ public class PersonalCenterFragment extends BaseFragment<IUserView, UserPresente
             public void convert(@NonNull BViewHolder holder, Object mData, int position, @NonNull List payloads) {
                 userPortrait = holder.findView(R.id.userPortrait);
                 userName = holder.findView(R.id.userName);
-                positionReal = holder.findView(R.id.realPosition);
+//                positionReal = holder.findView(R.id.realPosition);
                 userPosition = holder.findView(R.id.userPosition);
                 userCompany = holder.findView(R.id.userCompany);
 
@@ -336,11 +336,11 @@ public class PersonalCenterFragment extends BaseFragment<IUserView, UserPresente
             realNameStatus.setVisibility(View.VISIBLE);
         }
 
-        if (userInfoDto.getPositionStatus() == 2){
-            positionReal.setText("已认证");
-        } else {
-            positionReal.setText("未认证");
-        }
+//        if (userInfoDto.getPositionStatus() == 2){
+//            positionReal.setText("已认证");
+//        } else {
+//            positionReal.setText("未认证");
+//        }
 
         personalCenter.clear();
         List<ModelEntity> modelEntities = new ArrayList<>();

@@ -1,12 +1,21 @@
 package com.km.rmbank.module.main.card;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ImageSpan;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
@@ -18,6 +27,11 @@ import com.km.rmbank.entity.PartTimeJob;
 import com.km.rmbank.entity.SupplyAndDemandEntity;
 import com.km.rmbank.entity.SupplyEntity;
 import com.km.rmbank.module.main.card.auto.MyAutobiographyActivity;
+import com.km.rmbank.module.main.personal.profession.ProfessionFinishedActivity;
+import com.km.rmbank.module.main.personal.profession.ProfessionIntroduceActivity;
+import com.km.rmbank.module.realname.CertifyCheckActivity;
+import com.km.rmbank.module.realname.CertifyIdCardSuccessActivity;
+import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.StringUtils;
@@ -96,9 +110,11 @@ public class UserNewCardDetailsActivity extends BaseActivity {
     private void loadUserInfo(){
         int windowWidth = ScreenUtils.getScreenWidth();
 
+        boolean isMe = false;
         UserInfoDto userInfoDto = getIntent().getParcelableExtra("userCard");
         if (userInfoDto == null && Constant.userInfo != null){
             userInfoDto = Constant.userInfo;
+            isMe = true;
         }
         GlideImageView userPortrait = mViewManager.findView(R.id.userPortrait);
         GlideUtils.loadImageOnPregress(userPortrait,userInfoDto.getPortraitUrl(),null);
@@ -108,6 +124,81 @@ public class UserNewCardDetailsActivity extends BaseActivity {
         mViewManager.setText(R.id.userName,userInfoDto.getName());
         mViewManager.setText(R.id.userCompany,userInfoDto.getCompany());
         mViewManager.setText(R.id.userPosition,userInfoDto.getPosition());
+
+        //是否实名
+        final int realNameStatus = userInfoDto.getStatus();
+        LinearLayout llRealName = mViewManager.findView(R.id.ll_real_name);
+        ImageView ivRealName = mViewManager.findView(R.id.iv_real_name);
+        TextView tvRealName = mViewManager.findView(R.id.tv_real_name);
+        if (TextUtils.isEmpty(userInfoDto.getName())){
+            llRealName.setVisibility(View.GONE);
+        } else {
+            llRealName.setVisibility(View.VISIBLE);
+            if (realNameStatus == 2){//已实名
+                llRealName.setBackgroundResource(R.drawable.shape_real_name_1);
+                ivRealName.setImageResource(R.mipmap.icon_real_name_1);
+                tvRealName.setText("已实名");
+                tvRealName.setTextColor(getResources().getColor(R.color.text_color_blue2));
+            } else {//未实名
+                if (!isMe){
+                    llRealName.setVisibility(View.GONE);
+                } else {
+                    llRealName.setBackgroundResource(R.drawable.shape_real_name_2);
+                    ivRealName.setImageResource(R.mipmap.icon_real_name_2);
+                    tvRealName.setText("未实名");
+                    tvRealName.setTextColor(getResources().getColor(R.color.text_color_red));
+                }
+            }
+        }
+
+
+        //职位认证
+        TextView userPosition = mViewManager.findView(R.id.userPosition);
+        final int position = userInfoDto.getPositionStatus();
+        int positionRes = 0;
+        if (position == 0){
+            positionRes = R.drawable.icon_position_2;
+        } else if (position == 1){
+            positionRes = R.drawable.icon_position_3;
+        } else {
+            positionRes = R.drawable.icon_position_1;
+        }
+
+        if (position != 2 && isMe){//未认证
+            addImage(userPosition,userInfoDto.getPosition(),positionRes);
+        } else if (position == 2){
+            addImage(userPosition,userInfoDto.getPosition(),positionRes);
+        }
+
+//        if (isMe){
+//           userPosition.setOnClickListener(new View.OnClickListener() {
+//               @Override
+//               public void onClick(View v) {
+//                   if (position == 1){//认证中
+//                       Bundle bundle = new Bundle();
+//                       bundle.putBoolean("isUserInfo",true);
+//                       startActivity(ProfessionFinishedActivity.class,bundle);
+//                   } else {//未认证  或 已完成
+//                       startActivity(ProfessionIntroduceActivity.class);
+//                   }
+//
+//               }
+//           });
+//
+//           llRealName.setOnClickListener(new View.OnClickListener() {
+//               @Override
+//               public void onClick(View v) {
+//                   if (realNameStatus == 2){//已实名
+//                    startActivity(CertifyIdCardSuccessActivity.class);
+//                   } else if (realNameStatus == 1){//审核中
+//                        startActivity(CertifyCheckActivity.class);
+//                   } else {//未实名
+//                       startActivity(CertifyRulesActivity.class);
+//                   }
+//               }
+//           });
+//        }
+
 
         //兼任
         RTextView rtPartTime = mViewManager.findView(R.id.rtPartTimeJob);
@@ -167,6 +258,25 @@ public class UserNewCardDetailsActivity extends BaseActivity {
 
 
 
+    }
+
+    /**
+     * 给textView 尾部添加图片
+     * @param tvContent
+     * @param content
+     * @param imageRes
+     */
+    private void addImage(TextView tvContent, String content,int imageRes){
+        //注意此处showText后+ " "主要是为了占位
+        SpannableString ss = new SpannableString(content + " ");
+        int len = ss.length();
+        //图片
+        Drawable d = ContextCompat.getDrawable(mInstance, (imageRes));
+        d.setBounds(0, 0, ConvertUtils.dp2px(49), ConvertUtils.dp2px(14));
+        //构建ImageSpan
+        ImageSpan span = new ImageSpan(d, ImageSpan.ALIGN_BASELINE);
+        ss.setSpan(span, len - 1, len, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        tvContent.setText(ss);
     }
 
     /**

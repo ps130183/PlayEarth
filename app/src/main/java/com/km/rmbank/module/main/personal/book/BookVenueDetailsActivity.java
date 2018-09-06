@@ -141,7 +141,7 @@ public class BookVenueDetailsActivity extends BaseActivity {
         mShareDto.setTitle(Constant.userInfo.getName() + "邀请你参加主题" + venueName);
         mShareDto.setContent("活动时间：" + DateUtils.getInstance().dateToString(new Date(bookVenueApplyDto.getStartDate()), DateUtils.YMDHM));
         mShareDto.setSharePicUrl(bookVenueApplyDto.getPlaceUrl());
-        mShareDto.setPageUrl("http://www.baidu.com");
+        mShareDto.setPageUrl(bookVenueApplyDto.getWebUrl());
         mShareDialog = new WindowBottomDialog(mInstance, "取消", "分享微信好友", "分享到朋友圈");
         mShareDialog.setOnClickShareDialog(new WindowBottomDialog.OnClickShareDialog() {
             @Override

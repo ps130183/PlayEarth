@@ -44,19 +44,19 @@
                 android:textColor="@color/text_color_block1"
                 />
 
-            <TextView
-                android:id="@+id/realPosition"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="未认证"
-                android:textSize="12sp"
-                android:textColor="#f91413"
-                android:background="@drawable/shape_bg_white_border_corner_2"
-                android:paddingLeft="@dimen/viewSpace4"
-                android:paddingRight="@dimen/viewSpace4"
-                android:gravity="center"
-                android:layout_marginLeft="@dimen/viewSpace4"
-                />
+            <!--<TextView-->
+                <!--android:id="@+id/realPosition"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:text="未认证"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textColor="#f91413"-->
+                <!--android:background="@drawable/shape_bg_white_border_corner_2"-->
+                <!--android:paddingLeft="@dimen/viewSpace4"-->
+                <!--android:paddingRight="@dimen/viewSpace4"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginLeft="@dimen/viewSpace4"-->
+                <!--/>-->
 
         </LinearLayout>
 

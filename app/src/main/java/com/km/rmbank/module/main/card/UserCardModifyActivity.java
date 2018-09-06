@@ -138,17 +138,19 @@ public class UserCardModifyActivity extends BaseActivity<IUserInfoView,UserInfoP
         demandRecycler.loadDataOfNextPage(Constant.userInfo.getDemandList());
 
 
-        TextView tvUserName = mViewManager.findView(R.id.tvUserName);
-        TextView realName = mViewManager.findView(R.id.realName);
+//        TextView tvUserName = mViewManager.findView(R.id.tvUserName);
+//        TextView realName = mViewManager.findView(R.id.realName);
         if (Constant.userInfo.getStatus() == 2){//实名认证  名字不可修改
-            etUserName.setVisibility(View.GONE);
-            tvUserName.setVisibility(View.VISIBLE);
-            realName.setVisibility(View.VISIBLE);
-            tvUserName.setText(Constant.userInfo.getName());
+//            etUserName.setVisibility(View.GONE);
+            etUserName.setEnabled(false);
+//            tvUserName.setVisibility(View.VISIBLE);
+//            realName.setVisibility(View.VISIBLE);
+//            tvUserName.setText(Constant.userInfo.getName());
         } else {//未实名
-            etUserName.setVisibility(View.VISIBLE);
-            tvUserName.setVisibility(View.GONE);
-            realName.setVisibility(View.GONE);
+//            etUserName.setVisibility(View.VISIBLE);
+            etUserName.setEnabled(true);
+//            tvUserName.setVisibility(View.GONE);
+//            realName.setVisibility(View.GONE);
         }
 
         //电话的隐私 与 公开
