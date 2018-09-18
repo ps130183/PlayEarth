@@ -21,6 +21,7 @@ import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ContractDto;
 import com.km.rmbank.dto.EarthTaskDetailsDto;
 import com.km.rmbank.dto.EarthTaskDto;
+import com.km.rmbank.dto.MessageAllDto;
 import com.km.rmbank.dto.MyCrowdFundingInfoDto;
 import com.km.rmbank.dto.ReleaseActionDetailsDto;
 import com.km.rmbank.dto.TaskSignInDto;
@@ -2159,4 +2160,50 @@ public interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstant.API_MODEL + "/get/advert")
     Observable<Response<AdvertisDto>> getHomeAdvertis(@Field("str") String str);
+
+
+    /**
+     * 获取所有的消息信息
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/noticeType/list")
+    Observable<Response<MessageAllDto>> getMessageAllInfo(@Field("token") String token);
+
+    /**
+     * 获取消息列表
+     * @param token
+     * @param pageNo
+     * @param contentType
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/notice/list/send")
+    Observable<Response<List<MessageDto>>> getMessageList(@Field("token") String token,
+                                                          @Field("pageNo") int pageNo,
+                                                          @Field("contentType") String contentType);
+
+    /**
+     * 获取消息详情
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/notice/update/status")
+    Observable<Response<String>> updateMessageStatus(@Field("token") String token,
+                                                         @Field("id") String id);
+
+
+    /**
+     * 删除消息
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/auth/notice/del")
+    Observable<Response<String>> deleteMessage(@Field("token") String token,
+                                               @Field("id") String id);
 }

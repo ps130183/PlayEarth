@@ -395,6 +395,12 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
             return;
         }
 
+        String price = mPayOrderDto.getSumPrice();
+        if (payType == 3 && ("0".equals(price) || "0.0".equals(price))){//通讯录邀请支付
+            showToast("你选择的人已被绑定，请重新选择");
+            return;
+        }
+
         switch (getPayTypePosition()) {
             case 0://微信
                 getPresenter().getWeiChatParams(mPayOrderDto.getPayNumber());

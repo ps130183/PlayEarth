@@ -103,7 +103,7 @@ public class ContactsActivity extends BaseActivity<ContractsView, ContractsPrese
                     if (position < 0) {
                         return;
                     }
-                    RecyclerView contactRecycler = mViewManager.findView(R.id.contactRecycler);
+                    MRecyclerView contactRecycler = mViewManager.findView(R.id.contactRecycler);
                     LinearLayoutManager llm = (LinearLayoutManager) contactRecycler.getLayoutManager();
                     //定位到指定项如果该项可以置顶就将其置顶显示
                     llm.scrollToPositionWithOffset(position, 0);

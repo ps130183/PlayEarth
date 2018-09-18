@@ -85,9 +85,13 @@ public class BookVenueApplyingFragment extends BaseFragment<BookVenueApplyView,B
                 holder.findView(R.id.content).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelable("bookVenueApplyInfo",mData);
+//                        startActivity(BookVenueDetailsActivity.class,bundle);
+
                         Bundle bundle = new Bundle();
-                        bundle.putParcelable("bookVenueApplyInfo",mData);
-                        startActivity(BookVenueDetailsActivity.class,bundle);
+                        bundle.putString("placeReservationId",mData.getId());
+                        startActivity(ReleaseActionDetailsActivity.class,bundle);
                     }
                 });
 
@@ -106,9 +110,7 @@ public class BookVenueApplyingFragment extends BaseFragment<BookVenueApplyView,B
                 }
                 holder.setText(R.id.tv_venue_type,status);
 
-                holder.setText(R.id.tv_venue_time,"申请时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM)
-                                                                + " - "
-                                                                + DateUtils.getInstance().dateToString(new Date(mData.getEndDate()),DateUtils.YMDHM));
+                holder.setText(R.id.tv_venue_time,"申请时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM));
 
             }
         }).create();

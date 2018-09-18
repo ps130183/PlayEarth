@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.Main" parent="AppTheme">
+    <style name="BaseAppTheme" parent="AppTheme">
     </style>
 
     <!--  ToolBar menu 的弹出框的主题  -->

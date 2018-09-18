@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.km.rmbank.module.main.personal.profession.ProfessionSuccessActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/icon_profession_success"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="26dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已认证职业信息"
+            android:textColor="@color/text_color_block24"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="认证时间：2018-09-08"
+            android:textSize="13sp"
+            android:textColor="@color/text_color_block6"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="23dp"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/viewSpace16"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_profession_success_company"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="32dp"/>
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="玩转地球商旅学苑（北京）文化发展有限公司"
+            android:textColor="@color/text_color_block24"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+    <include layout="@layout/_default_divide_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/viewSpace16"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_profession_success_position"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="32dp"/>
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="玩转地球商旅学苑（北京）文化发展有限公司"
+            android:textColor="@color/text_color_block24"
+            android:textSize="14sp"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+
+    <include layout="@layout/_default_divide_line"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/icon_profession_success_type"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="@dimen/viewSpace16"/>
+
+        <com.ps.glidelib.GlideImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

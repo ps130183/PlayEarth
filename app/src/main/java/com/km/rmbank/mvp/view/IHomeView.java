@@ -5,6 +5,7 @@ import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
+import com.km.rmbank.dto.MessageAllDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.mvp.base.MvpView;
 
@@ -23,4 +24,5 @@ public interface IHomeView extends MvpView {
     void showHomeAdvert(AdvertisDto advertisDto);
 
     void showUserCard(UserInfoDto cardDto);
+    void showMessageAl(MessageAllDto messageAllDto);
 }

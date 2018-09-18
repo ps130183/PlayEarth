@@ -90,6 +90,25 @@ public class UserInfoDto implements Cloneable, Parcelable {
     private int status;//实名认证  0：未验证，1：验证中，2：通过，3：失败
     private int type;//2:商家
     private int positionStatus;//职位认证  0：未认证  1：认证中  2：已认证
+    private String positionUrl;
+    private long positionValidateDate;
+
+
+    public long getPositionValidateDate() {
+        return positionValidateDate;
+    }
+
+    public void setPositionValidateDate(long positionValidateDate) {
+        this.positionValidateDate = positionValidateDate;
+    }
+
+    public String getPositionUrl() {
+        return positionUrl;
+    }
+
+    public void setPositionUrl(String positionUrl) {
+        this.positionUrl = positionUrl;
+    }
 
     public String getId() {
         return id;
@@ -522,6 +541,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
         dest.writeInt(this.status);
         dest.writeInt(this.type);
         dest.writeInt(this.positionStatus);
+        dest.writeString(this.positionUrl);
+        dest.writeLong(this.positionValidateDate);
     }
 
     protected UserInfoDto(Parcel in) {
@@ -564,6 +585,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.status = in.readInt();
         this.type = in.readInt();
         this.positionStatus = in.readInt();
+        this.positionUrl = in.readString();
+        this.positionValidateDate = in.readLong();
     }
 
     public static final Creator<UserInfoDto> CREATOR = new Creator<UserInfoDto>() {

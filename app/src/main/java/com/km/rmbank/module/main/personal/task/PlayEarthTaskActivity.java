@@ -17,7 +17,9 @@ import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.module.main.card.UserCardActivity;
 import com.km.rmbank.module.main.card.UserCardModifyActivity;
 import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
+import com.km.rmbank.module.main.personal.profession.ProfessionFinishedActivity;
 import com.km.rmbank.module.main.personal.profession.ProfessionIntroduceActivity;
+import com.km.rmbank.module.main.personal.profession.ProfessionSuccessActivity;
 import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.mvp.model.EarthTaskModel;
 import com.km.rmbank.mvp.presenter.EarthTaskPresenter;
@@ -162,7 +164,15 @@ public class PlayEarthTaskActivity extends BaseActivity<EarthTaskView,EarthTaskP
                         startActivity(CertifyRulesActivity.class);
                         break;
                     case 2://职业认证
-                        startActivity(ProfessionIntroduceActivity.class);
+                        if (Constant.userInfo.getPositionStatus() == 1) {//认证中
+                            Bundle bundle = new Bundle();
+                            bundle.putBoolean("isUserInfo", true);
+                            startActivity(ProfessionFinishedActivity.class, bundle);
+                        } else if (Constant.userInfo.getPositionStatus() == 0){//未认证
+                            startActivity(ProfessionIntroduceActivity.class);
+                        } else {
+                            startActivity(ProfessionSuccessActivity.class);
+                        }
                         break;
                     case 3://成为玩家合伙人
                         startActivity(BecomeMemberActivity.class);

@@ -235,15 +235,21 @@ public class SystemBarHelper {
 
     /** 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上) */
     public static void setStatusBarDarkMode(Activity activity) {
-        setStatusBarDarkMode(activity.getWindow());
+        setStatusBarDarkMode(activity.getWindow(),true);
     }
 
     /** 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上) */
-    public static void setStatusBarDarkMode(Window window) {
+    public static void setStatusBarDarkMode(Activity activity,boolean isDark) {
+        setStatusBarDarkMode(activity.getWindow(),isDark);
+    }
+
+
+    /** 设置状态栏darkMode,字体颜色及icon变黑(目前支持MIUI6以上,Flyme4以上,Android M以上) */
+    public static void setStatusBarDarkMode(Window window,boolean isDark) {
         if (isFlyme4Later()) {
-            setStatusBarDarkModeForFlyme4(window, true);
+            setStatusBarDarkModeForFlyme4(window, isDark);
         } else if (isMIUI6Later()) {
-            setStatusBarDarkModeForMIUI6(window, true);
+            setStatusBarDarkModeForMIUI6(window, isDark);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             setStatusBarDarkModeForM(window);
         }
@@ -354,7 +360,7 @@ public class SystemBarHelper {
     }
 
     /** 创建假的状态栏View */
-    private static void setStatusBar(ViewGroup container, @ColorInt int statusBarColor, boolean visible) {
+    public static void setStatusBar(ViewGroup container, @ColorInt int statusBarColor, boolean visible) {
         setStatusBar(container, statusBarColor, visible, false);
     }
 

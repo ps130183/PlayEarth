@@ -74,12 +74,12 @@ public class BookVenuePassedFragment extends BaseFragment<BookVenueApplyView,Boo
 
                 GlideImageView applyStatus = holder.findView(R.id.status);
 
-                long curTime = System.currentTimeMillis();
-                if (curTime > mData.getEndDate()){
+//                long curTime = System.currentTimeMillis();
                     GlideUtils.loadImageByRes(applyStatus,R.mipmap.icon_venue_finished);
-                } else {
-                    GlideUtils.loadImageByRes(applyStatus,R.mipmap.icon_venue_release);
-                }
+//                if (curTime > mData.getEndDate()){
+//                } else {
+//                    GlideUtils.loadImageByRes(applyStatus,R.mipmap.icon_venue_release);
+//                }
 
 
                 GlideImageView logo = holder.findView(R.id.iv_venue_logo);
@@ -97,9 +97,7 @@ public class BookVenuePassedFragment extends BaseFragment<BookVenueApplyView,Boo
                 }
                 holder.setText(R.id.tv_venue_type,status);
 
-                holder.setText(R.id.tv_venue_time,"申请时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM)
-                        + " - "
-                        + DateUtils.getInstance().dateToString(new Date(mData.getEndDate()),DateUtils.YMDHM));
+                holder.setText(R.id.tv_venue_time,"申请时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM));
             }
         }).create();
 
@@ -107,28 +105,28 @@ public class BookVenuePassedFragment extends BaseFragment<BookVenueApplyView,Boo
             @Override
             public void clickItem(Object mData, int position) {
                 BookVenueApplyDto venueApplyDto = (BookVenueApplyDto) mData;
-                if (venueApplyDto.getStatus().equals("2")){
-                    long curTime = System.currentTimeMillis();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("bookVenueApplyInfo",venueApplyDto);
-                    if (curTime > venueApplyDto.getEndDate()){//已完成 去 场地申请详情
-                        bundle.putBoolean("isFinished",true);
-                    } else { //发布活动
-                        if ("2".equals(venueApplyDto.getPlaceType()) && "0".equals(venueApplyDto.getPayStatus())){//晚宴场地需支付完再发布
-                            startActivity(PayWanYanVenueActivity.class,bundle);
-                            return;
-                        }
-                        bundle.putBoolean("isFinished",false);
-                    }
-
-                    startActivity(BookVenueDetailsActivity.class,bundle);
-
-                } else {//活动详情
+//                if (venueApplyDto.getStatus().equals("2")){
+//                    long curTime = System.currentTimeMillis();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putParcelable("bookVenueApplyInfo",venueApplyDto);
+//                    if (curTime > venueApplyDto.getEndDate()){//已完成 去 场地申请详情
+//                        bundle.putBoolean("isFinished",true);
+//                    } else { //发布活动
+//                        if ("2".equals(venueApplyDto.getPlaceType()) && "0".equals(venueApplyDto.getPayStatus())){//晚宴场地需支付完再发布
+//                            startActivity(PayWanYanVenueActivity.class,bundle);
+//                            return;
+//                        }
+//                        bundle.putBoolean("isFinished",false);
+//                    }
+//
+//                    startActivity(BookVenueDetailsActivity.class,bundle);
+//
+//                } else {//活动详情
                     Bundle bundle = new Bundle();
                     bundle.putString("placeReservationId",venueApplyDto.getId());
                     bundle.putString("imageUrl",venueApplyDto.getPlaceUrl());
                     startActivity(ReleaseActionDetailsActivity.class,bundle);
-                }
+//                }
             }
         });
 

@@ -64,7 +64,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/BaseAppTheme">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -310,7 +310,11 @@
         <activity android:name=".module.main.advert.AdvertisingActivity" />
         <activity android:name=".module.main.fragment.home.SearchCompanyActivity" />
         <activity android:name=".module.main.fragment.home.HomeRecommendCompanyDetailsActivity" />
-        <activity android:name=".module.webview.WebBrowserActivity"></activity>
+        <activity android:name=".module.webview.WebBrowserActivity" />
+        <activity android:name=".module.main.message.MyMessageActivity" />
+        <activity android:name=".module.main.message.MessageDetailsActivity" />
+        <activity android:name=".module.main.personal.profession.ProfessionSuccessActivity" />
+        <activity android:name=".module.main.card.RecommendUserCardActivity"></activity>
     </application>
 
 </manifest>

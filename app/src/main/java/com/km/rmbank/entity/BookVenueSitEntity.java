@@ -30,6 +30,15 @@ public class BookVenueSitEntity implements ItemDelegate {
     private String title;
     private String type;
     private int itemViewRes = R.layout.item_select_venue_sit;
+    private int maxDays;
+
+    public int getMaxDays() {
+        return maxDays;
+    }
+
+    public void setMaxDays(int maxDays) {
+        this.maxDays = maxDays;
+    }
 
     public void setItemViewRes(int itemViewRes) {
         this.itemViewRes = itemViewRes;

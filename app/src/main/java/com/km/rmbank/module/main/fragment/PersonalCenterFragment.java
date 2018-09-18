@@ -353,12 +353,12 @@ public class PersonalCenterFragment extends BaseFragment<IUserView, UserPresente
             modelEntities.add(entity);
         }
         personalCenter.loadDataOfNextPage(modelEntities);
-        personalCenter.post(new Runnable() {
-            @Override
-            public void run() {
-                showGuide();
-            }
-        });
+//        personalCenter.post(new Runnable() {
+//            @Override
+//            public void run() {
+////                showGuide();
+//            }
+//        });
 
     }
 

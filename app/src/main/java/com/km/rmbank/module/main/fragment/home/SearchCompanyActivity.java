@@ -19,7 +19,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.UserInfoDto;
-import com.km.rmbank.module.main.card.UserCardActivity;
+import com.km.rmbank.module.main.card.RecommendUserCardActivity;
 import com.km.rmbank.mvp.model.SearchCompanyModel;
 import com.km.rmbank.mvp.presenter.SearchCompanyPresenter;
 import com.km.rmbank.mvp.view.ISearchCompanyView;
@@ -193,7 +193,7 @@ public class SearchCompanyActivity extends BaseActivity<ISearchCompanyView, Sear
     public void showOtherUserInfo(UserInfoDto otherUserInfo) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("userCard",otherUserInfo);
-        startActivity(UserCardActivity.class,bundle);
+        startActivity(RecommendUserCardActivity.class,bundle);
     }
 
     @JavascriptInterface

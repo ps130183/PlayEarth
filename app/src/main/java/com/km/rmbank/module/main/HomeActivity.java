@@ -2,6 +2,7 @@ package com.km.rmbank.module.main;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,6 +47,7 @@ import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
+import com.km.rmbank.dto.MessageAllDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.entity.HomeBookVenueEntity;
 import com.km.rmbank.entity.TabEntity;
@@ -60,6 +62,7 @@ import com.km.rmbank.module.main.fragment.HomeAppointActionFragment;
 import com.km.rmbank.module.main.fragment.HomeNewFragment;
 import com.km.rmbank.module.main.fragment.HomeSearchCompanyFragment;
 import com.km.rmbank.module.main.fragment.PersonalCenterFragment;
+import com.km.rmbank.module.main.personal.book.BookVenueManageActivity;
 import com.km.rmbank.module.main.personal.member.BecomeMemberActivity;
 import com.km.rmbank.module.realname.CertifyRulesActivity;
 import com.km.rmbank.module.webview.WebBrowserActivity;
@@ -144,11 +147,11 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         return null;
     }
 
-//    @Override
-//    public boolean statusBarTextColorIsDark() {
-//        SystemBarHelper.setStatusBarDarkMode(mInstance);
-//        return false;
-//    }
+    @Override
+    public boolean statusBarTextColorIsDark() {
+        SystemBarHelper.setStatusBarDarkMode(mInstance);
+        return false;
+    }
 
     @Override
     protected HomePresenter createPresenter() {
@@ -228,11 +231,16 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
     private void changeStatusBar(int position){
 //        SystemBarHelper.immersiveStatusBar(this);
         boolean isShowStatusBar = false;
+        if (position == 0 || position == 3){
+            SystemBarHelper.setStatusBarDarkMode(mInstance,false);
+        } else {
+            SystemBarHelper.setStatusBarDarkMode(mInstance,true);
+        }
 //        if (position != 0){
 //            isShowStatusBar = true;
 //        }
-        SystemBarHelper.setTranslucentView((ViewGroup) this.getWindow().getDecorView(),isShowStatusBar,0);
-//        SystemBarHelper.setStatusBar((ViewGroup) this.getWindow().getDecorView(),Color.WHITE,isShowStatusBar);
+//        SystemBarHelper.setTranslucentView((ViewGroup) this.getWindow().getDecorView(),isShowStatusBar,0);
+//        SystemBarHelper.setStatusBar((ViewGroup) this.getWindow().getDecorView(), Color.WHITE,isShowStatusBar);
 
     }
 
@@ -358,74 +366,74 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
         });
 
 //        mBookVenueDialog.show();
-        showGuide1();
+//        showGuide1();
 
     }
 
 
     private void showGuide1(){
 
-        Animation enterAnimation = new AlphaAnimation(0f, 1f);
-        enterAnimation.setDuration(600);
-        enterAnimation.setFillAfter(true);
+//        Animation enterAnimation = new AlphaAnimation(0f, 1f);
+//        enterAnimation.setDuration(600);
+//        enterAnimation.setFillAfter(true);
+//
+//        Animation exitAnimation = new AlphaAnimation(1f, 0f);
+//        exitAnimation.setDuration(600);
+//        exitAnimation.setFillAfter(true);
 
-        Animation exitAnimation = new AlphaAnimation(1f, 0f);
-        exitAnimation.setDuration(600);
-        exitAnimation.setFillAfter(true);
+//        ImageView middle = mViewManager.findView(R.id.iv_middle);
+//
+//        int windowHeight = ScreenUtils.getScreenHeight();
+//        int windowWidth = ScreenUtils.getScreenWidth();
+//
+//        int perWidth = windowWidth / 5;
+//        int bottomTop = ConvertUtils.dp2px(48);
+//        RectF rect = new RectF(perWidth * 3,windowHeight - bottomTop,perWidth * 4,windowHeight);
+//
+//        RectF memberRect = new RectF(0,ConvertUtils.dp2px(370),windowWidth,ConvertUtils.dp2px(610));
 
-        ImageView middle = mViewManager.findView(R.id.iv_middle);
-
-        int windowHeight = ScreenUtils.getScreenHeight();
-        int windowWidth = ScreenUtils.getScreenWidth();
-
-        int perWidth = windowWidth / 5;
-        int bottomTop = ConvertUtils.dp2px(48);
-        RectF rect = new RectF(perWidth * 3,windowHeight - bottomTop,perWidth * 4,windowHeight);
-
-        RectF memberRect = new RectF(0,ConvertUtils.dp2px(370),windowWidth,ConvertUtils.dp2px(610));
-
-        controller = NewbieGuide.with(mInstance)
-                .setLabel("guide1")
-//                .alwaysShow(true)
-                .setShowCounts(1)
-                .addGuidePage(GuidePage.newInstance()
-                        .addHighLightWithOptions(middle, HighLight.Shape.CIRCLE,new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mBookVenueDialog.show();
-                            }
-                        }).build())
-                        .setLayoutRes(R.layout.guide_home_1)
-                        .setBackgroundColor(0xcc000000)
-                        .setEnterAnimation(enterAnimation)//进入动画
-                        .setExitAnimation(exitAnimation))//退出动画)
-                .addGuidePage(GuidePage.newInstance()
-                        .addHighLight(rect, HighLight.Shape.CIRCLE)
-                        .setLayoutRes(R.layout.guide_home_2)
-                        .setBackgroundColor(0xcc000000)
-                        .setEnterAnimation(enterAnimation)//进入动画
-                        .setExitAnimation(exitAnimation))//退出动画)
-                .addGuidePage(GuidePage.newInstance()
-                        .addHighLight(memberRect)
-                        .setBackgroundColor(0xcc000000)
-                        .setLayoutRes(R.layout.guide_home_3)
-                        .setEnterAnimation(enterAnimation)//进入动画
-                        .setExitAnimation(exitAnimation))//退出动画)
-                .setOnPageChangedListener(new OnPageChangedListener() {
-                    @Override
-                    public void onPageChanged(int i) {
-                    }
-                })
-                .setOnGuideChangedListener(new OnGuideChangedListener() {
-                    @Override
-                    public void onShowed(Controller controller) {
-                    }
-
-                    @Override
-                    public void onRemoved(Controller controller) {
-                    }
-                })
-                .show();
+//        controller = NewbieGuide.with(mInstance)
+//                .setLabel("guide1")
+////                .alwaysShow(true)
+//                .setShowCounts(1)
+//                .addGuidePage(GuidePage.newInstance()
+//                        .addHighLightWithOptions(middle, HighLight.Shape.CIRCLE,new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                mBookVenueDialog.show();
+//                            }
+//                        }).build())
+//                        .setLayoutRes(R.layout.guide_home_1)
+//                        .setBackgroundColor(0xcc000000)
+//                        .setEnterAnimation(enterAnimation)//进入动画
+//                        .setExitAnimation(exitAnimation))//退出动画)
+//                .addGuidePage(GuidePage.newInstance()
+//                        .addHighLight(rect, HighLight.Shape.CIRCLE)
+//                        .setLayoutRes(R.layout.guide_home_2)
+//                        .setBackgroundColor(0xcc000000)
+//                        .setEnterAnimation(enterAnimation)//进入动画
+//                        .setExitAnimation(exitAnimation))//退出动画)
+//                .addGuidePage(GuidePage.newInstance()
+//                        .addHighLight(memberRect)
+//                        .setBackgroundColor(0xcc000000)
+//                        .setLayoutRes(R.layout.guide_home_3)
+//                        .setEnterAnimation(enterAnimation)//进入动画
+//                        .setExitAnimation(exitAnimation))//退出动画)
+//                .setOnPageChangedListener(new OnPageChangedListener() {
+//                    @Override
+//                    public void onPageChanged(int i) {
+//                    }
+//                })
+//                .setOnGuideChangedListener(new OnGuideChangedListener() {
+//                    @Override
+//                    public void onShowed(Controller controller) {
+//                    }
+//
+//                    @Override
+//                    public void onRemoved(Controller controller) {
+//                    }
+//                })
+//                .show();
     }
 
 
@@ -478,6 +486,11 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
 
     @Override
     public void showUserCard(UserInfoDto cardDto) {
+
+    }
+
+    @Override
+    public void showMessageAl(MessageAllDto messageAllDto) {
 
     }
 
@@ -564,29 +577,29 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
                 });
 
                 //预定引导
-                FrameLayout rlContent = view.findViewById(R.id.rl_content);
-                NewbieGuide.with(HomeActivity.this)
-                        .setLabel("book")
-                        .anchor(rlContent)
-                        .setShowCounts(1)
-                        .addGuidePage(GuidePage.newInstance()
-//                                .addHighLight(ivBook,HighLight.Shape.CIRCLE)
-                                .addHighLightWithOptions(ivBook, HighLight.Shape.CIRCLE,new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        bookVenue();
-                                    }
-                                }).build())
-                        .setLayoutRes(R.layout.guide_book_1)
-                                .setBackgroundColor(0xcc000000)
-                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                            @Override
-                            public void onLayoutInflated(View view, Controller controller) {
-                                ImageView imageView = view.findViewById(R.id.imageView);
-                                ViewUtils.setMargins(imageView,100,ScreenUtils.getScreenHeight() / 2 - 100,100,100);
-                            }
-                        }))
-                        .show();
+//                FrameLayout rlContent = view.findViewById(R.id.rl_content);
+//                NewbieGuide.with(HomeActivity.this)
+//                        .setLabel("book")
+//                        .anchor(rlContent)
+//                        .setShowCounts(1)
+//                        .addGuidePage(GuidePage.newInstance()
+////                                .addHighLight(ivBook,HighLight.Shape.CIRCLE)
+//                                .addHighLightWithOptions(ivBook, HighLight.Shape.CIRCLE,new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(View v) {
+//                                        bookVenue();
+//                                    }
+//                                }).build())
+//                        .setLayoutRes(R.layout.guide_book_1)
+//                                .setBackgroundColor(0xcc000000)
+//                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
+//                            @Override
+//                            public void onLayoutInflated(View view, Controller controller) {
+//                                ImageView imageView = view.findViewById(R.id.imageView);
+//                                ViewUtils.setMargins(imageView,100,ScreenUtils.getScreenHeight() / 2 - 100,100,100);
+//                            }
+//                        }))
+//                        .show();
 
             }
         });
@@ -606,7 +619,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
             DialogUtils.showDefaultAlertDialog("预约场地需要成为会员或俱乐部创始人才可以申请哦", new DialogUtils.ClickListener() {
                 @Override
                 public void clickConfirm() {
-//                    startActivity(BecomeMemberActivity.class);
+                    startActivity(BecomeMemberActivity.class);
                 }
             });
             return;
@@ -616,7 +629,7 @@ public class HomeActivity extends BaseActivity<IHomeView, HomePresenter> impleme
             DialogUtils.showDefaultAlertDialog("预约场地需实名认证哦", new DialogUtils.ClickListener() {
                 @Override
                 public void clickConfirm() {
-//                    startActivity(CertifyRulesActivity.class);
+                    startActivity(CertifyRulesActivity.class);
                 }
             });
             return;

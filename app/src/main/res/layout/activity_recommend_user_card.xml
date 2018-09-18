@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.km.rmbank.module.main.card.RecommendUserCardActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/userCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginLeft="@dimen/viewSpace32"
+        android:layout_marginRight="@dimen/viewSpace32"
+        android:layout_marginTop="@dimen/viewSpace48"
+        android:layout_marginBottom="@dimen/viewSpace64"
+        app:cardCornerRadius="10dp"
+        app:cardPreventCornerOverlap="true"
+        android:onClick="openUserInfo"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <com.ps.glidelib.GlideImageView
+                android:id="@+id/userPortrait"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="玩小球"
+                android:textSize="25sp"
+                android:textColor="@color/text_color_block1"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                />
+
+            <TextView
+                android:id="@+id/userCompany"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="玩转地球商旅学苑（北京）文化发展有限公司"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_block3"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:id="@+id/userPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UI设计"
+                android:textSize="14sp"
+                android:textColor="@color/text_color_block3"
+                android:gravity="center"
+                android:layout_marginTop="13dp"
+                />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

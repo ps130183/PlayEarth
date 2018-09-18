@@ -31,10 +31,10 @@ public class ProfessionIntroduceActivity extends BaseActivity {
         imageView.getLayoutParams().height = ScreenUtils.getScreenWidth(mInstance) * 300 / 750 ;
 
         Button identification = mViewManager.findView(R.id.identification);
-        if (Constant.userInfo.getPositionStatus() == 2){
-            identification.setText("已认证");
-            identification.setEnabled(false);
-        }
+//        if (Constant.userInfo.getPositionStatus() == 2){
+//            identification.setText("已认证");
+//            identification.setEnabled(false);
+//        }
     }
 
     /**

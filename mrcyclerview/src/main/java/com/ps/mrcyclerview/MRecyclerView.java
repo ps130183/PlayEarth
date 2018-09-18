@@ -181,6 +181,10 @@ public class MRecyclerView<D> extends FrameLayout {
         }
     }
 
+    public RecyclerView.LayoutManager getLayoutManager(){
+        return mRecyclerView.getLayoutManager();
+    }
+
 
     private XRefreshView initXRefreshView(XRefreshView xRefreshView){
         if (xRefreshView != null){

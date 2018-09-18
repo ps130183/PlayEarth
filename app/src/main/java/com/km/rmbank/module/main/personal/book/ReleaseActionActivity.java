@@ -77,7 +77,7 @@ public class ReleaseActionActivity extends BaseActivity<ReleaseActionView,Releas
     private void initView(){
         BookVenueApplyDto bookVenueApplyDto = getIntent().getParcelableExtra("bookVenueApplyInfo");
         mViewManager.setText(R.id.start_time,DateUtils.getInstance().dateToString(new Date(bookVenueApplyDto.getStartDate()),DateUtils.YMDHM));
-        mViewManager.setText(R.id.end_time,DateUtils.getInstance().dateToString(new Date(bookVenueApplyDto.getEndDate()),DateUtils.YMDHM));
+//        mViewManager.setText(R.id.end_time,DateUtils.getInstance().dateToString(new Date(bookVenueApplyDto.getEndDate()),DateUtils.YMDHM));
     }
 
     private void initRecycler(){

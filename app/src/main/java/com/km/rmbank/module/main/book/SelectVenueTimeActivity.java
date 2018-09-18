@@ -10,12 +10,15 @@ import android.widget.TextView;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
+import com.km.rmbank.event.RefreshPersonalInfoEvent;
 import com.km.rmbank.module.main.HomeActivity;
+import com.km.rmbank.module.main.personal.book.BookVenueManageActivity;
 import com.km.rmbank.mvp.model.SelectVenueTimeModel;
 import com.km.rmbank.mvp.presenter.SelectVenueTimePresenter;
 import com.km.rmbank.mvp.view.SelectVenueTimeView;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.DateUtils;
+import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.PickerUtils;
 import com.km.rmbank.utils.dialog.DialogUtils;
 import com.lvfq.pickerview.TimePickerView;
@@ -47,39 +50,40 @@ public class SelectVenueTimeActivity extends BaseActivity<SelectVenueTimeView,Se
             @Override
             public void onClick(View v) {
                 TextView start = mViewManager.findView(R.id.start_time);
-                TextView end = mViewManager.findView(R.id.end_time);
+//                TextView end = mViewManager.findView(R.id.end_time);
                 final String placeId = getIntent().getStringExtra("placeId");
 
                 final String startTime = start.getText().toString();
-                final String endTime = end.getText().toString();
+//                final String endTime = end.getText().toString();
 
-                if (!TextUtils.isEmpty(startTime) && !TextUtils.isEmpty(endTime)){
-                    String mStartTime = startTime.substring(0,10) + " 23:59";
+                if (!TextUtils.isEmpty(startTime)){
+//                    String mStartTime = startTime.substring(0,10) + " 23:59";
 
-                    long startDate = DateUtils.getInstance().stringDateToMillis(startTime,DateUtils.YMDHM);
-                    long centerDate = DateUtils.getInstance().stringDateToMillis(mStartTime,DateUtils.YMDHM);
-                    long endDate = DateUtils.getInstance().stringDateToMillis(endTime,DateUtils.YMDHM);
-                    if (endDate > centerDate){
-                        showToast("只能选择同一天的时间段");
-                        return;
-                    }
-                    if (endDate <= startDate){
-                        showToast("结束时间不能小于开始时间");
-                        return;
-                    }
+//                    long startDate = DateUtils.getInstance().stringDateToMillis(startTime,DateUtils.YMDHM);
+//                    long centerDate = DateUtils.getInstance().stringDateToMillis(mStartTime,DateUtils.YMDHM);
+//                    long endDate = DateUtils.getInstance().stringDateToMillis(endTime,DateUtils.YMDHM);
+//                    if (endDate > centerDate){
+//                        showToast("只能选择同一天的时间段");
+//                        return;
+//                    }
+//                    if (endDate <= startDate){
+//                        showToast("结束时间不能小于开始时间");
+//                        return;
+//                    }
 
-                    int type = getIntent().getIntExtra("type",-1);
-                    String price = getIntent().getStringExtra("price");
-                    if (type == 2){
-                        DialogUtils.showDefaultAlertDialog("你申请的结缘晚宴的场地，审核通过后需支付" + price + "元人民币的场地使用费用。", new DialogUtils.ClickListener() {
-                            @Override
-                            public void clickConfirm() {
-                                getPresenter().submitBookVenue(placeId,startTime,endTime);
-                            }
-                        });
-                    } else {
-                        getPresenter().submitBookVenue(placeId,startTime,endTime);
-                    }
+//                    int type = getIntent().getIntExtra("type",-1);
+//                    String price = getIntent().getStringExtra("price");
+//                    if (type == 2){
+//                        DialogUtils.showDefaultAlertDialog("你申请的结缘晚宴的场地，审核通过后需支付" + price + "元人民币的场地使用费用。", new DialogUtils.ClickListener() {
+//                            @Override
+//                            public void clickConfirm() {
+//                                getPresenter().submitBookVenue(placeId,startTime,startTime);
+//                            }
+//                        });
+//                    } else {
+//
+//                    }
+                    getPresenter().submitBookVenue(placeId,startTime,startTime);
 
 
                 } else {
@@ -101,19 +105,29 @@ public class SelectVenueTimeActivity extends BaseActivity<SelectVenueTimeView,Se
             TextView startTime = mViewManager.findView(R.id.start_time);
             curTime = startTime.getText().toString();
         }
-        PickerUtils.alertTimerPicker(mInstance, TimePickerView.Type.ALL, curTime,
-                DateUtils.YMDHM, new PickerUtils.TimerPickerCallBack() {
-                    @Override
-                    public void onTimeSelect(String date) {
-                        textView.setText(date);
-                    }
-                });
+//        PickerUtils.alertTimerPicker(mInstance, TimePickerView.Type.YEAR_MONTH_DAY_HOUR, curTime,
+//                DateUtils.YMDHM, new PickerUtils.TimerPickerCallBack() {
+//                    @Override
+//                    public void onTimeSelect(String date) {
+//                        textView.setText(date);
+//                    }
+//                });
+
+        int maxDays = getIntent().getIntExtra("maxDays",1);
+        PickerUtils.alertBookVenuePickerTime(mInstance,3,maxDays, new PickerUtils.TimerPickerCallBack() {
+            @Override
+            public void onTimeSelect(String date) {
+                textView.setText(date);
+            }
+        });
     }
 
     @Override
     public void submitSuccess() {
         Bundle bundle = new Bundle();
         bundle.putInt("position",4);
+        EventBusUtils.post(new RefreshPersonalInfoEvent());
         startActivity(HomeActivity.class,bundle);
+//        startActivity(BookVenueManageActivity.class);
     }
 }

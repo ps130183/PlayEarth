@@ -68,27 +68,27 @@ public class ReleaseActionDetailsActivity extends BaseActivity<ReleaseActionView
 
     @Override
     public void onFinally(@Nullable Bundle savedInstanceState) {
-        initRecycler();
+//        initRecycler();
         String id = getIntent().getStringExtra("placeReservationId");
         getPresenter().getReleaseActionDetails(id);
     }
 
-    private void initRecycler(){
-        final MRecyclerView<ImageEntity> mRecyclerView = mViewManager.findView(R.id.imageRecycler);
-        mRecyclerView.addLoadMoreFinishRes(0)
-                .refreshRecycler()
-                .addContentLayout(R.layout.item_select_image, new ItemViewConvert<ImageEntity>() {
-                    @Override
-                    public void convert(@NonNull BViewHolder holder, final ImageEntity mData, int position, @NonNull List<Object> payloads) {
-                        GlideImageView imageView = holder.findView(R.id.iv_image);
-                        GlideUtils.loadImageOnPregress(imageView,mData.getImagePath(),null);
-
-                        holder.findView(R.id.iv_delete).setVisibility(View.GONE);
-                    }
-
-                }).create();
-
-    }
+//    private void initRecycler(){
+//        final MRecyclerView<ImageEntity> mRecyclerView = mViewManager.findView(R.id.imageRecycler);
+//        mRecyclerView.addLoadMoreFinishRes(0)
+//                .refreshRecycler()
+//                .addContentLayout(R.layout.item_select_image, new ItemViewConvert<ImageEntity>() {
+//                    @Override
+//                    public void convert(@NonNull BViewHolder holder, final ImageEntity mData, int position, @NonNull List<Object> payloads) {
+//                        GlideImageView imageView = holder.findView(R.id.iv_image);
+//                        GlideUtils.loadImageOnPregress(imageView,mData.getImagePath(),null);
+//
+//                        holder.findView(R.id.iv_delete).setVisibility(View.GONE);
+//                    }
+//
+//                }).create();
+//
+//    }
 
     @Override
     public void releaseActionSuccess() {
@@ -102,16 +102,15 @@ public class ReleaseActionDetailsActivity extends BaseActivity<ReleaseActionView
         mViewManager.setText(R.id.action_title,releaseActionDetailsDto.getTitle());
         mViewManager.setText(R.id.action_venue,releaseActionDetailsDto.getPlaceTitle());
         mViewManager.setText(R.id.action_address,releaseActionDetailsDto.getAddress());
-        mViewManager.setText(R.id.action_time, DateUtils.getInstance().dateToString(new Date(releaseActionDetailsDto.getStartDate()),DateUtils.YMDHM) + "  至\n"
-                                            + DateUtils.getInstance().dateToString(new Date(releaseActionDetailsDto.getEndDate()),DateUtils.YMDHM));
+        mViewManager.setText(R.id.action_time, DateUtils.getInstance().dateToString(new Date(releaseActionDetailsDto.getStartDate()),DateUtils.YMDHM));
 
-        String[] imageUrls = releaseActionDetailsDto.getContent().split("#");
-        List<ImageEntity> imageEntities = new ArrayList<>();
-        for (String imageUrl : imageUrls){
-            imageEntities.add(new ImageEntity(imageUrl));
-        }
-        MRecyclerView<ImageEntity> mRecyclerView = mViewManager.findView(R.id.imageRecycler);
-        mRecyclerView.loadDataOfNextPage(imageEntities);
+//        String[] imageUrls = releaseActionDetailsDto.getContent().split("#");
+//        List<ImageEntity> imageEntities = new ArrayList<>();
+//        for (String imageUrl : imageUrls){
+//            imageEntities.add(new ImageEntity(imageUrl));
+//        }
+//        MRecyclerView<ImageEntity> mRecyclerView = mViewManager.findView(R.id.imageRecycler);
+//        mRecyclerView.loadDataOfNextPage(imageEntities);
 
         mViewManager.setText(R.id.text_content,releaseActionDetailsDto.getFlow());
 
@@ -145,11 +144,16 @@ public class ReleaseActionDetailsActivity extends BaseActivity<ReleaseActionView
                 WebView reason = mViewManager.findView(R.id.reason);
                 reason.loadData(releaseActionDetailsDto.getReason(),"text/html; charset=UTF-8", null);
                 mViewManager.findView(R.id.line).setVisibility(View.VISIBLE);
-                mViewManager.findView(R.id.resverRelease).setVisibility(View.VISIBLE);
+//                mViewManager.findView(R.id.resverRelease).setVisibility(View.VISIBLE);
                 break;
             case "3"://审核中
                 tvStatus.setText("审核中");
                 tvStatus.setTextColor(getResources().getColor(R.color.venue_apply));
+                break;
+
+            case "4"://已取消
+                tvStatus.setText("已取消");
+                tvStatus.setTextColor(getResources().getColor(R.color.venue_cancel));
                 break;
         }
     }
@@ -174,8 +178,9 @@ public class ReleaseActionDetailsActivity extends BaseActivity<ReleaseActionView
         String imageUrl = getIntent().getStringExtra("imageUrl");
         mShareDto = new ShareDto();
         mShareDto.setTitle(Constant.userInfo.getName() + "邀请你参加" + mActionDetailsDto.getTitle());
-        mShareDto.setContent("活动时间：" + DateUtils.getInstance().dateToString(new Date(mActionDetailsDto.getStartDate()), DateUtils.YMDHM) + "\n" +
-                "活动地址：" + mActionDetailsDto.getAddress());
+//        mShareDto.setContent("活动时间：" + DateUtils.getInstance().dateToString(new Date(mActionDetailsDto.getStartDate()), DateUtils.YMDHM) + "\n" +
+//                "活动地址：" + mActionDetailsDto.getAddress());
+        mShareDto.setContent(mActionDetailsDto.getFlow());
         mShareDto.setSharePicUrl(imageUrl);
         mShareDto.setPageUrl(mActionDetailsDto.getWebActivityUrl());
         mShareDialog = new WindowBottomDialog(mInstance, "取消", "分享微信好友", "分享到朋友圈");

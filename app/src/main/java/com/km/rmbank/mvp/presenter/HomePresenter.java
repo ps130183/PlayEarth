@@ -5,6 +5,7 @@ import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
+import com.km.rmbank.dto.MessageAllDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.mvp.base.BasePresenter;
 import com.km.rmbank.mvp.model.HomeModel;
@@ -103,6 +104,16 @@ public class HomePresenter extends BasePresenter<IHomeView,HomeModel> {
                     @Override
                     public void accept(UserInfoDto userCardDto) throws Exception {
                         getMvpView().showUserCard(userCardDto);
+                    }
+                }));
+    }
+
+    public void getAllMessage(){
+        getMvpModel().getMessageAllInfo()
+                .subscribe(newSubscriber(new Consumer<MessageAllDto>() {
+                    @Override
+                    public void accept(MessageAllDto messageAllDto) throws Exception {
+                        getMvpView().showMessageAl(messageAllDto);
                     }
                 }));
     }

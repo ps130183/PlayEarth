@@ -33,34 +33,37 @@ import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
+import com.km.rmbank.dto.MessageAllDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.entity.ModelEntity;
 import com.km.rmbank.event.ApplyActionEvent;
+import com.km.rmbank.event.RefreshMessageEvent;
+import com.km.rmbank.module.login.LoginActivity;
 import com.km.rmbank.module.main.appoint.ActionOutdoorActivity;
 import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
 import com.km.rmbank.module.main.appoint.ActionRecentInfoActivity;
 import com.km.rmbank.module.main.appoint.AppointAfternoonTeaActivity;
-import com.km.rmbank.module.main.card.UserCardActivity;
+import com.km.rmbank.module.main.card.RecommendUserCardActivity;
 import com.km.rmbank.module.main.fragment.home.AllClubActivity;
 import com.km.rmbank.module.main.experience.ExperienceOfficerActivity;
 import com.km.rmbank.module.main.fragment.home.HomeRecommendCompanyDetailsActivity;
-import com.km.rmbank.module.main.fragment.home.HomeRecommendMemberActivity;
 import com.km.rmbank.module.main.fragment.home.InformationActivity;
 import com.km.rmbank.module.main.fragment.home.MoreActionActivity;
 import com.km.rmbank.module.main.fragment.home.ScenicListActivity;
 import com.km.rmbank.module.main.map.MapActivity;
-import com.km.rmbank.module.main.message.MessageActivity;
+import com.km.rmbank.module.main.message.MyMessageActivity;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.module.main.shop.GoodsActivity;
-import com.km.rmbank.module.webview.AgreementActivity;
 import com.km.rmbank.module.webview.WebBrowserActivity;
 import com.km.rmbank.mvp.model.HomeModel;
 import com.km.rmbank.mvp.presenter.HomePresenter;
 import com.km.rmbank.mvp.view.IHomeView;
 import com.km.rmbank.retrofit.ApiConstant;
+import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.EventBusUtils;
 import com.km.rmbank.utils.RefreshUtils;
+import com.km.rmbank.utils.SystemBarHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.mrcyclerview.BViewHolder;
@@ -78,6 +81,9 @@ import com.youth.banner.transformer.ScaleInOutTransformer;
 import com.youth.banner.transformer.ThreePagerTransformer;
 import com.zhy.magicviewpager.transformer.ScaleInTransformer;
 import com.zhy.view.flowlayout.FlowLayout;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,6 +156,8 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
         initRefresh();
         initScrollViewListener();
         getPresenter().getUserInfo();
+
+        EventBusUtils.post(new RefreshMessageEvent());
     }
 
 
@@ -191,27 +199,42 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 //                LogUtils.d("scrollY ==== " + scrollY + "   oldScrollY ==== " + oldScrollY);
+                GlideImageView messageView = mViewManager.findView(R.id.message);
                 int height = ConvertUtils.dp2px(152);
                 float scale = 0;
+                if (scrollY == 0){
+                    SystemBarHelper.setStatusBarDarkMode(getActivity(),false);
+                } else {
+                    SystemBarHelper.setStatusBarDarkMode(getActivity(),true);
+                }
                 if (scrollY - height >= 0) {
                     scale = 1;
+                    GlideUtils.loadImageByRes(messageView,R.mipmap.icon_message_block);
                 } else {
+                    GlideUtils.loadImageByRes(messageView,R.mipmap.icon_message_white);
                     scale = (float) (scrollY * 1.0 / height);
                 }
                 toolbar.getBackground().setAlpha((int) (scale * 255));
             }
         });
 
-        ImageView messageView = mViewManager.findView(R.id.message);
-        messageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(MessageActivity.class);
-            }
-        });
     }
 
     private void initToolbar() {
+
+        GlideImageView messageView = mViewManager.findView(R.id.message);
+        messageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Constant.userInfo == null){
+                    showToast("请先登录！");
+                    startActivity(LoginActivity.class);
+                    return;
+                }
+                startActivity(MyMessageActivity.class);
+            }
+        });
+
 //        mToolbar.inflateMenu(R.menu.toolbar_home_message);
 //        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 //            @Override
@@ -583,6 +606,7 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
         initBanner(bannerDtoList);
     }
 
+
     @Override
     public void showHomeAdvert(AdvertisDto advertisDto) {
 
@@ -592,7 +616,22 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
     public void showUserCard(UserInfoDto cardDto) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("userCard", cardDto);
-        startActivity(UserCardActivity.class, bundle);
+        startActivity(RecommendUserCardActivity.class, bundle);
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshMessage(RefreshMessageEvent event){
+        getPresenter().getAllMessage();
+    }
+
+    @Override
+    public void showMessageAl(MessageAllDto messageAllDto) {
+        if (messageAllDto.getSumCount() > 0){
+            mViewManager.findView(R.id.isNew).setVisibility(View.VISIBLE);
+        } else {
+            mViewManager.findView(R.id.isNew).setVisibility(View.GONE);
+        }
     }
 
     /**

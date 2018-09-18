@@ -5,6 +5,7 @@ import com.km.rmbank.dto.BannerDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.HomeRecommendDto;
 import com.km.rmbank.dto.MapMarkerDto;
+import com.km.rmbank.dto.MessageAllDto;
 import com.km.rmbank.dto.UserInfoDto;
 import com.km.rmbank.mvp.base.BaseModel;
 import com.km.rmbank.utils.Constant;
@@ -90,5 +91,14 @@ public class HomeModel extends BaseModel {
     public Observable<UserInfoDto> getUserCardById(String userId){
         return getService().getOtherUserCardById(userId)
                 .compose(this.<UserInfoDto>applySchedulers());
+    }
+
+    /**
+     * 获取所有的消息信息
+     * @return
+     */
+    public Observable<MessageAllDto> getMessageAllInfo(){
+        return getService().getMessageAllInfo(Constant.userLoginInfo.getToken())
+                .compose(this.<MessageAllDto>applySchedulers());
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.km.rmbank.dto.JPushDto;
+import com.km.rmbank.event.RefreshMessageEvent;
 import com.km.rmbank.module.main.appoint.ActionOutdoorActivity;
 import com.km.rmbank.module.main.appoint.ActionPastDetailActivity;
 import com.km.rmbank.module.main.appoint.ActionRecentInfoActivity;
@@ -15,6 +16,7 @@ import com.km.rmbank.module.main.appoint.AppointAfternoonTeaActivity;
 import com.km.rmbank.module.main.message.MessageActivity;
 import com.km.rmbank.module.main.personal.account.UserAccountDetailsActivity;
 import com.km.rmbank.module.main.personal.book.BookVenueManageActivity;
+import com.km.rmbank.utils.EventBusUtils;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -64,6 +66,7 @@ public class JPushReceiver extends BroadcastReceiver {
         JPushDto mJpushDto = gson.fromJson(extras,JPushDto.class);
         LogUtils.d(mJpushDto.toString());
         Intent intent;
+        EventBusUtils.post(new RefreshMessageEvent());
         switch (mJpushDto.getType()){
             case 1://下午茶、晚宴
                 intent = new Intent(context, AppointAfternoonTeaActivity.class);

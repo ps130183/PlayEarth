@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.main.message.MessageDetailsActivity">
+
+    <TextView
+        android:id="@+id/message_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="消息标题~"
+        android:textSize="16sp"
+        android:textColor="@color/text_color_block24"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="21dp"
+        />
+
+    <TextView
+        android:id="@+id/message_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2018-09-05 21:23"
+        android:textSize="12sp"
+        android:textColor="@color/text_color_block6"
+        android:gravity="center"
+        android:layout_marginBottom="25dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divideLineHeight"
+        android:background="@color/divide_color"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"/>
+
+    <TextView
+        android:id="@+id/message_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="消息的具体内容消息的具体内容消息的具体内容消息的具体内容消息的具体内容消息的具体内容消息的具体内容消息的具体内容消息的具体内容"
+        android:textSize="14sp"
+        android:textColor="@color/text_color_block6"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:lineSpacingMultiplier="1.2"
+        android:minLines="1"
+        android:layout_marginTop="24dp"
+        />
+
+</LinearLayout>

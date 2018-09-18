@@ -165,9 +165,9 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
                 GlideUtils.loadImageOnPregress(imageView, memberDto.getHeadImage(), null);
 
                 userName.setText(memberDto.getRegistrationName());
-                TextView userPhone = view.findViewById(R.id.userPhone);
-                userPhone.setVisibility(View.VISIBLE);
-                userPhone.setText(StringUtils.hidePhone(memberDto.getRegistrationPhone()));
+//                TextView userPhone = view.findViewById(R.id.userPhone);
+//                userPhone.setVisibility(View.VISIBLE);
+//                userPhone.setText(StringUtils.hidePhone(memberDto.getRegistrationPhone()));
 
                 TextView userPosition = view.findViewById(R.id.userPosition);
                 userPosition.setVisibility(View.VISIBLE);

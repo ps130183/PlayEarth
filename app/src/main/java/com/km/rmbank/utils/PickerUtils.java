@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.entity.ProvinceBean;
 import com.km.rmbank.utils.selectcity.CityPickData;
+import com.km.rmbank.utils.timepicker.BookVenueTimePickerView;
 import com.lvfq.pickerview.OptionsPickerView;
 import com.lvfq.pickerview.TimePickerView;
 import com.lvfq.pickerview.adapter.ArrayWheelAdapter;
@@ -86,6 +87,25 @@ public class PickerUtils {
         //弹出时间选择器
         pvTime.show();
         KeyboardUtils.hideSoftInput((Activity) context);
+    }
+
+    /**
+     * 预定场地选择时间
+     * @param context
+     * @param afterDays
+     * @param daysCount
+     * @param callBack
+     */
+    public static void alertBookVenuePickerTime(Context context,int afterDays,int daysCount, final TimerPickerCallBack callBack){
+        BookVenueTimePickerView pickerView = new BookVenueTimePickerView(context,afterDays,daysCount);
+        pickerView.setCyclic(false);
+        pickerView.setTimeSelectListener(new BookVenueTimePickerView.OnTimeSelectedListener() {
+            @Override
+            public void timeSelected(String time) {
+                callBack.onTimeSelect(time);
+            }
+        });
+        pickerView.show();
     }
 
 

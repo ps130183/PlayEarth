@@ -16,6 +16,8 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ import com.km.rmbank.mvp.base.ProxyPresenter;
 import com.km.rmbank.oldrecycler.AppUtils;
 import com.km.rmbank.retrofit.FileDownLoad;
 import com.km.rmbank.titleBar.SimpleTitleBar;
+import com.km.rmbank.utils.AndroidBug54971Workaround;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.dialog.DialogLoading;
 import com.km.rmbank.utils.dialog.DialogUtils;
@@ -95,19 +98,22 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
             //设置状态栏背景色为白色，并且字体、图标颜色为深色
             SystemBarHelper.tintStatusBar(this, Color.WHITE, 0f);
             SystemBarHelper.setStatusBarDarkMode(this);
+
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
 
-        LinearLayout mainContent = mViewManager.findView(R.id.mainContent);
-        int screenHeight = ScreenUtils.getScreenHeight();
-        int statusBarHeiht = BarUtils.getStatusBarHeight();
+//        LinearLayout mainContent = mViewManager.findView(R.id.mainContent);
+//        int screenHeight = ScreenUtils.getScreenHeight();
+//        int statusBarHeiht = BarUtils.getStatusBarHeight();
         //虚拟按键
         if (NavigationBarUtils.hasNavBar(this)) {
-            int height = NavigationBarUtils.getNavigationBarHeight(this);
-            mainContent.getLayoutParams().height = screenHeight - statusBarHeiht - height;
+            //解决部分手机底部虚拟按键的问题
+            AndroidBug54971Workaround.assistActivity(findViewById(android.R.id.content));
         } else {
             LogUtils.i("没有虚拟按键");
 //            mainContent.getLayoutParams().height = screenHeight - statusBarHeiht;
         }
+
 
         FrameLayout baseTitleBar = mViewManager.findView(R.id.base_title_bar);
         FrameLayout baseContent = mViewManager.findView(R.id.base_content);

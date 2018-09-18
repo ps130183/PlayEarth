@@ -140,61 +140,61 @@ public class UserCardActivity extends BaseActivity<UserCardView, UserCardPresent
 
 
         //引导
-        Animation enterAnimation = new AlphaAnimation(0f, 1f);
-        enterAnimation.setDuration(600);
-        enterAnimation.setFillAfter(true);
-
-        Animation exitAnimation = new AlphaAnimation(1f, 0f);
-        exitAnimation.setDuration(600);
-        exitAnimation.setFillAfter(true);
-
-        RectF guideDot = new RectF(windowWidth - ConvertUtils.dp2px(52),
-                statusBarHeight,
-                windowWidth - ConvertUtils.dp2px(4),
-                statusBarHeight + ConvertUtils.dp2px(48));
-
-        NewbieGuide.with(mInstance)
-                .setLabel("userCard")
-                .setShowCounts(1)
-                .addGuidePage(GuidePage.newInstance()
-                        .addHighLightWithOptions(userCard, new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                openUserInfo(v);
-                            }
-                        }).build())
-                        .setLayoutRes(R.layout.guide_card_1)
-                        .setBackgroundColor(0xcc000000)
-                        .setEnterAnimation(enterAnimation)//进入动画
-                        .setExitAnimation(exitAnimation)
-                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                            @Override
-                            public void onLayoutInflated(View view, Controller controller) {
-                                ImageView imageView = view.findViewById(R.id.imageView);
-                                imageView.setScaleX(0.5f);
-                                imageView.setScaleY(0.5f);
-                                imageView.setTranslationY(-ConvertUtils.dp2px(20));
-                            }
-                        }))
-                .addGuidePage(GuidePage.newInstance()
-                        .addHighLightWithOptions(guideDot, HighLight.Shape.CIRCLE, new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mShareDialog.show();
-                            }
-                        }).build())
-                        .setLayoutRes(R.layout.guide_card_2)
-                        .setBackgroundColor(0xcc000000)
-                        .setEnterAnimation(enterAnimation)//进入动画
-                        .setExitAnimation(exitAnimation)
-                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
-                            @Override
-                            public void onLayoutInflated(View view, Controller controller) {
-                                ImageView imageView = view.findViewById(R.id.imageView);
-                                ViewUtils.setMargins(imageView, ConvertUtils.dp2px(100), ConvertUtils.dp2px(20), ConvertUtils.dp2px(20), 0);
-                            }
-                        }))
-                .show();
+//        Animation enterAnimation = new AlphaAnimation(0f, 1f);
+//        enterAnimation.setDuration(600);
+//        enterAnimation.setFillAfter(true);
+//
+//        Animation exitAnimation = new AlphaAnimation(1f, 0f);
+//        exitAnimation.setDuration(600);
+//        exitAnimation.setFillAfter(true);
+//
+//        RectF guideDot = new RectF(windowWidth - ConvertUtils.dp2px(52),
+//                statusBarHeight,
+//                windowWidth - ConvertUtils.dp2px(4),
+//                statusBarHeight + ConvertUtils.dp2px(48));
+//
+//        NewbieGuide.with(mInstance)
+//                .setLabel("userCard")
+//                .setShowCounts(1)
+//                .addGuidePage(GuidePage.newInstance()
+//                        .addHighLightWithOptions(userCard, new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                openUserInfo(v);
+//                            }
+//                        }).build())
+//                        .setLayoutRes(R.layout.guide_card_1)
+//                        .setBackgroundColor(0xcc000000)
+//                        .setEnterAnimation(enterAnimation)//进入动画
+//                        .setExitAnimation(exitAnimation)
+//                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
+//                            @Override
+//                            public void onLayoutInflated(View view, Controller controller) {
+//                                ImageView imageView = view.findViewById(R.id.imageView);
+//                                imageView.setScaleX(0.5f);
+//                                imageView.setScaleY(0.5f);
+//                                imageView.setTranslationY(-ConvertUtils.dp2px(20));
+//                            }
+//                        }))
+//                .addGuidePage(GuidePage.newInstance()
+//                        .addHighLightWithOptions(guideDot, HighLight.Shape.CIRCLE, new HighlightOptions.Builder().setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                mShareDialog.show();
+//                            }
+//                        }).build())
+//                        .setLayoutRes(R.layout.guide_card_2)
+//                        .setBackgroundColor(0xcc000000)
+//                        .setEnterAnimation(enterAnimation)//进入动画
+//                        .setExitAnimation(exitAnimation)
+//                        .setOnLayoutInflatedListener(new OnLayoutInflatedListener() {
+//                            @Override
+//                            public void onLayoutInflated(View view, Controller controller) {
+//                                ImageView imageView = view.findViewById(R.id.imageView);
+//                                ViewUtils.setMargins(imageView, ConvertUtils.dp2px(100), ConvertUtils.dp2px(20), ConvertUtils.dp2px(20), 0);
+//                            }
+//                        }))
+//                .show();
     }
 
     private void loadUserInfo() {
@@ -221,6 +221,9 @@ public class UserCardActivity extends BaseActivity<UserCardView, UserCardPresent
         mViewManager.setText(R.id.userPosition2, userInfoDto.getPosition());
         ImageView qrcode = mViewManager.findView(R.id.qrcode);
         qrcode.setImageBitmap(QRCodeUtils.createQRCode(mInstance, userInfoDto.getShareUrl()));
+
+        ImageView qrCode1 = mViewManager.findView(R .id.qrcode1);
+        qrCode1.setImageBitmap(QRCodeUtils.createQRCode(mInstance, userInfoDto.getShareUrl()));
 
     }
 

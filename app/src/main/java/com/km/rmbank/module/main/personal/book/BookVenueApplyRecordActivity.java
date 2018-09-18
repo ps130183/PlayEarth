@@ -88,9 +88,7 @@ public class BookVenueApplyRecordActivity extends BaseActivity<BookVenueApplyVie
                 }
                 holder.setText(R.id.tv_venue_type,status);
 
-                holder.setText(R.id.tv_venue_time,"申请时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM)
-                        + " - "
-                        + DateUtils.getInstance().dateToString(new Date(mData.getEndDate()),DateUtils.YMDHM));
+                holder.setText(R.id.tv_venue_time,"申请时间：" + DateUtils.getInstance().dateToString(new Date(mData.getStartDate()),DateUtils.YMDHM));
 
             }
         }).create();
@@ -100,18 +98,23 @@ public class BookVenueApplyRecordActivity extends BaseActivity<BookVenueApplyVie
             @Override
             public void clickItem(Object mData, int position) {
                 BookVenueApplyDto bookVenueApplyDto = (BookVenueApplyDto) mData;
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("bookVenueApplyInfo",bookVenueApplyDto);
+//                if (System.currentTimeMillis() - bookVenueApplyDto.getEndDate() >= 0 ){
+//                    bundle.putBoolean("isFinished",true);
+//                }
+//
+//                if ("2".equals(bookVenueApplyDto.getPlaceType()) && "0".equals(bookVenueApplyDto.getPayStatus())){//晚宴场地需支付完再发布
+//                    startActivity(PayWanYanVenueActivity.class,bundle);
+//                    return;
+//                }
+//
+//                startActivity(BookVenueDetailsActivity.class,bundle);
+
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("bookVenueApplyInfo",bookVenueApplyDto);
-                if (System.currentTimeMillis() - bookVenueApplyDto.getEndDate() >= 0 ){
-                    bundle.putBoolean("isFinished",true);
-                }
-
-                if ("2".equals(bookVenueApplyDto.getPlaceType()) && "0".equals(bookVenueApplyDto.getPayStatus())){//晚宴场地需支付完再发布
-                    startActivity(PayWanYanVenueActivity.class,bundle);
-                    return;
-                }
-
-                startActivity(BookVenueDetailsActivity.class,bundle);
+                bundle.putString("placeReservationId",bookVenueApplyDto.getId());
+                    bundle.putString("imageUrl",bookVenueApplyDto.getPlaceUrl());
+                startActivity(ReleaseActionDetailsActivity.class,bundle);
             }
         });
 

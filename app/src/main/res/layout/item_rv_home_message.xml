@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/viewSpace8">
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:text="删除"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="#f62b1c"/>
 
     <LinearLayout
+        android:id="@+id/ll_content"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/shape_message_content"
-        android:paddingLeft="@dimen/viewSpace16"
-        android:paddingRight="@dimen/viewSpace16"
-        android:paddingTop="@dimen/viewSpace16"
-        android:paddingBottom="@dimen/viewSpace16">
-        <LinearLayout
+        android:background="@color/white"
+        android:padding="@dimen/viewSpace16">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <com.ruffian.library.RTextView
-                android:id="@+id/messageType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="活动"
-                android:textSize="@dimen/textSizeContent"
-                android:textColor="@color/white"
-                app:background_normal="#f7bd00"
-                app:corner_radius="@dimen/viewSpace4"
-                android:paddingTop="@dimen/viewSpace2"
-                android:paddingBottom="@dimen/viewSpace2"
-                android:paddingLeft="@dimen/viewSpace8"
-                android:paddingRight="@dimen/viewSpace8"
-                android:layout_marginRight="@dimen/viewSpace8"/>
+
             <TextView
                 android:id="@+id/tv_message_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="这是消息标题"
-                android:textSize="@dimen/textSizeBig"
-                android:textColor="@color/textMainColor"
+                android:textSize="15sp"
+                android:textColor="@color/text_color_block1"
                 />
-        </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_message_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2017/02/21"
+                android:textSize="13sp"
+                android:textColor="@color/text_color_block9"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="11dp"/>
 
 
-        <TextView
-            android:id="@+id/tv_message_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2017-02-21"
-            android:layout_marginTop="@dimen/viewSpace8"
-            android:layout_marginBottom="@dimen/viewSpace8"
-            />
 
-        <include layout="@layout/_default_divide_line"/>
         <TextView
             android:id="@+id/tv_message_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="恭喜您成为体验式会员，快去发布您的商品吧～"
-            android:textColor="@color/textMainColor"
-            android:minLines="1"
-            android:inputType="textMultiLine"
-            android:layout_marginTop="@dimen/viewSpace8"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="13sp"
+            android:textColor="@color/text_color_block9"
             />
     </LinearLayout>
 
-</FrameLayout>
+
+</com.daimajia.swipe.SwipeLayout>

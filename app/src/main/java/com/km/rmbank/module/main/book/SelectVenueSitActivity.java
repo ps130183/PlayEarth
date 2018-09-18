@@ -58,6 +58,7 @@ public class SelectVenueSitActivity extends BaseActivity<SelectVenueSitView,Sele
                     return;
                 }
                 Bundle bundle = getIntent().getExtras();
+                bundle.putInt("maxDays",sitEntity.getMaxDays());
                 bundle.putString("placeId",sitEntity.getId());
                 bundle.putString("price",sitEntity.getPrice());
                 startActivity(SelectVenueTimeActivity.class,bundle);
