@@ -36,14 +36,14 @@
                     android:textColor="@color/text_color_block1"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="top"
-                    android:text="*"
-                    android:textColor="@color/red"
-                    android:textSize="16sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:gravity="top"-->
+                    <!--android:text="*"-->
+                    <!--android:textColor="@color/red"-->
+                    <!--android:textSize="16sp" />-->
             </LinearLayout>
 
 
@@ -152,14 +152,14 @@
                     android:textColor="@color/text_color_block1"
                     android:textSize="16sp" />
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:gravity="top"-->
-                    <!--android:text="*"-->
-                    <!--android:textColor="@color/red"-->
-                    <!--android:textSize="16sp" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <EditText
@@ -191,14 +191,14 @@
                     android:textColor="@color/text_color_block1"
                     android:textSize="16sp" />
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:gravity="top"-->
-                    <!--android:text="*"-->
-                    <!--android:textColor="@color/red"-->
-                    <!--android:textSize="16sp" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="top"
+                    android:text="*"
+                    android:textColor="@color/red"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <EditText

@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public interface IScenicServiceView extends MvpView {
-    void showTicketList(List<TicketDto> ticketDtos);
+    void showTicketList(List<TicketDto> ticketDtos,int money);
 
     void applyFreeTeaSuccess();
 }

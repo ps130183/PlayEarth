@@ -44,4 +44,20 @@ public class StringUtils {
         return result;
     }
 
+    /**
+     * 隐藏身份证号   中间 6位
+     * @param idCard
+     * @return
+     */
+    public static String hideIdCard(String idCard){
+        String result = "";
+        if (TextUtils.isEmpty(idCard)){
+            return result;
+        }
+        if (idCard.length() == 18){
+            result = idCard.replaceAll("(\\d{6})\\d{6}(\\d{6})","$1******$2");
+        }
+        return result;
+    }
+
 }

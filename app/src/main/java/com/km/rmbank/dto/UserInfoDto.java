@@ -489,7 +489,7 @@ public class UserInfoDto implements Cloneable, Parcelable {
      * @return
      */
     public boolean isEmpty(){
-        if (TextUtils.isEmpty(portraitUrl) || TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(position) || TextUtils.isEmpty(company)){
             return true;
         }
         return false;

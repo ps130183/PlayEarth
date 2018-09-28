@@ -38,6 +38,8 @@ public class TicketDto implements Parcelable,ItemDelegate {
 
     private boolean isChecked;
 
+    private int itemLayoutRes = R.layout.item_ticket;
+
     public boolean isChecked() {
         return isChecked;
     }
@@ -175,8 +177,12 @@ public class TicketDto implements Parcelable,ItemDelegate {
         }
     };
 
+    public void setItemLayoutRes(int itemLayoutRes) {
+        this.itemLayoutRes = itemLayoutRes;
+    }
+
     @Override
     public int getItemViewRes() {
-        return R.layout.item_ticket;
+        return itemLayoutRes;
     }
 }

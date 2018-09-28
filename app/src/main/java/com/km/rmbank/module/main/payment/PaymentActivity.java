@@ -46,6 +46,10 @@ import com.ps.commonadapter.adapter.RecyclerAdapterHelper;
 import com.ps.glidelib.GlideImageView;
 import com.ps.glidelib.GlideUtils;
 import com.ps.glidelib.progress.CircleProgressView;
+import com.ps.mrcyclerview.BViewHolder;
+import com.ps.mrcyclerview.ItemViewConvert;
+import com.ps.mrcyclerview.MRecyclerView;
+import com.ps.mrcyclerview.click.OnClickItemListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -234,6 +238,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
         actionPrice = getIntent().getFloatExtra("price",0);
         totalPrice = actionPrice * personNum;
         tvAmount.setText(totalPrice + "");
+        final int commonPrice = getIntent().getIntExtra("commonPrice",0);
 
 
         LinearLayout llTicket = mViewManager.findView(R.id.ll_ticket);
@@ -246,92 +251,117 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
             if (totalPersonNum == 1 && "6".equals(ticketDto.getTicketId())){
 
             } else {
+                ticketDto.setItemLayoutRes(R.layout.item_payement_ticket_list);
+                ticketDto.setChecked(true);
                 ticketDtos.add(ticketDto);
             }
 
         }
-        RecyclerView ticketRecycler = mViewManager.findView(R.id.ticketList);
-        final RecyclerAdapterHelper<TicketDto> mHelper = new RecyclerAdapterHelper<>(ticketRecycler);
-        mHelper.addLinearLayoutManager()
-                .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
-                .addCommonAdapter(R.layout.item_payement_ticket_list, ticketDtos, new RecyclerAdapterHelper.CommonConvert<TicketDto>() {
-                    @Override
-                    public void convert(CommonViewHolder holder, final TicketDto mData, final int position) {
-                        GlideImageView imageView = holder.findView(R.id.ticketLogo);
-                        CircleProgressView progressView = holder.findView(R.id.progressView);
-                        GlideUtils.loadImageOnPregress(imageView, mData.getTicketLogo(), progressView);
+        final MRecyclerView<TicketDto> ticketRecycler = mViewManager.findView(R.id.ticketList);
+        ticketRecycler
+                .addContentLayout(R.layout.item_payement_ticket_list, new ItemViewConvert<TicketDto>() {
+            @Override
+            public void convert(@android.support.annotation.NonNull BViewHolder holder, final TicketDto mData, final int position, @android.support.annotation.NonNull List<Object> payloads) {
+                GlideImageView imageView = holder.findView(R.id.ticketLogo);
+                CircleProgressView progressView = holder.findView(R.id.progressView);
+                if (payloads.size() == 0){
+                    GlideUtils.loadImageOnPregress(imageView, mData.getTicketLogo(), progressView);
+                }
 
-                        holder.setText(R.id.ticketName, mData.getName());
-                        final String type = mData.getType();
-                        String num = mData.getNum();
-                        TextView ticketContent = holder.findView(R.id.ticketContent);
-                        ticketContent.setVisibility(View.VISIBLE);
-                        if ("1".equals(type)) {//自己用
-                            ticketContent.setText("可用次数：" + num);
-                        } else if ("2".equals(type)) {//朋友用
-                            ticketContent.setText("可邀请人数：" + num);
-                        } else {
-                            ticketContent.setVisibility(View.GONE);
-                        }
 
-                        holder.setText(R.id.useDate, "优惠券使用期限：" + DateUtils.getInstance().getDateToYMD(mData.getValidateTime()) + "止");
+                holder.setText(R.id.ticketName, mData.getName());
+                final String type = mData.getType();
+                String canNum = mData.getNum();
+                TextView ticketContent = holder.findView(R.id.ticketContent);
+                ticketContent.setVisibility(View.VISIBLE);
+                if ("1".equals(type)) {//自己用
+                    ticketContent.setText("可用次数：" + canNum);
+                } else if ("2".equals(type)) {//朋友用
+                    ticketContent.setText("可邀请人数：" + canNum);
+                } else {
+                    ticketContent.setVisibility(View.GONE);
+                }
 
-                        final CheckBox checkBox = holder.findView(R.id.rightCheck);
-                        checkBox.setChecked(mData.isChecked());
-                        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (isChecked) {//选中
-                                    if (!mData.isChecked()) {
-                                        mData.setChecked(true);
-                                    }
-                                    if ("6".equals(mData.getTicketId())) {//朋友用
-                                        if (totalPersonNum == 1) {
-                                            mData.setChecked(false);
-                                            checkBox.setChecked(false);
-                                            return;
-                                        }
-                                        int num = Integer.parseInt(mData.getNum());
-                                        personNum -= totalPersonNum - 1 < num ? totalPersonNum - 1 : num;
-                                        if (personNum < 0) {
-                                            personNum = 0;
-                                        }
-                                        checkTicketNos.append(position, mData.getTicketNo());
-                                    } else if (personal == 0){//自己用的券
-                                        personal = 1;
-                                        personNum--;
-                                        checkTicketNos.append(position, mData.getTicketNo());
-                                    } else {
-                                        mData.setChecked(false);
-                                        checkBox.setChecked(false);
-                                    }
+                holder.setText(R.id.useDate, "优惠券使用期限：" + DateUtils.getInstance().getDateToYMD(mData.getValidateTime()) + "止");
 
-                                } else {//取消选中
-                                    if (mData.isChecked()) {
-                                        mData.setChecked(false);
-                                    }
-                                    if ("6".equals(mData.getTicketId())) {//朋友用
-                                        if (totalPersonNum == 1) {
-                                            mData.setChecked(true);
-                                            checkBox.setChecked(true);
-                                            return;
-                                        }
-                                        personNum += (totalPersonNum - 1);
-                                    } else if (personal == 1){//自己用的券
-                                        personal = 0;
-                                        personNum++;
-                                    } else {
-                                        checkBox.setChecked(true);
-                                    }
-                                    checkTicketNos.remove(position);
-                                }
-                                totalPrice = actionPrice * personNum;
-                                tvAmount.setText(totalPrice + "");
-                            }
-                        });
-
+                final CheckBox checkBox = holder.findView(R.id.rightCheck);
+                checkBox.setChecked(mData.isChecked());
+                int num = Integer.parseInt(mData.getNum());
+                if (mData.isChecked()) {//选中
+                    if (!mData.isChecked()) {
+                        mData.setChecked(true);
                     }
-                }).create();
+                    if ("6".equals(mData.getTicketId())) {//朋友用
+                        if (totalPersonNum == 1) {
+                            mData.setChecked(false);
+                            checkBox.setChecked(false);
+                            return;
+                        }
+                        personNum -= totalPersonNum - 1 < num ? totalPersonNum - 1 : num;
+                        if (personNum < 0) {
+                            personNum = 0;
+                        }
+                        checkTicketNos.append(position, mData.getTicketNo());
+                    } else if (personal == 0){//自己用的券
+                        personal = 1;
+                        personNum--;
+                        checkTicketNos.append(position, mData.getTicketNo());
+                    } else {
+                        mData.setChecked(false);
+                        checkBox.setChecked(false);
+                    }
+
+                } else {//取消选中
+                    if (mData.isChecked()) {
+                        mData.setChecked(false);
+                    }
+                    if ("6".equals(mData.getTicketId())) {//朋友用
+                        if (totalPersonNum == 1) {
+                            mData.setChecked(true);
+                            checkBox.setChecked(true);
+                            return;
+                        }
+                        personNum += totalPersonNum - 1 < num ? totalPersonNum - 1 : num;
+                    } else if (personal == 1){//自己用的券
+                        personal = 0;
+                        personNum++;
+                    } else {
+                        checkBox.setChecked(true);
+                    }
+                    checkTicketNos.remove(position);
+                }
+                float realPrice = totalPrice - (commonPrice * (totalPersonNum - personNum));
+                tvAmount.setText(realPrice + "");
+
+//                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//                    }
+//                });
+            }
+
+        }).create();
+        ticketRecycler.addClickItemListener(new OnClickItemListener() {
+            @Override
+            public void clickItem(Object mData, int position) {
+                TicketDto ticketDto = (TicketDto) mData;
+                ticketDto.setChecked(!ticketDto.isChecked());
+                ticketRecycler.update(ticketDto,position,"1");
+            }
+        });
+
+        ticketRecycler.loadDataOfNextPage(ticketDtos);
+//        final RecyclerAdapterHelper<TicketDto> mHelper = new RecyclerAdapterHelper<>(ticketRecycler);
+//        mHelper.addLinearLayoutManager()
+//                .addDividerItemDecoration(LinearLayoutManager.VERTICAL)
+//                .addCommonAdapter(R.layout.item_payement_ticket_list, ticketDtos, new RecyclerAdapterHelper.CommonConvert<TicketDto>() {
+//                    @Override
+//                    public void convert(CommonViewHolder holder, final TicketDto mData, final int position) {
+//
+//
+//                    }
+//                }).create();
 
     }
 
@@ -391,7 +421,7 @@ public class PaymentActivity extends BaseActivity<IPaymentView, PaymentPresenter
             if (checkTicketNos.size() > 0) {
                 ticketNos.deleteCharAt(ticketNos.length() - 1);
             }
-            getPresenter().applyScenicAction(actionId, totalPersonNum + "", startTime1, "", totalPrice + "", ticketNos.toString());
+            getPresenter().applyScenicAction(actionId, totalPersonNum + "", startTime1, "", tvAmount.getText().toString(), ticketNos.toString());
             return;
         }
 

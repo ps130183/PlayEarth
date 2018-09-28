@@ -167,13 +167,13 @@
                 android:textSize="15sp"
                 />
             <include layout="@layout/_default_divide_line"/>
-            <android.support.v7.widget.RecyclerView
+            <com.ps.mrcyclerview.MRecyclerView
                 android:id="@+id/ticketList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
 
-            </android.support.v7.widget.RecyclerView>
+            </com.ps.mrcyclerview.MRecyclerView>
         </LinearLayout>
 
 

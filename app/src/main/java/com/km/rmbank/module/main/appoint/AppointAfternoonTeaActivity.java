@@ -31,6 +31,7 @@ import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ShareDto;
 import com.km.rmbank.event.ApplyActionEvent;
 import com.km.rmbank.module.login.LoginActivity;
+import com.km.rmbank.module.main.card.UserCardModifyActivity;
 import com.km.rmbank.mvp.model.ActionRecentInfoModel;
 import com.km.rmbank.mvp.presenter.ActionRecentInfoPresenter;
 import com.km.rmbank.mvp.view.IActionRecentInfoView;
@@ -261,6 +262,16 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
         if (Constant.userLoginInfo.isEmpty()) {
             showToast("请先登录，再报名");
             startActivity(LoginActivity.class);
+            return;
+        }
+
+        if (Constant.userInfo.isEmpty()){
+            DialogUtils.showDefaultAlertDialog("你的个人资料不完整", "去编辑", "取消", new DialogUtils.ClickListener() {
+                @Override
+                public void clickConfirm() {
+                    startActivity(UserCardModifyActivity.class);
+                }
+            });
             return;
         }
 

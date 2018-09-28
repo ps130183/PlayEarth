@@ -199,7 +199,9 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 //                LogUtils.d("scrollY ==== " + scrollY + "   oldScrollY ==== " + oldScrollY);
-                GlideImageView messageView = mViewManager.findView(R.id.message);
+//                GlideImageView messageView = mViewManager.findView(R.id.message);
+                ImageView messageWhite = mViewManager.findView(R.id.message_white);
+                ImageView messageBlock = mViewManager.findView(R.id.message_block);
                 int height = ConvertUtils.dp2px(152);
                 float scale = 0;
                 if (scrollY == 0){
@@ -209,9 +211,11 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                 }
                 if (scrollY - height >= 0) {
                     scale = 1;
-                    GlideUtils.loadImageByRes(messageView,R.mipmap.icon_message_block);
+                    messageBlock.setVisibility(View.VISIBLE);
+                    messageWhite.setVisibility(View.INVISIBLE);
                 } else {
-                    GlideUtils.loadImageByRes(messageView,R.mipmap.icon_message_white);
+                    messageBlock.setVisibility(View.GONE);
+                    messageWhite.setVisibility(View.VISIBLE);
                     scale = (float) (scrollY * 1.0 / height);
                 }
                 toolbar.getBackground().setAlpha((int) (scale * 255));
@@ -222,8 +226,9 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
 
     private void initToolbar() {
 
-        GlideImageView messageView = mViewManager.findView(R.id.message);
-        messageView.setOnClickListener(new View.OnClickListener() {
+        ImageView messageWhite = mViewManager.findView(R.id.message_white);
+        ImageView messageBlock = mViewManager.findView(R.id.message_block);
+        messageWhite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Constant.userInfo == null){
@@ -234,7 +239,17 @@ public class HomeNewFragment extends BaseFragment<IHomeView, HomePresenter> impl
                 startActivity(MyMessageActivity.class);
             }
         });
-
+        messageBlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Constant.userInfo == null){
+                    showToast("请先登录！");
+                    startActivity(LoginActivity.class);
+                    return;
+                }
+                startActivity(MyMessageActivity.class);
+            }
+        });
 //        mToolbar.inflateMenu(R.menu.toolbar_home_message);
 //        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 //            @Override

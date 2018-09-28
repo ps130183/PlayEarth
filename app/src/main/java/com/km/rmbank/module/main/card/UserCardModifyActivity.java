@@ -406,7 +406,14 @@ public class UserCardModifyActivity extends BaseActivity<IUserInfoView,UserInfoP
 
 
         if (userInfoDto.isEmpty()){
-            showToast("请补全用户信息");
+            if (TextUtils.isEmpty(userInfoDto.getName())){
+                showToast("请编辑姓名");
+            } else if (TextUtils.isEmpty(userInfoDto.getPosition())){
+                showToast("请编辑职位");
+            } else if (TextUtils.isEmpty(userInfoDto.getCompany())){
+                showToast("请编辑公司");
+            }
+//            showToast("请补全用户信息");
         } else {
             getPresenter().saveUserInfo(userInfoDto);
         }

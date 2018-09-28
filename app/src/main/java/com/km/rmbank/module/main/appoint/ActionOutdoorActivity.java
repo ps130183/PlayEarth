@@ -30,6 +30,7 @@ import com.km.rmbank.dto.ShareDto;
 import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.entity.CheckDateEntity;
 import com.km.rmbank.module.login.LoginActivity;
+import com.km.rmbank.module.main.card.UserCardModifyActivity;
 import com.km.rmbank.module.main.payment.PaymentActivity;
 import com.km.rmbank.mvp.model.ScenicServiceModel;
 import com.km.rmbank.mvp.presenter.ScenicServicePresenter;
@@ -230,6 +231,24 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
      * @param view
      */
     public void applyAction(View view) {
+        if (Constant.userLoginInfo.isEmpty() || Constant.userInfo == null){
+            DialogUtils.showDefaultAlertDialog("获取不到用户信息，请登录后再试！","去登陆","取消", new DialogUtils.ClickListener() {
+                @Override
+                public void clickConfirm() {
+                    startActivity(LoginActivity.class);
+                }
+            });
+            return;
+        }
+        if (Constant.userInfo.isEmpty()){
+            DialogUtils.showDefaultAlertDialog("你的个人资料不完整", "去编辑", "取消", new DialogUtils.ClickListener() {
+                @Override
+                public void clickConfirm() {
+                    startActivity(UserCardModifyActivity.class);
+                }
+            });
+            return;
+        }
         mWebView.loadUrl("javascript:information()");
     }
 
@@ -246,6 +265,7 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
         Uri data = Uri.parse("tel:" + phone);
         intent.setData(data);
         startActivity(intent);
+
     }
 
     /**
@@ -256,7 +276,7 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
      * @param id
      */
     @JavascriptInterface
-    public void infor(String time,String price,String personNum,String id){
+    public void infor(String time,String price,String personNum,String id,String commonPrice){
 //        if (time > 0){
 //            return;
 //        }
@@ -265,7 +285,8 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
         this.personNum = personNum;
         actionId = id;
         LogUtils.d(time + "   ----  " + price + "   ----   " + personNum);
-        getPresenter().getPlatformTicketListOfScenic(actionId,clubId,activityId);
+        int money = Integer.parseInt(commonPrice);
+        getPresenter().getPlatformTicketListOfScenic(actionId,clubId,activityId,money);
     }
 
     /**
@@ -288,7 +309,7 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
     }
 
     @Override
-    public void showTicketList(List<TicketDto> ticketDtos) {
+    public void showTicketList(List<TicketDto> ticketDtos,int money) {
         LogUtils.d(ticketDtos.toString());
         Bundle bundle = getIntent().getExtras();
         bundle.putParcelableArrayList("ticketList", (ArrayList<? extends Parcelable>) ticketDtos);
@@ -297,6 +318,7 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
         bundle.putInt("personNum", personNum);
         bundle.putFloat("price",Float.parseFloat(price));
         bundle.putString("actionId",actionId);
+        bundle.putInt("commonPrice",money);
 //        CheckDateEntity entity = checkDateEntities.get(0);
 //        String startDate = DateUtils.getInstance().getDate(entity.getYear(), entity.getMonth(), entity.getDayOfMonty());
         bundle.putString("startDate", this.starDate);

@@ -25,17 +25,17 @@ public class ScenicServicePresenter extends BasePresenter<IScenicServiceView,Sce
                 .subscribe(newSubscriber(new Consumer<List<TicketDto>>() {
                     @Override
                     public void accept(List<TicketDto> ticketDtos) throws Exception {
-                        getMvpView().showTicketList(ticketDtos);
+                        getMvpView().showTicketList(ticketDtos,0);
                     }
                 }));
     }
 
-    public void getPlatformTicketListOfScenic(String id,String clubId,String activityId){
+    public void getPlatformTicketListOfScenic(String id, String clubId, String activityId, final int money){
         getMvpModel().getPlatformTicketListOfScenic(id,clubId,activityId)
                 .subscribe(newSubscriber(new Consumer<List<TicketDto>>() {
                     @Override
                     public void accept(List<TicketDto> ticketDtos) throws Exception {
-                        getMvpView().showTicketList(ticketDtos);
+                        getMvpView().showTicketList(ticketDtos,money);
                     }
                 }));
     }

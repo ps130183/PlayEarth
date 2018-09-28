@@ -108,7 +108,7 @@ public class UmengShareUtils {
      * @param shareMedia 分享的类型  比如：微信、朋友圈等
      */
     public static void openShare(Activity activity, ShareDto shareDto, SHARE_MEDIA shareMedia) {
-        if (shareDto == null) {
+        if (shareDto == null || shareDto.isEmpty()) {
             ToastUtils.showShort("暂未获取到分享内容");
             return;
         }

@@ -25,6 +25,7 @@ import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.ShareDto;
 import com.km.rmbank.event.ApplyActionEvent;
 import com.km.rmbank.module.login.LoginActivity;
+import com.km.rmbank.module.main.card.UserCardModifyActivity;
 import com.km.rmbank.module.main.personal.member.club.ClubActivity;
 import com.km.rmbank.mvp.model.ActionRecentInfoModel;
 import com.km.rmbank.mvp.presenter.ActionRecentInfoPresenter;
@@ -175,6 +176,17 @@ public class ActionRecentInfoActivity extends BaseActivity<IActionRecentInfoView
                     result.cancel();
                     return true;
                 }
+
+                if (Constant.userInfo.isEmpty()){
+                    DialogUtils.showDefaultAlertDialog("你的个人资料不完整", "去编辑", "取消", new DialogUtils.ClickListener() {
+                        @Override
+                        public void clickConfirm() {
+                            startActivity(UserCardModifyActivity.class);
+                        }
+                    });
+                    return true;
+                }
+
                 long holdDate = DateUtils.getInstance().stringDateToMillis(mActionDto.getHoldDate(),DateUtils.YMDHM);
                 long curDate = System.currentTimeMillis();
                 if (curDate >= holdDate) {

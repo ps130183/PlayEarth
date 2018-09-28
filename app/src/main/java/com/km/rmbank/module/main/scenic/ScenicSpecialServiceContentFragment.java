@@ -250,7 +250,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
                 if (!isYiZhan) {
                     //去支付
                     if (isPlatformActivity){
-                        getPresenter().getPlatformTicketListOfScenic(mServiceDto.getId(),clubId,activityId);
+                        getPresenter().getPlatformTicketListOfScenic(mServiceDto.getId(),clubId,activityId,0);
                     } else {
                         getPresenter().getTicketListOfScenic(mServiceDto.getId(), clubId);
                     }
@@ -443,7 +443,7 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
     }
 
     @Override
-    public void showTicketList(List<TicketDto> ticketDtos) {
+    public void showTicketList(List<TicketDto> ticketDtos,int money) {
         Bundle bundle = getArguments();
         bundle.putParcelableArrayList("ticketList", (ArrayList<? extends Parcelable>) ticketDtos);
         bundle.putInt("payType", 2);

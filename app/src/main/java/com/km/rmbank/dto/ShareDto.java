@@ -1,5 +1,7 @@
 package com.km.rmbank.dto;
 
+import android.text.TextUtils;
+
 /**
  * Created by kamangkeji on 17/4/15.
  */
@@ -48,5 +50,12 @@ public class ShareDto {
 
     public void setPageUrl(String pageUrl) {
         this.pageUrl = pageUrl;
+    }
+
+    public boolean isEmpty(){
+        if (TextUtils.isEmpty(sharePicUrl) || TextUtils.isEmpty(content) || TextUtils.isEmpty(title) || TextUtils.isEmpty(pageUrl)){
+            return true;
+        }
+        return false;
     }
 }
