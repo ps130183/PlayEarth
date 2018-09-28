@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.model;
 
+import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.mvp.base.BaseModel;
@@ -46,6 +47,16 @@ public class ScenicServiceModel extends BaseModel {
     public Observable<PayOrderDto> freeTea(String clubId, String personNum, String startDate){
         return getService().freeTea(Constant.userLoginInfo.getToken(),clubId,personNum,startDate)
                 .compose(this.<PayOrderDto>applySchedulers());
+    }
+
+    /**
+     * 获取活动详情
+     * @param id
+     * @return
+     */
+    public Observable<ActionDto> getActionInfo(String id){
+        return getService().getActionRecentInfo(Constant.userLoginInfo.getToken(),id)
+                .compose(this.<ActionDto>applySchedulers());
     }
 
     /**

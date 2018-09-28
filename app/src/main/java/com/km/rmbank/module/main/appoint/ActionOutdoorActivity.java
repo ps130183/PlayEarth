@@ -26,6 +26,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
+import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.ShareDto;
 import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.entity.CheckDateEntity;
@@ -59,6 +60,7 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
     private String activityId;
     private String actionId;
     private String clubId;
+    private ActionDto mActionInfo;
 
     private WindowBottomDialog mShareDialog;
     private ShareDto mShareDto;
@@ -120,6 +122,8 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
                 return true;
             }
         });
+
+        getPresenter().getActionInfo(activityId);
     }
 
     @Override
@@ -249,6 +253,13 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
             });
             return;
         }
+
+        long curDate = System.currentTimeMillis();
+        if (curDate >= mActionInfo.getEndDate()) {
+            showToast("报名已截止");
+            return;
+        }
+
         mWebView.loadUrl("javascript:information()");
     }
 
@@ -328,5 +339,10 @@ public class ActionOutdoorActivity extends BaseActivity<IScenicServiceView, Scen
     @Override
     public void applyFreeTeaSuccess() {
 
+    }
+
+    @Override
+    public void showActionInfo(ActionDto actionDto) {
+        mActionInfo = actionDto;
     }
 }

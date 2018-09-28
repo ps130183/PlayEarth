@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.view;
 
+import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.mvp.base.MvpView;
@@ -14,4 +15,6 @@ public interface IScenicServiceView extends MvpView {
     void showTicketList(List<TicketDto> ticketDtos,int money);
 
     void applyFreeTeaSuccess();
+
+    void showActionInfo(ActionDto actionDto);
 }

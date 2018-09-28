@@ -1,5 +1,6 @@
 package com.km.rmbank.mvp.presenter;
 
+import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.PayOrderDto;
 import com.km.rmbank.dto.TicketDto;
 import com.km.rmbank.mvp.base.BasePresenter;
@@ -58,5 +59,15 @@ public class ScenicServicePresenter extends BasePresenter<IScenicServiceView,Sce
 
                     }
                 });
+    }
+
+    public void getActionInfo(String id){
+        getMvpModel().getActionInfo(id)
+                .subscribe(newSubscriber(new Consumer<ActionDto>() {
+                    @Override
+                    public void accept(ActionDto actionDto) throws Exception {
+                        getMvpView().showActionInfo(actionDto);
+                    }
+                }));
     }
 }

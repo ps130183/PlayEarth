@@ -22,6 +22,7 @@ import com.blankj.utilcode.util.ScreenUtils;
 import com.example.zhouwei.library.CustomPopWindow;
 import com.km.rmbank.R;
 import com.km.rmbank.base.BaseFragment;
+import com.km.rmbank.dto.ActionDto;
 import com.km.rmbank.dto.ClubDto;
 import com.km.rmbank.dto.MapMarkerDto;
 import com.km.rmbank.dto.PayOrderDto;
@@ -467,5 +468,10 @@ public class ScenicSpecialServiceContentFragment extends BaseFragment<IScenicSer
         bundle.putString("hint1", hint1);
         bundle.putString("hint2", hint2);
         startActivity(PaySuccessActivity.class, bundle);
+    }
+
+    @Override
+    public void showActionInfo(ActionDto actionDto) {
+
     }
 }
