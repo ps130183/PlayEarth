@@ -40,6 +40,7 @@ import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
 import com.km.rmbank.utils.DateUtils;
 import com.km.rmbank.utils.StringUtils;
+import com.km.rmbank.utils.SystemBarHelper;
 import com.km.rmbank.utils.dialog.DialogUtils;
 import com.km.rmbank.utils.dialog.WindowBottomDialog;
 import com.km.rmbank.utils.EventBusUtils;
@@ -137,27 +138,49 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
 
     private void initApplyPersons() {
         final CarrouselLayout carrousel = mViewManager.findView(R.id.carrousel);
-        carrousel.getLayoutParams().height = ScreenUtils.getScreenWidth(mInstance);
+
         carrousel.setR(ScreenUtils.getScreenWidth(mInstance) / 2)//设置R的大小
                 .setAutoRotation(false)//是否自动切换
-                .setRotationX(-30)
+                .setRotationX(0)
                 .setAutoRotationTime(1500);//自动切换的时间  单位毫秒
     }
 
 
     private void loadPersonInfo(ActionDto actionDto) {
+        //计算桌子的半径
+        int itemViewWidth = ConvertUtils.dp2px(120);
+        int seatNum = actionDto.getSeatNum();
+        int itemTravel = ConvertUtils.dp2px(50);
+
+        int circleLen = (itemViewWidth + itemTravel) * seatNum;
+        int r = (int) (circleLen / (2 * Math.PI));
         CarrouselLayout carrousel = mViewManager.findView(R.id.carrousel);
-        carrousel.setR(ScreenUtils.getScreenWidth(mInstance) / 2);
+        carrousel.setR(r);
         mViewManager.setText(R.id.number, (actionDto.getSeatNum() - actionDto.getActionMemberDtos().size()) + "");
 
         carrousel.removeAllViews();
+
+        Button button = mViewManager.findView(R.id.applyAction);
+        int windowHeight = com.blankj.utilcode.util.ScreenUtils.getScreenHeight();
+        int cHeight =  windowHeight - ConvertUtils.dp2px(48 + 120) - SystemBarHelper.getStatusBarHeight(this) - button.getBackground().getMinimumHeight();
+
         for (int i = 0; i < actionDto.getSeatNum(); i++) {
             List<ActionMemberDto> actionGuestBeans = actionDto.getActionMemberDtos();
 
             View view = LayoutInflater.from(mInstance)
                     .inflate(R.layout.item_afternoon_tea_apply_person_info, null, false);
+
+            if (cHeight  <= ConvertUtils.dp2px(174)){
+                int viewHeight = cHeight / 2;
+                int viewWidth = viewHeight / ConvertUtils.dp2px(174) * ConvertUtils.dp2px(120);
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(viewWidth,viewHeight);
+                view.setLayoutParams(lp);
+            }
             TextView textView = view.findViewById(R.id.item);
             TextView userName = view.findViewById(R.id.userName);
+
+            TextView userPosition = view.findViewById(R.id.userPosition);
+            TextView userCompany = view.findViewById(R.id.userCompany);
             if (i < actionGuestBeans.size()) {
                 ActionMemberDto memberDto = actionGuestBeans.get(i);
                 textView.setVisibility(View.GONE);
@@ -170,11 +193,11 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
 //                userPhone.setVisibility(View.VISIBLE);
 //                userPhone.setText(StringUtils.hidePhone(memberDto.getRegistrationPhone()));
 
-                TextView userPosition = view.findViewById(R.id.userPosition);
+
                 userPosition.setVisibility(View.VISIBLE);
                 userPosition.setText(memberDto.getUserPosition());
 
-                TextView userCompany = view.findViewById(R.id.userCompany);
+
                 userCompany.setVisibility(View.VISIBLE);
                 userCompany.setText(memberDto.getUserCompany());
 
@@ -187,6 +210,8 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
             } else {
                 userName.setText("可预约");
                 textView.setText("" + (i + 1));
+                userPosition.setVisibility(View.INVISIBLE);
+                userCompany.setVisibility(View.INVISIBLE);
             }
 
 

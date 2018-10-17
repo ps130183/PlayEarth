@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -149,12 +150,13 @@ public class CarrouselLayout  extends RelativeLayout{
 
     private GestureDetector.SimpleOnGestureListener getGestureDetectorController() {
         return new GestureDetector.SimpleOnGestureListener() {
+            int count = 0;
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
                 //转换成弧度
                 double radians= Math.toRadians(mRotationZ);
                 //Math.cos(radians) 返回对应的radians弧度的余弦值
-                mAngle+=Math.cos(radians)*(distanceX/4) + Math.sin(radians)*(distanceY/4);
+                mAngle+= Math.cos(radians)*(distanceX/10) + Math.sin(radians)*(distanceY/10);
                 //初始化
                 refreshLayout();
                 return true;

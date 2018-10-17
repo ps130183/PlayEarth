@@ -178,12 +178,12 @@ public abstract class BaseActivity<V extends MvpView, P extends MvpPresenter<V>>
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         proxyPresenter.onDestroy();
         EventBusUtils.unregister(this);
         if (dialogLoading != null && dialogLoading.isShowing()) {
             dialogLoading.dismiss();
         }
+        super.onDestroy();
     }
 
     /**

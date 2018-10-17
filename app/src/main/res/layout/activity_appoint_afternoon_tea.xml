@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.km.rmbank.module.main.appoint.AppointAfternoonTeaActivity">
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/applyAction">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_above="@+id/applyAction">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -102,13 +99,12 @@
             </RelativeLayout>
 
 
+
             <com.dalong.carrousellayout.CarrouselLayout
                 android:id="@+id/carrousel"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="180dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                app:r="200dp"
                 app:rotateDirection="anticlockwise"
                 app:rotationTime="3000">
 
@@ -116,7 +112,6 @@
 
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
 
     <Button
         android:id="@+id/applyAction"
