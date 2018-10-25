@@ -36,11 +36,41 @@ public class LoginPresenter extends BasePresenter<ILoginView,LoginModel> {
     }
 
     public void getSmsCode(String mobilePhone){
+        getMvpView().showLoading();
         getMvpModel().getSmsCode(mobilePhone)
                 .subscribe(newSubscriber(new Consumer<String>() {
                     @Override
                     public void accept(String s) throws Exception {
                         getMvpView().showSmsCode(s);
+                    }
+                }));
+    }
+
+    public void loginByWX(String code){
+        getMvpModel().loginByWX(code)
+                .subscribe(new Consumer<UserLoginDto>() {
+                    @Override
+                    public void accept(UserLoginDto userLoginDto) throws Exception {
+                        getMvpView().loginWxResult(userLoginDto);
+                    }
+                });
+    }
+
+    public void bindPhoneForWx(String mobilePhone, String smsCode,String unionid){
+        getMvpModel().bindPhoneForWx(mobilePhone,smsCode,unionid)
+                .subscribe(newSubscriber(new Consumer<UserLoginDto>() {
+                    @Override
+                    public void accept(UserLoginDto userInfoDto) throws Exception {
+
+                        userInfoDto.saveToSp();
+                        Constant.userLoginInfo.getDataFromSp();
+                        if (userInfoDto.isEmpty()){
+                            getMvpView().createUserInfo(userInfoDto.getMobilePhone());
+                        } else {
+                            getMvpView().loginSuccess(userInfoDto);
+                        }
+
+//                        getMvpView().loginSuccess(userLoginDto);
                     }
                 }));
     }

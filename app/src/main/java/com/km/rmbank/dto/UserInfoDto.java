@@ -93,6 +93,9 @@ public class UserInfoDto implements Cloneable, Parcelable {
     private String positionUrl;
     private long positionValidateDate;
 
+    private String nickname;
+    private String unionid;
+
 
     public long getPositionValidateDate() {
         return positionValidateDate;
@@ -437,10 +440,27 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.industryId = industryId;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
     @Override
     public String toString() {
         return "UserInfoDto{" +
-                "total='" + total + '\'' +
+                "id='" + id + '\'' +
+                ", total='" + total + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", registerDate=" + registerDate +
                 ", allowStutas='" + allowStutas + '\'' +
@@ -478,6 +498,10 @@ public class UserInfoDto implements Cloneable, Parcelable {
                 ", status=" + status +
                 ", type=" + type +
                 ", positionStatus=" + positionStatus +
+                ", positionUrl='" + positionUrl + '\'' +
+                ", positionValidateDate=" + positionValidateDate +
+                ", nickname='" + nickname + '\'' +
+                ", unionid='" + unionid + '\'' +
                 '}';
     }
 
@@ -543,6 +567,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
         dest.writeInt(this.positionStatus);
         dest.writeString(this.positionUrl);
         dest.writeLong(this.positionValidateDate);
+        dest.writeString(this.nickname);
+        dest.writeString(this.unionid);
     }
 
     protected UserInfoDto(Parcel in) {
@@ -587,6 +613,8 @@ public class UserInfoDto implements Cloneable, Parcelable {
         this.positionStatus = in.readInt();
         this.positionUrl = in.readString();
         this.positionValidateDate = in.readLong();
+        this.nickname = in.readString();
+        this.unionid = in.readString();
     }
 
     public static final Creator<UserInfoDto> CREATOR = new Creator<UserInfoDto>() {

@@ -132,6 +132,11 @@ public class SmsCodeActivity extends BaseActivity<ILoginView,LoginPresenter> imp
 
     }
 
+    @Override
+    public void loginWxResult(UserLoginDto userLoginDto) {
+
+    }
+
     /**
      * 更换手机号
      * @param view

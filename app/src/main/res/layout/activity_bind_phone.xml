@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.km.rmbank.module.login.BindPhoneActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp"
+        android:paddingBottom="26dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="horizontal">
+
+        <com.ps.glidelib.GlideImageView
+            android:id="@+id/wx_protrait"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@mipmap/icon_login_weixin"
+            app:siv_shape_type="circle"/>
+
+        <TextView
+            android:id="@+id/wx_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信昵称"
+            android:textSize="16sp"
+            android:textColor="@color/text_color_block24"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你的微信账号未在玩转地球完成手机验证,请输入手机号码完成绑定。"
+        android:textSize="16sp"
+        android:textColor="@color/text_color_block8"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="25dp"
+        android:layout_gravity="center_vertical"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号"
+            android:textColor="@color/text_color_block3"
+            android:textSize="14sp"
+            android:layout_marginRight="50dp"
+            />
+
+        <EditText
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入要绑定的手机号"
+            android:background="#00ffffff"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:lines="1"
+            android:maxLength="11"
+            android:inputType="phone"
+            />
+
+    </LinearLayout>
+    <include layout="@layout/_default_divide_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/verticode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证码"
+            android:textColor="@color/text_color_block3"
+            android:textSize="14sp"
+            android:layout_marginRight="50dp"
+            android:layout_centerVertical="true"
+            />
+
+        <EditText
+            android:id="@+id/et_verti_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入验证码"
+            android:background="#00ffffff"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:lines="1"
+            android:maxLength="11"
+            android:inputType="phone"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/verticode"
+            android:layout_toLeftOf="@+id/obtain_phone_code"
+            />
+
+        <com.km.rmbank.customview.ObtainCodeButton
+            android:id="@+id/obtain_phone_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            android:text="发送验证码"
+            android:textSize="13sp"
+            android:padding="@dimen/viewSpace4"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="obtainPhoneCode"
+            />
+
+    </RelativeLayout>
+    <include layout="@layout/_default_divide_line"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_btn_bg_default"
+        android:layout_marginTop="@dimen/viewSpace48"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="绑定"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:onClick="bindPhone"/>
+
+</LinearLayout>

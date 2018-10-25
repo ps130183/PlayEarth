@@ -105,6 +105,28 @@ public interface ApiService {
                                              @Field("smsCode") String smsCode);
 
     /**
+     * 给微信账号绑定手机号
+     *
+     * @param mobilePhone
+     * @param unionid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/user/registerAndLogin/send")
+    Observable<Response<UserLoginDto>> bindPhoneForWx(@Field("mobilePhone") String mobilePhone,
+                                                      @Field("smsCode") String smsCode,
+                                             @Field("unionid") String unionid);
+
+    /**
+     * 微信登录
+     * @param code
+     * @return
+     */
+    @FormUrlEncoded
+    @POST(ApiConstant.API_MODEL + "/wx/register")
+    Observable<Response<UserLoginDto>> loginByWX(@Field("code") String code);
+
+    /**
      * 注册
      *
      * @param mobilePhone

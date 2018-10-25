@@ -314,7 +314,8 @@
         <activity android:name=".module.main.message.MyMessageActivity" />
         <activity android:name=".module.main.message.MessageDetailsActivity" />
         <activity android:name=".module.main.personal.profession.ProfessionSuccessActivity" />
-        <activity android:name=".module.main.card.RecommendUserCardActivity"></activity>
+        <activity android:name=".module.main.card.RecommendUserCardActivity" />
+        <activity android:name=".module.login.BindPhoneActivity"></activity>
     </application>
 
 </manifest>

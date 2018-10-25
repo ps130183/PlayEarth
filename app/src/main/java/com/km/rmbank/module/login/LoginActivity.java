@@ -3,6 +3,7 @@ package com.km.rmbank.module.login;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.dto.UserLoginDto;
+import com.km.rmbank.entity.WXLoginRequestEvent;
 import com.km.rmbank.module.webview.AgreementActivity;
 import com.km.rmbank.mvp.model.LoginModel;
 import com.km.rmbank.mvp.presenter.LoginPresenter;
@@ -23,6 +25,11 @@ import com.km.rmbank.module.main.HomeActivity;
 import com.km.rmbank.retrofit.ApiConstant;
 import com.km.rmbank.titleBar.SimpleTitleBar;
 import com.km.rmbank.utils.Constant;
+import com.km.rmbank.utils.dialog.DialogUtils;
+import com.km.rmbank.wxpay.WxUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Set;
 
@@ -89,41 +96,9 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
 
             @Override
             public void afterTextChanged(Editable s) {
-//                if (s.length() >= 11){
-//                    isSendCode = true;
-//                    isCanSend = true;
-//                } else {
-//                    isCanSend = false;
-//                    isSendCode = false;
-//                }
-//                tvSmsCode.setEnabled(isSendCode);
-//                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
                 btnLogin.setEnabled(s.length() >= 11);
             }
         });
-
-//        etSmsCode.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if (s.length() == 6){
-//                    isCanLogin = true;
-//                } else {
-//                    isCanLogin = false;
-//                }
-//                LogUtils.d("登录按钮是否可点击：" + (isCanSend && isCanLogin));
-//                btnLogin.setEnabled(isCanSend && isCanLogin);
-//            }
-//        });
 
         setOnClickBackLisenter(new OnClickBackLisenter() {
             @Override
@@ -149,17 +124,6 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
      * @param view
      */
     public void clickLogin(View view){
-//        startActivity(SmsCodeActivity.class);
-//        String phone = mobilePhone.getText().toString();
-//        String smsCode = etSmsCode.getText().toString();
-//        if (!RegexUtils.isMobileExact(phone)){
-//            showToast("手机号码错误，请重新输入！");
-//            return;
-//        } else if (TextUtils.isEmpty(smsCode)){
-//            showToast("验证码错误，请重新获取！");
-//            return;
-//        }
-//        getPresenter().login(phone,smsCode);
         sendCode();
     }
 
@@ -177,6 +141,11 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void wxLoginRequest(WXLoginRequestEvent event){
+        getPresenter().loginByWX(event.getCode());
+    }
+
     @Override
     public void showSmsCode(String smsCode) {
         showToast("验证码获取成功！");
@@ -185,35 +154,6 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
         Bundle bundle = new Bundle();
         bundle.putString("phone",mobilePhone.getText().toString());
         startActivity(SmsCodeActivity.class,bundle);
-//        tvSmsCode.setText(waitTime+"");
-//        isSendCode = false;
-//        tvSmsCode.setEnabled(isSendCode);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (waitTime-- > 0){
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            tvSmsCode.setText(waitTime+"'");
-//                        }
-//                    });
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        tvSmsCode.setText("重新获取");
-//                        isSendCode = true;
-//                        tvSmsCode.setEnabled(isSendCode);
-//                    }
-//                });
-//            }
-//        }).start();
     }
 
     @Override
@@ -234,6 +174,24 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
 
     }
 
+    @Override
+    public void loginWxResult(final UserLoginDto userLoginDto) {
+        if (TextUtils.isEmpty(userLoginDto.getToken())){
+            DialogUtils.showDefaultAlertDialog("尚未绑定手机号，点击确定去绑定！", "确定", new DialogUtils.ClickListener() {
+                @Override
+                public void clickConfirm() {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("userLoginInfo",userLoginDto);
+                    startActivity(BindPhoneActivity.class,bundle);
+                }
+            });
+        } else {//登录成功
+            userLoginDto.saveToSp();
+            Constant.userLoginInfo.getDataFromSp();
+            loginSuccess(userLoginDto);
+        }
+    }
+
     @OnClick(R.id.tv_register_agreement)
     public void registerAgreement(View view){
         Bundle bundle = new Bundle();
@@ -242,4 +200,11 @@ public class LoginActivity extends BaseActivity<ILoginView,LoginPresenter> imple
         startActivity(AgreementActivity.class,bundle);
     }
 
+    /**
+     * 微信登录
+     * @param view
+     */
+    public void loginWeiXin(View view) {
+        WxUtil.WXLogin(LoginActivity.this);
+    }
 }

@@ -130,6 +130,27 @@ public class DialogUtils {
                 .setBtnText(cancel,confirm).show();
     }
 
+
+    /**
+     * ios风格  单个按钮
+     * @param hintContent
+     * @param clickListener
+     */
+    public static void showDefaultAlertDialog(String hintContent,String confirm, final ClickListener clickListener){
+        StyledDialog.buildIosAlert("提示", hintContent, new MyDialogListener() {
+            @Override
+            public void onFirst() {
+                clickListener.clickConfirm();
+            }
+
+            @Override
+            public void onSecond() {
+
+            }
+        }).setBtnColor(R.color.text_color_block3,R.color.colorAccent,R.color.colorAccent)
+                .setBtnText(confirm).show();
+    }
+
     /**
      * ios风格
      * @param hintContent

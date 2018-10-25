@@ -11,4 +11,6 @@ public interface ILoginView extends MvpView {
     void showSmsCode(String smsCode);
     void loginSuccess(UserLoginDto userInfoDto);
     void createUserInfo(String userPhone);
+
+    void loginWxResult(UserLoginDto userLoginDto);
 }

@@ -2,6 +2,7 @@ package com.km.rmbank.module.main.personal.setting;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -55,6 +56,9 @@ public class SettingActivity extends BaseActivity {
 //                mPresenter.updateAllowUserCard(checked);
 //            }
 //        });
+
+        String wxNickName = Constant.userInfo.getNickname();
+        mViewManager.setText(R.id.wx_nickname, TextUtils.isEmpty(Constant.userInfo.getUnionid()) ? "未绑定" : wxNickName);
 
         try {
             tvCacheSize.setText(DataCleacManager.getTotalCacheSize(this));

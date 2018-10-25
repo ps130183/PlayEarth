@@ -11,6 +11,7 @@ import com.km.rmbank.R;
 import com.km.rmbank.base.BaseActivity;
 import com.km.rmbank.base.BaseTitleBar;
 import com.km.rmbank.module.main.HomeActivity;
+import com.km.rmbank.utils.NotificationUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity {
         int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setFlags(flag, flag);
         init();
-
+        NotificationUtils.getInstance().openGoingNotification(this);
     }
 
     private void init(){

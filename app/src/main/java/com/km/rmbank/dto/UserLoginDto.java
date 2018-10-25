@@ -1,5 +1,7 @@
 package com.km.rmbank.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.blankj.utilcode.util.SPUtils;
@@ -8,7 +10,7 @@ import com.blankj.utilcode.util.SPUtils;
  * Created by PengSong on 18/1/18.
  */
 
-public class UserLoginDto {
+public class UserLoginDto implements Parcelable {
 
 
     /**
@@ -24,6 +26,10 @@ public class UserLoginDto {
     private String name;
     private String HXpwd;
     private String roleId;
+
+    private String unionid;//微信登录用
+    private String headimgurl;
+    private String nickname;
 
     public String getMobilePhone() {
         return mobilePhone;
@@ -69,6 +75,30 @@ public class UserLoginDto {
         return TextUtils.isEmpty(token);
     }
 
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
+    public String getHeadimgurl() {
+        return headimgurl;
+    }
+
+    public void setHeadimgurl(String headimgurl) {
+        this.headimgurl = headimgurl;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     /**
      * 将登录信息保存到 sharePreference
      */
@@ -103,4 +133,47 @@ public class UserLoginDto {
         token = spUtils.getString("token","");
         roleId = spUtils.getString("roleId","");
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mobilePhone);
+        dest.writeString(this.token);
+        dest.writeString(this.name);
+        dest.writeString(this.HXpwd);
+        dest.writeString(this.roleId);
+        dest.writeString(this.unionid);
+        dest.writeString(this.headimgurl);
+        dest.writeString(this.nickname);
+    }
+
+    public UserLoginDto() {
+    }
+
+    protected UserLoginDto(Parcel in) {
+        this.mobilePhone = in.readString();
+        this.token = in.readString();
+        this.name = in.readString();
+        this.HXpwd = in.readString();
+        this.roleId = in.readString();
+        this.unionid = in.readString();
+        this.headimgurl = in.readString();
+        this.nickname = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserLoginDto> CREATOR = new Parcelable.Creator<UserLoginDto>() {
+        @Override
+        public UserLoginDto createFromParcel(Parcel source) {
+            return new UserLoginDto(source);
+        }
+
+        @Override
+        public UserLoginDto[] newArray(int size) {
+            return new UserLoginDto[size];
+        }
+    };
 }

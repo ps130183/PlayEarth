@@ -3,11 +3,8 @@ package com.km.rmbank.module.main.personal.account.withdraw;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -138,6 +135,11 @@ public class AddBankCardThreeFragment extends BaseFragment<ILoginView,LoginPrese
 
     @Override
     public void createUserInfo(String userPhone) {
+
+    }
+
+    @Override
+    public void loginWxResult(UserLoginDto userLoginDto) {
 
     }
 }

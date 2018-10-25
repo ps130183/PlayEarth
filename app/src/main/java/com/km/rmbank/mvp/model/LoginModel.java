@@ -24,6 +24,18 @@ public class LoginModel extends BaseModel {
 
 
     /**
+     * 登录
+     * @param mobilePhone
+     * @param unionid
+     * @return
+     */
+    public Observable<UserLoginDto> bindPhoneForWx(String mobilePhone, String smsCode, String unionid){
+        return getService().bindPhoneForWx(mobilePhone,smsCode,unionid)
+                .compose(this.<UserLoginDto>applySchedulers());
+    }
+
+
+    /**
      * 获取短信验证码
      * @param mobilePhone
      * @return
@@ -33,5 +45,15 @@ public class LoginModel extends BaseModel {
                 .compose(this.<String>applySchedulers());
     }
 
+
+    /**
+     * 微信登录
+     * @param code
+     * @return
+     */
+    public Observable<UserLoginDto> loginByWX(String code){
+        return getService().loginByWX(code)
+                .compose(this.<UserLoginDto>applySchedulers());
+    }
 
 }

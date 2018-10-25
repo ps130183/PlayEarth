@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.km.rmbank.dto.WeiCharParamsDto;
 import com.tencent.mm.opensdk.constants.Build;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -38,9 +39,10 @@ public class WxUtil {
      */
     public static IWXAPI getWXAPI(Context context) {
 //        Utils.showLog(appid);
-        iwxapi = WXAPIFactory.createWXAPI(context, Constants.APP_ID);
-        iwxapi.registerApp(Constants.APP_ID);
-
+        if (iwxapi == null){
+            iwxapi = WXAPIFactory.createWXAPI(context, Constants.APP_ID);
+            iwxapi.registerApp(Constants.APP_ID);
+        }
         return iwxapi;
     }
 
@@ -152,4 +154,19 @@ public class WxUtil {
         }
 
     }
+
+    /**
+     * 微信登录
+     * @param context
+     */
+    public static void WXLogin(Context context){
+        SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = ""+(Math.random() % 100);
+        getWXAPI(context).sendReq(req);
+
+    }
+
+
+
 }
