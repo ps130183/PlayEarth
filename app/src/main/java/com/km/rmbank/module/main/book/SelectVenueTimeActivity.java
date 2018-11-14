@@ -57,33 +57,18 @@ public class SelectVenueTimeActivity extends BaseActivity<SelectVenueTimeView,Se
 //                final String endTime = end.getText().toString();
 
                 if (!TextUtils.isEmpty(startTime)){
-//                    String mStartTime = startTime.substring(0,10) + " 23:59";
 
-//                    long startDate = DateUtils.getInstance().stringDateToMillis(startTime,DateUtils.YMDHM);
-//                    long centerDate = DateUtils.getInstance().stringDateToMillis(mStartTime,DateUtils.YMDHM);
-//                    long endDate = DateUtils.getInstance().stringDateToMillis(endTime,DateUtils.YMDHM);
-//                    if (endDate > centerDate){
-//                        showToast("只能选择同一天的时间段");
-//                        return;
-//                    }
-//                    if (endDate <= startDate){
-//                        showToast("结束时间不能小于开始时间");
-//                        return;
-//                    }
-
-//                    int type = getIntent().getIntExtra("type",-1);
-//                    String price = getIntent().getStringExtra("price");
-//                    if (type == 2){
-//                        DialogUtils.showDefaultAlertDialog("你申请的结缘晚宴的场地，审核通过后需支付" + price + "元人民币的场地使用费用。", new DialogUtils.ClickListener() {
-//                            @Override
-//                            public void clickConfirm() {
-//                                getPresenter().submitBookVenue(placeId,startTime,startTime);
-//                            }
-//                        });
-//                    } else {
-//
-//                    }
-                    getPresenter().submitBookVenue(placeId,startTime,startTime);
+                    int actionType = getIntent().getIntExtra("type",-1);
+                    if (actionType == 1){
+                        DialogUtils.showDefaultAlertDialog("活动当天到场人数不足10人是要交费的哦，是否提交？", new DialogUtils.ClickListener() {
+                            @Override
+                            public void clickConfirm() {
+                                getPresenter().submitBookVenue(placeId,startTime,startTime);
+                            }
+                        });
+                    } else {
+                        getPresenter().submitBookVenue(placeId,startTime,startTime);
+                    }
 
 
                 } else {

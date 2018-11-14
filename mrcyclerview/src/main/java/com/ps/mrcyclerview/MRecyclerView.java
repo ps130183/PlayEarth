@@ -207,14 +207,14 @@ public class MRecyclerView<D> extends FrameLayout {
         xRefreshView.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener(){
             @Override
             public void onRefresh(boolean isPullDown) {
-                new Handler().postDelayed(new Runnable() {
+                new Handler().post(new Runnable() {
                     @Override
                     public void run() {
                         if (refreshListener != null){
                             refreshListener.refresh();
                         }
                     }
-                },2000);
+                });
             }
         });
     }

@@ -38,6 +38,8 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
 
     protected ViewManager mViewManager;
 
+    private View mRootView;
+
     private Toast mToast;
 
     private ProxyPresenter<P> proxyPresenter;
@@ -64,21 +66,24 @@ public abstract class BaseFragment<V extends MvpView, P extends MvpPresenter<V>>
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         int layoutRes = getLayoutRes();
-        View view = getRootView(inflater, container, layoutRes);
-        ButterKnife.bind(this,view);
-        //页面的控件管理器
-        mViewManager = new ViewManager(view);
+        if (mRootView == null){
+            mRootView = getRootView(inflater, container, layoutRes);
+            ButterKnife.bind(this,mRootView);
+            //页面的控件管理器
+            mViewManager = new ViewManager(mRootView);
 
-        //presenter代理
-        PresenterDelegateImpl<V, P> presenterDelegate = new PresenterDelegateImpl<V, P>(createPresenter(), (V) this);
-        proxyPresenter = new ProxyPresenter(presenterDelegate);
-        proxyPresenter.oncreate(savedInstanceState);
+            //presenter代理
+            PresenterDelegateImpl<V, P> presenterDelegate = new PresenterDelegateImpl<V, P>(createPresenter(), (V) this);
+            proxyPresenter = new ProxyPresenter(presenterDelegate);
+            proxyPresenter.oncreate(savedInstanceState);
 
-        mSwipeRefresh = view.findViewById(R.id.swipeRefresh);
-        mXRefreshView = view.findViewById(R.id.xRefreshView);
+            mSwipeRefresh = mRootView.findViewById(R.id.swipeRefresh);
+            mXRefreshView = mRootView.findViewById(R.id.xRefreshView);
 
-        onCreateView(savedInstanceState);
-        return view;
+            onCreateView(savedInstanceState);
+        }
+
+        return mRootView;
     }
 
     private View getRootView(LayoutInflater inflater, ViewGroup parent, @LayoutRes int layoutRes) {

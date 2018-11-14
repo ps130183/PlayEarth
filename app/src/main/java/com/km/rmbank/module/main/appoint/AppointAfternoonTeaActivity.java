@@ -302,8 +302,8 @@ public class AppointAfternoonTeaActivity extends BaseActivity<IActionRecentInfoV
 
 //        long holdDate = DateUtils.getInstance().stringDateToMillis(mActionDto.getHoldDate(), DateUtils.YMDHM);
         long curDate = System.currentTimeMillis();
-        if (curDate >= mActionDto.getEndDate()) {
-            showToast("报名已截止");
+        if (curDate >= mActionDto.getStartDate()) {
+            showToast("活动已结束");
             return;
         }
         DialogUtils.showDefaultAlertDialog("确认是否参加该活动？", new DialogUtils.ClickListener() {
